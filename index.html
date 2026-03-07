@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GMAT Math Trainer – GMAT Club Flashcards</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <div>
+        <h1>GMAT Math Trainer</h1>
+        <p class="subtitle">GMAT Club Math Flashcards 2025</p>
+      </div>
+      <div class="header-stats">
+        <div class="stat">
+          <span class="label">Cards</span>
+          <span id="stat-total" class="value">0</span>
+        </div>
+        <div class="stat">
+          <span class="label">Seen</span>
+          <span id="stat-seen" class="value">0</span>
+        </div>
+        <div class="stat">
+          <span class="label">Accuracy</span>
+          <span id="stat-accuracy" class="value">0%</span>
+        </div>
+        <div class="stat">
+          <span class="label">Streak</span>
+          <span id="stat-streak" class="value">0 days</span>
+        </div>
+        <div class="stat">
+          <span class="label">XP Today</span>
+          <span id="stat-xp-today" class="value">0</span>
+        </div>
+        <div class="stat">
+          <span class="label">Time Today</span>
+          <span id="stat-time-today" class="value">0m</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-layout">
+      <aside class="sidebar">
+        <section class="panel">
+          <h2>Study mode</h2>
+          <div class="mode-buttons">
+            <button data-mode="all" class="mode-button active">Mixed</button>
+            <button data-mode="new" class="mode-button">New only</button>
+            <button data-mode="weak" class="mode-button">Weak only</button>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Filter</h2>
+          <label class="field">
+            <span>Topic</span>
+            <select id="topic-filter">
+              <option value="all">All topics</option>
+            </select>
+          </label>
+        </section>
+
+        <section class="panel">
+          <h2>Session controls</h2>
+          <button id="btn-next" class="primary">Next card</button>
+          <button id="btn-reset-progress" class="danger">Reset progress</button>
+          <p class="hint">Progress is stored only on this device (local storage).</p>
+        </section>
+      </aside>
+
+      <section class="content">
+        <section class="dashboard">
+          <div class="dashboard-main-buttons">
+            <button id="btn-dashboard-continue" class="primary">Continue training</button>
+            <button id="btn-dashboard-drill" class="secondary">2‑minute drill</button>
+            <button id="btn-dashboard-weak" class="secondary">Weak topics</button>
+            <button id="btn-dashboard-errors" class="secondary">Error log</button>
+          </div>
+          <div class="dashboard-snapshot">
+            <div>
+              <div class="snapshot-label">Accuracy today</div>
+              <div id="snapshot-accuracy-today" class="snapshot-value">—</div>
+            </div>
+            <div>
+              <div class="snapshot-label">Avg time / question</div>
+              <div id="snapshot-time-per-question" class="snapshot-value">—</div>
+            </div>
+          </div>
+        </section>
+
+        <nav class="tabs">
+          <button class="tab-button active" data-tab="practice">Practice</button>
+          <button class="tab-button" data-tab="errors">Error log</button>
+          <button class="tab-button" data-tab="all-cards">All cards</button>
+        </nav>
+
+        <section id="tab-practice" class="tab active">
+          <article class="card">
+            <div class="practice-top">
+              <span id="practice-session-label" class="practice-label"></span>
+              <span id="practice-timer" class="practice-timer"></span>
+            </div>
+            <div class="card-meta">
+              <span id="card-topic" class="pill"></span>
+              <span id="card-id" class="pill secondary"></span>
+            </div>
+            <div class="card-body">
+              <div id="card-question" class="card-text question"></div>
+              <div id="card-answer" class="card-text answer hidden"></div>
+            </div>
+            <div class="card-actions">
+              <button id="btn-show-answer" class="secondary">Show answer</button>
+              <div class="spacer"></div>
+              <button id="btn-lucky" class="secondary">Lucky guess</button>
+              <button id="btn-wrong" class="danger-outline">I was wrong</button>
+              <button id="btn-correct" class="primary">I was right</button>
+            </div>
+            <div class="card-footer">
+              <span id="card-stats"></span>
+            </div>
+          </article>
+        </section>
+
+        <section id="tab-errors" class="tab">
+          <h2>Weak cards (error log)</h2>
+          <p class="hint">
+            These are cards where your accuracy is low or you have missed them at least once.
+            Click a row to jump straight to that card in practice.
+          </p>
+          <div class="error-summary">
+            <div>
+              <div class="snapshot-label">Most common mistakes</div>
+              <div id="mistake-breakdown" class="snapshot-value-small">—</div>
+            </div>
+            <div>
+              <div class="snapshot-label">Weak topics</div>
+              <div id="weak-topics" class="snapshot-value-small">—</div>
+            </div>
+          </div>
+          <table class="table" id="errors-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Topic</th>
+                <th>Summary</th>
+                <th>Accuracy</th>
+                <th>Attempts</th>
+                <th>Last seen</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </section>
+
+        <section id="tab-all-cards" class="tab">
+          <h2>All flashcards</h2>
+          <p class="hint">Quick overview of everything included from the GMAT Club Math Flashcards.</p>
+          <table class="table" id="all-cards-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Topic</th>
+                <th>Question preview</th>
+                <th>Accuracy</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <div id="mistake-modal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <h2>Why did you miss this?</h2>
+      <p class="hint">This helps the trainer focus your review.</p>
+      <div class="modal-buttons">
+        <button class="secondary modal-reason" data-reason="concept_gap">Concept gap</button>
+        <button class="secondary modal-reason" data-reason="careless">Careless mistake</button>
+        <button class="secondary modal-reason" data-reason="misread">Misread question</button>
+        <button class="secondary modal-reason" data-reason="slow_strategy">Slow strategy</button>
+        <button class="secondary modal-reason" data-reason="no_shortcut">Didn't know shortcut</button>
+      </div>
+      <button id="btn-mistake-cancel" class="danger-outline modal-cancel">Cancel</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
+

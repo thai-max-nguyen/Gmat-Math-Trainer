@@ -1,0 +1,13 @@
+image: alpine:latest
+
+pages:
+  stage: deploy
+  script:
+    - mkdir -p public
+    - cp -r index.html style.css app.js README.md public/
+  artifacts:
+    paths:
+      - public
+  only:
+    - main
+

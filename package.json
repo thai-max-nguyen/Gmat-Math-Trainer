@@ -1,0 +1,10 @@
+{
+  "name": "gmat-math-trainer",
+  "version": "1.0.0",
+  "description": "Offline GMAT Club Math Flashcards 2025 trainer with error tracking.",
+  "private": true,
+  "scripts": {
+    "serve": "npx serve ."
+  }
+}
+
