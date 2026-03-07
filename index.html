@@ -1,195 +1,506 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="dark" lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>GMAT Math Trainer – GMAT Club Flashcards</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GMAT Quant Pro</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "primary": "#3b82f6",
+          "background-light": "#f5f7f8",
+          "background-dark": "#0f172a",
+          "card-dark": "#111827",
+        },
+        fontFamily: { "display": ["Inter", "sans-serif"] },
+        borderRadius: { "DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px" },
+      },
+    },
+  }
+</script>
+<link rel="stylesheet" href="style.css"/>
 </head>
-<body>
-  <div class="app">
-    <header class="app-header">
-      <div>
-        <h1>GMAT Math Trainer</h1>
-        <p class="subtitle">GMAT Club Math Flashcards 2025</p>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display min-h-screen">
+
+<!-- TOPBAR -->
+<header class="border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-card-dark sticky top-0 z-50">
+  <div class="max-w-[1280px] mx-auto px-6 h-16 flex items-center justify-between gap-4">
+    <div class="flex items-center gap-3 shrink-0">
+      <div class="bg-primary p-1.5 rounded-lg">
+        <span class="material-symbols-outlined text-white text-xl leading-none">grid_view</span>
       </div>
-      <div class="header-stats">
-        <div class="stat">
-          <span class="label">Cards</span>
-          <span id="stat-total" class="value">0</span>
-        </div>
-        <div class="stat">
-          <span class="label">Seen</span>
-          <span id="stat-seen" class="value">0</span>
-        </div>
-        <div class="stat">
-          <span class="label">Accuracy</span>
-          <span id="stat-accuracy" class="value">0%</span>
-        </div>
-        <div class="stat">
-          <span class="label">Streak</span>
-          <span id="stat-streak" class="value">0 days</span>
-        </div>
-        <div class="stat">
-          <span class="label">XP Today</span>
-          <span id="stat-xp-today" class="value">0</span>
-        </div>
-        <div class="stat">
-          <span class="label">Time Today</span>
-          <span id="stat-time-today" class="value">0m</span>
-        </div>
+      <h2 class="text-lg font-bold tracking-tight hidden sm:block">GMAT Quant Pro</h2>
+    </div>
+    <nav class="flex items-center gap-1">
+      <button class="tab-btn active px-3 py-2 rounded-lg text-sm font-semibold transition-all" data-tab="practice">
+        <span class="material-symbols-outlined text-sm align-middle">edit_note</span> Practice
+      </button>
+      <button class="tab-btn px-3 py-2 rounded-lg text-sm font-medium transition-all" data-tab="errors">
+        <span class="material-symbols-outlined text-sm align-middle">error</span> Errors
+      </button>
+      <button class="tab-btn px-3 py-2 rounded-lg text-sm font-medium transition-all" data-tab="all-cards">
+        <span class="material-symbols-outlined text-sm align-middle">style</span> Cards
+      </button>
+      <button class="tab-btn px-3 py-2 rounded-lg text-sm font-medium transition-all" data-tab="analytics">
+        <span class="material-symbols-outlined text-sm align-middle">analytics</span> Analytics
+      </button>
+    </nav>
+    <div class="flex items-center gap-2 shrink-0">
+      <div class="stat-pill hidden lg:flex">
+        <span class="material-symbols-outlined text-slate-400 text-sm leading-none">style</span>
+        <span id="stat-seen" class="text-xs font-bold">0</span><span class="text-xs text-slate-500">/</span><span id="stat-total" class="text-xs font-bold text-slate-400">0</span>
       </div>
-    </header>
-
-    <main class="main-layout">
-      <aside class="sidebar">
-        <section class="panel">
-          <h2>Study mode</h2>
-          <div class="mode-buttons">
-            <button data-mode="all" class="mode-button active">Mixed</button>
-            <button data-mode="new" class="mode-button">New only</button>
-            <button data-mode="weak" class="mode-button">Weak only</button>
-          </div>
-        </section>
-
-        <section class="panel">
-          <h2>Filter</h2>
-          <label class="field">
-            <span>Topic</span>
-            <select id="topic-filter">
-              <option value="all">All topics</option>
-            </select>
-          </label>
-        </section>
-
-        <section class="panel">
-          <h2>Session controls</h2>
-          <button id="btn-next" class="primary">Next card</button>
-          <button id="btn-reset-progress" class="danger">Reset progress</button>
-          <p class="hint">Progress is stored only on this device (local storage).</p>
-        </section>
-      </aside>
-
-      <section class="content">
-        <section class="dashboard">
-          <div class="dashboard-main-buttons">
-            <button id="btn-dashboard-continue" class="primary">Continue training</button>
-            <button id="btn-dashboard-drill" class="secondary">2‑minute drill</button>
-            <button id="btn-dashboard-weak" class="secondary">Weak topics</button>
-            <button id="btn-dashboard-errors" class="secondary">Error log</button>
-          </div>
-          <div class="dashboard-snapshot">
-            <div>
-              <div class="snapshot-label">Accuracy today</div>
-              <div id="snapshot-accuracy-today" class="snapshot-value">—</div>
-            </div>
-            <div>
-              <div class="snapshot-label">Avg time / question</div>
-              <div id="snapshot-time-per-question" class="snapshot-value">—</div>
-            </div>
-          </div>
-        </section>
-
-        <nav class="tabs">
-          <button class="tab-button active" data-tab="practice">Practice</button>
-          <button class="tab-button" data-tab="errors">Error log</button>
-          <button class="tab-button" data-tab="all-cards">All cards</button>
-        </nav>
-
-        <section id="tab-practice" class="tab active">
-          <article class="card">
-            <div class="practice-top">
-              <span id="practice-session-label" class="practice-label"></span>
-              <span id="practice-timer" class="practice-timer"></span>
-            </div>
-            <div class="card-meta">
-              <span id="card-topic" class="pill"></span>
-              <span id="card-id" class="pill secondary"></span>
-            </div>
-            <div class="card-body">
-              <div id="card-question" class="card-text question"></div>
-              <div id="card-answer" class="card-text answer hidden"></div>
-            </div>
-            <div class="card-actions">
-              <button id="btn-show-answer" class="secondary">Show answer</button>
-              <div class="spacer"></div>
-              <button id="btn-lucky" class="secondary">Lucky guess</button>
-              <button id="btn-wrong" class="danger-outline">I was wrong</button>
-              <button id="btn-correct" class="primary">I was right</button>
-            </div>
-            <div class="card-footer">
-              <span id="card-stats"></span>
-            </div>
-          </article>
-        </section>
-
-        <section id="tab-errors" class="tab">
-          <h2>Weak cards (error log)</h2>
-          <p class="hint">
-            These are cards where your accuracy is low or you have missed them at least once.
-            Click a row to jump straight to that card in practice.
-          </p>
-          <div class="error-summary">
-            <div>
-              <div class="snapshot-label">Most common mistakes</div>
-              <div id="mistake-breakdown" class="snapshot-value-small">—</div>
-            </div>
-            <div>
-              <div class="snapshot-label">Weak topics</div>
-              <div id="weak-topics" class="snapshot-value-small">—</div>
-            </div>
-          </div>
-          <table class="table" id="errors-table">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Topic</th>
-                <th>Summary</th>
-                <th>Accuracy</th>
-                <th>Attempts</th>
-                <th>Last seen</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </section>
-
-        <section id="tab-all-cards" class="tab">
-          <h2>All flashcards</h2>
-          <p class="hint">Quick overview of everything included from the GMAT Club Math Flashcards.</p>
-          <table class="table" id="all-cards-table">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Topic</th>
-                <th>Question preview</th>
-                <th>Accuracy</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </section>
-      </section>
-    </main>
+      <div class="stat-pill hidden lg:flex">
+        <span class="material-symbols-outlined text-emerald-500 text-sm leading-none">check_circle</span>
+        <span id="stat-accuracy" class="text-xs font-bold">0%</span>
+      </div>
+      <div class="stat-pill hidden md:flex">
+        <span class="material-symbols-outlined text-orange-500 text-sm leading-none">local_fire_department</span>
+        <span id="stat-streak" class="text-xs font-bold">0d</span>
+      </div>
+      <div class="stat-pill hidden md:flex">
+        <span class="material-symbols-outlined text-yellow-500 text-sm leading-none">stars</span>
+        <span id="stat-xp-today" class="text-xs font-bold">0</span>
+        <span class="text-xs text-slate-500">XP</span>
+      </div>
+      <div class="stat-pill hidden sm:flex">
+        <span class="material-symbols-outlined text-primary text-sm leading-none">schedule</span>
+        <span id="stat-time-today" class="text-xs font-bold">0s</span>
+      </div>
+    </div>
   </div>
+</header>
 
-  <div id="mistake-modal" class="modal hidden">
-    <div class="modal-backdrop"></div>
-    <div class="modal-content">
-      <h2>Why did you miss this?</h2>
-      <p class="hint">This helps the trainer focus your review.</p>
-      <div class="modal-buttons">
-        <button class="secondary modal-reason" data-reason="concept_gap">Concept gap</button>
-        <button class="secondary modal-reason" data-reason="careless">Careless mistake</button>
-        <button class="secondary modal-reason" data-reason="misread">Misread question</button>
-        <button class="secondary modal-reason" data-reason="slow_strategy">Slow strategy</button>
-        <button class="secondary modal-reason" data-reason="no_shortcut">Didn't know shortcut</button>
+<div class="max-w-[1280px] mx-auto px-4 sm:px-6 py-6">
+
+<!-- ── PRACTICE TAB ── -->
+<div id="tab-practice" class="tab-panel active">
+  <div class="flex gap-6 xl:gap-8">
+    <section class="flex-1 min-w-0 flex flex-col gap-5">
+
+      <!-- Controls Bar -->
+      <div class="flex flex-wrap items-center gap-3">
+        <div class="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl border border-slate-200 dark:border-slate-700">
+          <button class="mode-btn active px-3 py-1.5 rounded-lg text-xs font-bold transition-all" data-mode="all">All</button>
+          <button class="mode-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all" data-mode="new">New</button>
+          <button class="mode-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all" data-mode="weak">Weak</button>
+        </div>
+        <select id="topic-filter" class="h-9 px-3 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-medium focus:ring-2 focus:ring-primary focus:outline-none max-w-[200px]">
+          <option value="all">All Topics</option>
+        </select>
+        <div class="flex items-center gap-2 ml-auto flex-wrap">
+          <span id="practice-session-label" class="text-xs font-bold text-amber-500"></span>
+          <div class="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 min-w-[76px] justify-center">
+            <span class="material-symbols-outlined text-primary text-sm leading-none">timer</span>
+            <span id="practice-timer" class="text-sm font-bold text-primary tabular-nums">0:00</span>
+          </div>
+          <button id="btn-dashboard-drill" class="flex items-center gap-1.5 h-9 px-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 text-xs font-bold hover:bg-amber-500/20 transition-all">
+            <span class="material-symbols-outlined text-sm leading-none">bolt</span>Drill
+          </button>
+          <button id="btn-next" class="flex items-center gap-1.5 h-9 px-3 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">
+            <span class="material-symbols-outlined text-sm leading-none">skip_next</span>Skip
+          </button>
+        </div>
       </div>
-      <button id="btn-mistake-cancel" class="danger-outline modal-cancel">Cancel</button>
+
+      <!-- Flashcard -->
+      <div class="w-full max-w-[700px] mx-auto flex flex-col gap-5">
+        <!-- Meta row -->
+        <div class="flex items-center justify-between gap-3 flex-wrap">
+          <div class="flex items-center gap-2">
+            <div class="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 max-w-[240px]">
+              <span class="material-symbols-outlined text-primary text-sm leading-none">label</span>
+              <span id="card-topic" class="text-xs font-semibold truncate"></span>
+            </div>
+            <span id="card-id" class="text-xs text-slate-400 font-mono"></span>
+          </div>
+          <span id="card-sr-badge" class="pill-sr"></span>
+        </div>
+
+        <!-- Card body -->
+        <article class="bg-white dark:bg-card-dark rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 min-h-[340px] p-8 sm:p-12 flex flex-col items-center justify-center text-center relative overflow-hidden">
+          <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary/20 via-primary to-primary/20"></div>
+          <p id="card-question" class="text-xl sm:text-2xl font-medium leading-relaxed text-slate-900 dark:text-slate-100 whitespace-pre-wrap w-full"></p>
+          <div id="card-answer" class="hidden w-full mt-6">
+            <div class="h-px bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-transparent mb-5"></div>
+            <p class="text-base sm:text-lg text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap text-left answer-text"></p>
+          </div>
+        </article>
+
+        <p id="card-stats" class="text-center text-xs text-slate-500 dark:text-slate-400"></p>
+
+        <!-- Show Answer -->
+        <button id="btn-show-answer" class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 rounded-xl text-base shadow-lg shadow-primary/20 transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined">visibility</span>
+          Show Answer
+          <span class="ml-1 text-xs opacity-70 font-medium px-2 py-0.5 bg-white/20 rounded">SPACE</span>
+        </button>
+
+        <!-- Rating Buttons -->
+        <div id="rating-buttons" class="locked grid grid-cols-3 gap-4">
+          <button id="btn-wrong" class="flex flex-col items-center gap-2 p-4 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-500 hover:bg-rose-500/20 transition-all active:scale-[0.97]">
+            <span class="material-symbols-outlined text-3xl">close</span>
+            <span class="font-bold text-sm">Wrong</span>
+            <span class="text-[10px] opacity-70">KEY [1]</span>
+          </button>
+          <button id="btn-lucky" class="flex flex-col items-center gap-2 p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-500 hover:bg-amber-500/20 transition-all active:scale-[0.97]">
+            <span class="material-symbols-outlined text-3xl">help</span>
+            <span class="font-bold text-sm">Lucky</span>
+            <span class="text-[10px] opacity-70">KEY [2]</span>
+          </button>
+          <button id="btn-correct" class="flex flex-col items-center gap-2 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 hover:bg-emerald-500/20 transition-all active:scale-[0.97]">
+            <span class="material-symbols-outlined text-3xl">check</span>
+            <span class="font-bold text-sm">Correct</span>
+            <span class="text-[10px] opacity-70">KEY [3]</span>
+          </button>
+        </div>
+      </div><!-- /card area -->
+
+    </section><!-- /left column -->
+
+    <!-- Right Aside -->
+    <aside class="w-[300px] xl:w-[320px] shrink-0 flex-col gap-5 sticky top-24 h-fit hidden lg:flex">
+
+      <!-- Daily Goal -->
+      <div class="bg-white dark:bg-card-dark p-5 rounded-xl border border-slate-200 dark:border-slate-800">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="text-sm font-bold">Today</h3>
+          <span class="text-xs font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full">
+            Acc: <span id="snapshot-accuracy-today">—</span>
+          </span>
+        </div>
+        <div class="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+          <div id="daily-goal-bar" class="bg-primary h-full rounded-full transition-all duration-500" style="width:0%"></div>
+        </div>
+        <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">
+          Avg/Q: <span id="snapshot-time-per-question" class="font-semibold text-slate-700 dark:text-slate-300">—</span>
+        </p>
+      </div>
+
+      <!-- Weak Topics -->
+      <div class="bg-white dark:bg-card-dark p-5 rounded-xl border border-slate-200 dark:border-slate-800">
+        <h3 class="text-sm font-bold mb-3 flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary text-lg leading-none">trending_down</span>
+          Weak Topics
+        </h3>
+        <div id="weak-topics-panel" class="flex flex-col gap-3 text-xs text-slate-500">No data yet.</div>
+      </div>
+
+      <!-- Session Stats -->
+      <div class="bg-white dark:bg-card-dark p-5 rounded-xl border border-slate-200 dark:border-slate-800">
+        <h3 class="text-sm font-bold mb-3">Session Stats</h3>
+        <div class="grid grid-cols-2 gap-3">
+          <div class="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl text-center">
+            <span id="ss-seen" class="block text-2xl font-bold">0</span>
+            <span class="text-[10px] uppercase font-bold text-slate-500">Solved</span>
+          </div>
+          <div class="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl text-center">
+            <span id="ss-correct" class="block text-2xl font-bold text-emerald-500">0</span>
+            <span class="text-[10px] uppercase font-bold text-slate-500">Correct</span>
+          </div>
+          <div class="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl text-center">
+            <span id="ss-xp" class="block text-2xl font-bold text-yellow-500">0</span>
+            <span class="text-[10px] uppercase font-bold text-slate-500">XP Today</span>
+          </div>
+          <div class="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl text-center">
+            <span id="ss-next-review" class="block text-xs font-bold text-primary break-words">—</span>
+            <span class="text-[10px] uppercase font-bold text-slate-500">Next Review</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SR Counts -->
+      <div class="bg-white dark:bg-card-dark p-5 rounded-xl border border-slate-200 dark:border-slate-800">
+        <h3 class="text-sm font-bold mb-3 flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary text-lg leading-none">layers</span>
+          Spaced Repetition
+        </h3>
+        <div class="flex gap-3">
+          <div class="flex-1 p-3 bg-amber-500/10 border border-amber-500/20 rounded-xl text-center">
+            <span id="sr-due-count" class="block text-xl font-bold text-amber-500">0</span>
+            <span class="text-[10px] uppercase font-bold text-slate-500">Due</span>
+          </div>
+          <div class="flex-1 p-3 bg-primary/10 border border-primary/20 rounded-xl text-center">
+            <span id="sr-new-count" class="block text-xl font-bold text-primary">0</span>
+            <span class="text-[10px] uppercase font-bold text-slate-500">New</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coach tip -->
+      <div class="bg-gradient-to-br from-primary/10 to-transparent p-5 rounded-xl border border-primary/20 flex gap-3 items-start">
+        <div class="size-10 rounded-full bg-primary/20 shrink-0 flex items-center justify-center border border-primary/40">
+          <span class="material-symbols-outlined text-primary text-lg leading-none">smart_toy</span>
+        </div>
+        <div>
+          <h4 class="text-xs font-bold text-primary mb-1">Coach Quant</h4>
+          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed italic">Use prime factorization for divisibility. Check each statement independently in DS questions.</p>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="flex flex-col gap-2">
+        <button id="btn-practice-weak" class="mode-btn flex items-center justify-center gap-2 py-2.5 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-500 text-xs font-bold hover:bg-rose-500/20 transition-all" data-mode="weak">
+          <span class="material-symbols-outlined text-sm leading-none">trending_down</span>Practice Weak Topics
+        </button>
+        <button id="btn-dashboard-errors" class="tab-btn-action flex items-center justify-center gap-2 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">
+          <span class="material-symbols-outlined text-sm leading-none">error</span>View Error Log
+        </button>
+        <button id="btn-reset-progress" class="flex items-center justify-center gap-1.5 py-2 rounded-xl border border-rose-500/20 text-rose-400 text-xs font-bold hover:bg-rose-500/10 transition-all">
+          <span class="material-symbols-outlined text-sm leading-none">restart_alt</span>Reset All Progress
+        </button>
+      </div>
+
+    </aside><!-- /right aside -->
+  </div><!-- /flex -->
+
+  <!-- Hidden legacy buttons for app.js compatibility -->
+  <span class="hidden">
+    <button id="btn-dashboard-continue"></button>
+    <button id="btn-dashboard-weak" class="mode-btn" data-mode="weak"></button>
+  </span>
+</div><!-- /tab-practice -->
+
+
+<!-- ── ERROR LOG TAB ── -->
+<div id="tab-errors" class="tab-panel">
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+    <div class="lg:col-span-8 flex flex-col gap-4">
+      <div class="flex items-center justify-between flex-wrap gap-3">
+        <div>
+          <h1 class="text-2xl font-black tracking-tight">Error Log</h1>
+          <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Review your mistakes and retry them.</p>
+        </div>
+        <button class="flex items-center gap-2 bg-primary text-white px-4 py-2.5 rounded-xl font-bold text-sm hover:bg-primary/90 transition-all" onclick="document.querySelector('.tab-btn[data-tab=practice]').click()">
+          <span class="material-symbols-outlined text-sm leading-none">play_circle</span>Practice All
+        </button>
+      </div>
+
+      <div class="bg-white dark:bg-card-dark rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left" id="errors-table">
+            <thead class="bg-slate-50 dark:bg-slate-800/50">
+              <tr>
+                <th class="px-5 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Question &amp; Topic</th>
+                <th class="px-5 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Last Attempt</th>
+                <th class="px-5 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Retries</th>
+                <th class="px-5 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Action</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 dark:divide-slate-800"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <aside class="lg:col-span-4 flex flex-col gap-5">
+
+      <div class="bg-white dark:bg-card-dark p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="material-symbols-outlined text-primary text-lg leading-none">psychology</span>
+          <h3 class="text-xs font-bold uppercase tracking-wider">Review Strategy</h3>
+        </div>
+        <div class="p-4 rounded-lg bg-blue-50 dark:bg-primary/10 border-l-4 border-primary">
+          <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+            Focus on your weakest topics first. Spaced repetition cards due now yield the biggest gains.
+          </p>
+        </div>
+      </div>
+
+      <div class="bg-white dark:bg-card-dark p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="material-symbols-outlined text-primary text-lg leading-none">analytics</span>
+          <h3 class="text-xs font-bold uppercase tracking-wider">Mistake Distribution</h3>
+        </div>
+        <p id="mistake-breakdown" class="text-xs text-slate-500 mb-3">No mistakes logged yet.</p>
+        <canvas id="mistake-chart" height="130"></canvas>
+      </div>
+
+      <div class="bg-white dark:bg-card-dark p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="material-symbols-outlined text-rose-500 text-lg leading-none">trending_down</span>
+          <h3 class="text-xs font-bold uppercase tracking-wider">Weakest Topics</h3>
+        </div>
+        <p id="weak-topics" class="text-xs text-slate-500 leading-relaxed">Not enough data yet.</p>
+      </div>
+
+    </aside>
+  </div>
+</div><!-- /tab-errors -->
+
+
+<!-- ── ALL CARDS TAB ── -->
+<div id="tab-all-cards" class="tab-panel">
+  <div class="flex items-center justify-between mb-5 flex-wrap gap-3">
+    <div>
+      <h1 class="text-2xl font-black tracking-tight">All Flashcards</h1>
+      <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Your complete card library.</p>
+    </div>
+  </div>
+  <div class="bg-white dark:bg-card-dark rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
+    <div class="overflow-x-auto">
+      <table class="w-full text-left" id="all-cards-table">
+        <thead class="bg-slate-50 dark:bg-slate-800/50">
+          <tr>
+            <th class="px-5 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider w-14">#</th>
+            <th class="px-5 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Topic</th>
+            <th class="px-5 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Attempts</th>
+            <th class="px-5 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Accuracy</th>
+            <th class="px-5 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Status</th>
+            <th class="px-5 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Action</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100 dark:divide-slate-800"></tbody>
+      </table>
+    </div>
+  </div>
+</div><!-- /tab-all-cards -->
+
+
+<!-- ── ANALYTICS TAB ── -->
+<div id="tab-analytics" class="tab-panel">
+  <div class="flex items-center justify-between mb-6 flex-wrap gap-3">
+    <div>
+      <h1 class="text-2xl font-black tracking-tight">Performance Analytics</h1>
+      <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Your learning trajectory over time.</p>
+    </div>
+    <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+      <span class="material-symbols-outlined text-yellow-500 text-sm leading-none">bolt</span>
+      <span id="analytics-streak-label" class="text-xs font-bold">0 Day Streak</span>
     </div>
   </div>
 
-  <script src="app.js"></script>
+  <!-- Streak Calendar -->
+  <section class="bg-white dark:bg-card-dark border border-slate-200 dark:border-slate-800 rounded-xl p-6 mb-6">
+    <div class="flex justify-between items-end mb-4 flex-wrap gap-2">
+      <div>
+        <h3 class="font-bold">Practice Consistency</h3>
+        <p class="text-xs text-slate-500 mt-0.5">Daily activity — last 30 days</p>
+      </div>
+      <div class="flex gap-1 items-center">
+        <span class="text-[10px] text-slate-500 mr-1">Less</span>
+        <div class="size-3 rounded-sm bg-slate-200 dark:bg-slate-700"></div>
+        <div class="size-3 rounded-sm bg-primary/25"></div>
+        <div class="size-3 rounded-sm bg-primary/55"></div>
+        <div class="size-3 rounded-sm bg-primary/80"></div>
+        <div class="size-3 rounded-sm bg-primary"></div>
+        <span class="text-[10px] text-slate-500 ml-1">More</span>
+      </div>
+    </div>
+    <div id="streak-calendar" class="flex flex-wrap gap-1.5"></div>
+  </section>
+
+  <!-- Charts -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+    <div class="bg-white dark:bg-card-dark border border-slate-200 dark:border-slate-800 rounded-xl p-6">
+      <h3 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">Accuracy Trend (%)</h3>
+      <canvas id="accuracy-chart" height="160"></canvas>
+    </div>
+    <div class="bg-white dark:bg-card-dark border border-slate-200 dark:border-slate-800 rounded-xl p-6">
+      <h3 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">Daily Time (min)</h3>
+      <canvas id="time-chart" height="160"></canvas>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div class="lg:col-span-2 bg-white dark:bg-card-dark border border-slate-200 dark:border-slate-800 rounded-xl p-6">
+      <h3 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">Cards Reviewed / Day</h3>
+      <canvas id="cards-chart" height="160"></canvas>
+    </div>
+    <div class="bg-white dark:bg-card-dark border border-slate-200 dark:border-slate-800 rounded-xl p-6">
+      <h3 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">Topic Weaknesses</h3>
+      <div id="analytics-topic-list" class="space-y-3 text-xs text-slate-500">No data yet.</div>
+    </div>
+  </div>
+</div><!-- /tab-analytics -->
+
+</div><!-- /container -->
+
+<!-- Footer -->
+<footer class="max-w-[1280px] mx-auto px-6 py-4 flex justify-between items-center flex-wrap gap-2 text-slate-500 text-[10px] font-bold uppercase tracking-widest border-t border-slate-200 dark:border-slate-800 mt-4">
+  <div class="flex gap-4 flex-wrap">
+    <span>Shortcuts:</span>
+    <span>[Space] Answer</span>
+    <span>[1] Wrong · [2] Lucky · [3] Correct</span>
+    <span>[N] Next</span>
+  </div>
+  <span>GMAT Quant Pro v5</span>
+</footer>
+
+
+<!-- MODAL: MISTAKE TYPE -->
+<div id="mistake-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
+  <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" id="btn-mistake-cancel"></div>
+  <div class="relative bg-white dark:bg-card-dark rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 p-6 w-full max-w-md z-10">
+    <h3 class="text-lg font-bold mb-1 text-center">What went wrong?</h3>
+    <p class="text-sm text-slate-500 text-center mb-5">Categorise your mistake to improve faster.</p>
+    <div class="flex flex-col gap-2">
+      <button class="modal-reason flex items-center gap-3 p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-primary hover:bg-primary/5 transition-all text-left" data-reason="concept_gap">
+        <span class="material-symbols-outlined text-rose-500 text-xl leading-none">psychology</span>
+        <div>
+          <div class="text-sm font-semibold">Conceptual Gap</div>
+          <div class="text-xs text-slate-500">Didn't know the concept</div>
+        </div>
+      </button>
+      <button class="modal-reason flex items-center gap-3 p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-primary hover:bg-primary/5 transition-all text-left" data-reason="careless">
+        <span class="material-symbols-outlined text-amber-500 text-xl leading-none">warning</span>
+        <div>
+          <div class="text-sm font-semibold">Careless Mistake</div>
+          <div class="text-xs text-slate-500">Silly arithmetic or reading error</div>
+        </div>
+      </button>
+      <button class="modal-reason flex items-center gap-3 p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-primary hover:bg-primary/5 transition-all text-left" data-reason="misread">
+        <span class="material-symbols-outlined text-blue-500 text-xl leading-none">menu_book</span>
+        <div>
+          <div class="text-sm font-semibold">Misread Question</div>
+          <div class="text-xs text-slate-500">Missed a key condition</div>
+        </div>
+      </button>
+      <button class="modal-reason flex items-center gap-3 p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-primary hover:bg-primary/5 transition-all text-left" data-reason="slow_strategy">
+        <span class="material-symbols-outlined text-orange-500 text-xl leading-none">hourglass_empty</span>
+        <div>
+          <div class="text-sm font-semibold">Timing Pressure</div>
+          <div class="text-xs text-slate-500">Ran out of time</div>
+        </div>
+      </button>
+      <button class="modal-reason flex items-center gap-3 p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-primary hover:bg-primary/5 transition-all text-left" data-reason="no_shortcut">
+        <span class="material-symbols-outlined text-purple-500 text-xl leading-none">route</span>
+        <div>
+          <div class="text-sm font-semibold">No Shortcut Known</div>
+          <div class="text-xs text-slate-500">Used a slow method</div>
+        </div>
+      </button>
+    </div>
+    <button id="btn-mistake-cancel-btn" class="mt-4 w-full py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-sm font-medium text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">Cancel</button>
+  </div>
+</div>
+
+
+<!-- MODAL: DRILL RESULTS -->
+<div id="drill-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
+  <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+  <div class="relative bg-white dark:bg-card-dark rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 p-7 w-full max-w-sm z-10">
+    <div class="text-center mb-5">
+      <div class="inline-flex items-center justify-center size-14 rounded-full bg-primary/10 border border-primary/20 mb-3">
+        <span class="material-symbols-outlined text-primary text-2xl">bolt</span>
+      </div>
+      <h3 class="text-xl font-bold">Speed Drill Complete!</h3>
+    </div>
+    <div id="drill-results" class="space-y-2 mb-5"></div>
+    <button id="btn-drill-close" class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 rounded-xl transition-all">
+      Continue Practicing
+    </button>
+  </div>
+</div>
+
+<script src="app.js"></script>
 </body>
 </html>
-

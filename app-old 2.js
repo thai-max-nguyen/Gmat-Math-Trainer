@@ -950,14 +950,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const practiceTimerEl   = $("practice-timer");
   const topicFilterEl     = $("topic-filter");
   const btnShowAnswer     = $("btn-show-answer");
-  function updateShowAnswerBtn(showing) {
-    if (!btnShowAnswer) return;
-    if (showing) {
-      btnShowAnswer.innerHTML = '<span class="material-symbols-outlined">visibility_off</span> Hide Answer <span class="ml-1 text-xs opacity-70 font-medium px-2 py-0.5 bg-white/20 rounded">SPACE</span>';
-    } else {
-      btnShowAnswer.innerHTML = '<span class="material-symbols-outlined">visibility</span> Show Answer <span class="ml-1 text-xs opacity-70 font-medium px-2 py-0.5 bg-white/20 rounded">SPACE</span>';
-    }
-  }
   const btnCorrect        = $("btn-correct");
   const btnWrong          = $("btn-wrong");
   const btnLucky          = $("btn-lucky");
@@ -1052,7 +1044,7 @@ document.addEventListener("DOMContentLoaded", () => {
       cardTopicEl.textContent = ""; cardIdEl.textContent = "";
       cardSrBadge.className = "pill-sr";
       cardQuestionEl.textContent = "No card available for this filter.";
-      if (cardAnswerEl.querySelector(".answer-text")) cardAnswerEl.querySelector(".answer-text").textContent = "";
+      cardAnswerEl.textContent = "";
       cardAnswerEl.classList.add("hidden");
       cardStatsEl.textContent = "";
       return;
@@ -1073,9 +1065,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     cardQuestionEl.textContent = card.question;
-    cardAnswerEl.querySelector('.answer-text').textContent = card.answer;
+    cardAnswerEl.textContent   = card.answer;
     cardAnswerEl.classList.add("hidden");
-    updateShowAnswerBtn(false);
+    btnShowAnswer.textContent  = "Show answer";
 
     if (s && s.attempts > 0) {
       const pct = Math.round(s.correct / s.attempts * 100);
@@ -1086,10 +1078,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     updateSessionLabel();
-    // Lock rating buttons until answer is shown
-    const _rb = document.getElementById("rating-buttons");
-    if (_rb) _rb.classList.add("locked");
-    updateShowAnswerBtn(false);
   }
 
   // ── Load next card ──
@@ -1179,13 +1167,6 @@ document.addEventListener("DOMContentLoaded", () => {
       ? (meta.totalSecondsToday/meta.attemptsToday).toFixed(1)
       : null;
     snapshotTimeQ.textContent = avgT ? `${avgT}s` : "—";
-
-    // Daily goal bar (target: 25 cards/day)
-    const dailyBar = document.getElementById("daily-goal-bar");
-    if (dailyBar) {
-      const pctDone = Math.min(100, Math.round((meta.attemptsToday || 0) / 25 * 100));
-      dailyBar.style.width = pctDone + "%";
-    }
   }
 
   // ── Refresh right side panel ──
@@ -1228,29 +1209,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ── Refresh analytics ──
   function refreshAnalytics() {
-    // Update analytics topic list panel
-    const topicListEl = document.getElementById("analytics-topic-list");
-    if (topicListEl) {
-      const weakT = computeTopicWeakness(attempts);
-      if (!weakT.length) {
-        topicListEl.innerHTML = '<p class="text-xs text-slate-500">No data yet.</p>';
-      } else {
-        topicListEl.innerHTML = weakT.slice(0, 8).map(t => {
-          const pct = t.accuracy != null ? Math.round(t.accuracy * 100) : null;
-          const cls = pct == null ? "good" : pct < 60 ? "bad" : pct < 80 ? "ok" : "good";
-          const w = pct != null ? pct : 0;
-          return `<div class="analytics-topic-item">
-            <div class="analytics-topic-item-header">
-              <span>${t.topic}</span>
-              <span class="weak-topic-pct ${cls}">${pct != null ? pct+"%" : "—"}</span>
-            </div>
-            <div class="analytics-topic-bar-track">
-              <div class="analytics-topic-bar-fill ${cls}" style="width:${w}%"></div>
-            </div>
-          </div>`;
-        }).join("");
-      }
-    }
     // Mistake breakdown text
     const { counts, total } = computeMistakeAnalytics(attempts);
     if (!total) {
@@ -1384,9 +1342,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function rebuildStreakCalendar() {
-    // Sync analytics streak label
-    const streakLabel = document.getElementById("analytics-streak-label");
-    if (streakLabel) streakLabel.textContent = `${meta.streak || 0} Day Streak`;
     const cal = document.getElementById("streak-calendar");
     if (!cal) return;
     cal.innerHTML = "";
@@ -1531,9 +1486,7 @@ document.addEventListener("DOMContentLoaded", () => {
   btnShowAnswer.addEventListener("click", () => {
     const hidden = cardAnswerEl.classList.contains("hidden");
     cardAnswerEl.classList.toggle("hidden", !hidden);
-    updateShowAnswerBtn(hidden);
-    const ratingEl = document.getElementById("rating-buttons");
-    if (ratingEl) ratingEl.classList.toggle("locked", !hidden);
+    btnShowAnswer.textContent = hidden ? "Hide answer" : "Show answer";
   });
 
   btnCorrect.addEventListener("click", () => applyAnswerUpdate({ wasCorrect:true,  kind:"correct" }));
@@ -1565,11 +1518,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   $("btn-mistake-cancel").addEventListener("click", () => {
-    pendingWrongAnswer = false; mistakeModal.classList.add("hidden");
-  });
-  // Also wire the explicit cancel button
-  const _cancelBtn2 = $("btn-mistake-cancel-btn");
-  if (_cancelBtn2) _cancelBtn2.addEventListener("click", () => {
     pendingWrongAnswer = false; mistakeModal.classList.add("hidden");
   });
 

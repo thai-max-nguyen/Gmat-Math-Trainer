@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GMAT Math Trainer – GMAT Club Flashcards</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+
+    <!-- HEADER -->
+    <header class="app-header">
+      <div class="header-brand">
+        <span class="brand-icon">⚡</span>
+        <div>
+          <h1>GMAT Math Trainer</h1>
+          <p class="subtitle">GMAT Club Flashcards 2025</p>
+        </div>
+      </div>
+      <div class="header-stats">
+        <div class="stat-pill">
+          <span class="stat-label">Cards</span>
+          <span id="stat-total" class="stat-val">0</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-label">Seen</span>
+          <span id="stat-seen" class="stat-val">0</span>
+        </div>
+        <div class="stat-pill accent">
+          <span class="stat-label">Accuracy</span>
+          <span id="stat-accuracy" class="stat-val">0%</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-label">Streak</span>
+          <span id="stat-streak" class="stat-val">0d</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-label">XP</span>
+          <span id="stat-xp-today" class="stat-val">0</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-label">Time</span>
+          <span id="stat-time-today" class="stat-val">0m</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- KEYBOARD SHORTCUT TOOLTIP -->
+    <div class="shortcuts-bar">
+      <span class="shortcut-hint"><kbd>Space</kbd> Show answer</span>
+      <span class="shortcut-hint"><kbd>1</kbd> Wrong</span>
+      <span class="shortcut-hint"><kbd>2</kbd> Lucky</span>
+      <span class="shortcut-hint"><kbd>3</kbd> Correct</span>
+      <span class="shortcut-hint"><kbd>N</kbd> Next card</span>
+    </div>
+
+    <!-- MAIN GRID -->
+    <main class="main-grid">
+
+      <!-- CENTER: FLASHCARD AREA -->
+      <section class="center-column">
+
+        <!-- Quick action bar above card -->
+        <div class="quick-bar">
+          <div class="mode-buttons">
+            <button data-mode="all" class="mode-btn active">Mixed</button>
+            <button data-mode="new" class="mode-btn">New</button>
+            <button data-mode="weak" class="mode-btn">Weak</button>
+          </div>
+          <div class="quick-actions">
+            <select id="topic-filter" class="topic-select">
+              <option value="all">All topics</option>
+            </select>
+            <button id="btn-dashboard-drill" class="btn-secondary btn-sm">⚡ Speed Drill</button>
+            <button id="btn-next" class="btn-secondary btn-sm">→ Next</button>
+          </div>
+        </div>
+
+        <!-- FLASHCARD -->
+        <article class="card" id="main-card">
+          <div class="card-header-row">
+            <div class="card-meta">
+              <span id="card-topic" class="pill-topic"></span>
+              <span id="card-id" class="pill-id"></span>
+              <span id="card-sr-badge" class="pill-sr"></span>
+            </div>
+            <div class="card-timer-wrap">
+              <span id="practice-session-label" class="session-label"></span>
+              <span id="practice-timer" class="timer-display"></span>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <div id="card-question" class="card-question"></div>
+            <div id="card-answer" class="card-answer hidden"></div>
+          </div>
+
+          <div class="card-footer-row">
+            <span id="card-stats" class="card-stats-text"></span>
+          </div>
+
+          <div class="card-actions">
+            <button id="btn-show-answer" class="btn-show">Show answer</button>
+            <div class="action-spacer"></div>
+            <button id="btn-lucky" class="btn-lucky" title="Lucky guess (2)">🎲 Lucky</button>
+            <button id="btn-wrong" class="btn-wrong" title="I was wrong (1)">✗ Wrong</button>
+            <button id="btn-correct" class="btn-correct" title="I was right (3)">✓ Correct</button>
+          </div>
+        </article>
+
+        <!-- TABS BELOW CARD -->
+        <nav class="tabs-row">
+          <button class="tab-btn active" data-tab="practice">Practice</button>
+          <button class="tab-btn" data-tab="errors">Error Log</button>
+          <button class="tab-btn" data-tab="all-cards">All Cards</button>
+          <button class="tab-btn" data-tab="analytics">Analytics</button>
+        </nav>
+
+        <!-- TAB PANELS -->
+        <div class="tab-panels">
+
+          <section id="tab-practice" class="tab-panel active">
+            <div class="dashboard-row">
+              <button id="btn-dashboard-continue" class="btn-primary">Continue Training</button>
+              <button id="btn-dashboard-weak" class="btn-secondary">Weak Topics</button>
+              <button id="btn-dashboard-errors" class="btn-secondary">Error Log</button>
+              <button id="btn-reset-progress" class="btn-danger">Reset Progress</button>
+            </div>
+            <div class="session-snapshot">
+              <div class="snapshot-item">
+                <div class="snap-label">Accuracy today</div>
+                <div id="snapshot-accuracy-today" class="snap-value">—</div>
+              </div>
+              <div class="snapshot-item">
+                <div class="snap-label">Avg time / question</div>
+                <div id="snapshot-time-per-question" class="snap-value">—</div>
+              </div>
+            </div>
+          </section>
+
+          <section id="tab-errors" class="tab-panel">
+            <h2 class="tab-heading">Weak Cards — Error Log</h2>
+            <p class="hint">Cards with low accuracy or ≥1 miss. Click a row to practice it.</p>
+            <div class="error-summary">
+              <div>
+                <div class="snap-label">Most common mistakes</div>
+                <div id="mistake-breakdown" class="snap-value-sm">—</div>
+              </div>
+              <div>
+                <div class="snap-label">Weak topics</div>
+                <div id="weak-topics" class="snap-value-sm">—</div>
+              </div>
+            </div>
+            <div class="mistake-chart-wrap">
+              <canvas id="mistake-chart" height="120"></canvas>
+            </div>
+            <table class="data-table" id="errors-table">
+              <thead>
+                <tr>
+                  <th>#</th><th>Topic</th><th>Summary</th><th>Accuracy</th><th>Attempts</th><th>Last seen</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </section>
+
+          <section id="tab-all-cards" class="tab-panel">
+            <h2 class="tab-heading">All Flashcards</h2>
+            <p class="hint">Complete overview of GMAT Club Math Flashcards 2025.</p>
+            <table class="data-table" id="all-cards-table">
+              <thead>
+                <tr>
+                  <th>#</th><th>Topic</th><th>Question preview</th><th>Accuracy</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </section>
+
+          <section id="tab-analytics" class="tab-panel">
+            <h2 class="tab-heading">Learning Dashboard</h2>
+            <div class="analytics-grid">
+              <div class="analytics-card">
+                <h3>Streak Calendar</h3>
+                <div id="streak-calendar" class="streak-calendar"></div>
+              </div>
+              <div class="analytics-card">
+                <h3>Accuracy Trend (last 7 days)</h3>
+                <canvas id="accuracy-chart" height="140"></canvas>
+              </div>
+              <div class="analytics-card">
+                <h3>Daily Study Time (min)</h3>
+                <canvas id="time-chart" height="140"></canvas>
+              </div>
+              <div class="analytics-card">
+                <h3>Cards Seen Per Day</h3>
+                <canvas id="cards-chart" height="140"></canvas>
+              </div>
+            </div>
+          </section>
+
+        </div>
+      </section>
+
+      <!-- RIGHT SIDE PANEL -->
+      <aside class="right-panel">
+        <div class="panel-block">
+          <h3 class="panel-title">⚠ Weak Topics</h3>
+          <div id="weak-topics-panel" class="weak-topics-list">
+            <p class="hint">No data yet.</p>
+          </div>
+          <button id="btn-practice-weak" class="btn-primary full-width">Practice Weak Topics</button>
+        </div>
+
+        <div class="panel-block">
+          <h3 class="panel-title">📊 Session Stats</h3>
+          <div class="session-stats">
+            <div class="ss-row">
+              <span>Cards seen</span>
+              <span id="ss-seen">0</span>
+            </div>
+            <div class="ss-row">
+              <span>Correct today</span>
+              <span id="ss-correct">0</span>
+            </div>
+            <div class="ss-row">
+              <span>XP today</span>
+              <span id="ss-xp">0</span>
+            </div>
+            <div class="ss-row">
+              <span>Next review</span>
+              <span id="ss-next-review">—</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-block">
+          <h3 class="panel-title">🔁 Spaced Repetition</h3>
+          <div class="sr-info">
+            <div class="sr-row">
+              <span>Due now</span>
+              <span id="sr-due-count" class="sr-count">0</span>
+            </div>
+            <div class="sr-row">
+              <span>New cards</span>
+              <span id="sr-new-count" class="sr-count">0</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+    </main>
+  </div>
+
+  <!-- MISTAKE MODAL -->
+  <div id="mistake-modal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-box">
+      <h2>Why did you miss this?</h2>
+      <p class="hint">Helps the trainer focus your review.</p>
+      <div class="modal-reasons">
+        <button class="modal-reason" data-reason="concept_gap">📚 Concept gap</button>
+        <button class="modal-reason" data-reason="careless">😬 Careless mistake</button>
+        <button class="modal-reason" data-reason="misread">👀 Misread question</button>
+        <button class="modal-reason" data-reason="slow_strategy">🐢 Slow strategy</button>
+        <button class="modal-reason" data-reason="no_shortcut">⚡ Didn't know shortcut</button>
+      </div>
+      <button id="btn-mistake-cancel" class="btn-ghost">Cancel</button>
+    </div>
+  </div>
+
+  <!-- DRILL RESULTS MODAL -->
+  <div id="drill-modal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-box">
+      <h2>⚡ Speed Drill Complete!</h2>
+      <div id="drill-results" class="drill-results"></div>
+      <button id="btn-drill-close" class="btn-primary">Back to Practice</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
