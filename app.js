@@ -743,13 +743,18 @@ function formatDate(iso) {
 }
 
 // ─── LOAD / SAVE ──────────────────────────────────────────────────────
+// Progress is now stored in Supabase. We keep an in-memory copy and
+// write through to the DB on every answer.
+
 function loadProgress() {
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); }
-  catch { return {}; }
+  // If cloud data was loaded by auth.js, use it; otherwise empty
+  return window._supabaseProgress ? { ...window._supabaseProgress } : {};
 }
 
 function saveProgress(p) {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(p)); } catch {}
+  // In-memory only — actual DB write happens in saveReviewToSupabase()
+  // (called from applyAnswerUpdate)
+  window._supabaseProgress = p;
 }
 
 function ensureMeta(p) {
@@ -928,6 +933,42 @@ let cardsChartInst    = null;
 function destroyChart(inst) { if (inst) { try { inst.destroy(); } catch {} } }
 
 // ─── MAIN APP ─────────────────────────────────────────────────────────
+// Called by auth.js once user data is loaded from Supabase
+window.initAppWithCloudData = function() {
+  // Reload from cloud data
+  progress = loadProgress();
+  meta     = ensureMeta(progress);
+  attempts = window._supabaseAttempts ? [...window._supabaseAttempts] : [];
+  daily    = window._supabaseDaily    ? { ...window._supabaseDaily }   : {};
+
+  // Recompute meta streak from daily data
+  const todayStr = normaliseDate(new Date());
+  let streak = 0;
+  for (let i = 0; i < 365; i++) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    const s = normaliseDate(d);
+    if (daily[s] && daily[s].seen > 0) streak++;
+    else if (i > 0) break;
+  }
+  meta.streak = streak;
+
+  // Today's stats
+  if (daily[todayStr]) {
+    meta.attemptsToday     = daily[todayStr].seen    || 0;
+    meta.correctToday      = daily[todayStr].correct || 0;
+    meta.totalSecondsToday = daily[todayStr].seconds || 0;
+    meta.todayDate         = todayStr;
+  }
+
+  refreshStats();
+  refreshSidePanel();
+  refreshAnalytics();
+  rebuildErrorsTable();
+  rebuildAllCardsTable();
+  loadNextCard();
+};
+
 document.addEventListener("DOMContentLoaded", () => {
 
   // DOM refs
@@ -1144,6 +1185,19 @@ document.addEventListener("DOMContentLoaded", () => {
     if (attempts.length > 500) attempts.splice(0, attempts.length - 500);
 
     saveProgress(progress);
+
+    // ── Write to Supabase (if logged in) ──
+    if (window.currentUser && typeof saveReviewToSupabase === "function") {
+      const ratingNum = kind === "wrong" ? 1 : kind === "lucky" ? 2 : 3;
+      saveReviewToSupabase(window.currentUser.id, {
+        cardId:    id,
+        topic:     currentCard.topic,
+        rating:    ratingNum,
+        isError:   !wasCorrect,
+        cardState: progress[id]
+      });
+    }
+
     refreshStats();
     refreshSidePanel();
     refreshAnalytics();
@@ -1545,10 +1599,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   btnNext.addEventListener("click", loadNextCard);
 
-  btnResetProgress.addEventListener("click", () => {
-    if (!confirm("Reset all progress?")) return;
-    progress = {}; meta = ensureMeta(progress); attempts = ensureAttempts(progress);
-    daily = ensureDaily(progress); drillHist = ensureDrillHistory(progress);
+  btnResetProgress.addEventListener("click", async () => {
+    if (!confirm("Reset all progress? This will permanently delete your data from the cloud.")) return;
+    if (window.currentUser) {
+      await window.sb.from("card_reviews").delete().eq("user_id", window.currentUser.id);
+      await window.sb.from("card_states").delete().eq("user_id", window.currentUser.id);
+      await window.sb.from("streaks").delete().eq("user_id", window.currentUser.id);
+    }
+    progress = {}; meta = ensureMeta(progress); attempts = [];
+    daily = {}; drillHist = ensureDrillHistory(progress);
+    window._supabaseProgress = {};
+    window._supabaseAttempts = [];
+    window._supabaseDaily    = {};
     saveProgress(progress);
     refreshStats(); refreshSidePanel(); refreshAnalytics();
     rebuildErrorsTable(); rebuildAllCardsTable(); loadNextCard();
@@ -1614,6 +1676,56 @@ document.addEventListener("DOMContentLoaded", () => {
         break;
     }
   });
+function renderChoices(card){
+
+  const q = document.getElementById("card-question")
+
+  const old = document.getElementById("mcq-choices")
+  if(old) old.remove()
+
+  const lines = card.question.split("\n")
+
+  const choices = lines.filter(l =>
+    l.trim().match(/^[A-E]\)/)
+  )
+
+  if(choices.length === 0) return
+
+  const wrapper = document.createElement("div")
+  wrapper.id = "mcq-choices"
+  wrapper.style.marginTop = "20px"
+  wrapper.style.display = "grid"
+  wrapper.style.gap = "10px"
+  wrapper.style.textAlign = "left"
+
+  choices.forEach(line => {
+
+    const letter = line.trim()[0]
+
+    const btn = document.createElement("button")
+
+    btn.className =
+      "choice-btn p-3 rounded-lg border border-slate-300 dark:border-slate-600 hover:bg-blue-50 dark:hover:bg-slate-700 transition"
+
+    btn.innerHTML = "<b>"+letter+".</b> "+line.slice(2)
+
+    btn.onclick = ()=>{
+
+      document.querySelectorAll(".choice-btn")
+        .forEach(b=>b.classList.remove("selected"))
+
+      btn.classList.add("selected")
+
+      card.userChoice = letter
+    }
+
+    wrapper.appendChild(btn)
+
+  })
+
+  q.after(wrapper)
+
+}
 
   // ── Initial render ──
   refreshStats();
