@@ -3,40 +3,250 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>GMAT Quant Pro</title>
+<title>GMAT Trainer</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
+<script>
   tailwind.config = {
     darkMode: "class",
     theme: {
       extend: {
         colors: {
           "primary": "#3b82f6",
-          "background-light": "#f5f7f8",
-          "background-dark": "#0f172a",
+          "background-dark": "#0a0f1e",
           "card-dark": "#111827",
         },
         fontFamily: { "display": ["Inter", "sans-serif"] },
-        borderRadius: { "DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px" },
       },
     },
   }
 </script>
 <link rel="stylesheet" href="style.css"/>
-</head>
-<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display min-h-screen">
+<style>
+  body { font-family: 'Inter', sans-serif; }
 
-<!-- TOPBAR -->
-<header class="border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-card-dark sticky top-0 z-50">
+  /* Auth background */
+  .auth-bg {
+    background: radial-gradient(ellipse at 20% 50%, rgba(30,58,138,0.4) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(59,130,246,0.15) 0%, transparent 50%),
+                #090e1d;
+  }
+
+  /* Auth card */
+  .auth-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius: 20px;
+    backdrop-filter: blur(16px);
+  }
+
+  /* Input */
+  .auth-input {
+    width: 100%;
+    background: rgba(255,255,255,0.05);
+    border: 1.5px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 13px 14px 13px 44px;
+    font-size: 14px;
+    color: #fff;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    font-family: 'Inter', sans-serif;
+  }
+  .auth-input::placeholder { color: rgba(255,255,255,0.28); }
+  .auth-input:focus {
+    border-color: #3b82f6;
+    background: rgba(59,130,246,0.07);
+  }
+  .input-icon {
+    position: absolute;
+    left: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255,255,255,0.28);
+    font-size: 18px;
+    pointer-events: none;
+  }
+
+  /* Spinner */
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .spin { animation: spin 0.75s linear infinite; display: inline-block; }
+
+  /* User dropdown */
+  .user-dropdown {
+    background: #0d1526;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+  }
+  .stat-box-blue {
+    background: rgba(59,130,246,0.1);
+    border: 1px solid rgba(59,130,246,0.2);
+    border-radius: 12px;
+    padding: 14px;
+    text-align: center;
+  }
+  .stat-box-dark {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px;
+    padding: 14px;
+    text-align: center;
+  }
+</style>
+</head>
+<body class="bg-[#090e1d] text-slate-100 font-display min-h-screen">
+
+
+<!-- ══════════════════════════════════════
+     LOGIN SCREEN
+═══════════════════════════════════════════ -->
+<div id="screen-login" class="hidden auth-bg fixed inset-0 z-[200] flex flex-col items-center justify-center p-4">
+
+  <div class="mb-5 bg-primary rounded-2xl p-3.5 shadow-xl shadow-primary/30">
+    <span class="material-symbols-outlined text-white text-3xl leading-none" style="font-variation-settings:'FILL' 1,'wght' 500">school</span>
+  </div>
+  <h1 class="text-[2rem] font-black text-white mb-1 tracking-tight">GMAT Trainer</h1>
+  <p class="text-sm text-slate-400 mb-8">Master the GMAT with focused practice.</p>
+
+  <div class="auth-card w-full max-w-[380px] p-8">
+    <div id="login-error" class="hidden mb-5 p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 text-sm text-center"></div>
+    <div id="login-success" class="hidden mb-5 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm text-center"></div>
+
+    <div class="mb-5">
+      <label class="block text-sm font-semibold text-slate-300 mb-2">Email address</label>
+      <div class="relative">
+        <span class="material-symbols-outlined input-icon">mail</span>
+        <input id="login-email" type="email" placeholder="name@example.com" class="auth-input"
+          onkeydown="if(event.key==='Enter') handleLogin()"/>
+      </div>
+    </div>
+
+    <div class="mb-6">
+      <div class="flex justify-between items-center mb-2">
+        <label class="text-sm font-semibold text-slate-300">Password</label>
+        <button onclick="handleForgotPassword()" class="text-sm font-semibold text-primary hover:text-blue-400 transition-colors">Forgot password?</button>
+      </div>
+      <div class="relative">
+        <span class="material-symbols-outlined input-icon">lock</span>
+        <input id="login-password" type="password" placeholder="••••••••" class="auth-input"
+          onkeydown="if(event.key==='Enter') handleLogin()"/>
+      </div>
+    </div>
+
+    <button id="btn-login" onclick="handleLogin()"
+      class="w-full bg-primary hover:bg-blue-500 active:bg-blue-600 text-white font-bold py-3.5 rounded-xl text-sm transition-all flex items-center justify-center gap-2 shadow-lg shadow-primary/25">
+      Sign In &nbsp;→
+    </button>
+
+    <p class="mt-5 text-center text-sm text-slate-400">
+      Don't have an account?
+      <button onclick="showScreen('signup')" class="text-primary font-bold hover:underline ml-1">Sign up</button>
+    </p>
+  </div>
+
+  <div class="mt-7 flex gap-6 text-xs text-slate-600">
+    <span>Privacy Policy</span><span>Terms of Service</span><span>Contact Support</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     SIGNUP SCREEN
+═══════════════════════════════════════════ -->
+<div id="screen-signup" class="hidden auth-bg fixed inset-0 z-[200] flex flex-col p-4">
+
+  <!-- Top nav bar -->
+  <div class="flex items-center justify-between py-3 px-1 mb-auto shrink-0">
+    <div class="flex items-center gap-2.5">
+      <div class="bg-primary rounded-lg p-1.5 shadow-md shadow-primary/30">
+        <span class="material-symbols-outlined text-white text-base leading-none" style="font-variation-settings:'FILL' 1">school</span>
+      </div>
+      <span class="font-bold text-white">GMAT Trainer</span>
+    </div>
+    <div class="flex items-center gap-2 text-xs font-semibold">
+      <span class="size-2 rounded-full bg-emerald-400 inline-block animate-pulse"></span>
+      <span class="text-slate-400">System Status: <span class="text-emerald-400">Online</span></span>
+    </div>
+  </div>
+
+  <!-- Center content -->
+  <div class="flex flex-col items-center justify-center flex-1 pb-16">
+    <h1 class="text-4xl font-black text-white mb-2 text-center tracking-tight">Create your account</h1>
+    <p class="text-slate-400 text-sm text-center mb-8 max-w-sm">Start your journey to a 700+ score with our focused prep platform.</p>
+
+    <div class="auth-card w-full max-w-[420px] p-8">
+      <div id="signup-error" class="hidden mb-5 p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 text-sm text-center"></div>
+      <div id="signup-success" class="hidden mb-5 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm text-center"></div>
+
+      <div class="mb-4">
+        <label class="block text-sm font-semibold text-slate-300 mb-2">Email address</label>
+        <div class="relative">
+          <span class="material-symbols-outlined input-icon">mail</span>
+          <input id="signup-email" type="email" placeholder="name@example.com" class="auth-input"/>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-sm font-semibold text-slate-300 mb-2">Password</label>
+        <div class="relative">
+          <span class="material-symbols-outlined input-icon">lock</span>
+          <input id="signup-password" type="password" placeholder="••••••••" class="auth-input" style="padding-right:44px"/>
+          <button onclick="togglePw('signup-password', this)"
+            class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 transition-colors">
+            <span class="material-symbols-outlined text-lg leading-none">visibility</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="mb-6">
+        <label class="block text-sm font-semibold text-slate-300 mb-2">Confirm Password</label>
+        <div class="relative">
+          <span class="material-symbols-outlined input-icon">shield</span>
+          <input id="signup-confirm" type="password" placeholder="••••••••" class="auth-input"
+            onkeydown="if(event.key==='Enter') handleSignup()"/>
+        </div>
+      </div>
+
+      <button id="btn-signup" onclick="handleSignup()"
+        class="w-full bg-primary hover:bg-blue-500 active:bg-blue-600 text-white font-bold py-3.5 rounded-xl text-sm transition-all flex items-center justify-center gap-2 shadow-lg shadow-primary/25">
+        Create Account &nbsp;→
+      </button>
+
+      <div class="mt-4 text-center text-[10px] text-slate-600 uppercase tracking-widest font-bold">Secure Signup</div>
+
+      <p class="mt-3 text-center text-sm text-slate-400">
+        Already have an account?
+        <button onclick="showScreen('login')" class="text-primary font-bold hover:underline ml-1">Sign in</button>
+      </p>
+    </div>
+
+    <div class="mt-6 flex gap-8 text-[10px] text-slate-600 uppercase tracking-widest font-bold">
+      <span>🔒 AES-256 Encrypted</span>
+      <span>⚡ Dev-Friendly API</span>
+    </div>
+  </div>
+
+  <footer class="text-center py-3 text-[10px] text-slate-700 border-t border-white/5 shrink-0">
+    © 2025 GMAT TRAINER // VERSION 3.0.0-STABLE
+  </footer>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     MAIN APP
+═══════════════════════════════════════════ -->
+<div id="app-screen" class="hidden">
+
+<header class="border-b border-slate-800 bg-card-dark sticky top-0 z-50">
   <div class="max-w-[1280px] mx-auto px-6 h-16 flex items-center justify-between gap-4">
     <div class="flex items-center gap-3 shrink-0">
       <div class="bg-primary p-1.5 rounded-lg">
-        <span class="material-symbols-outlined text-white text-xl leading-none">grid_view</span>
+        <span class="material-symbols-outlined text-white text-xl leading-none" style="font-variation-settings:'FILL' 1">school</span>
       </div>
-      <h2 class="text-lg font-bold tracking-tight hidden sm:block">GMAT Quant Pro</h2>
+      <h2 class="text-lg font-bold tracking-tight hidden sm:block">GMAT Trainer</h2>
     </div>
     <nav class="flex items-center gap-1">
       <button class="tab-btn active px-3 py-2 rounded-lg text-sm font-semibold transition-all" data-tab="practice">
@@ -74,48 +284,103 @@
         <span class="material-symbols-outlined text-primary text-sm leading-none">schedule</span>
         <span id="stat-time-today" class="text-xs font-bold">0s</span>
       </div>
+
+      <!-- User button -->
+      <div class="relative">
+        <button id="btn-user-menu" onclick="toggleUserDropdown()"
+          class="flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl px-3 py-2 transition-all">
+          <div id="user-avatar" class="size-7 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center text-primary text-xs font-black">?</div>
+          <span id="user-name-display" class="text-xs font-bold hidden sm:block max-w-[80px] truncate">User</span>
+          <span class="material-symbols-outlined text-slate-400 text-sm leading-none">expand_more</span>
+        </button>
+
+        <!-- Dropdown (matches screenshot 3) -->
+        <div id="user-dropdown" class="hidden absolute right-0 top-full mt-2 user-dropdown p-4 z-50 w-[280px]">
+
+          <!-- User info row -->
+          <div class="flex items-center gap-3 mb-4 pb-4 border-b border-white/5">
+            <div class="relative shrink-0">
+              <div id="dropdown-avatar" class="size-10 rounded-full bg-gradient-to-br from-primary to-blue-400 flex items-center justify-center text-white font-black text-sm">?</div>
+              <span class="absolute -bottom-0.5 -right-0.5 size-3 rounded-full bg-emerald-400 border-2 border-[#0d1526]"></span>
+            </div>
+            <div class="min-w-0">
+              <div id="dropdown-name" class="font-bold text-white text-sm truncate">—</div>
+              <div id="dropdown-email" class="text-xs text-slate-400 truncate">—</div>
+            </div>
+          </div>
+
+          <!-- Stat boxes -->
+          <div class="grid grid-cols-2 gap-2 mb-4">
+            <div class="stat-box-blue">
+              <div id="dropdown-streak" class="text-2xl font-black text-primary">0</div>
+              <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">Day Streak</div>
+            </div>
+            <div class="stat-box-dark">
+              <div id="dropdown-score" class="text-2xl font-black text-white">—</div>
+              <div class="text-[10px] font-bold text-primary uppercase tracking-wider mt-0.5">Predicted Score</div>
+            </div>
+          </div>
+
+          <!-- Logout -->
+          <button onclick="handleLogout()"
+            class="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-rose-400 hover:bg-rose-500/10 transition-all text-sm font-semibold">
+            <span class="material-symbols-outlined text-base leading-none">logout</span>
+            Log out
+          </button>
+
+          <!-- Footer -->
+          <div class="mt-3 pt-3 border-t border-white/5 flex justify-between items-center">
+            <span class="text-[10px] text-slate-600">GMAT Trainer v3.0.0</span>
+            <div class="flex gap-1"><span class="size-1.5 rounded-full bg-slate-700"></span><span class="size-1.5 rounded-full bg-slate-700"></span></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </header>
 
+<!-- Loading overlay -->
+<div id="loading-overlay" class="hidden fixed inset-0 z-[150] flex items-center justify-center bg-[#090e1d]/90 backdrop-blur-sm">
+  <div class="flex flex-col items-center gap-4">
+    <div class="size-12 border-4 border-primary border-t-transparent rounded-full spin"></div>
+    <p class="text-sm text-slate-400">Loading your progress…</p>
+  </div>
+</div>
+
 <div class="max-w-[1280px] mx-auto px-4 sm:px-6 py-6">
 
-<!-- ── PRACTICE TAB ── -->
+<!-- PRACTICE TAB -->
 <div id="tab-practice" class="tab-panel active">
   <div class="flex gap-6 xl:gap-8">
     <section class="flex-1 min-w-0 flex flex-col gap-5">
-
-      <!-- Controls Bar -->
       <div class="flex flex-wrap items-center gap-3">
-        <div class="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl border border-slate-200 dark:border-slate-700">
+        <div class="flex items-center gap-1 bg-slate-800 p-1 rounded-xl border border-slate-700">
           <button class="mode-btn active px-3 py-1.5 rounded-lg text-xs font-bold transition-all" data-mode="all">All</button>
           <button class="mode-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all" data-mode="new">New</button>
           <button class="mode-btn px-3 py-1.5 rounded-lg text-xs font-bold transition-all" data-mode="weak">Weak</button>
         </div>
-        <select id="topic-filter" class="h-9 px-3 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-medium focus:ring-2 focus:ring-primary focus:outline-none max-w-[200px]">
+        <select id="topic-filter" class="h-9 px-3 rounded-xl bg-slate-800 border border-slate-700 text-xs font-medium focus:ring-2 focus:ring-primary focus:outline-none max-w-[200px] text-slate-100">
           <option value="all">All Topics</option>
         </select>
         <div class="flex items-center gap-2 ml-auto flex-wrap">
           <span id="practice-session-label" class="text-xs font-bold text-amber-500"></span>
-          <div class="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 min-w-[76px] justify-center">
+          <div class="flex items-center gap-1.5 bg-slate-800 px-3 py-1.5 rounded-xl border border-slate-700 min-w-[76px] justify-center">
             <span class="material-symbols-outlined text-primary text-sm leading-none">timer</span>
             <span id="practice-timer" class="text-sm font-bold text-primary tabular-nums">0:00</span>
           </div>
-          <button id="btn-dashboard-drill" class="flex items-center gap-1.5 h-9 px-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 text-xs font-bold hover:bg-amber-500/20 transition-all">
+          <button id="btn-dashboard-drill" class="flex items-center gap-1.5 h-9 px-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-bold hover:bg-amber-500/20 transition-all">
             <span class="material-symbols-outlined text-sm leading-none">bolt</span>Drill
           </button>
-          <button id="btn-next" class="flex items-center gap-1.5 h-9 px-3 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">
+          <button id="btn-next" class="flex items-center gap-1.5 h-9 px-3 rounded-xl bg-slate-800 border border-slate-700 text-xs font-bold hover:bg-slate-700 transition-all">
             <span class="material-symbols-outlined text-sm leading-none">skip_next</span>Skip
           </button>
         </div>
       </div>
 
-      <!-- Flashcard -->
       <div class="w-full max-w-[700px] mx-auto flex flex-col gap-5">
-        <!-- Meta row -->
         <div class="flex items-center justify-between gap-3 flex-wrap">
           <div class="flex items-center gap-2">
-            <div class="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 max-w-[240px]">
+            <div class="flex items-center gap-1.5 bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700 max-w-[240px]">
               <span class="material-symbols-outlined text-primary text-sm leading-none">label</span>
               <span id="card-topic" class="text-xs font-semibold truncate"></span>
             </div>
@@ -124,170 +389,109 @@
           <span id="card-sr-badge" class="pill-sr"></span>
         </div>
 
-        <!-- Card body -->
-        <article class="bg-white dark:bg-card-dark rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 min-h-[340px] p-8 sm:p-12 flex flex-col items-center justify-center text-center relative overflow-hidden">
+        <article class="bg-card-dark rounded-2xl shadow-2xl border border-slate-800 min-h-[340px] p-8 sm:p-12 flex flex-col items-center justify-center text-center relative overflow-hidden">
           <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary/20 via-primary to-primary/20"></div>
-          <p id="card-question" class="text-xl sm:text-2xl font-medium leading-relaxed text-slate-900 dark:text-slate-100 whitespace-pre-wrap w-full"></p>
+          <p id="card-question" class="text-xl sm:text-2xl font-medium leading-relaxed text-slate-100 whitespace-pre-wrap w-full"></p>
           <div id="card-answer" class="hidden w-full mt-6">
-            <div class="h-px bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-700 to-transparent mb-5"></div>
-            <p class="text-base sm:text-lg text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap text-left answer-text"></p>
+            <div class="h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent mb-5"></div>
+            <p class="text-base sm:text-lg text-slate-300 leading-relaxed whitespace-pre-wrap text-left answer-text"></p>
           </div>
         </article>
+        <p id="card-stats" class="text-center text-xs text-slate-500"></p>
 
-        <p id="card-stats" class="text-center text-xs text-slate-500 dark:text-slate-400"></p>
-
-        <!-- Show Answer -->
-        <button id="btn-show-answer" class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 rounded-xl text-base shadow-lg shadow-primary/20 transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+        <button id="btn-show-answer" class="w-full bg-primary hover:bg-blue-500 text-white font-bold py-4 rounded-xl text-base shadow-lg shadow-primary/20 transition-all active:scale-[0.98] flex items-center justify-center gap-2">
           <span class="material-symbols-outlined">visibility</span>
           Show Answer
           <span class="ml-1 text-xs opacity-70 font-medium px-2 py-0.5 bg-white/20 rounded">SPACE</span>
         </button>
 
-        <!-- Rating Buttons -->
         <div id="rating-buttons" class="locked grid grid-cols-3 gap-4">
           <button id="btn-wrong" class="flex flex-col items-center gap-2 p-4 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-500 hover:bg-rose-500/20 transition-all active:scale-[0.97]">
-            <span class="material-symbols-outlined text-3xl">close</span>
-            <span class="font-bold text-sm">Wrong</span>
-            <span class="text-[10px] opacity-70">KEY [1]</span>
+            <span class="material-symbols-outlined text-3xl">close</span><span class="font-bold text-sm">Wrong</span><span class="text-[10px] opacity-70">KEY [1]</span>
           </button>
           <button id="btn-lucky" class="flex flex-col items-center gap-2 p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-500 hover:bg-amber-500/20 transition-all active:scale-[0.97]">
-            <span class="material-symbols-outlined text-3xl">help</span>
-            <span class="font-bold text-sm">Lucky</span>
-            <span class="text-[10px] opacity-70">KEY [2]</span>
+            <span class="material-symbols-outlined text-3xl">help</span><span class="font-bold text-sm">Lucky</span><span class="text-[10px] opacity-70">KEY [2]</span>
           </button>
           <button id="btn-correct" class="flex flex-col items-center gap-2 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 hover:bg-emerald-500/20 transition-all active:scale-[0.97]">
-            <span class="material-symbols-outlined text-3xl">check</span>
-            <span class="font-bold text-sm">Correct</span>
-            <span class="text-[10px] opacity-70">KEY [3]</span>
+            <span class="material-symbols-outlined text-3xl">check</span><span class="font-bold text-sm">Correct</span><span class="text-[10px] opacity-70">KEY [3]</span>
           </button>
         </div>
-      </div><!-- /card area -->
+      </div>
+    </section>
 
-    </section><!-- /left column -->
-
-    <!-- Right Aside -->
     <aside class="w-[300px] xl:w-[320px] shrink-0 flex-col gap-5 sticky top-24 h-fit hidden lg:flex">
-
-      <!-- Daily Goal -->
-      <div class="bg-white dark:bg-card-dark p-5 rounded-xl border border-slate-200 dark:border-slate-800">
+      <div class="bg-card-dark p-5 rounded-xl border border-slate-800">
         <div class="flex items-center justify-between mb-3">
           <h3 class="text-sm font-bold">Today</h3>
-          <span class="text-xs font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full">
-            Acc: <span id="snapshot-accuracy-today">—</span>
-          </span>
+          <span class="text-xs font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full">Acc: <span id="snapshot-accuracy-today">—</span></span>
         </div>
-        <div class="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+        <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
           <div id="daily-goal-bar" class="bg-primary h-full rounded-full transition-all duration-500" style="width:0%"></div>
         </div>
-        <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">
-          Avg/Q: <span id="snapshot-time-per-question" class="font-semibold text-slate-700 dark:text-slate-300">—</span>
-        </p>
+        <p class="mt-2 text-xs text-slate-500">Avg/Q: <span id="snapshot-time-per-question" class="font-semibold text-slate-300">—</span></p>
       </div>
-
-      <!-- Weak Topics -->
-      <div class="bg-white dark:bg-card-dark p-5 rounded-xl border border-slate-200 dark:border-slate-800">
-        <h3 class="text-sm font-bold mb-3 flex items-center gap-2">
-          <span class="material-symbols-outlined text-primary text-lg leading-none">trending_down</span>
-          Weak Topics
-        </h3>
+      <div class="bg-card-dark p-5 rounded-xl border border-slate-800">
+        <h3 class="text-sm font-bold mb-3 flex items-center gap-2"><span class="material-symbols-outlined text-primary text-lg leading-none">trending_down</span>Weak Topics</h3>
         <div id="weak-topics-panel" class="flex flex-col gap-3 text-xs text-slate-500">No data yet.</div>
       </div>
-
-      <!-- Session Stats -->
-      <div class="bg-white dark:bg-card-dark p-5 rounded-xl border border-slate-200 dark:border-slate-800">
+      <div class="bg-card-dark p-5 rounded-xl border border-slate-800">
         <h3 class="text-sm font-bold mb-3">Session Stats</h3>
         <div class="grid grid-cols-2 gap-3">
-          <div class="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl text-center">
-            <span id="ss-seen" class="block text-2xl font-bold">0</span>
-            <span class="text-[10px] uppercase font-bold text-slate-500">Solved</span>
-          </div>
-          <div class="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl text-center">
-            <span id="ss-correct" class="block text-2xl font-bold text-emerald-500">0</span>
-            <span class="text-[10px] uppercase font-bold text-slate-500">Correct</span>
-          </div>
-          <div class="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl text-center">
-            <span id="ss-xp" class="block text-2xl font-bold text-yellow-500">0</span>
-            <span class="text-[10px] uppercase font-bold text-slate-500">XP Today</span>
-          </div>
-          <div class="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl text-center">
-            <span id="ss-next-review" class="block text-xs font-bold text-primary break-words">—</span>
-            <span class="text-[10px] uppercase font-bold text-slate-500">Next Review</span>
-          </div>
+          <div class="p-3 bg-slate-800/50 rounded-xl text-center"><span id="ss-seen" class="block text-2xl font-bold">0</span><span class="text-[10px] uppercase font-bold text-slate-500">Solved</span></div>
+          <div class="p-3 bg-slate-800/50 rounded-xl text-center"><span id="ss-correct" class="block text-2xl font-bold text-emerald-500">0</span><span class="text-[10px] uppercase font-bold text-slate-500">Correct</span></div>
+          <div class="p-3 bg-slate-800/50 rounded-xl text-center"><span id="ss-xp" class="block text-2xl font-bold text-yellow-500">0</span><span class="text-[10px] uppercase font-bold text-slate-500">XP Today</span></div>
+          <div class="p-3 bg-slate-800/50 rounded-xl text-center"><span id="ss-next-review" class="block text-xs font-bold text-primary break-words">—</span><span class="text-[10px] uppercase font-bold text-slate-500">Next Review</span></div>
         </div>
       </div>
-
-      <!-- SR Counts -->
-      <div class="bg-white dark:bg-card-dark p-5 rounded-xl border border-slate-200 dark:border-slate-800">
-        <h3 class="text-sm font-bold mb-3 flex items-center gap-2">
-          <span class="material-symbols-outlined text-primary text-lg leading-none">layers</span>
-          Spaced Repetition
-        </h3>
+      <div class="bg-card-dark p-5 rounded-xl border border-slate-800">
+        <h3 class="text-sm font-bold mb-3 flex items-center gap-2"><span class="material-symbols-outlined text-primary text-lg leading-none">layers</span>Spaced Repetition</h3>
         <div class="flex gap-3">
-          <div class="flex-1 p-3 bg-amber-500/10 border border-amber-500/20 rounded-xl text-center">
-            <span id="sr-due-count" class="block text-xl font-bold text-amber-500">0</span>
-            <span class="text-[10px] uppercase font-bold text-slate-500">Due</span>
-          </div>
-          <div class="flex-1 p-3 bg-primary/10 border border-primary/20 rounded-xl text-center">
-            <span id="sr-new-count" class="block text-xl font-bold text-primary">0</span>
-            <span class="text-[10px] uppercase font-bold text-slate-500">New</span>
-          </div>
+          <div class="flex-1 p-3 bg-amber-500/10 border border-amber-500/20 rounded-xl text-center"><span id="sr-due-count" class="block text-xl font-bold text-amber-500">0</span><span class="text-[10px] uppercase font-bold text-slate-500">Due</span></div>
+          <div class="flex-1 p-3 bg-primary/10 border border-primary/20 rounded-xl text-center"><span id="sr-new-count" class="block text-xl font-bold text-primary">0</span><span class="text-[10px] uppercase font-bold text-slate-500">New</span></div>
         </div>
       </div>
-
-      <!-- Coach tip -->
       <div class="bg-gradient-to-br from-primary/10 to-transparent p-5 rounded-xl border border-primary/20 flex gap-3 items-start">
         <div class="size-10 rounded-full bg-primary/20 shrink-0 flex items-center justify-center border border-primary/40">
           <span class="material-symbols-outlined text-primary text-lg leading-none">smart_toy</span>
         </div>
         <div>
           <h4 class="text-xs font-bold text-primary mb-1">Coach Quant</h4>
-          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed italic">Use prime factorization for divisibility. Check each statement independently in DS questions.</p>
+          <p class="text-xs text-slate-400 leading-relaxed italic">Use prime factorization for divisibility. Check each statement independently in DS questions.</p>
         </div>
       </div>
-
-      <!-- Quick Actions -->
       <div class="flex flex-col gap-2">
         <button id="btn-practice-weak" class="mode-btn flex items-center justify-center gap-2 py-2.5 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-500 text-xs font-bold hover:bg-rose-500/20 transition-all" data-mode="weak">
           <span class="material-symbols-outlined text-sm leading-none">trending_down</span>Practice Weak Topics
         </button>
-        <button id="btn-dashboard-errors" class="tab-btn-action flex items-center justify-center gap-2 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">
+        <button id="btn-dashboard-errors" class="tab-btn-action flex items-center justify-center gap-2 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-xs font-bold hover:bg-slate-700 transition-all">
           <span class="material-symbols-outlined text-sm leading-none">error</span>View Error Log
         </button>
         <button id="btn-reset-progress" class="flex items-center justify-center gap-1.5 py-2 rounded-xl border border-rose-500/20 text-rose-400 text-xs font-bold hover:bg-rose-500/10 transition-all">
           <span class="material-symbols-outlined text-sm leading-none">restart_alt</span>Reset All Progress
         </button>
       </div>
-
-    </aside><!-- /right aside -->
-  </div><!-- /flex -->
-
-  <!-- Hidden legacy buttons for app.js compatibility -->
+    </aside>
+  </div>
   <span class="hidden">
     <button id="btn-dashboard-continue"></button>
     <button id="btn-dashboard-weak" class="mode-btn" data-mode="weak"></button>
   </span>
-</div><!-- /tab-practice -->
+</div>
 
-
-<!-- ── ERROR LOG TAB ── -->
+<!-- ERROR LOG TAB -->
 <div id="tab-errors" class="tab-panel">
   <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-
     <div class="lg:col-span-8 flex flex-col gap-4">
       <div class="flex items-center justify-between flex-wrap gap-3">
-        <div>
-          <h1 class="text-2xl font-black tracking-tight">Error Log</h1>
-          <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Review your mistakes and retry them.</p>
-        </div>
-        <button class="flex items-center gap-2 bg-primary text-white px-4 py-2.5 rounded-xl font-bold text-sm hover:bg-primary/90 transition-all" onclick="document.querySelector('.tab-btn[data-tab=practice]').click()">
+        <div><h1 class="text-2xl font-black">Error Log</h1><p class="text-sm text-slate-400 mt-1">Review your mistakes and retry them.</p></div>
+        <button class="flex items-center gap-2 bg-primary text-white px-4 py-2.5 rounded-xl font-bold text-sm hover:bg-blue-500 transition-all" onclick="document.querySelector('.tab-btn[data-tab=practice]').click()">
           <span class="material-symbols-outlined text-sm leading-none">play_circle</span>Practice All
         </button>
       </div>
-
-      <div class="bg-white dark:bg-card-dark rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
+      <div class="bg-card-dark rounded-xl border border-slate-800 overflow-hidden">
         <div class="overflow-x-auto">
           <table class="w-full text-left" id="errors-table">
-            <thead class="bg-slate-50 dark:bg-slate-800/50">
+            <thead class="bg-slate-800/50">
               <tr>
                 <th class="px-5 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Question &amp; Topic</th>
                 <th class="px-5 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Last Attempt</th>
@@ -295,60 +499,38 @@
                 <th class="px-5 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Action</th>
               </tr>
             </thead>
-            <tbody class="divide-y divide-slate-100 dark:divide-slate-800"></tbody>
+            <tbody class="divide-y divide-slate-800"></tbody>
           </table>
         </div>
       </div>
     </div>
-
     <aside class="lg:col-span-4 flex flex-col gap-5">
-
-      <div class="bg-white dark:bg-card-dark p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
-        <div class="flex items-center gap-2 mb-4">
-          <span class="material-symbols-outlined text-primary text-lg leading-none">psychology</span>
-          <h3 class="text-xs font-bold uppercase tracking-wider">Review Strategy</h3>
-        </div>
-        <div class="p-4 rounded-lg bg-blue-50 dark:bg-primary/10 border-l-4 border-primary">
-          <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
-            Focus on your weakest topics first. Spaced repetition cards due now yield the biggest gains.
-          </p>
-        </div>
+      <div class="bg-card-dark p-5 rounded-xl border border-slate-800">
+        <div class="flex items-center gap-2 mb-4"><span class="material-symbols-outlined text-primary text-lg leading-none">psychology</span><h3 class="text-xs font-bold uppercase tracking-wider">Review Strategy</h3></div>
+        <div class="p-4 rounded-lg bg-primary/10 border-l-4 border-primary"><p class="text-sm text-slate-300 leading-relaxed">Focus on your weakest topics first. Spaced repetition cards due now yield the biggest gains.</p></div>
       </div>
-
-      <div class="bg-white dark:bg-card-dark p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
-        <div class="flex items-center gap-2 mb-4">
-          <span class="material-symbols-outlined text-primary text-lg leading-none">analytics</span>
-          <h3 class="text-xs font-bold uppercase tracking-wider">Mistake Distribution</h3>
-        </div>
+      <div class="bg-card-dark p-5 rounded-xl border border-slate-800">
+        <div class="flex items-center gap-2 mb-4"><span class="material-symbols-outlined text-primary text-lg leading-none">analytics</span><h3 class="text-xs font-bold uppercase tracking-wider">Mistake Distribution</h3></div>
         <p id="mistake-breakdown" class="text-xs text-slate-500 mb-3">No mistakes logged yet.</p>
         <canvas id="mistake-chart" height="130"></canvas>
       </div>
-
-      <div class="bg-white dark:bg-card-dark p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
-        <div class="flex items-center gap-2 mb-3">
-          <span class="material-symbols-outlined text-rose-500 text-lg leading-none">trending_down</span>
-          <h3 class="text-xs font-bold uppercase tracking-wider">Weakest Topics</h3>
-        </div>
+      <div class="bg-card-dark p-5 rounded-xl border border-slate-800">
+        <div class="flex items-center gap-2 mb-3"><span class="material-symbols-outlined text-rose-500 text-lg leading-none">trending_down</span><h3 class="text-xs font-bold uppercase tracking-wider">Weakest Topics</h3></div>
         <p id="weak-topics" class="text-xs text-slate-500 leading-relaxed">Not enough data yet.</p>
       </div>
-
     </aside>
   </div>
-</div><!-- /tab-errors -->
+</div>
 
-
-<!-- ── ALL CARDS TAB ── -->
+<!-- ALL CARDS TAB -->
 <div id="tab-all-cards" class="tab-panel">
   <div class="flex items-center justify-between mb-5 flex-wrap gap-3">
-    <div>
-      <h1 class="text-2xl font-black tracking-tight">All Flashcards</h1>
-      <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Your complete card library.</p>
-    </div>
+    <div><h1 class="text-2xl font-black">All Flashcards</h1><p class="text-sm text-slate-400 mt-1">Your complete card library.</p></div>
   </div>
-  <div class="bg-white dark:bg-card-dark rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
+  <div class="bg-card-dark rounded-xl border border-slate-800 overflow-hidden">
     <div class="overflow-x-auto">
       <table class="w-full text-left" id="all-cards-table">
-        <thead class="bg-slate-50 dark:bg-slate-800/50">
+        <thead class="bg-slate-800/50">
           <tr>
             <th class="px-5 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider w-14">#</th>
             <th class="px-5 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Topic</th>
@@ -358,36 +540,27 @@
             <th class="px-5 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Action</th>
           </tr>
         </thead>
-        <tbody class="divide-y divide-slate-100 dark:divide-slate-800"></tbody>
+        <tbody class="divide-y divide-slate-800"></tbody>
       </table>
     </div>
   </div>
-</div><!-- /tab-all-cards -->
+</div>
 
-
-<!-- ── ANALYTICS TAB ── -->
+<!-- ANALYTICS TAB -->
 <div id="tab-analytics" class="tab-panel">
   <div class="flex items-center justify-between mb-6 flex-wrap gap-3">
-    <div>
-      <h1 class="text-2xl font-black tracking-tight">Performance Analytics</h1>
-      <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Your learning trajectory over time.</p>
-    </div>
-    <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+    <div><h1 class="text-2xl font-black">Performance Analytics</h1><p class="text-sm text-slate-400 mt-1">Your learning trajectory over time.</p></div>
+    <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700">
       <span class="material-symbols-outlined text-yellow-500 text-sm leading-none">bolt</span>
       <span id="analytics-streak-label" class="text-xs font-bold">0 Day Streak</span>
     </div>
   </div>
-
-  <!-- Streak Calendar -->
-  <section class="bg-white dark:bg-card-dark border border-slate-200 dark:border-slate-800 rounded-xl p-6 mb-6">
+  <section class="bg-card-dark border border-slate-800 rounded-xl p-6 mb-6">
     <div class="flex justify-between items-end mb-4 flex-wrap gap-2">
-      <div>
-        <h3 class="font-bold">Practice Consistency</h3>
-        <p class="text-xs text-slate-500 mt-0.5">Daily activity — last 30 days</p>
-      </div>
+      <div><h3 class="font-bold">Practice Consistency</h3><p class="text-xs text-slate-500 mt-0.5">Daily activity — last 30 days</p></div>
       <div class="flex gap-1 items-center">
         <span class="text-[10px] text-slate-500 mr-1">Less</span>
-        <div class="size-3 rounded-sm bg-slate-200 dark:bg-slate-700"></div>
+        <div class="size-3 rounded-sm bg-slate-700"></div>
         <div class="size-3 rounded-sm bg-primary/25"></div>
         <div class="size-3 rounded-sm bg-primary/55"></div>
         <div class="size-3 rounded-sm bg-primary/80"></div>
@@ -397,97 +570,47 @@
     </div>
     <div id="streak-calendar" class="flex flex-wrap gap-1.5"></div>
   </section>
-
-  <!-- Charts -->
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-    <div class="bg-white dark:bg-card-dark border border-slate-200 dark:border-slate-800 rounded-xl p-6">
-      <h3 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">Accuracy Trend (%)</h3>
-      <canvas id="accuracy-chart" height="160"></canvas>
-    </div>
-    <div class="bg-white dark:bg-card-dark border border-slate-200 dark:border-slate-800 rounded-xl p-6">
-      <h3 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">Daily Time (min)</h3>
-      <canvas id="time-chart" height="160"></canvas>
-    </div>
+    <div class="bg-card-dark border border-slate-800 rounded-xl p-6"><h3 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">Accuracy Trend (%)</h3><canvas id="accuracy-chart" height="160"></canvas></div>
+    <div class="bg-card-dark border border-slate-800 rounded-xl p-6"><h3 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">Daily Time (min)</h3><canvas id="time-chart" height="160"></canvas></div>
   </div>
-
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-    <div class="lg:col-span-2 bg-white dark:bg-card-dark border border-slate-200 dark:border-slate-800 rounded-xl p-6">
-      <h3 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">Cards Reviewed / Day</h3>
-      <canvas id="cards-chart" height="160"></canvas>
-    </div>
-    <div class="bg-white dark:bg-card-dark border border-slate-200 dark:border-slate-800 rounded-xl p-6">
-      <h3 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">Topic Weaknesses</h3>
-      <div id="analytics-topic-list" class="space-y-3 text-xs text-slate-500">No data yet.</div>
-    </div>
+    <div class="lg:col-span-2 bg-card-dark border border-slate-800 rounded-xl p-6"><h3 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">Cards Reviewed / Day</h3><canvas id="cards-chart" height="160"></canvas></div>
+    <div class="bg-card-dark border border-slate-800 rounded-xl p-6"><h3 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">Topic Weaknesses</h3><div id="analytics-topic-list" class="space-y-3 text-xs text-slate-500">No data yet.</div></div>
   </div>
-</div><!-- /tab-analytics -->
+</div>
 
 </div><!-- /container -->
 
-<!-- Footer -->
-<footer class="max-w-[1280px] mx-auto px-6 py-4 flex justify-between items-center flex-wrap gap-2 text-slate-500 text-[10px] font-bold uppercase tracking-widest border-t border-slate-200 dark:border-slate-800 mt-4">
-  <div class="flex gap-4 flex-wrap">
-    <span>Shortcuts:</span>
-    <span>[Space] Answer</span>
-    <span>[1] Wrong · [2] Lucky · [3] Correct</span>
-    <span>[N] Next</span>
-  </div>
-  <span>GMAT Quant Pro v5</span>
+<footer class="max-w-[1280px] mx-auto px-6 py-4 flex justify-between items-center flex-wrap gap-2 text-slate-600 text-[10px] font-bold uppercase tracking-widest border-t border-slate-800 mt-4">
+  <div class="flex gap-4 flex-wrap"><span>Shortcuts:</span><span>[Space] Answer</span><span>[1] Wrong · [2] Lucky · [3] Correct</span><span>[N] Next</span></div>
+  <span>GMAT Trainer v3.0</span>
 </footer>
+
+</div><!-- /app-screen -->
 
 
 <!-- MODAL: MISTAKE TYPE -->
 <div id="mistake-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
-  <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" id="btn-mistake-cancel"></div>
-  <div class="relative bg-white dark:bg-card-dark rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 p-6 w-full max-w-md z-10">
+  <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" id="btn-mistake-cancel"></div>
+  <div class="relative bg-card-dark rounded-2xl shadow-2xl border border-slate-700 p-6 w-full max-w-md z-10">
     <h3 class="text-lg font-bold mb-1 text-center">What went wrong?</h3>
     <p class="text-sm text-slate-500 text-center mb-5">Categorise your mistake to improve faster.</p>
     <div class="flex flex-col gap-2">
-      <button class="modal-reason flex items-center gap-3 p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-primary hover:bg-primary/5 transition-all text-left" data-reason="concept_gap">
-        <span class="material-symbols-outlined text-rose-500 text-xl leading-none">psychology</span>
-        <div>
-          <div class="text-sm font-semibold">Conceptual Gap</div>
-          <div class="text-xs text-slate-500">Didn't know the concept</div>
-        </div>
-      </button>
-      <button class="modal-reason flex items-center gap-3 p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-primary hover:bg-primary/5 transition-all text-left" data-reason="careless">
-        <span class="material-symbols-outlined text-amber-500 text-xl leading-none">warning</span>
-        <div>
-          <div class="text-sm font-semibold">Careless Mistake</div>
-          <div class="text-xs text-slate-500">Silly arithmetic or reading error</div>
-        </div>
-      </button>
-      <button class="modal-reason flex items-center gap-3 p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-primary hover:bg-primary/5 transition-all text-left" data-reason="misread">
-        <span class="material-symbols-outlined text-blue-500 text-xl leading-none">menu_book</span>
-        <div>
-          <div class="text-sm font-semibold">Misread Question</div>
-          <div class="text-xs text-slate-500">Missed a key condition</div>
-        </div>
-      </button>
-      <button class="modal-reason flex items-center gap-3 p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-primary hover:bg-primary/5 transition-all text-left" data-reason="slow_strategy">
-        <span class="material-symbols-outlined text-orange-500 text-xl leading-none">hourglass_empty</span>
-        <div>
-          <div class="text-sm font-semibold">Timing Pressure</div>
-          <div class="text-xs text-slate-500">Ran out of time</div>
-        </div>
-      </button>
-      <button class="modal-reason flex items-center gap-3 p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-primary hover:bg-primary/5 transition-all text-left" data-reason="no_shortcut">
-        <span class="material-symbols-outlined text-purple-500 text-xl leading-none">route</span>
-        <div>
-          <div class="text-sm font-semibold">No Shortcut Known</div>
-          <div class="text-xs text-slate-500">Used a slow method</div>
-        </div>
-      </button>
+      <button class="modal-reason flex items-center gap-3 p-3.5 rounded-xl bg-slate-800 border border-slate-700 hover:border-primary hover:bg-primary/5 transition-all text-left" data-reason="concept_gap"><span class="material-symbols-outlined text-rose-500 text-xl leading-none">psychology</span><div><div class="text-sm font-semibold">Conceptual Gap</div><div class="text-xs text-slate-500">Didn't know the concept</div></div></button>
+      <button class="modal-reason flex items-center gap-3 p-3.5 rounded-xl bg-slate-800 border border-slate-700 hover:border-primary hover:bg-primary/5 transition-all text-left" data-reason="careless"><span class="material-symbols-outlined text-amber-500 text-xl leading-none">warning</span><div><div class="text-sm font-semibold">Careless Mistake</div><div class="text-xs text-slate-500">Silly arithmetic or reading error</div></div></button>
+      <button class="modal-reason flex items-center gap-3 p-3.5 rounded-xl bg-slate-800 border border-slate-700 hover:border-primary hover:bg-primary/5 transition-all text-left" data-reason="misread"><span class="material-symbols-outlined text-blue-500 text-xl leading-none">menu_book</span><div><div class="text-sm font-semibold">Misread Question</div><div class="text-xs text-slate-500">Missed a key condition</div></div></button>
+      <button class="modal-reason flex items-center gap-3 p-3.5 rounded-xl bg-slate-800 border border-slate-700 hover:border-primary hover:bg-primary/5 transition-all text-left" data-reason="slow_strategy"><span class="material-symbols-outlined text-orange-500 text-xl leading-none">hourglass_empty</span><div><div class="text-sm font-semibold">Timing Pressure</div><div class="text-xs text-slate-500">Ran out of time</div></div></button>
+      <button class="modal-reason flex items-center gap-3 p-3.5 rounded-xl bg-slate-800 border border-slate-700 hover:border-primary hover:bg-primary/5 transition-all text-left" data-reason="no_shortcut"><span class="material-symbols-outlined text-purple-500 text-xl leading-none">route</span><div><div class="text-sm font-semibold">No Shortcut Known</div><div class="text-xs text-slate-500">Used a slow method</div></div></button>
     </div>
-    <button id="btn-mistake-cancel-btn" class="mt-4 w-full py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-sm font-medium text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">Cancel</button>
+    <button id="btn-mistake-cancel-btn" class="mt-4 w-full py-2.5 rounded-xl border border-slate-700 text-sm font-medium text-slate-500 hover:bg-slate-800 transition-all">Cancel</button>
   </div>
 </div>
 
-
 <!-- MODAL: DRILL RESULTS -->
 <div id="drill-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4">
-  <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
-  <div class="relative bg-white dark:bg-card-dark rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 p-7 w-full max-w-sm z-10">
+  <div class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+  <div class="relative bg-card-dark rounded-2xl shadow-2xl border border-slate-700 p-7 w-full max-w-sm z-10">
     <div class="text-center mb-5">
       <div class="inline-flex items-center justify-center size-14 rounded-full bg-primary/10 border border-primary/20 mb-3">
         <span class="material-symbols-outlined text-primary text-2xl">bolt</span>
@@ -495,12 +618,12 @@
       <h3 class="text-xl font-bold">Speed Drill Complete!</h3>
     </div>
     <div id="drill-results" class="space-y-2 mb-5"></div>
-    <button id="btn-drill-close" class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 rounded-xl transition-all">
-      Continue Practicing
-    </button>
+    <button id="btn-drill-close" class="w-full bg-primary hover:bg-blue-500 text-white font-bold py-3 rounded-xl transition-all">Continue Practicing</button>
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="auth.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
