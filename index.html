@@ -48,7 +48,7 @@
     background: rgba(255,255,255,0.05) !important;
     border: 1.5px solid rgba(255,255,255,0.1);
     border-radius: 12px;
-    padding: 13px 14px 13px 48px;
+    padding: 13px 14px 13px 50px;
     font-size: 14px;
     color: #fff !important;
     outline: none;
@@ -73,19 +73,30 @@
   }
   .input-icon {
     position: absolute;
-    left: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: rgba(255,255,255,0.35);
-    font-size: 20px;
-    pointer-events: none;
-    z-index: 1;
-    line-height: 1;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 46px;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 22px;
-    height: 22px;
+    color: rgba(255,255,255,0.4);
+    font-size: 19px;
+    pointer-events: none;
+    z-index: 10;
+    background: transparent;
+  }
+  /* Guarantee icon always shows above autofill chrome overlay */
+  .input-wrap { position: relative; }
+  .input-wrap::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 46px;
+    border-radius: 12px 0 0 12px;
+    background: transparent;
+    pointer-events: none;
+    z-index: 9;
   }
 
   /* Spinner */
