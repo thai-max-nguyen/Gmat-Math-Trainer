@@ -967,6 +967,13 @@ window.initAppWithCloudData = function() {
   rebuildErrorsTable();
   rebuildAllCardsTable();
   loadNextCard();
+
+  // Guarantee loading overlay is hidden after init
+  const overlay = document.getElementById("loading-overlay");
+  if (overlay) {
+    overlay.classList.add("hidden");
+    overlay.style.display = "none";
+  }
 };
 
 document.addEventListener("DOMContentLoaded", () => {
