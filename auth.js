@@ -182,7 +182,6 @@ function updateUserUI(user, streakCount, predictedScore) {
 
 // ─── Data loading from Supabase ───────────────────
 async function loadUserProgress(userId) {
-  showLoading(true);
   try {
     const [statesRes, reviewsRes, streaksRes] = await Promise.all([
       window.sb.from("card_states").select("*").eq("user_id", userId),
@@ -197,8 +196,6 @@ async function loadUserProgress(userId) {
   } catch (e) {
     console.error("loadUserProgress error:", e);
     return { states: [], reviews: [], streaks: [] };
-  } finally {
-    showLoading(false);
   }
 }
 
@@ -302,6 +299,9 @@ window.sb.auth.onAuthStateChange(async (event, session) => {
   if (session?.user) {
     window.currentUser = session.user;
 
+    // Show a simple loading state on the login button instead of overlay
+    setBtnLoading("btn-login", true);
+
     const data = await loadUserProgress(session.user.id);
 
     window._supabaseProgress = buildProgressFromSupabase(data);
@@ -312,24 +312,30 @@ window.sb.auth.onAuthStateChange(async (event, session) => {
     const score  = calcPredictedScore(window._supabaseProgress);
 
     updateUserUI(session.user, streak, score);
+
+    // Show app FIRST, then init — so DOM is visible before we touch it
     showScreen("app");
 
-    // Wait for DOMContentLoaded to finish setting up app.js functions,
-    // then initialise. Retry up to 20 times (2 seconds total).
+    // Wait for app.js DOMContentLoaded to register initAppWithCloudData
     let tries = 0;
     const tryInit = () => {
       if (typeof window.initAppWithCloudData === "function") {
         window.initAppWithCloudData();
-      } else if (tries++ < 20) {
+        // Hide loading overlay AFTER init is done
+        showLoading(false);
+      } else if (tries++ < 30) {
         setTimeout(tryInit, 100);
       } else {
-        console.error("initAppWithCloudData never became available");
+        console.error("initAppWithCloudData never became available — check app.js loaded");
+        showLoading(false);
       }
     };
-    tryInit();
+    // Small delay so DOM has time to render app-screen
+    setTimeout(tryInit, 50);
 
   } else {
     window.currentUser = null;
+    showLoading(false);
     showScreen("login");
   }
 });
@@ -337,6 +343,9 @@ window.sb.auth.onAuthStateChange(async (event, session) => {
 // On page load, check for existing session
 (async () => {
   const { data: { session } } = await window.sb.auth.getSession();
-  if (!session) showScreen("login");
+  if (!session) {
+    showLoading(false);
+    showScreen("login");
+  }
   // If session exists, onAuthStateChange fires automatically
 })();
