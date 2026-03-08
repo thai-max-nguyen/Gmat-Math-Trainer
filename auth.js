@@ -55,18 +55,29 @@ function togglePw(inputId, btn) {
 async function handleLogin() {
   const email    = document.getElementById("login-email")?.value.trim();
   const password = document.getElementById("login-password")?.value;
+
+  // Clear all messages immediately
   setMsg("login", "error", "");
+  setMsg("login", "success", "");
+
   if (!email || !password) { setMsg("login", "error", "Please enter your email and password."); return; }
+
+  // Hide error box while loading — don't show anything during the request
+  const errEl = document.getElementById("login-error");
+  const sucEl = document.getElementById("login-success");
+  if (errEl) errEl.classList.add("hidden");
+  if (sucEl) sucEl.classList.add("hidden");
 
   setBtnLoading("btn-login", true);
   const { error } = await window.sb.auth.signInWithPassword({ email, password });
   setBtnLoading("btn-login", false, "Sign In &nbsp;→");
 
+  // Only show error AFTER request finishes and IF it actually failed
   if (error) {
-    const msg = error.message.includes("Invalid login") ? "Invalid email or password." : error.message;
+    const msg = error.message.includes("Invalid login") ? "❌ Invalid email or password." : error.message;
     setMsg("login", "error", msg);
   }
-  // Success → onAuthStateChange fires and loads the app
+  // Success → onAuthStateChange fires and loads the app automatically
 }
 
 async function handleSignup() {
@@ -297,15 +308,25 @@ window.sb.auth.onAuthStateChange(async (event, session) => {
     window._supabaseDaily    = buildDailyFromSupabase(data);
     window._supabaseAttempts = buildAttemptsFromSupabase(data);
 
-    const streak   = calcStreakFromDaily(window._supabaseDaily);
-    const score    = calcPredictedScore(window._supabaseProgress);
+    const streak = calcStreakFromDaily(window._supabaseDaily);
+    const score  = calcPredictedScore(window._supabaseProgress);
 
     updateUserUI(session.user, streak, score);
     showScreen("app");
 
-    if (typeof window.initAppWithCloudData === "function") {
-      window.initAppWithCloudData();
-    }
+    // Wait for DOMContentLoaded to finish setting up app.js functions,
+    // then initialise. Retry up to 20 times (2 seconds total).
+    let tries = 0;
+    const tryInit = () => {
+      if (typeof window.initAppWithCloudData === "function") {
+        window.initAppWithCloudData();
+      } else if (tries++ < 20) {
+        setTimeout(tryInit, 100);
+      } else {
+        console.error("initAppWithCloudData never became available");
+      }
+    };
+    tryInit();
 
   } else {
     window.currentUser = null;
