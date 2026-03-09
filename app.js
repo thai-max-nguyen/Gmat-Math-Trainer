@@ -1631,8 +1631,11 @@ window.gmatCards = FLASHCARDS.map(c => ({ id: c.id, topic: c.topic, q: c.questio
 //  MULTI-PAGE: initPage() called by auth.js
 // ═══════════════════════════════════════════════
 window.initPage = function() {
-  if (!document.getElementById('flashcard-box') && !document.getElementById('btn-show-answer')) return;
+  // Run cloud data init on every app page
   if (typeof window.initAppWithCloudData === 'function') window.initAppWithCloudData();
+
+  // Only run flashcard-specific UI on practice page
+  if (!document.getElementById('flashcard-box') && !document.getElementById('btn-show-answer')) return;
 
   const progress = _appProgress || {};
   const meta     = _appMeta     || {};

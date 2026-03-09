@@ -17,7 +17,17 @@ const _isAuthPage = window.location.pathname.endsWith("index.html")
 // ── Helpers ──────────────────────────────────────
 function showLoading(on) {
   const el = document.getElementById("loading-overlay");
-  if (el) { el.classList.toggle("hidden", !on); el.style.display = on ? "" : "none"; }
+  if (!el) return;
+  if (on) {
+    el.style.display = "flex";
+    el.classList.remove("hidden");
+  } else {
+    el.style.display = "none";
+    el.classList.add("hidden");
+    el.style.visibility = "hidden";
+    el.style.opacity = "0";
+    el.style.pointerEvents = "none";
+  }
 }
 
 function setMsg(prefix, type, msg) {
@@ -211,24 +221,19 @@ window.sb.auth.onAuthStateChange(async (event, session) => {
     // Update nav
     if (typeof window.updateNavUser === "function") window.updateNavUser(session.user, streak, score);
 
-    // Call page-specific init — poll until initPage exists
+    // Data is ready — now call initPage, polling until the function exists
     let tries = 0;
     const tryInit = () => {
       if (typeof window.initPage === "function") {
         try { window.initPage(); } catch(e) { console.error("initPage error:", e); }
         showLoading(false);
-      } else if (tries++ < 40) {
-        setTimeout(tryInit, 200);
+      } else if (tries++ < 50) {
+        setTimeout(tryInit, 100);
       } else {
-        showLoading(false); // give up waiting, just hide loader
+        showLoading(false);
       }
     };
-    // Wait for scripts to load first
-    if (document.readyState === "complete") {
-      setTimeout(tryInit, 200);
-    } else {
-      window.addEventListener("load", () => setTimeout(tryInit, 100));
-    }
+    tryInit();
 
   } else {
     window.currentUser = null;
