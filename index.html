@@ -140,7 +140,7 @@
 </div>
 
 <script>
-  function showAuthTab(tab) {
+  window.showAuthTab = function showAuthTab(tab) {
     const isLogin = tab === 'login';
     document.getElementById('screen-login').classList.toggle('hidden', !isLogin);
     document.getElementById('screen-signup').classList.toggle('hidden', isLogin);
@@ -150,6 +150,7 @@
   function showScreen(name) {
     showAuthTab(name === 'login' ? 'login' : 'signup');
   }
+  window.showScreen = showScreen;
   @keyframes bounce { from { transform:translateY(0); } to { transform:translateY(-4px); } }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>

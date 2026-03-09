@@ -97,9 +97,14 @@ async function handleLogout() {
 
 // ── Login page screen switching ──────────────────
 function showScreen(name) {
-  ["screen-login","screen-signup"].forEach(id => document.getElementById(id)?.classList.add("hidden"));
-  const map = { login:"screen-login", signup:"screen-signup" };
-  document.getElementById(map[name])?.classList.remove("hidden");
+  // Use showAuthTab if available (index.html), otherwise fallback
+  if (typeof window.showAuthTab === "function") {
+    window.showAuthTab(name);
+  } else {
+    ["screen-login","screen-signup"].forEach(id => document.getElementById(id)?.classList.add("hidden"));
+    const map = { login:"screen-login", signup:"screen-signup" };
+    document.getElementById(map[name])?.classList.remove("hidden");
+  }
 }
 
 // ── Data loading ─────────────────────────────────
@@ -206,20 +211,21 @@ window.sb.auth.onAuthStateChange(async (event, session) => {
     // Update nav
     if (typeof window.updateNavUser === "function") window.updateNavUser(session.user, streak, score);
 
-    // Call page-specific init
+    // Call page-specific init — wait for DOM + initPage fn
     let tries = 0;
     const tryInit = () => {
-      if (typeof window.initPage === "function") {
-        window.initPage();
+      const domReady = document.readyState === "complete" || document.readyState === "interactive";
+      if (typeof window.initPage === "function" && domReady) {
+        try { window.initPage(); } catch(e) { console.error("initPage error:", e); }
         showLoading(false);
-      } else if (tries++ < 30) {
+      } else if (tries++ < 50) {
         setTimeout(tryInit, 100);
       } else {
-        console.error("initPage() not found");
+        console.error("initPage() not found after timeout");
         showLoading(false);
       }
     };
-    setTimeout(tryInit, 50);
+    setTimeout(tryInit, 100);
 
   } else {
     window.currentUser = null;
