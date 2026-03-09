@@ -694,7 +694,7 @@ Let x = 0.393939… Then 100x − x = 39 ⇒ x = 39/99 = 13/33.`
 ];
 
 
-// ─── STORAGE KEYS ────────────────────────────────────────────────────
+// ─── STORAGE / CONSTANTS ─────────────────────────
 const STORAGE_KEY    = "gmat-math-trainer-progress-v1";
 const META_KEY       = "__meta";
 const ATTEMPTS_KEY   = "__attempts";
@@ -710,11 +710,10 @@ const MISTAKE_LABELS = {
   no_shortcut:   "No shortcut"
 };
 
-// ─── HELPERS ─────────────────────────────────────────────────────────
+// ─── HELPERS ─────────────────────────────────────
 function normaliseDate(d) {
   return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
 }
-
 function humanTime(seconds) {
   if (!seconds || seconds <= 0) return "0m";
   const m = Math.floor(seconds / 60), s = Math.floor(seconds % 60);
@@ -722,17 +721,14 @@ function humanTime(seconds) {
   if (s === 0) return `${m}m`;
   return `${m}m ${s}s`;
 }
-
 function cardAccuracy(s) {
   if (!s || s.attempts === 0) return null;
   return s.correct / s.attempts;
 }
-
 function formatAccuracy(s) {
   if (!s || s.attempts === 0) return "—";
   return `${Math.round((s.correct/s.attempts)*100)}% (${s.correct}/${s.attempts})`;
 }
-
 function formatDate(iso) {
   if (!iso) return "—";
   try {
@@ -742,51 +738,39 @@ function formatDate(iso) {
   } catch { return "—"; }
 }
 
-// ─── LOAD / SAVE ──────────────────────────────────────────────────────
-// Progress is now stored in Supabase. We keep an in-memory copy and
-// write through to the DB on every answer.
-
+// ─── LOAD / SAVE ─────────────────────────────────
 function loadProgress() {
-  // If cloud data was loaded by auth.js, use it; otherwise empty
-  return window._supabaseProgress ? { ...window._supabaseProgress } : {};
-}
+// === MULTI-PAGE ADAPTER ===
 
-function saveProgress(p) {
-  // In-memory only — actual DB write happens in saveReviewToSupabase()
-  // (called from applyAnswerUpdate)
-  window._supabaseProgress = p;
-}
+
+// Expose cards array for other pages
+window.gmatCards = FLASHCARDS.map(c => ({ id: c.id, topic: c.topic, q: c.question }));
 
 function ensureMeta(p) {
   if (!p[META_KEY]) p[META_KEY] = {};
   const m = p[META_KEY];
-  m.streak         = m.streak         ?? 0;
-  m.lastStudyDate  = m.lastStudyDate  ?? null;
-  m.xpTotal        = m.xpTotal        ?? 0;
-  m.xpToday        = m.xpToday        ?? 0;
-  m.todayDate      = m.todayDate      ?? null;
+  m.streak            = m.streak            ?? 0;
+  m.lastStudyDate     = m.lastStudyDate     ?? null;
+  m.xpTotal           = m.xpTotal           ?? 0;
+  m.xpToday           = m.xpToday           ?? 0;
+  m.todayDate         = m.todayDate         ?? null;
   m.totalSecondsToday = m.totalSecondsToday ?? 0;
-  m.attemptsToday  = m.attemptsToday  ?? 0;
-  m.correctToday   = m.correctToday   ?? 0;
+  m.attemptsToday     = m.attemptsToday     ?? 0;
+  m.correctToday      = m.correctToday      ?? 0;
   return m;
 }
-
 function ensureAttempts(p) {
   if (!Array.isArray(p[ATTEMPTS_KEY])) p[ATTEMPTS_KEY] = [];
   return p[ATTEMPTS_KEY];
 }
-
 function ensureDaily(p) {
   if (!p[DAILY_KEY] || typeof p[DAILY_KEY] !== "object") p[DAILY_KEY] = {};
   return p[DAILY_KEY];
 }
-
 function ensureDrillHistory(p) {
   if (!Array.isArray(p[DRILL_HIST_KEY])) p[DRILL_HIST_KEY] = [];
   return p[DRILL_HIST_KEY];
 }
-
-// ─── META / DAILY ROLLOVER ────────────────────────────────────────────
 function updateMetaForToday(meta, daily, now) {
   const todayStr = normaliseDate(now);
   if (meta.todayDate !== todayStr) {
@@ -797,24 +781,22 @@ function updateMetaForToday(meta, daily, now) {
     } else {
       meta.streak = 1;
     }
-    meta.todayDate        = todayStr;
-    meta.xpToday          = 0;
+    meta.todayDate         = todayStr;
+    meta.xpToday           = 0;
     meta.totalSecondsToday = 0;
-    meta.attemptsToday    = 0;
-    meta.correctToday     = 0;
+    meta.attemptsToday     = 0;
+    meta.correctToday      = 0;
   }
   meta.lastStudyDate = todayStr;
-  // Ensure daily entry exists
   if (!daily[todayStr]) daily[todayStr] = { seen:0, correct:0, seconds:0 };
 }
 
-// ─── SPACED REPETITION ────────────────────────────────────────────────
+// ─── SPACED REPETITION ───────────────────────────
 const SR_INTERVALS = {
-  correct:     3 * 24 * 60 * 60 * 1000,  // 3 days
-  wrong:       1 * 24 * 60 * 60 * 1000,  // 1 day
-  wrong_twice: 4 * 60 * 60 * 1000        // 4 hours
+  correct:     3 * 24 * 60 * 60 * 1000,
+  wrong:       1 * 24 * 60 * 60 * 1000,
+  wrong_twice: 4 * 60 * 60 * 1000
 };
-
 function srNextReview(s, wasCorrect) {
   const now = Date.now();
   if (wasCorrect) return now + SR_INTERVALS.correct;
@@ -822,25 +804,22 @@ function srNextReview(s, wasCorrect) {
   if (wrongCount >= 2) return now + SR_INTERVALS.wrong_twice;
   return now + SR_INTERVALS.wrong;
 }
-
 function srIsDue(s) {
   if (!s || s.attempts === 0) return false;
   if (!s.next_review) return true;
   return Date.now() >= s.next_review;
 }
 
-// ─── CARD SELECTION (weighted score) ─────────────────────────────────
+// ─── CARD SELECTION ──────────────────────────────
 function computeCardScore(s, nowMs) {
-  if (!s || s.attempts === 0) return -1; // new card — separate pool
-  const acc        = s.correct / s.attempts;
-  const wrong      = s.wrong || 0;
-  const daysSince  = s.lastSeen ? (nowMs - new Date(s.lastSeen).getTime()) / 86400000 : 30;
+  if (!s || s.attempts === 0) return -1;
+  const acc       = s.correct / s.attempts;
+  const wrong     = s.wrong || 0;
+  const daysSince = s.lastSeen ? (nowMs - new Date(s.lastSeen).getTime()) / 86400000 : 30;
   return wrong * 3 + (1 - acc) * 5 + daysSince;
 }
-
 function pickNextCard(progress, mode, topicFilter, currentId) {
   const nowMs = Date.now();
-
   const pool = FLASHCARDS.filter(c => {
     if (topicFilter !== "all" && c.topic !== topicFilter) return false;
     const s = progress[c.id];
@@ -852,35 +831,22 @@ function pickNextCard(progress, mode, topicFilter, currentId) {
     }
     return true;
   });
-
   let candidates = pool.length > 0 ? pool
     : FLASHCARDS.filter(c => topicFilter === "all" || c.topic === topicFilter);
-
   if (!candidates.length) return null;
-
-  // 1. Due for spaced repetition?
-  const due = candidates.filter(c => srIsDue(progress[c.id]));
-
-  // 2. New cards (never seen)?
-  const newCards = candidates.filter(c => !progress[c.id] || progress[c.id].attempts === 0);
-
-  // 3. Scored pool
-  let scoredPool = due.length > 0 ? due : (newCards.length > 0 ? newCards : candidates);
-
-  // Score each card
-  const scored = scoredPool.map(c => ({
+  const due      = candidates.filter(c => srIsDue(progress[c.id]));
+  const newCards  = candidates.filter(c => !progress[c.id] || progress[c.id].attempts === 0);
+  let scoredPool  = due.length > 0 ? due : (newCards.length > 0 ? newCards : candidates);
+  const scored    = scoredPool.map(c => ({
     card: c,
     score: computeCardScore(progress[c.id], nowMs) + Math.random() * 0.5
   }));
-
   scored.sort((a, b) => b.score - a.score);
-
-  // Avoid repeating same card if alternatives exist
   const best = scored.filter(x => x.card.id !== currentId);
   return (best.length > 0 ? best : scored)[0].card;
 }
 
-// ─── STATS ─────────────────────────────────────────────────────────────
+// ─── STATS ───────────────────────────────────────
 function computeStats(p) {
   let seen = 0, correct = 0, attempts = 0;
   FLASHCARDS.forEach(c => {
@@ -893,11 +859,9 @@ function computeStats(p) {
     attempts, correct
   };
 }
-
 function getTopics() {
   return [...new Set(FLASHCARDS.map(c => c.topic))].sort();
 }
-
 function computeMistakeAnalytics(attempts) {
   const counts = {};
   MISTAKE_TYPES.forEach(t => counts[t] = 0);
@@ -909,7 +873,6 @@ function computeMistakeAnalytics(attempts) {
   });
   return { counts, total };
 }
-
 function computeTopicWeakness(attempts) {
   const map = {};
   attempts.forEach(a => {
@@ -924,356 +887,189 @@ function computeTopicWeakness(attempts) {
     .sort((a,b) => (a.accuracy??0) - (b.accuracy??0));
 }
 
-// ─── CHART INSTANCES ──────────────────────────────────────────────────
+// ─── CHART INSTANCES (global) ────────────────────
 let mistakeChartInst  = null;
 let accuracyChartInst = null;
 let timeChartInst     = null;
 let cardsChartInst    = null;
-
 function destroyChart(inst) { if (inst) { try { inst.destroy(); } catch {} } }
 
-// ─── MAIN APP ─────────────────────────────────────────────────────────
-// Called by auth.js once user data is loaded from Supabase
-window.initAppWithCloudData = function() {
-  // Reload from cloud data
-  progress = loadProgress();
-  meta     = ensureMeta(progress);
-  attempts = window._supabaseAttempts ? [...window._supabaseAttempts] : [];
-  daily    = window._supabaseDaily    ? { ...window._supabaseDaily }   : {};
+// ─── GLOBAL APP STATE ────────────────────────────
+// These are shared between initAppWithCloudData and DOMContentLoaded
+let _appProgress    = {};
+let _appMeta        = {};
+let _appAttempts    = [];
+let _appDaily       = {};
+let _appDrillHist   = [];
+let _currentMode    = "all";
+let _currentTopic   = "all";
+let _currentCard    = null;
+let _drillActive    = false;
+let _drillTotal     = 10;
+let _drillDone      = 0;
+let _drillRemaining = 2 * 60;
+let _drillTimerId   = null;
+let _drillCorrect   = 0;
+let _pendingWrong   = false;
+let _qStartedAt     = null;
+let _qTimerId       = null;
+let _domReady       = false;
 
-  // Recompute meta streak from daily data
-  const todayStr = normaliseDate(new Date());
-  let streak = 0;
-  for (let i = 0; i < 365; i++) {
-    const d = new Date();
-    d.setDate(d.getDate() - i);
-    const s = normaliseDate(d);
-    if (daily[s] && daily[s].seen > 0) streak++;
-    else if (i > 0) break;
+// ─── DOM REFS (populated on DOMContentLoaded) ────
+const $ = id => document.getElementById(id);
+let _dom = {};
+
+// ─── RENDER FUNCTIONS (global) ───────────────────
+function _updateShowAnswerBtn(showing) {
+  if (!_dom.btnShowAnswer) return;
+  if (showing) {
+    _dom.btnShowAnswer.innerHTML = '<span class="material-symbols-outlined">visibility_off</span> Hide Answer <span class="ml-1 text-xs opacity-70 font-medium px-2 py-0.5 bg-white/20 rounded">SPACE</span>';
+  } else {
+    _dom.btnShowAnswer.innerHTML = '<span class="material-symbols-outlined">visibility</span> Show Answer <span class="ml-1 text-xs opacity-70 font-medium px-2 py-0.5 bg-white/20 rounded">SPACE</span>';
   }
-  meta.streak = streak;
+}
 
-  // Today's stats
-  if (daily[todayStr]) {
-    meta.attemptsToday     = daily[todayStr].seen    || 0;
-    meta.correctToday      = daily[todayStr].correct || 0;
-    meta.totalSecondsToday = daily[todayStr].seconds || 0;
-    meta.todayDate         = todayStr;
+function _stopQTimer() { clearInterval(_qTimerId); _qTimerId = null; }
+function _startQTimer() {
+  _stopQTimer();
+  _qStartedAt = Date.now();
+  if (_dom.practiceTimer) _dom.practiceTimer.textContent = "";
+  _qTimerId = setInterval(() => {
+    const e = Math.floor((Date.now() - _qStartedAt) / 1000);
+    if (_dom.practiceTimer) _dom.practiceTimer.textContent = humanTime(e);
+  }, 1000);
+}
+function _stopDrillTimer() { clearInterval(_drillTimerId); _drillTimerId = null; }
+
+function _updateSessionLabel() {
+  if (!_dom.sessionLabel) return;
+  if (_drillActive) {
+    _dom.sessionLabel.textContent = `⚡ Drill Q${_drillDone+1}/${_drillTotal} · ${humanTime(_drillRemaining)} left`;
+  } else {
+    _dom.sessionLabel.textContent = "";
   }
+}
 
-  refreshStats();
-  refreshSidePanel();
-  refreshAnalytics();
-  rebuildErrorsTable();
-  rebuildAllCardsTable();
-  loadNextCard();
-
-  // Guarantee loading overlay is hidden after init
-  const overlay = document.getElementById("loading-overlay");
-  if (overlay) {
-    overlay.classList.add("hidden");
-    overlay.style.display = "none";
+function renderCard(card) {
+  if (!_dom.cardQuestion) return;
+  if (!card) {
+    if (_dom.cardTopic)  _dom.cardTopic.textContent  = "";
+    if (_dom.cardId)     _dom.cardId.textContent     = "";
+    if (_dom.cardSrBadge) { _dom.cardSrBadge.className = "pill-sr"; _dom.cardSrBadge.textContent = ""; }
+    _dom.cardQuestion.textContent = "No card available for this filter.";
+    if (_dom.cardAnswer) _dom.cardAnswer.classList.add("hidden");
+    if (_dom.cardStats)  _dom.cardStats.textContent  = "";
+    return;
   }
-};
-
-document.addEventListener("DOMContentLoaded", () => {
-
-  // DOM refs
-  const $ = id => document.getElementById(id);
-  const statTotal         = $("stat-total");
-  const statSeen          = $("stat-seen");
-  const statAccuracy      = $("stat-accuracy");
-  const statStreak        = $("stat-streak");
-  const statXpToday       = $("stat-xp-today");
-  const statTimeToday     = $("stat-time-today");
-  const snapshotAccToday  = $("snapshot-accuracy-today");
-  const snapshotTimeQ     = $("snapshot-time-per-question");
-  const cardTopicEl       = $("card-topic");
-  const cardIdEl          = $("card-id");
-  const cardSrBadge       = $("card-sr-badge");
-  const cardQuestionEl    = $("card-question");
-  const cardAnswerEl      = $("card-answer");
-  const cardStatsEl       = $("card-stats");
-  const sessionLabelEl    = $("practice-session-label");
-  const practiceTimerEl   = $("practice-timer");
-  const topicFilterEl     = $("topic-filter");
-  const btnShowAnswer     = $("btn-show-answer");
-  function updateShowAnswerBtn(showing) {
-    if (!btnShowAnswer) return;
-    if (showing) {
-      btnShowAnswer.innerHTML = '<span class="material-symbols-outlined">visibility_off</span> Hide Answer <span class="ml-1 text-xs opacity-70 font-medium px-2 py-0.5 bg-white/20 rounded">SPACE</span>';
-    } else {
-      btnShowAnswer.innerHTML = '<span class="material-symbols-outlined">visibility</span> Show Answer <span class="ml-1 text-xs opacity-70 font-medium px-2 py-0.5 bg-white/20 rounded">SPACE</span>';
-    }
-  }
-  const btnCorrect        = $("btn-correct");
-  const btnWrong          = $("btn-wrong");
-  const btnLucky          = $("btn-lucky");
-  const btnNext           = $("btn-next");
-  const btnResetProgress  = $("btn-reset-progress");
-  const btnDashContinue   = $("btn-dashboard-continue");
-  const btnDashDrill      = $("btn-dashboard-drill");
-  const btnDashWeak       = $("btn-dashboard-weak");
-  const btnDashErrors     = $("btn-dashboard-errors");
-  const btnPracticeWeak   = $("btn-practice-weak");
-  const errorsBody        = document.querySelector("#errors-table tbody");
-  const allCardsBody      = document.querySelector("#all-cards-table tbody");
-  const mistakeModal      = $("mistake-modal");
-  const drillModal        = $("drill-modal");
-  const btnDrillClose     = $("btn-drill-close");
-  const drillResultsEl    = $("drill-results");
-  const mistakeBreakdown  = $("mistake-breakdown");
-  const weakTopicsEl      = $("weak-topics");
-  const weakTopicsPanel   = $("weak-topics-panel");
-  const ssSeenEl          = $("ss-seen");
-  const ssCorrectEl       = $("ss-correct");
-  const ssXpEl            = $("ss-xp");
-  const ssNextReview      = $("ss-next-review");
-  const srDueCount        = $("sr-due-count");
-  const srNewCount        = $("sr-new-count");
-
-  const modeButtons = [...document.querySelectorAll(".mode-btn")];
-  const tabButtons  = [...document.querySelectorAll(".tab-btn")];
-  const tabPanels   = {
-    practice:  $("tab-practice"),
-    errors:    $("tab-errors"),
-    "all-cards": $("tab-all-cards"),
-    analytics: $("tab-analytics")
-  };
-
-  // State
-  let progress    = loadProgress();
-  let meta        = ensureMeta(progress);
-  let attempts    = ensureAttempts(progress);
-  let daily       = ensureDaily(progress);
-  let drillHist   = ensureDrillHistory(progress);
-
-  let currentMode        = "all";
-  let currentTopicFilter = "all";
-  let currentCard        = null;
-
-  let currentQuestionStartedAt = null;
-  let questionTimerId          = null;
-  let drillActive              = false;
-  let drillTotal               = 10;
-  let drillDone                = 0;
-  let drillTimeRemaining       = 2 * 60;
-  let drillTimerId             = null;
-  let drillCorrect             = 0;
-  let pendingWrongAnswer       = false;
-
-  // ── Populate topic filter ──
-  getTopics().forEach(t => {
-    const opt = document.createElement("option");
-    opt.value = t; opt.textContent = t;
-    topicFilterEl.appendChild(opt);
-  });
-
-  // ── Timer helpers ──
-  function stopQTimer() { clearInterval(questionTimerId); questionTimerId = null; }
-
-  function startQTimer() {
-    stopQTimer();
-    currentQuestionStartedAt = Date.now();
-    practiceTimerEl.textContent = "";
-    questionTimerId = setInterval(() => {
-      const e = Math.floor((Date.now() - currentQuestionStartedAt) / 1000);
-      practiceTimerEl.textContent = `${humanTime(e)}`;
-    }, 1000);
-  }
-
-  function stopDrillTimer() { clearInterval(drillTimerId); drillTimerId = null; }
-
-  // ── Session label ──
-  function updateSessionLabel() {
-    if (drillActive) {
-      sessionLabelEl.textContent =
-        `⚡ Drill Q${drillDone+1}/${drillTotal} · ${humanTime(drillTimeRemaining)} left`;
-    } else {
-      sessionLabelEl.textContent = "";
-    }
-  }
-
-  // ── Render card ──
-  function renderCard(card) {
-    if (!card) {
-      cardTopicEl.textContent = ""; cardIdEl.textContent = "";
-      cardSrBadge.className = "pill-sr";
-      cardQuestionEl.textContent = "No card available for this filter.";
-      if (cardAnswerEl.querySelector(".answer-text")) cardAnswerEl.querySelector(".answer-text").textContent = "";
-      cardAnswerEl.classList.add("hidden");
-      cardStatsEl.textContent = "";
-      return;
-    }
-
-    const s = progress[card.id];
-    cardTopicEl.textContent = card.topic;
-    cardIdEl.textContent    = `#${card.id}`;
-
-    // SR badge
-    cardSrBadge.className = "pill-sr";
+  const s = _appProgress[card.id];
+  if (_dom.cardTopic)  _dom.cardTopic.textContent = card.topic;
+  if (_dom.cardId)     _dom.cardId.textContent    = `#${card.id}`;
+  if (_dom.cardSrBadge) {
+    _dom.cardSrBadge.className = "pill-sr";
     if (!s || s.attempts === 0) {
-      cardSrBadge.className = "pill-sr new";
-      cardSrBadge.textContent = "NEW";
+      _dom.cardSrBadge.className = "pill-sr new";
+      _dom.cardSrBadge.textContent = "NEW";
     } else if (srIsDue(s)) {
-      cardSrBadge.className = "pill-sr due";
-      cardSrBadge.textContent = "DUE";
-    }
-
-    cardQuestionEl.textContent = card.question;
-    cardAnswerEl.querySelector('.answer-text').textContent = card.answer;
-    cardAnswerEl.classList.add("hidden");
-    updateShowAnswerBtn(false);
-
-    if (s && s.attempts > 0) {
-      const pct = Math.round(s.correct / s.attempts * 100);
-      const lbl = pct < 60 ? "weak" : pct < 80 ? "ok" : "strong";
-      cardStatsEl.textContent = `Attempts: ${s.attempts}  ·  Correct: ${s.correct}  ·  Accuracy: ${pct}% (${lbl})`;
+      _dom.cardSrBadge.className = "pill-sr due";
+      _dom.cardSrBadge.textContent = "DUE";
     } else {
-      cardStatsEl.textContent = "New card — no history yet.";
-    }
-
-    updateSessionLabel();
-    // Lock rating buttons until answer is shown
-    const _rb = document.getElementById("rating-buttons");
-    if (_rb) _rb.classList.add("locked");
-    updateShowAnswerBtn(false);
-  }
-
-  // ── Load next card ──
-  function loadNextCard() {
-    currentCard = pickNextCard(progress, currentMode, currentTopicFilter, currentCard?.id ?? null);
-    renderCard(currentCard);
-    startQTimer();
-  }
-
-  // ── Apply answer ──
-  function applyAnswerUpdate({ wasCorrect, kind, mistakeType }) {
-    if (!currentCard) return;
-    const id  = currentCard.id;
-    const now = new Date();
-    updateMetaForToday(meta, daily, now);
-
-    let s = progress[id] || { attempts:0, correct:0, wrong:0, lastSeen:null, next_review:null };
-    s.attempts++;
-    if (wasCorrect) s.correct++;
-    else s.wrong = (s.wrong||0) + 1;
-    s.lastSeen   = now.toISOString();
-    s.next_review = srNextReview(s, wasCorrect);
-    progress[id] = s;
-
-    const timeSpent = currentQuestionStartedAt
-      ? Math.max(1, Math.round((Date.now()-currentQuestionStartedAt)/1000))
-      : null;
-    stopQTimer();
-
-    const baseXp  = wasCorrect ? (kind === "lucky" ? 5 : 10) : 2;
-    const fastBonus = wasCorrect && timeSpent != null && timeSpent <= 90 ? 5 : 0;
-    const xpGained = baseXp + fastBonus;
-
-    meta.xpToday           += xpGained;
-    meta.xpTotal           += xpGained;
-    meta.totalSecondsToday += timeSpent || 0;
-    meta.attemptsToday++;
-    if (wasCorrect) meta.correctToday++;
-
-    const todayStr = normaliseDate(now);
-    if (!daily[todayStr]) daily[todayStr] = { seen:0, correct:0, seconds:0 };
-    daily[todayStr].seen++;
-    if (wasCorrect) daily[todayStr].correct++;
-    daily[todayStr].seconds += timeSpent || 0;
-
-    attempts.push({
-      cardId: id, correct: wasCorrect, kind,
-      mistakeType: !wasCorrect ? mistakeType||null : null,
-      timeSpentSec: timeSpent,
-      timestamp: now.toISOString()
-    });
-    if (attempts.length > 500) attempts.splice(0, attempts.length - 500);
-
-    saveProgress(progress);
-
-    // ── Write to Supabase (if logged in) ──
-    if (window.currentUser && typeof saveReviewToSupabase === "function") {
-      const ratingNum = kind === "wrong" ? 1 : kind === "lucky" ? 2 : 3;
-      saveReviewToSupabase(window.currentUser.id, {
-        cardId:    id,
-        topic:     currentCard.topic,
-        rating:    ratingNum,
-        isError:   !wasCorrect,
-        cardState: progress[id]
-      });
-    }
-
-    refreshStats();
-    refreshSidePanel();
-    refreshAnalytics();
-    rebuildErrorsTable();
-    rebuildAllCardsTable();
-
-    if (drillActive) {
-      drillDone++;
-      if (wasCorrect) drillCorrect++;
-      if (drillDone >= drillTotal || drillTimeRemaining <= 0) {
-        finishDrill(); return;
-      }
-    }
-
-    loadNextCard();
-  }
-
-  // ── Refresh header stats ──
-  function refreshStats() {
-    const s = computeStats(progress);
-    statTotal.textContent    = s.total;
-    statSeen.textContent     = s.seen;
-    statAccuracy.textContent = `${s.accuracy}%`;
-    statStreak.textContent   = `${meta.streak||0}d`;
-    statXpToday.textContent  = meta.xpToday || 0;
-    statTimeToday.textContent = humanTime(meta.totalSecondsToday||0);
-
-    const accToday = meta.attemptsToday
-      ? Math.round(meta.correctToday/meta.attemptsToday*100)
-      : null;
-    snapshotAccToday.textContent = accToday != null ? `${accToday}%` : "—";
-    const avgT = meta.attemptsToday && meta.totalSecondsToday
-      ? (meta.totalSecondsToday/meta.attemptsToday).toFixed(1)
-      : null;
-    snapshotTimeQ.textContent = avgT ? `${avgT}s` : "—";
-
-    // Daily goal bar (target: 25 cards/day)
-    const dailyBar = document.getElementById("daily-goal-bar");
-    if (dailyBar) {
-      const pctDone = Math.min(100, Math.round((meta.attemptsToday || 0) / 25 * 100));
-      dailyBar.style.width = pctDone + "%";
+      _dom.cardSrBadge.textContent = "";
     }
   }
+  _dom.cardQuestion.textContent = card.question;
+  const answerTextEl = _dom.cardAnswer?.querySelector(".answer-text");
+  if (answerTextEl) answerTextEl.textContent = card.answer;
+  if (_dom.cardAnswer) _dom.cardAnswer.classList.add("hidden");
+  _updateShowAnswerBtn(false);
+  if (s && s.attempts > 0) {
+    const pct = Math.round(s.correct / s.attempts * 100);
+    const lbl = pct < 60 ? "weak" : pct < 80 ? "ok" : "strong";
+    if (_dom.cardStats) _dom.cardStats.textContent = `Attempts: ${s.attempts}  ·  Correct: ${s.correct}  ·  Accuracy: ${pct}% (${lbl})`;
+  } else {
+    if (_dom.cardStats) _dom.cardStats.textContent = "New card — no history yet.";
+  }
+  const _rb = document.getElementById("rating-buttons");
+  if (_rb) _rb.classList.add("locked");
+  _updateShowAnswerBtn(false);
+  _updateSessionLabel();
+  // Render MCQ choices
+  _renderChoices(card);
+}
 
-  // ── Refresh right side panel ──
-  function refreshSidePanel() {
-    ssSeenEl.textContent    = meta.attemptsToday || 0;
-    ssCorrectEl.textContent = meta.correctToday  || 0;
-    ssXpEl.textContent      = meta.xpToday       || 0;
+function _renderChoices(card) {
+  const q = _dom.cardQuestion;
+  if (!q) return;
+  const old = document.getElementById("mcq-choices");
+  if (old) old.remove();
+  const lines   = card.question.split("\n");
+  const choices = lines.filter(l => l.trim().match(/^[A-E]\)/));
+  if (!choices.length) return;
+  const wrapper = document.createElement("div");
+  wrapper.id = "mcq-choices";
+  wrapper.style.cssText = "margin-top:20px;display:grid;gap:10px;text-align:left";
+  choices.forEach(line => {
+    const letter = line.trim()[0];
+    const btn    = document.createElement("button");
+    btn.className = "choice-btn p-3 rounded-lg border border-slate-700 hover:bg-slate-700 transition text-left text-sm";
+    btn.innerHTML = `<b>${letter}.</b> ${line.slice(2).trim()}`;
+    btn.onclick = () => {
+      document.querySelectorAll(".choice-btn").forEach(b => b.classList.remove("selected"));
+      btn.classList.add("selected");
+      card.userChoice = letter;
+    };
+    wrapper.appendChild(btn);
+  });
+  q.after(wrapper);
+}
 
-    // Next review for current card
-    if (currentCard && progress[currentCard.id]?.next_review) {
-      const nr = new Date(progress[currentCard.id].next_review);
-      ssNextReview.textContent = nr.toLocaleDateString(undefined, { month:"short", day:"numeric", hour:"2-digit", minute:"2-digit" });
+function loadNextCard() {
+  _currentCard = pickNextCard(_appProgress, _currentMode, _currentTopic, _currentCard?.id ?? null);
+  renderCard(_currentCard);
+  _startQTimer();
+}
+
+// ─── REFRESH FUNCTIONS (global) ──────────────────
+function refreshStats() {
+  if (!_domReady) return;
+  const s = computeStats(_appProgress);
+  if (_dom.statTotal)    _dom.statTotal.textContent    = s.total;
+  if (_dom.statSeen)     _dom.statSeen.textContent     = s.seen;
+  if (_dom.statAccuracy) _dom.statAccuracy.textContent = `${s.accuracy}%`;
+  if (_dom.statStreak)   _dom.statStreak.textContent   = `${_appMeta.streak||0}d`;
+  if (_dom.statXpToday)  _dom.statXpToday.textContent  = _appMeta.xpToday || 0;
+  if (_dom.statTimeToday) _dom.statTimeToday.textContent = humanTime(_appMeta.totalSecondsToday||0);
+  const accToday = _appMeta.attemptsToday
+    ? Math.round(_appMeta.correctToday / _appMeta.attemptsToday * 100)
+    : null;
+  if (_dom.snapshotAcc)  _dom.snapshotAcc.textContent  = accToday != null ? `${accToday}%` : "—";
+  const avgT = _appMeta.attemptsToday && _appMeta.totalSecondsToday
+    ? (_appMeta.totalSecondsToday/_appMeta.attemptsToday).toFixed(1)
+    : null;
+  if (_dom.snapshotTime) _dom.snapshotTime.textContent = avgT ? `${avgT}s` : "—";
+  const dailyBar = document.getElementById("daily-goal-bar");
+  if (dailyBar) dailyBar.style.width = Math.min(100, Math.round((_appMeta.attemptsToday||0)/25*100)) + "%";
+}
+
+function refreshSidePanel() {
+  if (!_domReady) return;
+  if (_dom.ssSeen)    _dom.ssSeen.textContent    = _appMeta.attemptsToday || 0;
+  if (_dom.ssCorrect) _dom.ssCorrect.textContent = _appMeta.correctToday  || 0;
+  if (_dom.ssXp)      _dom.ssXp.textContent      = _appMeta.xpToday       || 0;
+  if (_dom.ssNextReview) {
+    if (_currentCard && _appProgress[_currentCard.id]?.next_review) {
+      const nr = new Date(_appProgress[_currentCard.id].next_review);
+      _dom.ssNextReview.textContent = nr.toLocaleDateString(undefined, { month:"short", day:"numeric", hour:"2-digit", minute:"2-digit" });
     } else {
-      ssNextReview.textContent = "—";
+      _dom.ssNextReview.textContent = "—";
     }
-
-    // SR counts
-    const dueNow   = FLASHCARDS.filter(c => srIsDue(progress[c.id])).length;
-    const newCount = FLASHCARDS.filter(c => !progress[c.id] || progress[c.id].attempts === 0).length;
-    srDueCount.textContent = dueNow;
-    srNewCount.textContent = newCount;
-
-    // Weak topics panel
-    const topics = computeTopicWeakness(attempts);
-    weakTopicsPanel.innerHTML = "";
+  }
+  if (_dom.srDueCount) _dom.srDueCount.textContent = FLASHCARDS.filter(c => srIsDue(_appProgress[c.id])).length;
+  if (_dom.srNewCount) _dom.srNewCount.textContent = FLASHCARDS.filter(c => !_appProgress[c.id] || _appProgress[c.id].attempts === 0).length;
+  const topics = computeTopicWeakness(_appAttempts);
+  if (_dom.weakTopicsPanel) {
+    _dom.weakTopicsPanel.innerHTML = "";
     if (!topics.length) {
-      weakTopicsPanel.innerHTML = `<p class="hint">No data yet.</p>`;
+      _dom.weakTopicsPanel.innerHTML = `<p class="hint text-xs text-slate-500">No data yet.</p>`;
     } else {
       topics.slice(0, 8).forEach(t => {
         const row = document.createElement("div");
@@ -1282,378 +1078,535 @@ document.addEventListener("DOMContentLoaded", () => {
         const cls = pct == null ? "good" : pct < 60 ? "bad" : pct < 80 ? "ok" : "good";
         row.innerHTML = `<span class="weak-topic-name">${t.topic}</span>
           <span class="weak-topic-pct ${cls}">${pct != null ? pct+"%" : "—"}</span>`;
-        weakTopicsPanel.appendChild(row);
+        _dom.weakTopicsPanel.appendChild(row);
       });
     }
   }
+}
 
-  // ── Refresh analytics ──
-  function refreshAnalytics() {
-    // Update analytics topic list panel
-    const topicListEl = document.getElementById("analytics-topic-list");
-    if (topicListEl) {
-      const weakT = computeTopicWeakness(attempts);
-      if (!weakT.length) {
-        topicListEl.innerHTML = '<p class="text-xs text-slate-500">No data yet.</p>';
-      } else {
-        topicListEl.innerHTML = weakT.slice(0, 8).map(t => {
-          const pct = t.accuracy != null ? Math.round(t.accuracy * 100) : null;
-          const cls = pct == null ? "good" : pct < 60 ? "bad" : pct < 80 ? "ok" : "good";
-          const w = pct != null ? pct : 0;
-          return `<div class="analytics-topic-item">
-            <div class="analytics-topic-item-header">
-              <span>${t.topic}</span>
-              <span class="weak-topic-pct ${cls}">${pct != null ? pct+"%" : "—"}</span>
-            </div>
-            <div class="analytics-topic-bar-track">
-              <div class="analytics-topic-bar-fill ${cls}" style="width:${w}%"></div>
-            </div>
-          </div>`;
-        }).join("");
-      }
-    }
-    // Mistake breakdown text
-    const { counts, total } = computeMistakeAnalytics(attempts);
-    if (!total) {
-      mistakeBreakdown.textContent = "No mistakes logged yet.";
-      weakTopicsEl.textContent = "Not enough data yet.";
+function refreshAnalytics() {
+  if (!_domReady) return;
+  const topicListEl = document.getElementById("analytics-topic-list");
+  if (topicListEl) {
+    const weakT = computeTopicWeakness(_appAttempts);
+    if (!weakT.length) {
+      topicListEl.innerHTML = '<p class="text-xs text-slate-500">No data yet.</p>';
     } else {
-      mistakeBreakdown.textContent = MISTAKE_TYPES
+      topicListEl.innerHTML = weakT.slice(0, 8).map(t => {
+        const pct = t.accuracy != null ? Math.round(t.accuracy * 100) : null;
+        const cls = pct == null ? "good" : pct < 60 ? "bad" : pct < 80 ? "ok" : "good";
+        const w   = pct != null ? pct : 0;
+        return `<div class="analytics-topic-item">
+          <div class="analytics-topic-item-header">
+            <span>${t.topic}</span>
+            <span class="weak-topic-pct ${cls}">${pct != null ? pct+"%" : "—"}</span>
+          </div>
+          <div class="analytics-topic-bar-track">
+            <div class="analytics-topic-bar-fill ${cls}" style="width:${w}%"></div>
+          </div>
+        </div>`;
+      }).join("");
+    }
+  }
+  const { counts, total } = computeMistakeAnalytics(_appAttempts);
+  if (_dom.mistakeBreakdown) {
+    if (!total) {
+      _dom.mistakeBreakdown.textContent = "No mistakes logged yet.";
+    } else {
+      _dom.mistakeBreakdown.textContent = MISTAKE_TYPES
         .filter(k => counts[k])
         .map(k => `${MISTAKE_LABELS[k]} ${Math.round(counts[k]/total*100)}%`)
         .join(" · ");
-
-      const topics = computeTopicWeakness(attempts);
-      weakTopicsEl.textContent = topics.slice(0, 3)
+    }
+  }
+  if (_dom.weakTopicsEl) {
+    if (!total) {
+      _dom.weakTopicsEl.textContent = "Not enough data yet.";
+    } else {
+      const topics = computeTopicWeakness(_appAttempts);
+      _dom.weakTopicsEl.textContent = topics.slice(0, 3)
         .map(t => `${t.topic}: ${t.accuracy != null ? Math.round(t.accuracy*100)+"%" : "—"}`)
         .join(" | ");
     }
-
-    // Mistake chart
-    const mistakeCtx = document.getElementById("mistake-chart");
-    if (mistakeCtx && window.Chart) {
-      destroyChart(mistakeChartInst);
-      const labels = MISTAKE_TYPES.map(k => MISTAKE_LABELS[k]);
-      const data   = MISTAKE_TYPES.map(k => counts[k]||0);
-      mistakeChartInst = new Chart(mistakeCtx, {
-        type: "bar",
-        data: {
-          labels,
-          datasets: [{ data, backgroundColor: "#00e5b4", borderRadius: 4 }]
-        },
-        options: {
-          responsive: true,
-          plugins: { legend: { display: false } },
-          scales: {
-            x: { ticks: { color: "#7c8fa8", font: { size: 11 } }, grid: { color:"#1e2d45" } },
-            y: { ticks: { color: "#7c8fa8", font: { size: 11 } }, grid: { color:"#1e2d45" }, beginAtZero: true, precision: 0 }
-          }
+  }
+  // Mistake chart
+  const mistakeCtx = document.getElementById("mistake-chart");
+  if (mistakeCtx && window.Chart) {
+    destroyChart(mistakeChartInst);
+    const labels = MISTAKE_TYPES.map(k => MISTAKE_LABELS[k]);
+    const data   = MISTAKE_TYPES.map(k => counts[k]||0);
+    mistakeChartInst = new Chart(mistakeCtx, {
+      type: "bar",
+      data: { labels, datasets: [{ data, backgroundColor: "#00e5b4", borderRadius: 4 }] },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { ticks: { color: "#7c8fa8", font: { size: 11 } }, grid: { color:"#1e2d45" } },
+          y: { ticks: { color: "#7c8fa8", font: { size: 11 } }, grid: { color:"#1e2d45" }, beginAtZero: true, precision: 0 }
         }
-      });
-    }
-
-    rebuildAnalyticsCharts();
-    rebuildStreakCalendar();
-  }
-
-  // ── Analytics charts ──
-  function getLast7Days() {
-    const days = [];
-    for (let i = 6; i >= 0; i--) {
-      const d = new Date();
-      d.setDate(d.getDate() - i);
-      days.push(normaliseDate(d));
-    }
-    return days;
-  }
-
-  function rebuildAnalyticsCharts() {
-    const days = getLast7Days();
-    const labels = days.map(d => {
-      const [, m, day] = d.split("-");
-      return `${m}/${day}`;
-    });
-
-    const accData   = days.map(d => {
-      const dy = daily[d];
-      if (!dy || !dy.seen) return null;
-      return Math.round(dy.correct/dy.seen*100);
-    });
-
-    const timeData  = days.map(d => {
-      const dy = daily[d];
-      return dy ? Math.round((dy.seconds||0)/60) : 0;
-    });
-
-    const cardsData = days.map(d => {
-      const dy = daily[d];
-      return dy ? (dy.seen||0) : 0;
-    });
-
-    const chartDefaults = {
-      responsive: true,
-      plugins: { legend: { display: false } },
-      scales: {
-        x: { ticks: { color:"#7c8fa8", font:{size:11} }, grid: { color:"#1e2d45" } },
-        y: { ticks: { color:"#7c8fa8", font:{size:11} }, grid: { color:"#1e2d45" }, beginAtZero: true }
-      }
-    };
-
-    const accCtx = document.getElementById("accuracy-chart");
-    if (accCtx && window.Chart) {
-      destroyChart(accuracyChartInst);
-      accuracyChartInst = new Chart(accCtx, {
-        type: "line",
-        data: {
-          labels,
-          datasets: [{
-            data: accData, borderColor: "#00e5b4",
-            backgroundColor: "rgba(0,229,180,0.1)",
-            tension: 0.4, fill: true, pointBackgroundColor: "#00e5b4",
-            spanGaps: true
-          }]
-        },
-        options: { ...chartDefaults }
-      });
-    }
-
-    const timeCtx = document.getElementById("time-chart");
-    if (timeCtx && window.Chart) {
-      destroyChart(timeChartInst);
-      timeChartInst = new Chart(timeCtx, {
-        type: "bar",
-        data: {
-          labels,
-          datasets: [{ data: timeData, backgroundColor: "#0095ff", borderRadius: 4 }]
-        },
-        options: { ...chartDefaults }
-      });
-    }
-
-    const cardsCtx = document.getElementById("cards-chart");
-    if (cardsCtx && window.Chart) {
-      destroyChart(cardsChartInst);
-      cardsChartInst = new Chart(cardsCtx, {
-        type: "bar",
-        data: {
-          labels,
-          datasets: [{ data: cardsData, backgroundColor: "#ffd700", borderRadius: 4 }]
-        },
-        options: { ...chartDefaults }
-      });
-    }
-  }
-
-  function rebuildStreakCalendar() {
-    // Sync analytics streak label
-    const streakLabel = document.getElementById("analytics-streak-label");
-    if (streakLabel) streakLabel.textContent = `${meta.streak || 0} Day Streak`;
-    const cal = document.getElementById("streak-calendar");
-    if (!cal) return;
-    cal.innerHTML = "";
-    const todayStr = normaliseDate(new Date());
-    for (let i = 29; i >= 0; i--) {
-      const d = new Date();
-      d.setDate(d.getDate() - i);
-      const s = normaliseDate(d);
-      const div = document.createElement("div");
-      div.className = "cal-day" + (daily[s]?.seen ? " studied" : "") + (s === todayStr ? " today" : "");
-      div.title = s;
-      cal.appendChild(div);
-    }
-  }
-
-  // ── Errors table ──
-  function rebuildErrorsTable() {
-    errorsBody.innerHTML = "";
-    const rows = [];
-    FLASHCARDS.forEach(c => {
-      const s = progress[c.id];
-      if (!s || s.attempts === 0) return;
-      const acc = cardAccuracy(s);
-      if ((acc !== null && acc < 0.8) || (s.wrong||0) >= 1) {
-        rows.push({ card:c, stat:s, acc });
       }
     });
-    rows.sort((a,b) => (a.acc??0) - (b.acc??0));
-    rows.forEach(({ card, stat, acc }) => {
-      const tr = document.createElement("tr");
-      const pct = acc != null ? Math.round(acc*100) : null;
-      const cls = pct == null ? "" : pct < 60 ? "acc-weak" : pct < 80 ? "acc-ok" : "acc-strong";
-      tr.innerHTML = `
-        <td class="nowrap">#${card.id}</td>
-        <td>${card.topic}</td>
-        <td>${card.question.split("\n")[0]}</td>
-        <td class="${cls}">${formatAccuracy(stat)}</td>
-        <td>${stat.attempts}</td>
-        <td>${formatDate(stat.lastSeen)}</td>
-      `;
-      tr.addEventListener("click", () => {
-        currentCard = card; switchTab("practice"); renderCard(card);
-      });
-      errorsBody.appendChild(tr);
+  }
+  _rebuildAnalyticsCharts();
+  _rebuildStreakCalendar();
+}
+
+function rebuildErrorsTable() {
+  if (!_domReady) return;
+  const errorsBody = document.querySelector("#errors-table tbody");
+  if (!errorsBody) return;
+  errorsBody.innerHTML = "";
+  const rows = [];
+  FLASHCARDS.forEach(c => {
+    const s = _appProgress[c.id];
+    if (!s || s.attempts === 0) return;
+    const acc = cardAccuracy(s);
+    if ((acc !== null && acc < 0.8) || (s.wrong||0) >= 1) rows.push({ card:c, stat:s, acc });
+  });
+  rows.sort((a,b) => (a.acc??0) - (b.acc??0));
+  if (!rows.length) {
+    errorsBody.innerHTML = `<tr><td colspan="6" class="px-5 py-8 text-center text-slate-500 text-sm">No errors yet — keep practicing! 🎉</td></tr>`;
+    return;
+  }
+  rows.forEach(({ card, stat, acc }) => {
+    const tr  = document.createElement("tr");
+    const pct = acc != null ? Math.round(acc*100) : null;
+    const cls = pct == null ? "" : pct < 60 ? "acc-weak" : pct < 80 ? "acc-ok" : "acc-strong";
+    tr.className = "cursor-pointer hover:bg-slate-800/40 transition-colors";
+    tr.innerHTML = `
+      <td class="px-5 py-4 text-xs text-slate-500 whitespace-nowrap">#${card.id}</td>
+      <td class="px-5 py-4 text-sm max-w-[200px]">
+        <div class="font-medium text-slate-200 truncate">${card.topic}</div>
+        <div class="text-xs text-slate-500 truncate mt-0.5">${card.question.split("\n")[0]}</div>
+      </td>
+      <td class="px-5 py-4 text-sm text-slate-400 whitespace-nowrap">${formatDate(stat.lastSeen)}</td>
+      <td class="px-5 py-4 whitespace-nowrap">
+        <div class="flex items-center gap-2">
+          <div class="w-16 h-1.5 rounded-full bg-slate-700 overflow-hidden">
+            <div class="h-full ${cls === 'acc-weak' ? 'bg-red-500' : cls === 'acc-ok' ? 'bg-amber-500' : 'bg-emerald-500'}" style="width:${pct ?? 0}%"></div>
+          </div>
+          <span class="text-xs font-bold ${cls === 'acc-weak' ? 'text-red-400' : cls === 'acc-ok' ? 'text-amber-400' : 'text-emerald-400'}">${formatAccuracy(stat)}</span>
+        </div>
+      </td>
+      <td class="px-5 py-4 text-sm text-slate-400">${stat.attempts}</td>
+      <td class="px-5 py-4">
+        <button class="btn-retry" onclick="event.stopPropagation()">Retry</button>
+      </td>
+    `;
+    tr.addEventListener("click", () => {
+      _currentCard = card;
+      switchTab("practice");
+      renderCard(card);
+    });
+    tr.querySelector(".btn-retry").addEventListener("click", (e) => {
+      e.stopPropagation();
+      _currentCard = card;
+      switchTab("practice");
+      renderCard(card);
+    });
+    errorsBody.appendChild(tr);
+  });
+}
+
+function rebuildAllCardsTable() {
+  if (!_domReady) return;
+  const allCardsBody = document.querySelector("#all-cards-table tbody");
+  if (!allCardsBody) return;
+  allCardsBody.innerHTML = "";
+  FLASHCARDS.forEach(c => {
+    const s   = _appProgress[c.id];
+    const acc = cardAccuracy(s);
+    const pct = acc != null ? Math.round(acc*100) : null;
+    const cls = pct == null ? "" : pct < 60 ? "acc-weak" : pct < 80 ? "acc-ok" : "acc-strong";
+    const statusText = !s || s.attempts === 0 ? "New" : pct >= 80 ? "Strong" : pct >= 60 ? "OK" : "Weak";
+    const statusCls  = !s || s.attempts === 0 ? "text-slate-500"
+      : pct >= 80 ? "text-emerald-400" : pct >= 60 ? "text-amber-400" : "text-red-400";
+    const tr = document.createElement("tr");
+    tr.className = "cursor-pointer hover:bg-slate-800/40 transition-colors";
+    tr.innerHTML = `
+      <td class="px-5 py-3 text-xs text-slate-500 whitespace-nowrap">#${c.id}</td>
+      <td class="px-5 py-3 text-sm max-w-[220px]">
+        <div class="font-medium text-slate-200 truncate">${c.topic}</div>
+      </td>
+      <td class="px-5 py-3 text-sm text-slate-400 whitespace-nowrap">${s ? s.attempts : 0}</td>
+      <td class="px-5 py-3 text-sm whitespace-nowrap">
+        <span class="${cls === 'acc-weak' ? 'text-red-400' : cls === 'acc-ok' ? 'text-amber-400' : 'text-emerald-400'}">${formatAccuracy(s)}</span>
+      </td>
+      <td class="px-5 py-3"><span class="text-xs font-bold ${statusCls}">${statusText}</span></td>
+      <td class="px-5 py-3">
+        <button class="btn-card-practice">Practice</button>
+      </td>
+    `;
+    tr.addEventListener("click", () => { _currentCard = c; switchTab("practice"); renderCard(c); });
+    tr.querySelector(".btn-card-practice").addEventListener("click", (e) => {
+      e.stopPropagation();
+      _currentCard = c; switchTab("practice"); renderCard(c);
+    });
+    allCardsBody.appendChild(tr);
+  });
+}
+
+// ─── TAB SWITCHING (global) ──────────────────────
+function switchTab(name) {
+  document.querySelectorAll(".tab-btn").forEach(b =>
+    b.classList.toggle("active", b.dataset.tab === name));
+  document.querySelectorAll(".tab-panel").forEach(p => {
+    p.classList.toggle("active", p.id === `tab-${name}`);
+  });
+  if (name === "errors")    rebuildErrorsTable();
+  if (name === "all-cards") rebuildAllCardsTable();
+  if (name === "analytics") { _rebuildAnalyticsCharts(); _rebuildStreakCalendar(); }
+}
+
+function switchMode(m) {
+  _currentMode = m;
+  document.querySelectorAll(".mode-btn").forEach(b =>
+    b.classList.toggle("active", b.dataset.mode === m));
+  loadNextCard();
+}
+
+// ─── ANALYTICS CHARTS ────────────────────────────
+function _getLast7Days() {
+  const days = [];
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    days.push(normaliseDate(d));
+  }
+  return days;
+}
+
+function _rebuildAnalyticsCharts() {
+  const days   = _getLast7Days();
+  const labels = days.map(d => { const [,m,day] = d.split("-"); return `${m}/${day}`; });
+  const accData   = days.map(d => {
+    const dy = _appDaily[d];
+    if (!dy || !dy.seen) return null;
+    return Math.round(dy.correct/dy.seen*100);
+  });
+  const timeData  = days.map(d => { const dy = _appDaily[d]; return dy ? Math.round((dy.seconds||0)/60) : 0; });
+  const cardsData = days.map(d => { const dy = _appDaily[d]; return dy ? (dy.seen||0) : 0; });
+  const chartDefaults = {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { ticks: { color:"#7c8fa8", font:{size:11} }, grid: { color:"#1e2d45" } },
+      y: { ticks: { color:"#7c8fa8", font:{size:11} }, grid: { color:"#1e2d45" }, beginAtZero: true }
+    }
+  };
+  const accCtx = document.getElementById("accuracy-chart");
+  if (accCtx && window.Chart) {
+    destroyChart(accuracyChartInst);
+    accuracyChartInst = new Chart(accCtx, {
+      type: "line",
+      data: { labels, datasets: [{ data: accData, borderColor: "#00e5b4", backgroundColor: "rgba(0,229,180,0.1)", tension: 0.4, fill: true, pointBackgroundColor: "#00e5b4", spanGaps: true }] },
+      options: { ...chartDefaults }
     });
   }
-
-  // ── All cards table ──
-  function rebuildAllCardsTable() {
-    allCardsBody.innerHTML = "";
-    FLASHCARDS.forEach(c => {
-      const s   = progress[c.id];
-      const acc = cardAccuracy(s);
-      const pct = acc != null ? Math.round(acc*100) : null;
-      const cls = pct == null ? "" : pct < 60 ? "acc-weak" : pct < 80 ? "acc-ok" : "acc-strong";
-      const tr  = document.createElement("tr");
-      tr.innerHTML = `
-        <td class="nowrap">#${c.id}</td>
-        <td>${c.topic}</td>
-        <td>${c.question.split("\n")[0]}</td>
-        <td class="${cls}">${formatAccuracy(s)}</td>
-      `;
-      tr.addEventListener("click", () => {
-        currentCard = c; switchTab("practice"); renderCard(c);
-      });
-      allCardsBody.appendChild(tr);
+  const timeCtx = document.getElementById("time-chart");
+  if (timeCtx && window.Chart) {
+    destroyChart(timeChartInst);
+    timeChartInst = new Chart(timeCtx, {
+      type: "bar",
+      data: { labels, datasets: [{ data: timeData, backgroundColor: "#0095ff", borderRadius: 4 }] },
+      options: { ...chartDefaults }
     });
   }
-
-  // ── Tab / mode switching ──
-  function switchTab(name) {
-    tabButtons.forEach(b => b.classList.toggle("active", b.dataset.tab === name));
-    Object.entries(tabPanels).forEach(([k,v]) => v?.classList.toggle("active", k === name));
-    if (name === "errors")    rebuildErrorsTable();
-    if (name === "all-cards") rebuildAllCardsTable();
-    if (name === "analytics") { rebuildAnalyticsCharts(); rebuildStreakCalendar(); }
-  }
-
-  function switchMode(m) {
-    currentMode = m;
-    modeButtons.forEach(b => b.classList.toggle("active", b.dataset.mode === m));
-    loadNextCard();
-  }
-
-  // ── Drill ──
-  function startDrill() {
-    drillActive = true; drillTotal = 10; drillDone = 0;
-    drillTimeRemaining = 2 * 60; drillCorrect = 0;
-    stopDrillTimer();
-    drillTimerId = setInterval(() => {
-      drillTimeRemaining--;
-      if (drillTimeRemaining <= 0) { drillTimeRemaining = 0; finishDrill(); }
-      updateSessionLabel();
-    }, 1000);
-    loadNextCard();
-    updateSessionLabel();
-  }
-
-  function finishDrill() {
-    if (!drillActive) return;
-    drillActive = false;
-    stopDrillTimer();
-    const answered  = drillDone || 1;
-    const accuracy  = Math.round(drillCorrect/answered*100);
-    const timeUsed  = 2*60 - drillTimeRemaining;
-    const avgTime   = timeUsed > 0 ? (timeUsed/answered).toFixed(1) : null;
-    const estimated = 650 + Math.round((accuracy - 70) * 2);
-
-    // Save to history
-    drillHist.push({
-      date: new Date().toISOString(),
-      questions: answered, correct: drillCorrect,
-      accuracy, avgTime: avgTime ? parseFloat(avgTime) : null
+  const cardsCtx = document.getElementById("cards-chart");
+  if (cardsCtx && window.Chart) {
+    destroyChart(cardsChartInst);
+    cardsChartInst = new Chart(cardsCtx, {
+      type: "bar",
+      data: { labels, datasets: [{ data: cardsData, backgroundColor: "#ffd700", borderRadius: 4 }] },
+      options: { ...chartDefaults }
     });
-    if (drillHist.length > 50) drillHist.splice(0, drillHist.length - 50);
-    saveProgress(progress);
+  }
+}
 
+function _rebuildStreakCalendar() {
+  const streakLabel = document.getElementById("analytics-streak-label");
+  if (streakLabel) streakLabel.textContent = `${_appMeta.streak || 0} Day Streak`;
+  const cal = document.getElementById("streak-calendar");
+  if (!cal) return;
+  cal.innerHTML = "";
+  const todayStr = normaliseDate(new Date());
+  for (let i = 29; i >= 0; i--) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    const s   = normaliseDate(d);
+    const div = document.createElement("div");
+    div.className = "cal-day" + (_appDaily[s]?.seen ? " studied" : "") + (s === todayStr ? " today" : "");
+    div.title = s;
+    cal.appendChild(div);
+  }
+}
+
+// ─── DRILL ───────────────────────────────────────
+function startDrill() {
+  _drillActive = true; _drillTotal = 10; _drillDone = 0;
+  _drillRemaining = 2 * 60; _drillCorrect = 0;
+  _stopDrillTimer();
+  _drillTimerId = setInterval(() => {
+    _drillRemaining--;
+    if (_drillRemaining <= 0) { _drillRemaining = 0; finishDrill(); }
+    _updateSessionLabel();
+  }, 1000);
+  loadNextCard();
+  _updateSessionLabel();
+}
+
+function finishDrill() {
+  if (!_drillActive) return;
+  _drillActive = false;
+  _stopDrillTimer();
+  const answered  = _drillDone || 1;
+  const accuracy  = Math.round(_drillCorrect/answered*100);
+  const timeUsed  = 2*60 - _drillRemaining;
+  const avgTime   = timeUsed > 0 ? (timeUsed/answered).toFixed(1) : null;
+  const estimated = 650 + Math.round((accuracy - 70) * 2);
+  _appDrillHist.push({ date: new Date().toISOString(), questions: answered, correct: _drillCorrect, accuracy, avgTime: avgTime ? parseFloat(avgTime) : null });
+  if (_appDrillHist.length > 50) _appDrillHist.splice(0, _appDrillHist.length - 50);
+  saveProgress(_appProgress);
+  const drillResultsEl = document.getElementById("drill-results");
+  if (drillResultsEl) {
     drillResultsEl.innerHTML = `
-      <div class="drill-stat"><span>Questions</span><span class="drill-stat-val">${answered}/${drillTotal}</span></div>
-      <div class="drill-stat"><span>Correct</span><span class="drill-stat-val">${drillCorrect}</span></div>
+      <div class="drill-stat"><span>Questions</span><span class="drill-stat-val">${answered}/${_drillTotal}</span></div>
+      <div class="drill-stat"><span>Correct</span><span class="drill-stat-val">${_drillCorrect}</span></div>
       <div class="drill-stat"><span>Accuracy</span><span class="drill-stat-val">${accuracy}%</span></div>
       <div class="drill-stat"><span>Avg time</span><span class="drill-stat-val">${avgTime ? avgTime+"s" : "—"}</span></div>
       <div class="drill-stat"><span>Est. Quant level</span><span class="drill-stat-val">${estimated}</span></div>
     `;
-    drillModal.classList.remove("hidden");
-    updateSessionLabel();
+  }
+  const drillModal = document.getElementById("drill-modal");
+  if (drillModal) drillModal.classList.remove("hidden");
+  _updateSessionLabel();
+}
+
+// ─── APPLY ANSWER ────────────────────────────────
+function applyAnswerUpdate({ wasCorrect, kind, mistakeType }) {
+  if (!_currentCard) return;
+  const id  = _currentCard.id;
+  const now = new Date();
+  updateMetaForToday(_appMeta, _appDaily, now);
+  let s = _appProgress[id] || { attempts:0, correct:0, wrong:0, lastSeen:null, next_review:null };
+  s.attempts++;
+  if (wasCorrect) s.correct++;
+  else s.wrong = (s.wrong||0) + 1;
+  s.lastSeen    = now.toISOString();
+  s.next_review = srNextReview(s, wasCorrect);
+  _appProgress[id] = s;
+  const timeSpent = _qStartedAt ? Math.max(1, Math.round((Date.now()-_qStartedAt)/1000)) : null;
+  _stopQTimer();
+  const baseXp   = wasCorrect ? (kind === "lucky" ? 5 : 10) : 2;
+  const fastBonus = wasCorrect && timeSpent != null && timeSpent <= 90 ? 5 : 0;
+  const xpGained = baseXp + fastBonus;
+  _appMeta.xpToday           += xpGained;
+  _appMeta.xpTotal           += xpGained;
+  _appMeta.totalSecondsToday += timeSpent || 0;
+  _appMeta.attemptsToday++;
+  if (wasCorrect) _appMeta.correctToday++;
+  const todayStr = normaliseDate(now);
+  if (!_appDaily[todayStr]) _appDaily[todayStr] = { seen:0, correct:0, seconds:0 };
+  _appDaily[todayStr].seen++;
+  if (wasCorrect) _appDaily[todayStr].correct++;
+  _appDaily[todayStr].seconds += timeSpent || 0;
+  _appAttempts.push({ cardId: id, correct: wasCorrect, kind, mistakeType: !wasCorrect ? mistakeType||null : null, timeSpentSec: timeSpent, timestamp: now.toISOString() });
+  if (_appAttempts.length > 500) _appAttempts.splice(0, _appAttempts.length - 500);
+  saveProgress(_appProgress);
+  // Write to Supabase
+  if (window.currentUser && typeof saveReviewToSupabase === "function") {
+    const ratingNum = kind === "wrong" ? 1 : kind === "lucky" ? 2 : 3;
+    saveReviewToSupabase(window.currentUser.id, {
+      cardId: id, topic: _currentCard.topic,
+      rating: ratingNum, isError: !wasCorrect,
+      cardState: _appProgress[id]
+    });
+  }
+  refreshStats();
+  refreshSidePanel();
+  // Only refresh analytics/tables if that tab is visible (performance)
+  const activePanel = document.querySelector(".tab-panel.active");
+  if (activePanel?.id === "tab-analytics")  refreshAnalytics();
+  if (activePanel?.id === "tab-errors")     rebuildErrorsTable();
+  if (activePanel?.id === "tab-all-cards")  rebuildAllCardsTable();
+  if (_drillActive) {
+    _drillDone++;
+    if (wasCorrect) _drillCorrect++;
+    if (_drillDone >= _drillTotal || _drillRemaining <= 0) { finishDrill(); return; }
+  }
+  loadNextCard();
+}
+
+// ─── INIT FROM CLOUD DATA (called by auth.js) ────
+window.initAppWithCloudData = function() {
+  _appProgress  = loadProgress();
+  _appMeta      = ensureMeta(_appProgress);
+  _appAttempts  = window._supabaseAttempts ? [...window._supabaseAttempts] : [];
+  _appDaily     = window._supabaseDaily    ? { ...window._supabaseDaily }   : {};
+  _appDrillHist = ensureDrillHistory(_appProgress);
+
+  // Recompute streak from daily data
+  const todayStr = normaliseDate(new Date());
+  let streak = 0;
+  for (let i = 0; i < 365; i++) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    const s = normaliseDate(d);
+    if (_appDaily[s] && _appDaily[s].seen > 0) streak++;
+    else if (i > 0) break;
+  }
+  _appMeta.streak = streak;
+
+  // Today's stats
+  if (_appDaily[todayStr]) {
+    _appMeta.attemptsToday     = _appDaily[todayStr].seen    || 0;
+    _appMeta.correctToday      = _appDaily[todayStr].correct || 0;
+    _appMeta.totalSecondsToday = _appDaily[todayStr].seconds || 0;
+    _appMeta.todayDate         = todayStr;
   }
 
+  // Populate topic filter dropdown
+  if (_dom.topicFilter) {
+    _dom.topicFilter.innerHTML = '<option value="all">All Topics</option>';
+    getTopics().forEach(t => {
+      const opt = document.createElement("option");
+      opt.value = t; opt.textContent = t;
+      _dom.topicFilter.appendChild(opt);
+    });
+  }
+
+  refreshStats();
+  refreshSidePanel();
+  refreshAnalytics();
+  rebuildErrorsTable();
+  rebuildAllCardsTable();
+  loadNextCard();
+
+  // Force-hide loading overlay
+  const overlay = document.getElementById("loading-overlay");
+  if (overlay) { overlay.classList.add("hidden"); overlay.style.display = "none"; }
+};
+
+// ─── DOM READY: wire refs + event listeners ───────
+document.addEventListener("DOMContentLoaded", () => {
+  _domReady = true;
+
+  // Populate DOM refs
+  _dom = {
+    statTotal:        $("stat-total"),
+    statSeen:         $("stat-seen"),
+    statAccuracy:     $("stat-accuracy"),
+    statStreak:       $("stat-streak"),
+    statXpToday:      $("stat-xp-today"),
+    statTimeToday:    $("stat-time-today"),
+    snapshotAcc:      $("snapshot-accuracy-today"),
+    snapshotTime:     $("snapshot-time-per-question"),
+    cardTopic:        $("card-topic"),
+    cardId:           $("card-id"),
+    cardSrBadge:      $("card-sr-badge"),
+    cardQuestion:     $("card-question"),
+    cardAnswer:       $("card-answer"),
+    cardStats:        $("card-stats"),
+    sessionLabel:     $("practice-session-label"),
+    practiceTimer:    $("practice-timer"),
+    topicFilter:      $("topic-filter"),
+    btnShowAnswer:    $("btn-show-answer"),
+    btnCorrect:       $("btn-correct"),
+    btnWrong:         $("btn-wrong"),
+    btnLucky:         $("btn-lucky"),
+    btnNext:          $("btn-next"),
+    btnResetProgress: $("btn-reset-progress"),
+    btnDashContinue:  $("btn-dashboard-continue"),
+    btnDashDrill:     $("btn-dashboard-drill"),
+    btnDashWeak:      $("btn-dashboard-weak"),
+    btnDashErrors:    $("btn-dashboard-errors"),
+    btnPracticeWeak:  $("btn-practice-weak"),
+    ssSeen:           $("ss-seen"),
+    ssCorrect:        $("ss-correct"),
+    ssXp:             $("ss-xp"),
+    ssNextReview:     $("ss-next-review"),
+    srDueCount:       $("sr-due-count"),
+    srNewCount:       $("sr-new-count"),
+    mistakeBreakdown: $("mistake-breakdown"),
+    weakTopicsEl:     $("weak-topics"),
+    weakTopicsPanel:  $("weak-topics-panel"),
+  };
+
   // ── Event listeners ──
-  topicFilterEl.addEventListener("change", () => {
-    currentTopicFilter = topicFilterEl.value; loadNextCard();
+  _dom.topicFilter?.addEventListener("change", () => {
+    _currentTopic = _dom.topicFilter.value;
+    loadNextCard();
   });
 
-  modeButtons.forEach(b => b.addEventListener("click", () => {
+  document.querySelectorAll(".mode-btn").forEach(b => b.addEventListener("click", () => {
     if (b.dataset.mode) switchMode(b.dataset.mode);
   }));
 
-  tabButtons.forEach(b => b.addEventListener("click", () => {
+  document.querySelectorAll(".tab-btn").forEach(b => b.addEventListener("click", () => {
     if (b.dataset.tab) switchTab(b.dataset.tab);
   }));
 
-  btnShowAnswer.addEventListener("click", () => {
-    const hidden = cardAnswerEl.classList.contains("hidden");
-    cardAnswerEl.classList.toggle("hidden", !hidden);
-    updateShowAnswerBtn(hidden);
+  _dom.btnShowAnswer?.addEventListener("click", () => {
+    if (!_dom.cardAnswer) return;
+    const hidden = _dom.cardAnswer.classList.contains("hidden");
+    _dom.cardAnswer.classList.toggle("hidden", !hidden);
+    _updateShowAnswerBtn(hidden);
     const ratingEl = document.getElementById("rating-buttons");
     if (ratingEl) ratingEl.classList.toggle("locked", !hidden);
   });
 
-  btnCorrect.addEventListener("click", () => applyAnswerUpdate({ wasCorrect:true,  kind:"correct" }));
-  btnLucky.addEventListener("click",   () => applyAnswerUpdate({ wasCorrect:true,  kind:"lucky" }));
-  btnWrong.addEventListener("click",   () => {
-    pendingWrongAnswer = true;
-    mistakeModal.classList.remove("hidden");
+  _dom.btnCorrect?.addEventListener("click", () => applyAnswerUpdate({ wasCorrect:true,  kind:"correct" }));
+  _dom.btnLucky?.addEventListener("click",   () => applyAnswerUpdate({ wasCorrect:true,  kind:"lucky" }));
+  _dom.btnWrong?.addEventListener("click",   () => {
+    _pendingWrong = true;
+    document.getElementById("mistake-modal")?.classList.remove("hidden");
   });
+  _dom.btnNext?.addEventListener("click", loadNextCard);
 
-  btnNext.addEventListener("click", loadNextCard);
-
-  btnResetProgress.addEventListener("click", async () => {
-    if (!confirm("Reset all progress? This will permanently delete your data from the cloud.")) return;
+  _dom.btnResetProgress?.addEventListener("click", async () => {
+    if (!confirm("Reset all progress? This will permanently delete your cloud data.")) return;
     if (window.currentUser) {
       await window.sb.from("card_reviews").delete().eq("user_id", window.currentUser.id);
       await window.sb.from("card_states").delete().eq("user_id", window.currentUser.id);
       await window.sb.from("streaks").delete().eq("user_id", window.currentUser.id);
     }
-    progress = {}; meta = ensureMeta(progress); attempts = [];
-    daily = {}; drillHist = ensureDrillHistory(progress);
-    window._supabaseProgress = {};
-    window._supabaseAttempts = [];
-    window._supabaseDaily    = {};
-    saveProgress(progress);
+    _appProgress = {}; _appMeta = ensureMeta(_appProgress);
+    _appAttempts = []; _appDaily = {}; _appDrillHist = [];
+    window._supabaseProgress = {}; window._supabaseAttempts = []; window._supabaseDaily = {};
+    saveProgress(_appProgress);
     refreshStats(); refreshSidePanel(); refreshAnalytics();
     rebuildErrorsTable(); rebuildAllCardsTable(); loadNextCard();
   });
 
   document.querySelectorAll(".modal-reason").forEach(b => {
     b.addEventListener("click", () => {
-      if (pendingWrongAnswer) {
-        applyAnswerUpdate({ wasCorrect:false, kind:"wrong", mistakeType: b.dataset.reason||null });
-      }
-      pendingWrongAnswer = false;
-      mistakeModal.classList.add("hidden");
+      if (_pendingWrong) applyAnswerUpdate({ wasCorrect:false, kind:"wrong", mistakeType: b.dataset.reason||null });
+      _pendingWrong = false;
+      document.getElementById("mistake-modal")?.classList.add("hidden");
     });
   });
-
-  $("btn-mistake-cancel").addEventListener("click", () => {
-    pendingWrongAnswer = false; mistakeModal.classList.add("hidden");
+  $("btn-mistake-cancel")?.addEventListener("click", () => {
+    _pendingWrong = false;
+    document.getElementById("mistake-modal")?.classList.add("hidden");
   });
-  // Also wire the explicit cancel button
-  const _cancelBtn2 = $("btn-mistake-cancel-btn");
-  if (_cancelBtn2) _cancelBtn2.addEventListener("click", () => {
-    pendingWrongAnswer = false; mistakeModal.classList.add("hidden");
+  $("btn-mistake-cancel-btn")?.addEventListener("click", () => {
+    _pendingWrong = false;
+    document.getElementById("mistake-modal")?.classList.add("hidden");
   });
 
-  btnDashContinue.addEventListener("click", () => {
-    drillActive = false; stopDrillTimer(); updateSessionLabel();
+  _dom.btnDashContinue?.addEventListener("click", () => {
+    _drillActive = false; _stopDrillTimer(); _updateSessionLabel();
     switchTab("practice"); loadNextCard();
   });
+  _dom.btnDashDrill?.addEventListener("click",  () => { switchTab("practice"); startDrill(); });
+  _dom.btnDashWeak?.addEventListener("click",   () => { switchMode("weak"); switchTab("practice"); });
+  _dom.btnDashErrors?.addEventListener("click", () => switchTab("errors"));
+  _dom.btnPracticeWeak?.addEventListener("click", () => { switchMode("weak"); switchTab("practice"); });
 
-  btnDashDrill.addEventListener("click",  () => { switchTab("practice"); startDrill(); });
-  btnDashWeak.addEventListener("click",   () => { switchMode("weak"); switchTab("practice"); });
-  btnDashErrors.addEventListener("click", () => switchTab("errors"));
-  btnPracticeWeak.addEventListener("click", () => { switchMode("weak"); switchTab("practice"); });
-
-  btnDrillClose.addEventListener("click", () => {
-    drillModal.classList.add("hidden"); switchTab("practice"); loadNextCard();
+  $("btn-drill-close")?.addEventListener("click", () => {
+    document.getElementById("drill-modal")?.classList.add("hidden");
+    switchTab("practice"); loadNextCard();
   });
 
   // ── Keyboard shortcuts ──
@@ -1661,84 +1614,56 @@ document.addEventListener("DOMContentLoaded", () => {
     const tag = e.target.tagName.toLowerCase();
     if (tag === "input" || tag === "textarea" || tag === "select") return;
     switch (e.key) {
-      case " ":
-        e.preventDefault();
-        btnShowAnswer.click();
-        break;
-      case "1":
-        e.preventDefault();
-        btnWrong.click();
-        break;
-      case "2":
-        e.preventDefault();
-        btnLucky.click();
-        break;
-      case "3":
-        e.preventDefault();
-        btnCorrect.click();
-        break;
-      case "n": case "N":
-        e.preventDefault();
-        loadNextCard();
-        break;
+      case " ":  e.preventDefault(); _dom.btnShowAnswer?.click(); break;
+      case "1":  e.preventDefault(); _dom.btnWrong?.click(); break;
+      case "2":  e.preventDefault(); _dom.btnLucky?.click(); break;
+      case "3":  e.preventDefault(); _dom.btnCorrect?.click(); break;
+      case "n": case "N": e.preventDefault(); loadNextCard(); break;
     }
   });
-function renderChoices(card){
-
-  const q = document.getElementById("card-question")
-
-  const old = document.getElementById("mcq-choices")
-  if(old) old.remove()
-
-  const lines = card.question.split("\n")
-
-  const choices = lines.filter(l =>
-    l.trim().match(/^[A-E]\)/)
-  )
-
-  if(choices.length === 0) return
-
-  const wrapper = document.createElement("div")
-  wrapper.id = "mcq-choices"
-  wrapper.style.marginTop = "20px"
-  wrapper.style.display = "grid"
-  wrapper.style.gap = "10px"
-  wrapper.style.textAlign = "left"
-
-  choices.forEach(line => {
-
-    const letter = line.trim()[0]
-
-    const btn = document.createElement("button")
-
-    btn.className =
-      "choice-btn p-3 rounded-lg border border-slate-300 dark:border-slate-600 hover:bg-blue-50 dark:hover:bg-slate-700 transition"
-
-    btn.innerHTML = "<b>"+letter+".</b> "+line.slice(2)
-
-    btn.onclick = ()=>{
-
-      document.querySelectorAll(".choice-btn")
-        .forEach(b=>b.classList.remove("selected"))
-
-      btn.classList.add("selected")
-
-      card.userChoice = letter
-    }
-
-    wrapper.appendChild(btn)
-
-  })
-
-  q.after(wrapper)
-
-}
-
-  // ── Initial render ──
-  refreshStats();
-  refreshSidePanel();
-  refreshAnalytics();
-  rebuildErrorsTable();
-  rebuildAllCardsTable();
-  loadNextCard();
 });
+
+// ═══════════════════════════════════════════════
+//  MULTI-PAGE: initPage() called by auth.js
+//  Only runs on practice.html (has #flashcard-box)
+// ═══════════════════════════════════════════════
+window.initPage = function() {
+  // Only initialize flashcard logic on practice page
+  if (!document.getElementById('flashcard-box') && !document.getElementById('btn-show-answer')) return;
+
+  // Run the standard cloud-data init
+  if (typeof window.initAppWithCloudData === 'function') {
+    window.initAppWithCloudData();
+  }
+
+  // Update header pills
+  const progress = _appProgress || {};
+  const meta     = _appMeta     || {};
+  const el = id => document.getElementById(id);
+
+  const totalSeen = Object.values(progress).filter(p => p?.attempts > 0).length;
+  let totalCorrect = 0, totalAttempts = 0;
+  Object.values(progress).forEach(p => { if (p?.attempts) { totalAttempts += p.attempts; totalCorrect += p.correct||0; } });
+  const acc = totalAttempts > 0 ? Math.round(totalCorrect/totalAttempts*100) : null;
+
+  if (el('header-streak'))   el('header-streak').textContent   = meta.streak || 0;
+  if (el('header-total'))    el('header-total').textContent    = totalSeen;
+  if (el('header-accuracy')) el('header-accuracy').textContent = acc ? `${acc}%` : '—%';
+
+  // Check for ?card= param to jump to specific card
+  const params = new URLSearchParams(window.location.search);
+  const cardId = params.get('card');
+  if (cardId) {
+    const targetCard = FLASHCARDS.find(c => c.id === parseInt(cardId));
+    if (targetCard && typeof renderCard === 'function') renderCard(targetCard);
+  }
+
+  // Update nav
+  const streak = meta.streak || 0;
+  const score  = totalAttempts >= 5 ? Math.round(550 + (totalCorrect/totalAttempts)*200) : null;
+  if (typeof window.updateNavUser === 'function') window.updateNavUser(window.currentUser, streak, score);
+  if (typeof window.updateNavErrorsBadge === 'function') {
+    const errCount = FLASHCARDS.filter(c => { const p = progress[c.id]; return p && (p.wrong||0) > 0; }).length;
+    window.updateNavErrorsBadge(errCount);
+  }
+};

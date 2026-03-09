@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Error Log — GMAT Trainer</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="shared.css"/>
+</head>
+<body style="background:#0b1120;font-family:'Inter',sans-serif">
+
+<div id="loading-overlay" class="loading-overlay">
+  <div class="loading-spinner spin"></div>
+  <p style="font-size:14px;color:#64748b">Loading your errors…</p>
+</div>
+
+<div class="app-shell" id="app-shell">
+  <!-- Sidebar injected by nav.js -->
+
+  <div class="main-content">
+    <header class="page-header">
+      <div>
+        <div class="page-title">Error Log</div>
+        <div class="page-subtitle">Review every mistake and fix knowledge gaps</div>
+      </div>
+      <div class="header-pills">
+        <div class="stat-pill">
+          <span class="material-symbols-outlined" style="color:#f87171;font-variation-settings:'FILL' 1">error</span>
+          <span id="header-errors-count" style="font-weight:800;color:#f8fafc">0</span>
+          <span style="color:#64748b">total errors</span>
+        </div>
+        <div class="stat-pill">
+          <span class="material-symbols-outlined" style="color:#34d399;font-variation-settings:'FILL' 1">check_circle</span>
+          <span id="header-resolved-count" style="font-weight:800;color:#f8fafc">0</span>
+          <span style="color:#64748b">resolved</span>
+        </div>
+      </div>
+      <a href="practice.html" class="btn-primary" style="text-decoration:none">
+        <span class="material-symbols-outlined" style="font-size:16px">play_circle</span>
+        Practice All
+      </a>
+    </header>
+
+    <div class="page-body">
+      <div style="display:grid;grid-template-columns:1fr 320px;gap:24px;align-items:flex-start">
+
+        <!-- Main: errors table -->
+        <div>
+          <!-- Filter bar -->
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap">
+            <div style="display:flex;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:4px;gap:2px">
+              <button class="mode-btn active" data-filter="all" onclick="filterErrors('all',this)">All</button>
+              <button class="mode-btn" data-filter="unsolved" onclick="filterErrors('unsolved',this)">Unsolved</button>
+              <button class="mode-btn" data-filter="solved" onclick="filterErrors('solved',this)">Resolved</button>
+            </div>
+            <select id="error-topic-filter" style="height:36px;padding:0 12px;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);font-size:13px;color:#cbd5e1;outline:none;font-family:'Inter',sans-serif" onchange="applyErrorFilters()">
+              <option value="all">All Topics</option>
+            </select>
+            <span id="error-count-label" style="font-size:12px;color:#64748b;margin-left:auto"></span>
+          </div>
+
+          <div class="panel" style="overflow:hidden">
+            <div style="overflow-x:auto">
+              <table class="data-table" id="errors-table">
+                <thead>
+                  <tr>
+                    <th>Question &amp; Topic</th>
+                    <th>Last Attempt</th>
+                    <th>Retries</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar panels -->
+        <aside style="display:flex;flex-direction:column;gap:16px;position:sticky;top:88px">
+          <!-- Strategy tip -->
+          <div class="panel">
+            <div class="panel-header">
+              <span class="material-symbols-outlined" style="font-size:16px;color:#3b82f6;font-variation-settings:'FILL' 1">psychology</span>
+              <h3>Review Strategy</h3>
+            </div>
+            <div class="panel-body">
+              <div style="background:rgba(59,130,246,0.06);border-left:3px solid #3b82f6;border-radius:0 8px 8px 0;padding:12px">
+                <p style="font-size:13px;color:#94a3b8;line-height:1.6">Focus on your weakest topics first. Spaced repetition cards due now yield the biggest gains.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mistake distribution chart -->
+          <div class="panel">
+            <div class="panel-header">
+              <span class="material-symbols-outlined" style="font-size:16px;color:#3b82f6">donut_large</span>
+              <h3>Mistake Distribution</h3>
+            </div>
+            <div class="panel-body">
+              <p id="mistake-breakdown" style="font-size:12px;color:#64748b;margin-bottom:12px">No mistakes logged yet.</p>
+              <canvas id="mistake-chart" height="150"></canvas>
+            </div>
+          </div>
+
+          <!-- Weakest topics -->
+          <div class="panel">
+            <div class="panel-header">
+              <span class="material-symbols-outlined" style="font-size:16px;color:#f87171;font-variation-settings:'FILL' 1">trending_down</span>
+              <h3>Weakest Topics</h3>
+            </div>
+            <div class="panel-body">
+              <p id="weak-topics" style="font-size:12px;color:#64748b;line-height:1.7">Not enough data yet.</p>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let _allErrorRows = [];
+  let _currentFilter = 'all';
+
+  function filterErrors(filter, btn) {
+    _currentFilter = filter;
+    document.querySelectorAll('[data-filter]').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    applyErrorFilters();
+  }
+
+  function applyErrorFilters() {
+    const topicFilter = document.getElementById('error-topic-filter')?.value || 'all';
+    let rows = _allErrorRows;
+    if (_currentFilter === 'unsolved') rows = rows.filter(r => r.wrong > r.correct);
+    if (_currentFilter === 'solved')   rows = rows.filter(r => r.correct > 0 && r.correct >= r.wrong);
+    if (topicFilter !== 'all') rows = rows.filter(r => r.topic === topicFilter);
+    const label = document.getElementById('error-count-label');
+    if (label) label.textContent = `${rows.length} card${rows.length !== 1 ? 's' : ''}`;
+    renderErrorsTable(rows);
+  }
+
+  function renderErrorsTable(rows) {
+    const tbody = document.querySelector('#errors-table tbody');
+    if (!tbody) return;
+    if (!rows.length) {
+      tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:48px;color:#475569;font-size:14px">🎉 No errors to show for this filter.</td></tr>`;
+      return;
+    }
+    tbody.innerHTML = rows.map(r => {
+      const acc = r.attempts > 0 ? Math.round((r.correct/r.attempts)*100) : 0;
+      const accClass = acc < 50 ? 'acc-weak' : acc < 75 ? 'acc-ok' : 'acc-strong';
+      const status = r.correct > 0 && r.correct >= r.wrong
+        ? `<span class="badge badge-green">Resolved</span>`
+        : `<span class="badge badge-rose">Needs Work</span>`;
+      const lastDate = r.lastSeen ? new Date(r.lastSeen).toLocaleDateString('en-US',{month:'short',day:'numeric'}) : '—';
+      return `<tr>
+        <td>
+          <div style="font-size:13px;font-weight:600;color:#e2e8f0;max-width:340px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${r.question || '—'}</div>
+          <div style="font-size:11px;color:#64748b;margin-top:2px">${r.topic || ''}</div>
+        </td>
+        <td style="font-size:12px;color:#94a3b8">${lastDate}</td>
+        <td>
+          <span class="${accClass}" style="font-weight:700;font-size:13px">${acc}%</span>
+          <span style="font-size:11px;color:#475569;margin-left:4px">(${r.attempts}×)</span>
+        </td>
+        <td>${status}</td>
+        <td>
+          <button class="btn-retry" onclick="retryCard(${r.id})">Retry</button>
+        </td>
+      </tr>`;
+    }).join('');
+  }
+
+  function retryCard(cardId) {
+    window.location.href = `practice.html?card=${cardId}`;
+  }
+
+  window.initPage = function() {
+    const progress  = window._supabaseProgress || {};
+    const attempts  = window._supabaseAttempts || [];
+
+    // Build error rows from gmatCards + progress
+    const cards = window.gmatCards || [];
+    _allErrorRows = [];
+
+    cards.forEach(card => {
+      const p = progress[card.id];
+      if (!p || p.attempts === 0) return;
+      if ((p.wrong || 0) === 0) return; // never wrong
+      _allErrorRows.push({
+        id: card.id, topic: card.topic, question: card.q,
+        attempts: p.attempts, correct: p.correct || 0, wrong: p.wrong || 0,
+        lastSeen: p.lastSeen
+      });
+    });
+    _allErrorRows.sort((a,b) => (b.wrong - b.correct) - (a.wrong - a.correct));
+
+    // Header stats
+    const errCount = _allErrorRows.length;
+    const resolved = _allErrorRows.filter(r => r.correct > 0 && r.correct >= r.wrong).length;
+    const el = id => document.getElementById(id);
+    if (el('header-errors-count'))   el('header-errors-count').textContent   = errCount;
+    if (el('header-resolved-count')) el('header-resolved-count').textContent = resolved;
+
+    // Topic filter
+    const topics = [...new Set(_allErrorRows.map(r => r.topic))].sort();
+    const sel = document.getElementById('error-topic-filter');
+    if (sel) {
+      sel.innerHTML = '<option value="all">All Topics</option>' +
+        topics.map(t => `<option value="${t}">${t}</option>`).join('');
+    }
+
+    // Update nav badge
+    if (typeof window.updateNavErrorsBadge === 'function') window.updateNavErrorsBadge(errCount - resolved);
+
+    // Render
+    applyErrorFilters();
+
+    // Mistake breakdown chart
+    buildMistakeChart(attempts);
+
+    // Weak topics
+    buildWeakTopics(progress, cards);
+  };
+
+  function buildMistakeChart(attempts) {
+    const counts = { concept_gap:0, careless:0, misread:0, slow_strategy:0, no_shortcut:0 };
+    attempts.filter(a => !a.correct).forEach(a => { if (a.mistakeType && counts[a.mistakeType] !== undefined) counts[a.mistakeType]++; });
+    const total = Object.values(counts).reduce((s,n) => s+n, 0);
+    const el = document.getElementById('mistake-breakdown');
+    if (el) el.textContent = total > 0 ? `${total} categorised mistakes` : 'No mistakes logged yet.';
+    const ctx = document.getElementById('mistake-chart');
+    if (!ctx || total === 0) return;
+    new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Concept Gap','Careless','Misread','Timing','No Shortcut'],
+        datasets: [{ data: Object.values(counts), backgroundColor: ['#f87171','#fbbf24','#60a5fa','#fb923c','#a78bfa'], borderWidth: 0 }]
+      },
+      options: { plugins: { legend: { labels: { color:'#94a3b8', font:{size:11} } } }, cutout:'60%' }
+    });
+  }
+
+  function buildWeakTopics(progress, cards) {
+    const topicMap = {};
+    cards.forEach(c => {
+      const p = progress[c.id];
+      if (!p || p.attempts === 0) return;
+      if (!topicMap[c.topic]) topicMap[c.topic] = { correct:0, attempts:0 };
+      topicMap[c.topic].attempts += p.attempts;
+      topicMap[c.topic].correct  += p.correct || 0;
+    });
+    const sorted = Object.entries(topicMap)
+      .filter(([,v]) => v.attempts >= 3)
+      .map(([t,v]) => ({ t, acc: Math.round(v.correct/v.attempts*100) }))
+      .sort((a,b) => a.acc - b.acc)
+      .slice(0,5);
+    const el = document.getElementById('weak-topics');
+    if (!el) return;
+    if (!sorted.length) { el.textContent = 'Not enough data yet.'; return; }
+    el.innerHTML = sorted.map(({t,acc}) => {
+      const cls = acc < 50 ? 'acc-weak' : acc < 75 ? 'acc-ok' : 'acc-strong';
+      return `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+        <span style="font-size:12px;color:#cbd5e1">${t}</span>
+        <span class="${cls}" style="font-size:12px;font-weight:700">${acc}%</span>
+      </div>`;
+    }).join('');
+  }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="nav.js"></script>
+<script src="auth.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

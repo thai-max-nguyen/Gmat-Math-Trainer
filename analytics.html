@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Analytics — GMAT Trainer</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="shared.css"/>
+</head>
+<body style="background:#0b1120;font-family:'Inter',sans-serif">
+
+<div id="loading-overlay" class="loading-overlay">
+  <div class="loading-spinner spin"></div>
+  <p style="font-size:14px;color:#64748b">Crunching your stats…</p>
+</div>
+
+<div class="app-shell" id="app-shell">
+
+  <div class="main-content">
+    <header class="page-header">
+      <div>
+        <div class="page-title">Analytics</div>
+        <div class="page-subtitle">Your learning trajectory over time</div>
+      </div>
+      <div class="header-pills">
+        <div class="stat-pill">
+          <span class="material-symbols-outlined" style="color:#f59e0b;font-variation-settings:'FILL' 1">local_fire_department</span>
+          <span id="analytics-streak-val" style="font-weight:800;color:#f8fafc">0</span>
+          <span style="color:#64748b">day streak</span>
+        </div>
+        <div class="stat-pill">
+          <span class="material-symbols-outlined" style="color:#3b82f6;font-variation-settings:'FILL' 1">school</span>
+          <span id="analytics-score-val" style="font-weight:800;color:#f8fafc">—</span>
+          <span style="color:#64748b">predicted score</span>
+        </div>
+        <div class="stat-pill">
+          <span class="material-symbols-outlined" style="color:#10b981;font-variation-settings:'FILL' 1">check_circle</span>
+          <span id="analytics-accuracy-val" style="font-weight:800;color:#f8fafc">—%</span>
+          <span style="color:#64748b">overall accuracy</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="page-body" style="display:flex;flex-direction:column;gap:24px">
+
+      <!-- Summary stat cards -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+        <div class="panel panel-body" style="text-align:center;padding:20px">
+          <div id="stat-total-reviews" style="font-size:32px;font-weight:900;color:#3b82f6">0</div>
+          <div style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.08em;margin-top:4px">Total Reviews</div>
+        </div>
+        <div class="panel panel-body" style="text-align:center;padding:20px">
+          <div id="stat-days-studied" style="font-size:32px;font-weight:900;color:#10b981">0</div>
+          <div style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.08em;margin-top:4px">Days Studied</div>
+        </div>
+        <div class="panel panel-body" style="text-align:center;padding:20px">
+          <div id="stat-best-streak" style="font-size:32px;font-weight:900;color:#f59e0b">0</div>
+          <div style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.08em;margin-top:4px">Best Streak</div>
+        </div>
+        <div class="panel panel-body" style="text-align:center;padding:20px">
+          <div id="stat-mastered" style="font-size:32px;font-weight:900;color:#a78bfa">0</div>
+          <div style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.08em;margin-top:4px">Cards Mastered</div>
+        </div>
+      </div>
+
+      <!-- Streak calendar -->
+      <div class="panel">
+        <div class="panel-header" style="justify-content:space-between">
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="material-symbols-outlined" style="font-size:16px;color:#3b82f6;font-variation-settings:'FILL' 1">calendar_month</span>
+            <h3>Practice Consistency</h3>
+            <span style="font-size:11px;color:#64748b;font-weight:normal">— last 30 days</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px">
+            <span style="font-size:10px;color:#64748b">Less</span>
+            <div style="width:12px;height:12px;border-radius:3px;background:rgba(255,255,255,0.05)"></div>
+            <div style="width:12px;height:12px;border-radius:3px;background:rgba(59,130,246,0.25)"></div>
+            <div style="width:12px;height:12px;border-radius:3px;background:rgba(59,130,246,0.55)"></div>
+            <div style="width:12px;height:12px;border-radius:3px;background:rgba(59,130,246,0.8)"></div>
+            <div style="width:12px;height:12px;border-radius:3px;background:#3b82f6"></div>
+            <span style="font-size:10px;color:#64748b">More</span>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div id="streak-calendar" style="display:flex;flex-wrap:wrap;gap:6px"></div>
+        </div>
+      </div>
+
+      <!-- Charts row 1 -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+        <div class="panel">
+          <div class="panel-header">
+            <span class="material-symbols-outlined" style="font-size:16px;color:#10b981">trending_up</span>
+            <h3>Accuracy Trend (%)</h3>
+          </div>
+          <div class="panel-body"><canvas id="accuracy-chart" height="180"></canvas></div>
+        </div>
+        <div class="panel">
+          <div class="panel-header">
+            <span class="material-symbols-outlined" style="font-size:16px;color:#3b82f6">timer</span>
+            <h3>Daily Time (min)</h3>
+          </div>
+          <div class="panel-body"><canvas id="time-chart" height="180"></canvas></div>
+        </div>
+      </div>
+
+      <!-- Charts row 2 -->
+      <div style="display:grid;grid-template-columns:2fr 1fr;gap:20px">
+        <div class="panel">
+          <div class="panel-header">
+            <span class="material-symbols-outlined" style="font-size:16px;color:#a78bfa">bar_chart</span>
+            <h3>Cards Reviewed / Day</h3>
+          </div>
+          <div class="panel-body"><canvas id="cards-chart" height="160"></canvas></div>
+        </div>
+        <div class="panel">
+          <div class="panel-header">
+            <span class="material-symbols-outlined" style="font-size:16px;color:#f87171;font-variation-settings:'FILL' 1">trending_down</span>
+            <h3>Topic Breakdown</h3>
+          </div>
+          <div class="panel-body">
+            <div id="analytics-topic-list" style="display:flex;flex-direction:column;gap:12px;font-size:12px;color:#64748b">No data yet.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  const CHART_DEFAULTS = {
+    responsive: true,
+    maintainAspectRatio: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color:'rgba(255,255,255,0.04)' }, ticks: { color:'#475569', font:{size:11} } },
+      y: { grid: { color:'rgba(255,255,255,0.04)' }, ticks: { color:'#475569', font:{size:11} } }
+    }
+  };
+
+  function makeChart(id, type, labels, data, color, fillColor) {
+    const ctx = document.getElementById(id);
+    if (!ctx) return;
+    new Chart(ctx, {
+      type,
+      data: {
+        labels,
+        datasets: [{
+          data,
+          borderColor: color,
+          backgroundColor: type === 'line' ? fillColor : color,
+          borderWidth: type === 'line' ? 2 : 0,
+          fill: type === 'line',
+          tension: 0.4,
+          pointRadius: 3,
+          borderRadius: type === 'bar' ? 5 : 0
+        }]
+      },
+      options: { ...CHART_DEFAULTS }
+    });
+  }
+
+  function buildCalendar(daily) {
+    const cal = document.getElementById('streak-calendar');
+    if (!cal) return;
+    const days = [];
+    const maxCount = Math.max(...Object.values(daily).map(d => d.seen || 0), 1);
+    for (let i = 29; i >= 0; i--) {
+      const d = new Date();
+      d.setDate(d.getDate() - i);
+      const key = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+      const count = daily[key]?.seen || 0;
+      const isToday = i === 0;
+      let bg = 'rgba(255,255,255,0.05)';
+      if (count > 0) {
+        const ratio = count / maxCount;
+        if (ratio < 0.25) bg = 'rgba(59,130,246,0.25)';
+        else if (ratio < 0.5) bg = 'rgba(59,130,246,0.5)';
+        else if (ratio < 0.75) bg = 'rgba(59,130,246,0.75)';
+        else bg = '#3b82f6';
+      }
+      const outline = isToday ? 'outline:1.5px solid #60a5fa;' : '';
+      const title = `${key}: ${count} card${count !== 1 ? 's' : ''}`;
+      days.push(`<div style="width:14px;height:14px;border-radius:3px;background:${bg};${outline}cursor:default" title="${title}"></div>`);
+    }
+    cal.innerHTML = days.join('');
+  }
+
+  function calcStreak(daily) {
+    let streak = 0;
+    for (let i = 0; i < 365; i++) {
+      const d = new Date(); d.setDate(d.getDate() - i);
+      const key = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+      if (daily[key]?.seen > 0) streak++;
+      else if (i > 0) break;
+    }
+    return streak;
+  }
+
+  function calcBestStreak(daily) {
+    const keys = Object.keys(daily).filter(k => daily[k].seen > 0).sort();
+    let best = 0, cur = 0, prev = null;
+    keys.forEach(k => {
+      const d = new Date(k);
+      if (prev) {
+        const diff = (d - prev) / 86400000;
+        if (diff === 1) { cur++; best = Math.max(best, cur); }
+        else cur = 1;
+      } else cur = 1;
+      prev = d;
+    });
+    return Math.max(best, cur);
+  }
+
+  window.initPage = function() {
+    const progress = window._supabaseProgress || {};
+    const daily    = window._supabaseDaily    || {};
+    const cards    = window.gmatCards         || [];
+
+    // Summary stats
+    let totalReviews = 0, totalCorrect = 0;
+    Object.values(progress).forEach(p => { if (p.attempts) { totalReviews += p.attempts; totalCorrect += p.correct||0; } });
+    const daysStudied = Object.keys(daily).filter(k => daily[k].seen > 0).length;
+    const streak      = calcStreak(daily);
+    const bestStreak  = calcBestStreak(daily);
+    const mastered    = Object.values(progress).filter(p => p.attempts >= 3 && p.correct/p.attempts >= 0.8).length;
+    const overallAcc  = totalReviews > 0 ? Math.round(totalCorrect/totalReviews*100) : null;
+    const score       = totalReviews >= 5 ? Math.round(550 + (totalCorrect/totalReviews)*200) : null;
+
+    const el = id => document.getElementById(id);
+    if (el('stat-total-reviews')) el('stat-total-reviews').textContent = totalReviews;
+    if (el('stat-days-studied'))  el('stat-days-studied').textContent  = daysStudied;
+    if (el('stat-best-streak'))   el('stat-best-streak').textContent   = bestStreak;
+    if (el('stat-mastered'))      el('stat-mastered').textContent      = mastered;
+    if (el('analytics-streak-val')) el('analytics-streak-val').textContent = streak;
+    if (el('analytics-score-val'))  el('analytics-score-val').textContent  = score ?? '—';
+    if (el('analytics-accuracy-val')) el('analytics-accuracy-val').textContent = overallAcc ? `${overallAcc}%` : '—%';
+
+    // Calendar
+    buildCalendar(daily);
+
+    // Charts — build last 14 days data
+    const labels = [], accData = [], timeData = [], cardsData = [];
+    for (let i = 13; i >= 0; i--) {
+      const d = new Date(); d.setDate(d.getDate() - i);
+      const key = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+      labels.push(d.toLocaleDateString('en-US',{month:'short',day:'numeric'}));
+      const dayData = daily[key] || { seen:0, correct:0, seconds:0 };
+      const acc = dayData.seen > 0 ? Math.round(dayData.correct/dayData.seen*100) : 0;
+      accData.push(dayData.seen > 0 ? acc : null);
+      timeData.push(dayData.seconds ? Math.round(dayData.seconds/60) : null);
+      cardsData.push(dayData.seen || 0);
+    }
+
+    makeChart('accuracy-chart','line',labels,accData,'#10b981','rgba(16,185,129,0.08)');
+    makeChart('time-chart','line',labels,timeData,'#3b82f6','rgba(59,130,246,0.08)');
+    makeChart('cards-chart','bar',labels,cardsData,'rgba(167,139,250,0.7)');
+
+    // Topic breakdown
+    const topicMap = {};
+    cards.forEach(c => {
+      const p = progress[c.id];
+      if (!p || !p.attempts) return;
+      if (!topicMap[c.topic]) topicMap[c.topic] = { correct:0, attempts:0 };
+      topicMap[c.topic].attempts += p.attempts;
+      topicMap[c.topic].correct  += p.correct||0;
+    });
+    const topicList = document.getElementById('analytics-topic-list');
+    const entries = Object.entries(topicMap).map(([t,v]) => ({ t, acc: Math.round(v.correct/v.attempts*100), a: v.attempts })).sort((a,b) => b.a - a.a);
+    if (topicList && entries.length) {
+      topicList.innerHTML = entries.slice(0,8).map(({t,acc}) => {
+        const cls  = acc < 50 ? 'bad' : acc < 75 ? 'ok' : 'good';
+        const fill = acc < 50 ? '#ef4444' : acc < 75 ? '#f59e0b' : '#10b981';
+        return `<div style="display:flex;flex-direction:column;gap:4px">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:12px;font-weight:600;color:#cbd5e1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:140px">${t}</span>
+            <span style="font-size:12px;font-weight:700;color:${fill};margin-left:8px">${acc}%</span>
+          </div>
+          <div style="height:4px;background:rgba(255,255,255,0.06);border-radius:99px;overflow:hidden">
+            <div style="height:100%;width:${acc}%;background:${fill};border-radius:99px;transition:width 0.4s"></div>
+          </div>
+        </div>`;
+      }).join('');
+    }
+
+    // Update nav
+    if (typeof window.updateNavUser === 'function') window.updateNavUser(window.currentUser, streak, score);
+  };
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="nav.js"></script>
+<script src="auth.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

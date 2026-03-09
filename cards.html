@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>All Cards — GMAT Trainer</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="shared.css"/>
+</head>
+<body style="background:#0b1120;font-family:'Inter',sans-serif">
+
+<div id="loading-overlay" class="loading-overlay">
+  <div class="loading-spinner spin"></div>
+  <p style="font-size:14px;color:#64748b">Loading card library…</p>
+</div>
+
+<div class="app-shell" id="app-shell">
+
+  <div class="main-content">
+    <header class="page-header">
+      <div>
+        <div class="page-title">All Flashcards</div>
+        <div class="page-subtitle">Your complete GMAT card library</div>
+      </div>
+      <div class="header-pills">
+        <div class="stat-pill">
+          <span class="material-symbols-outlined" style="color:#3b82f6;font-variation-settings:'FILL' 1">style</span>
+          <span id="header-total-cards" style="font-weight:800;color:#f8fafc">0</span>
+          <span style="color:#64748b">total cards</span>
+        </div>
+        <div class="stat-pill">
+          <span class="material-symbols-outlined" style="color:#10b981;font-variation-settings:'FILL' 1">check_circle</span>
+          <span id="header-studied-cards" style="font-weight:800;color:#f8fafc">0</span>
+          <span style="color:#64748b">studied</span>
+        </div>
+        <div class="stat-pill">
+          <span class="material-symbols-outlined" style="color:#f59e0b;font-variation-settings:'FILL' 1">new_releases</span>
+          <span id="header-new-cards" style="font-weight:800;color:#f8fafc">0</span>
+          <span style="color:#64748b">new</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="page-body">
+      <!-- Search + filter bar -->
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap">
+        <!-- Search -->
+        <div style="position:relative;flex:1;min-width:200px">
+          <span class="material-symbols-outlined" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:17px;color:#64748b;pointer-events:none">search</span>
+          <input id="cards-search" type="text" placeholder="Search questions…" oninput="applyCardFilters()"
+            style="width:100%;padding:9px 12px 9px 36px;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);font-size:13px;color:#e2e8f0;outline:none;font-family:'Inter',sans-serif"/>
+        </div>
+
+        <!-- Topic filter -->
+        <select id="cards-topic-filter" style="height:38px;padding:0 12px;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);font-size:13px;color:#cbd5e1;outline:none;font-family:'Inter',sans-serif" onchange="applyCardFilters()">
+          <option value="all">All Topics</option>
+        </select>
+
+        <!-- Status filter -->
+        <div style="display:flex;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:4px;gap:2px">
+          <button class="mode-btn active" data-status="all" onclick="setStatusFilter('all',this)">All</button>
+          <button class="mode-btn" data-status="new" onclick="setStatusFilter('new',this)">New</button>
+          <button class="mode-btn" data-status="studied" onclick="setStatusFilter('studied',this)">Studied</button>
+          <button class="mode-btn" data-status="weak" onclick="setStatusFilter('weak',this)">Weak</button>
+        </div>
+
+        <span id="cards-count-label" style="font-size:12px;color:#64748b;white-space:nowrap"></span>
+      </div>
+
+      <!-- Cards table -->
+      <div class="panel" style="overflow:hidden">
+        <div style="overflow-x:auto">
+          <table class="data-table" id="all-cards-table">
+            <thead>
+              <tr>
+                <th style="width:40px">#</th>
+                <th>Topic</th>
+                <th>Question</th>
+                <th>Attempts</th>
+                <th>Accuracy</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let _allCardRows = [];
+  let _statusFilter = 'all';
+
+  function setStatusFilter(status, btn) {
+    _statusFilter = status;
+    document.querySelectorAll('[data-status]').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    applyCardFilters();
+  }
+
+  function applyCardFilters() {
+    const search = (document.getElementById('cards-search')?.value || '').toLowerCase();
+    const topic  = document.getElementById('cards-topic-filter')?.value || 'all';
+    let rows = _allCardRows;
+    if (topic !== 'all') rows = rows.filter(r => r.topic === topic);
+    if (search) rows = rows.filter(r => r.question.toLowerCase().includes(search) || r.topic.toLowerCase().includes(search));
+    if (_statusFilter === 'new')     rows = rows.filter(r => r.attempts === 0);
+    if (_statusFilter === 'studied') rows = rows.filter(r => r.attempts > 0);
+    if (_statusFilter === 'weak')    rows = rows.filter(r => r.attempts > 0 && r.acc < 60);
+    const label = document.getElementById('cards-count-label');
+    if (label) label.textContent = `${rows.length} card${rows.length !== 1 ? 's' : ''}`;
+    renderCardsTable(rows);
+  }
+
+  function renderCardsTable(rows) {
+    const tbody = document.querySelector('#all-cards-table tbody');
+    if (!tbody) return;
+    if (!rows.length) {
+      tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;padding:48px;color:#475569;font-size:14px">No cards match your filters.</td></tr>`;
+      return;
+    }
+    tbody.innerHTML = rows.map((r, i) => {
+      const accDisplay = r.attempts > 0 ? `${r.acc}%` : '—';
+      const accClass   = r.attempts === 0 ? '' : r.acc < 50 ? 'acc-weak' : r.acc < 75 ? 'acc-ok' : 'acc-strong';
+      let statusBadge;
+      if (r.attempts === 0) statusBadge = `<span class="badge badge-blue">New</span>`;
+      else if (r.acc < 50)  statusBadge = `<span class="badge badge-rose">Weak</span>`;
+      else if (r.acc < 75)  statusBadge = `<span class="badge badge-amber">OK</span>`;
+      else                  statusBadge = `<span class="badge badge-green">Strong</span>`;
+      return `<tr onclick="practiceCard(${r.id})" style="cursor:pointer">
+        <td style="color:#475569;font-family:monospace;font-size:11px">${r.id}</td>
+        <td>
+          <span class="badge badge-blue">${r.topic}</span>
+        </td>
+        <td style="max-width:380px">
+          <div style="font-size:13px;color:#e2e8f0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:380px" title="${r.question.replace(/"/g,'&quot;')}">${r.question}</div>
+        </td>
+        <td style="font-size:13px;color:#94a3b8">${r.attempts}</td>
+        <td><span class="${accClass}" style="font-size:13px;font-weight:700">${accDisplay}</span></td>
+        <td>${statusBadge}</td>
+        <td onclick="event.stopPropagation()">
+          <button class="btn-retry" onclick="practiceCard(${r.id})">
+            <span class="material-symbols-outlined" style="font-size:12px;vertical-align:middle">play_arrow</span> Practice
+          </button>
+        </td>
+      </tr>`;
+    }).join('');
+  }
+
+  function practiceCard(cardId) {
+    window.location.href = `practice.html?card=${cardId}`;
+  }
+
+  window.initPage = function() {
+    const progress = window._supabaseProgress || {};
+    const cards    = window.gmatCards || [];
+
+    _allCardRows = cards.map(c => {
+      const p = progress[c.id] || { attempts:0, correct:0 };
+      const acc = p.attempts > 0 ? Math.round((p.correct/p.attempts)*100) : 0;
+      return { id: c.id, topic: c.topic, question: c.q, attempts: p.attempts, acc };
+    });
+
+    // Header stats
+    const total   = _allCardRows.length;
+    const studied = _allCardRows.filter(r => r.attempts > 0).length;
+    const newCards = total - studied;
+    const el = id => document.getElementById(id);
+    if (el('header-total-cards'))  el('header-total-cards').textContent  = total;
+    if (el('header-studied-cards')) el('header-studied-cards').textContent = studied;
+    if (el('header-new-cards'))    el('header-new-cards').textContent    = newCards;
+
+    // Topic filter
+    const topics = [...new Set(cards.map(c => c.topic))].sort();
+    const sel = document.getElementById('cards-topic-filter');
+    if (sel) sel.innerHTML = '<option value="all">All Topics</option>' + topics.map(t => `<option value="${t}">${t}</option>`).join('');
+
+    applyCardFilters();
+  };
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="nav.js"></script>
+<script src="auth.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

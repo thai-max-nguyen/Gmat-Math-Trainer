@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Practice — GMAT Trainer</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="shared.css"/>
+</head>
+<body style="background:#0b1120;font-family:'Inter',sans-serif">
+
+<!-- Loading overlay -->
+<div id="loading-overlay" class="loading-overlay">
+  <div class="loading-spinner spin"></div>
+  <p style="font-size:14px;color:#64748b">Loading your progress…</p>
+</div>
+
+<div class="app-shell" id="app-shell">
+  <!-- Sidebar injected by nav.js -->
+
+  <div class="main-content">
+    <!-- Page header -->
+    <header class="page-header">
+      <div>
+        <div class="page-title">Practice</div>
+        <div class="page-subtitle">Spaced repetition flashcards</div>
+      </div>
+      <div class="header-pills">
+        <div class="stat-pill">
+          <span class="material-symbols-outlined" style="color:#3b82f6;font-variation-settings:'FILL' 1">local_fire_department</span>
+          <span id="header-streak" style="font-weight:800;color:#f8fafc">0</span>
+          <span style="color:#64748b">day streak</span>
+        </div>
+        <div class="stat-pill">
+          <span class="material-symbols-outlined" style="color:#10b981;font-variation-settings:'FILL' 1">check_circle</span>
+          <span id="header-total" style="font-weight:800;color:#f8fafc">0</span>
+          <span style="color:#64748b">total cards</span>
+        </div>
+        <div class="stat-pill">
+          <span class="material-symbols-outlined" style="color:#f59e0b;font-variation-settings:'FILL' 1">bolt</span>
+          <span id="header-accuracy" style="font-weight:800;color:#f8fafc">—%</span>
+          <span style="color:#64748b">accuracy</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="page-body">
+      <div style="display:flex;gap:28px;align-items:flex-start">
+
+        <!-- ── LEFT: Flashcard area ─────────────────── -->
+        <section style="flex:1;min-width:0;display:flex;flex-direction:column;gap:20px">
+
+          <!-- Controls bar -->
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <!-- Mode buttons -->
+            <div style="display:flex;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:4px;gap:2px">
+              <button class="mode-btn active" data-mode="all">All</button>
+              <button class="mode-btn" data-mode="new">New</button>
+              <button class="mode-btn" data-mode="weak">Weak</button>
+            </div>
+
+            <!-- Topic filter -->
+            <select id="topic-filter" style="height:38px;padding:0 12px;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);font-size:13px;color:#cbd5e1;outline:none;font-family:'Inter',sans-serif;cursor:pointer">
+              <option value="all">All Topics</option>
+            </select>
+
+            <!-- Right side controls -->
+            <div style="display:flex;align-items:center;gap:8px;margin-left:auto">
+              <span id="practice-session-label" style="font-size:12px;font-weight:700;color:#f59e0b"></span>
+              <!-- Timer -->
+              <div style="display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:6px 12px">
+                <span class="material-symbols-outlined" style="font-size:16px;color:#3b82f6">timer</span>
+                <span id="practice-timer" style="font-size:13px;font-weight:800;color:#3b82f6;font-variant-numeric:tabular-nums">0:00</span>
+              </div>
+              <!-- Drill -->
+              <button id="btn-drill" style="display:flex;align-items:center;gap:6px;height:38px;padding:0 14px;border-radius:10px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);color:#f59e0b;font-size:12px;font-weight:700;cursor:pointer;transition:background 0.15s" onmouseenter="this.style.background='rgba(245,158,11,0.16)'" onmouseleave="this.style.background='rgba(245,158,11,0.08)'">
+                <span class="material-symbols-outlined" style="font-size:16px">bolt</span>Speed Drill
+              </button>
+              <!-- Skip -->
+              <button id="btn-next" style="display:flex;align-items:center;gap:6px;height:38px;padding:0 14px;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:#94a3b8;font-size:12px;font-weight:600;cursor:pointer;transition:background 0.15s" onmouseenter="this.style.background='rgba(255,255,255,0.08)'" onmouseleave="this.style.background='rgba(255,255,255,0.04)'">
+                <span class="material-symbols-outlined" style="font-size:16px">skip_next</span>Skip
+              </button>
+            </div>
+          </div>
+
+          <!-- Card meta row -->
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+            <div style="display:flex;align-items:center;gap:8px">
+              <div style="display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:5px 10px">
+                <span class="material-symbols-outlined" style="font-size:14px;color:#3b82f6">label</span>
+                <span id="card-topic" style="font-size:12px;font-weight:600;color:#cbd5e1;max-width:220px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"></span>
+              </div>
+              <span id="card-id" style="font-size:11px;color:#475569;font-family:monospace"></span>
+            </div>
+            <span id="card-sr-badge" class="pill-sr"></span>
+          </div>
+
+          <!-- Flashcard -->
+          <article class="flashcard" id="flashcard-box">
+            <p id="card-question" class="card-question"></p>
+            <div id="card-answer" class="hidden" style="width:100%;margin-top:8px">
+              <div class="card-answer-divider"></div>
+              <p class="card-answer-text answer-text"></p>
+            </div>
+          </article>
+
+          <!-- MCQ choices (hidden until needed) -->
+          <div id="mcq-choices" class="hidden" style="display:flex;flex-direction:column;gap:8px"></div>
+
+          <p id="card-stats" style="text-align:center;font-size:12px;color:#475569"></p>
+
+          <!-- Show answer button -->
+          <button id="btn-show-answer" style="width:100%;background:#3b82f6;color:#fff;font-weight:700;padding:14px;border-radius:12px;font-size:15px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 8px 28px rgba(59,130,246,0.2);transition:background 0.15s" onmouseenter="this.style.background='#2563eb'" onmouseleave="this.style.background='#3b82f6'">
+            <span class="material-symbols-outlined">visibility</span>
+            Show Answer
+            <span style="font-size:11px;opacity:0.65;background:rgba(255,255,255,0.2);padding:2px 8px;border-radius:6px;margin-left:4px">SPACE</span>
+          </button>
+
+          <!-- Rating buttons -->
+          <div id="rating-buttons" class="locked" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+            <button id="btn-wrong" style="padding:16px;border-radius:12px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);color:#f87171;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;transition:background 0.15s">
+              <span class="material-symbols-outlined" style="font-size:28px">close</span>
+              <span style="font-weight:700;font-size:13px">Wrong</span>
+              <span style="font-size:10px;opacity:0.6">KEY [1]</span>
+            </button>
+            <button id="btn-lucky" style="padding:16px;border-radius:12px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);color:#f59e0b;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;transition:background 0.15s">
+              <span class="material-symbols-outlined" style="font-size:28px">help</span>
+              <span style="font-weight:700;font-size:13px">Lucky</span>
+              <span style="font-size:10px;opacity:0.6">KEY [2]</span>
+            </button>
+            <button id="btn-correct" style="padding:16px;border-radius:12px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);color:#34d399;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;transition:background 0.15s">
+              <span class="material-symbols-outlined" style="font-size:28px">check</span>
+              <span style="font-weight:700;font-size:13px">Correct</span>
+              <span style="font-size:10px;opacity:0.6">KEY [3]</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- ── RIGHT: Sidebar panels ────────────────── -->
+        <aside style="width:280px;flex-shrink:0;display:flex;flex-direction:column;gap:14px;position:sticky;top:88px">
+
+          <!-- Today's progress -->
+          <div class="panel">
+            <div class="panel-header">
+              <span class="material-symbols-outlined" style="font-size:16px;color:#3b82f6;font-variation-settings:'FILL' 1">today</span>
+              <h3>Today</h3>
+              <span id="snapshot-accuracy-today" style="margin-left:auto;font-size:12px;font-weight:700;color:#3b82f6;background:rgba(59,130,246,0.1);padding:2px 8px;border-radius:6px">—</span>
+            </div>
+            <div class="panel-body" style="padding:14px 16px">
+              <div class="progress-track" style="height:6px;margin-bottom:8px">
+                <div id="daily-goal-bar" class="progress-fill" style="width:0%"></div>
+              </div>
+              <p style="font-size:11px;color:#64748b">Avg/Q: <span id="snapshot-time-per-question" style="font-weight:600;color:#94a3b8">—</span></p>
+            </div>
+          </div>
+
+          <!-- Session stats -->
+          <div class="panel">
+            <div class="panel-header">
+              <span class="material-symbols-outlined" style="font-size:16px;color:#3b82f6">bar_chart</span>
+              <h3>Session Stats</h3>
+            </div>
+            <div class="panel-body" style="padding:14px">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                <div style="background:rgba(255,255,255,0.03);border-radius:10px;padding:10px;text-align:center">
+                  <span id="ss-seen" style="display:block;font-size:22px;font-weight:800;color:#f8fafc">0</span>
+                  <span style="font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.06em">Solved</span>
+                </div>
+                <div style="background:rgba(255,255,255,0.03);border-radius:10px;padding:10px;text-align:center">
+                  <span id="ss-correct" style="display:block;font-size:22px;font-weight:800;color:#34d399">0</span>
+                  <span style="font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.06em">Correct</span>
+                </div>
+                <div style="background:rgba(255,255,255,0.03);border-radius:10px;padding:10px;text-align:center">
+                  <span id="ss-xp" style="display:block;font-size:22px;font-weight:800;color:#f59e0b">0</span>
+                  <span style="font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.06em">XP Today</span>
+                </div>
+                <div style="background:rgba(255,255,255,0.03);border-radius:10px;padding:10px;text-align:center">
+                  <span id="ss-next-review" style="display:block;font-size:11px;font-weight:700;color:#3b82f6;word-break:break-all">—</span>
+                  <span style="font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.06em">Next Review</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Spaced repetition counts -->
+          <div class="panel">
+            <div class="panel-header">
+              <span class="material-symbols-outlined" style="font-size:16px;color:#3b82f6">layers</span>
+              <h3>Spaced Repetition</h3>
+            </div>
+            <div class="panel-body" style="padding:14px;display:flex;gap:8px">
+              <div style="flex:1;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:10px;padding:10px;text-align:center">
+                <span id="sr-due-count" style="display:block;font-size:22px;font-weight:800;color:#f59e0b">0</span>
+                <span style="font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase">Due</span>
+              </div>
+              <div style="flex:1;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);border-radius:10px;padding:10px;text-align:center">
+                <span id="sr-new-count" style="display:block;font-size:22px;font-weight:800;color:#3b82f6">0</span>
+                <span style="font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase">New</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Weak topics -->
+          <div class="panel">
+            <div class="panel-header">
+              <span class="material-symbols-outlined" style="font-size:16px;color:#f87171;font-variation-settings:'FILL' 1">trending_down</span>
+              <h3>Weak Topics</h3>
+            </div>
+            <div class="panel-body" style="padding:14px">
+              <div id="weak-topics-panel" style="display:flex;flex-direction:column;gap:10px;font-size:12px;color:#64748b">No data yet.</div>
+            </div>
+          </div>
+
+          <!-- Quick actions -->
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <button id="btn-practice-weak" class="mode-btn" data-mode="weak" style="width:100%;padding:10px;border-radius:10px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);color:#f87171;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:6px">
+              <span class="material-symbols-outlined" style="font-size:15px">trending_down</span>Practice Weak Topics
+            </button>
+            <a href="errors.html" style="width:100%;padding:10px;border-radius:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:#94a3b8;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;transition:background 0.15s">
+              <span class="material-symbols-outlined" style="font-size:15px">error</span>View Error Log
+            </a>
+            <button id="btn-reset-progress" style="width:100%;padding:9px;border-radius:10px;border:1px solid rgba(239,68,68,0.15);background:none;color:#f87171;font-size:11px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;opacity:0.7">
+              <span class="material-symbols-outlined" style="font-size:14px">restart_alt</span>Reset Progress
+            </button>
+          </div>
+
+          <!-- Hidden buttons for app.js compat -->
+          <span style="display:none">
+            <button id="btn-dashboard-drill"></button>
+            <button id="btn-dashboard-errors"></button>
+            <button id="btn-dashboard-continue"></button>
+            <button id="btn-dashboard-weak" class="mode-btn" data-mode="weak"></button>
+          </span>
+        </aside>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="border-top:1px solid rgba(255,255,255,0.05);padding:12px 32px;display:flex;justify-content:space-between;align-items:center;font-size:10px;font-weight:700;color:#334155;text-transform:uppercase;letter-spacing:0.08em;flex-wrap:wrap;gap:8px">
+      <div style="display:flex;gap:16px">
+        <span>Shortcuts:</span>
+        <span>[Space] Show Answer</span>
+        <span>[1] Wrong · [2] Lucky · [3] Correct</span>
+        <span>[N] Next</span>
+      </div>
+      <span>GMAT Trainer v3.1</span>
+    </footer>
+  </div>
+</div>
+
+<!-- MODAL: Mistake type -->
+<div id="mistake-modal" class="modal-backdrop hidden">
+  <div class="modal-box">
+    <h3 style="font-size:17px;font-weight:800;text-align:center;margin-bottom:4px">What went wrong?</h3>
+    <p style="font-size:13px;color:#64748b;text-align:center;margin-bottom:20px">Categorise your mistake to improve faster.</p>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <button class="modal-reason" data-reason="concept_gap" style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);cursor:pointer;text-align:left;transition:border-color 0.15s,background 0.15s" onmouseenter="this.style.borderColor='rgba(59,130,246,0.4)'" onmouseleave="this.style.borderColor='rgba(255,255,255,0.08)'">
+        <span class="material-symbols-outlined" style="font-size:22px;color:#f87171;font-variation-settings:'FILL' 1">psychology</span>
+        <div><div style="font-size:13px;font-weight:700;color:#f1f5f9">Conceptual Gap</div><div style="font-size:11px;color:#64748b">Didn't know the concept</div></div>
+      </button>
+      <button class="modal-reason" data-reason="careless" style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);cursor:pointer;text-align:left;transition:border-color 0.15s,background 0.15s" onmouseenter="this.style.borderColor='rgba(59,130,246,0.4)'" onmouseleave="this.style.borderColor='rgba(255,255,255,0.08)'">
+        <span class="material-symbols-outlined" style="font-size:22px;color:#f59e0b;font-variation-settings:'FILL' 1">warning</span>
+        <div><div style="font-size:13px;font-weight:700;color:#f1f5f9">Careless Mistake</div><div style="font-size:11px;color:#64748b">Silly arithmetic or reading error</div></div>
+      </button>
+      <button class="modal-reason" data-reason="misread" style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);cursor:pointer;text-align:left;transition:border-color 0.15s,background 0.15s" onmouseenter="this.style.borderColor='rgba(59,130,246,0.4)'" onmouseleave="this.style.borderColor='rgba(255,255,255,0.08)'">
+        <span class="material-symbols-outlined" style="font-size:22px;color:#60a5fa;font-variation-settings:'FILL' 1">menu_book</span>
+        <div><div style="font-size:13px;font-weight:700;color:#f1f5f9">Misread Question</div><div style="font-size:11px;color:#64748b">Missed a key condition</div></div>
+      </button>
+      <button class="modal-reason" data-reason="slow_strategy" style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);cursor:pointer;text-align:left;transition:border-color 0.15s,background 0.15s" onmouseenter="this.style.borderColor='rgba(59,130,246,0.4)'" onmouseleave="this.style.borderColor='rgba(255,255,255,0.08)'">
+        <span class="material-symbols-outlined" style="font-size:22px;color:#fb923c;font-variation-settings:'FILL' 1">hourglass_empty</span>
+        <div><div style="font-size:13px;font-weight:700;color:#f1f5f9">Timing Pressure</div><div style="font-size:11px;color:#64748b">Ran out of time</div></div>
+      </button>
+      <button class="modal-reason" data-reason="no_shortcut" style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);cursor:pointer;text-align:left;transition:border-color 0.15s,background 0.15s" onmouseenter="this.style.borderColor='rgba(59,130,246,0.4)'" onmouseleave="this.style.borderColor='rgba(255,255,255,0.08)'">
+        <span class="material-symbols-outlined" style="font-size:22px;color:#a78bfa;font-variation-settings:'FILL' 1">route</span>
+        <div><div style="font-size:13px;font-weight:700;color:#f1f5f9">No Shortcut Known</div><div style="font-size:11px;color:#64748b">Used a slow method</div></div>
+      </button>
+    </div>
+    <button id="btn-mistake-cancel-btn" style="margin-top:16px;width:100%;padding:11px;border-radius:10px;border:1px solid rgba(255,255,255,0.08);background:none;font-size:13px;font-weight:600;color:#64748b;cursor:pointer">Cancel</button>
+  </div>
+</div>
+<div id="btn-mistake-cancel" style="display:none"></div>
+
+<!-- MODAL: Drill results -->
+<div id="drill-modal" class="modal-backdrop hidden">
+  <div class="modal-box" style="max-width:360px">
+    <div style="text-align:center;margin-bottom:20px">
+      <div style="display:inline-flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:50%;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.2);margin-bottom:12px">
+        <span class="material-symbols-outlined" style="font-size:28px;color:#3b82f6">bolt</span>
+      </div>
+      <h3 style="font-size:19px;font-weight:800">Speed Drill Complete!</h3>
+    </div>
+    <div id="drill-results" style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px"></div>
+    <button id="btn-drill-close" style="width:100%;background:#3b82f6;color:#fff;font-weight:700;padding:13px;border-radius:12px;font-size:14px;border:none;cursor:pointer">Continue Practicing</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="nav.js"></script>
+<script src="auth.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
