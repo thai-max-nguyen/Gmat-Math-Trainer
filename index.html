@@ -4,154 +4,180 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>GMAT Trainer — Sign In</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="shared.css"/>
+<script>
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: { "primary": "#3B82F6", "background-dark": "#0F172A" },
+        fontFamily: { "display": ["Inter", "sans-serif"] },
+      },
+    },
+  }
+</script>
 <style>
+  body { font-family: 'Inter', sans-serif; }
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
   @keyframes spin { to { transform: rotate(360deg); } }
   .spin { animation: spin 0.75s linear infinite; display: inline-block; }
-  .btn-auth {
-    width: 100%; background: #3b82f6; color: #fff;
-    font-weight: 700; padding: 13px; border-radius: 12px;
-    font-size: 14px; border: none; cursor: pointer;
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-    transition: background 0.15s; box-shadow: 0 8px 24px rgba(59,130,246,0.25);
+  input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px #0f172a inset !important;
+    -webkit-text-fill-color: #fff !important;
+    caret-color: #fff;
   }
-  .btn-auth:hover { background: #2563eb; }
-  .tab-switch { display: flex; background: rgba(255,255,255,0.04); border-radius: 12px; padding: 4px; margin-bottom: 24px; }
-  .tab-switch button { flex: 1; padding: 9px; border-radius: 9px; font-size: 13px; font-weight: 600; border: none; cursor: pointer; transition: background 0.15s, color 0.15s; background: none; color: rgba(255,255,255,0.4); }
-  .tab-switch button.active { background: rgba(255,255,255,0.1); color: #fff; }
 </style>
 </head>
-<body style="background:#090e1d;font-family:'Inter',sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px">
+<body class="bg-[#0F172A] text-slate-100 min-h-screen flex flex-col" style="font-family:'Inter',sans-serif">
 
-<!-- Background glows -->
-<div style="position:fixed;inset:0;pointer-events:none;overflow:hidden">
-  <div style="position:absolute;top:-20%;left:-10%;width:600px;height:600px;background:radial-gradient(circle,rgba(30,58,138,0.35) 0%,transparent 70%);border-radius:50%"></div>
-  <div style="position:absolute;top:10%;right:-5%;width:400px;height:400px;background:radial-gradient(circle,rgba(59,130,246,0.12) 0%,transparent 70%);border-radius:50%"></div>
-</div>
-
-<div style="position:relative;z-index:1;width:100%;max-width:420px">
-  <!-- Mascot + title -->
-  <div style="text-align:center;margin-bottom:28px">
-    <div style="display:inline-block;margin-bottom:12px;position:relative">
-      <svg width="80" height="80" viewBox="0 0 90 90" fill="none">
-        <ellipse cx="45" cy="52" rx="28" ry="30" fill="#3b82f6"/>
-        <circle cx="45" cy="28" r="22" fill="#3b82f6"/>
-        <circle cx="45" cy="28" r="18" fill="#60a5fa" opacity="0.3"/>
-        <ellipse cx="37" cy="26" rx="6" ry="7" fill="white"/>
-        <ellipse cx="53" cy="26" rx="6" ry="7" fill="white"/>
-        <circle cx="38" cy="27" r="3.5" fill="#1e3a5f"/>
-        <circle cx="54" cy="27" r="3.5" fill="#1e3a5f"/>
-        <circle cx="39.5" cy="25.5" r="1.2" fill="white"/>
-        <circle cx="55.5" cy="25.5" r="1.2" fill="white"/>
-        <path d="M37 34 Q45 41 53 34" stroke="white" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-        <rect x="26" y="10" width="38" height="5" rx="2" fill="#1d4ed8"/>
-        <polygon points="45,2 26,10 64,10" fill="#1d4ed8"/>
-        <line x1="62" y1="10" x2="66" y2="18" stroke="#fbbf24" stroke-width="2.5" stroke-linecap="round"/>
-        <circle cx="66" cy="19" r="2.5" fill="#fbbf24"/>
-        <ellipse cx="17" cy="55" rx="5" ry="8" fill="#3b82f6" transform="rotate(-30 17 55)"/>
-        <ellipse cx="73" cy="55" rx="5" ry="8" fill="#3b82f6" transform="rotate(30 73 55)"/>
-        <rect x="31" y="57" width="28" height="18" rx="3" fill="#1d4ed8"/>
-        <line x1="45" y1="57" x2="45" y2="75" stroke="#60a5fa" stroke-width="1.5"/>
-        <ellipse cx="36" cy="81" rx="9" ry="5" fill="#2563eb"/>
-        <ellipse cx="54" cy="81" rx="9" ry="5" fill="#2563eb"/>
-      </svg>
-      <div style="position:absolute;top:-4px;right:-4px;font-size:16px;animation:bounce 1s infinite alternate">✨</div>
+<header class="flex items-center justify-between border-b border-slate-800 px-6 lg:px-20 py-4 bg-white/5 backdrop-blur-md sticky top-0 z-50">
+  <div class="flex items-center gap-3">
+    <div class="text-blue-500">
+      <svg class="w-8 h-8" fill="none" viewBox="0 0 48 48"><g clip-path="url(#c0)"><path clip-rule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fill-rule="evenodd"/></g><defs><clipPath id="c0"><rect fill="white" height="48" width="48"/></clipPath></defs></svg>
     </div>
-    <h1 style="font-size:28px;font-weight:900;color:#f8fafc;margin:0 0 6px;letter-spacing:-0.03em">GMAT Trainer</h1>
-    <p style="font-size:14px;color:#64748b;margin:0">Ready to crush that score? 🎯</p>
+    <h2 class="text-xl font-bold">GMAT Trainer</h2>
   </div>
+  <span class="text-sm text-slate-500 hidden md:block">System Status: <span class="text-emerald-500">Online</span></span>
+</header>
 
-  <!-- Auth card -->
-  <div class="auth-card">
-    <!-- Tab switcher -->
-    <div class="tab-switch">
-      <button id="tab-login-btn" class="active" onclick="showAuthTab('login')">Sign In</button>
-      <button id="tab-signup-btn" onclick="showAuthTab('signup')">Create Account</button>
+<main class="flex-1 flex items-center justify-center p-6">
+  <div class="w-full max-w-[480px]">
+
+    <!-- LOGIN -->
+    <div id="view-login">
+      <div class="text-center mb-8">
+        <h1 class="text-4xl font-black tracking-tight text-white mb-2">Welcome back</h1>
+        <p class="text-slate-400">Sign in to continue your GMAT prep journey.</p>
+      </div>
+      <div class="bg-[#111827] p-8 rounded-xl border border-slate-800 shadow-xl">
+        <div id="login-error" class="hidden mb-5 p-3 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-400 text-sm text-center"></div>
+        <div id="login-success" class="hidden mb-5 p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm text-center"></div>
+        <div class="space-y-5">
+          <div class="space-y-2">
+            <label class="text-sm font-semibold text-slate-300 ml-1">Email address</label>
+            <div class="relative group">
+              <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-500 transition-colors" style="font-size:20px">mail</span>
+              <input id="login-email" type="email" placeholder="name@example.com" onkeydown="if(event.key==='Enter') handleLogin()" class="w-full pl-12 pr-4 py-3.5 bg-slate-900/50 border border-slate-800 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none text-white placeholder:text-slate-500 transition-all"/>
+            </div>
+          </div>
+          <div class="space-y-2">
+            <div class="flex justify-between items-center ml-1">
+              <label class="text-sm font-semibold text-slate-300">Password</label>
+              <button onclick="handleForgotPassword()" class="text-sm text-blue-500 font-semibold hover:underline">Forgot password?</button>
+            </div>
+            <div class="relative group">
+              <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-500 transition-colors" style="font-size:20px">lock</span>
+              <input id="login-password" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter') handleLogin()" class="w-full pl-12 pr-4 py-3.5 bg-slate-900/50 border border-slate-800 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none text-white placeholder:text-slate-500 transition-all"/>
+            </div>
+          </div>
+          <div class="pt-2">
+            <button id="btn-login" onclick="handleLogin()" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 rounded-lg shadow-lg shadow-blue-500/20 transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+              <span>Sign In</span><span class="material-symbols-outlined" style="font-size:18px">arrow_forward</span>
+            </button>
+          </div>
+        </div>
+        <div class="mt-8 flex items-center gap-4">
+          <div class="h-px flex-1 bg-slate-800"></div>
+          <span class="text-xs font-medium text-slate-500 uppercase tracking-widest">or</span>
+          <div class="h-px flex-1 bg-slate-800"></div>
+        </div>
+        <div class="mt-6 text-center">
+          <p class="text-slate-400">Don't have an account? <button onclick="showAuthTab('signup')" class="text-blue-500 font-bold hover:underline ml-1">Create one free</button></p>
+        </div>
+      </div>
     </div>
 
-    <!-- LOGIN FORM -->
-    <div id="screen-login">
-      <div id="login-error" class="hidden" style="margin-bottom:16px;padding:12px;border-radius:10px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);color:#f87171;font-size:13px;text-align:center"></div>
-      <div id="login-success" class="hidden" style="margin-bottom:16px;padding:12px;border-radius:10px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2);color:#34d399;font-size:13px;text-align:center"></div>
-
-      <div style="margin-bottom:16px">
-        <label style="display:block;font-size:13px;font-weight:600;color:#cbd5e1;margin-bottom:8px">Email address</label>
-        <div class="input-wrap">
-          <span class="material-symbols-outlined input-icon" style="font-size:18px">mail</span>
-          <input id="login-email" type="email" placeholder="name@example.com" class="auth-input" onkeydown="if(event.key==='Enter') handleLogin()"/>
+    <!-- SIGNUP -->
+    <div id="view-signup" class="hidden">
+      <div class="text-center mb-8">
+        <h1 class="text-4xl font-black tracking-tight text-white mb-2">Create your account</h1>
+        <p class="text-slate-400">Start your journey to a 700+ score with focused practice.</p>
+      </div>
+      <div class="bg-[#111827] p-8 rounded-xl border border-slate-800 shadow-xl">
+        <div id="signup-error" class="hidden mb-5 p-3 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-400 text-sm text-center"></div>
+        <div id="signup-success" class="hidden mb-5 p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm text-center"></div>
+        <div class="space-y-5">
+          <div class="space-y-2">
+            <label class="text-sm font-semibold text-slate-300 ml-1">Email address</label>
+            <div class="relative group">
+              <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-500 transition-colors" style="font-size:20px">mail</span>
+              <input id="signup-email" type="email" placeholder="name@example.com" class="w-full pl-12 pr-4 py-3.5 bg-slate-900/50 border border-slate-800 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none text-white placeholder:text-slate-500 transition-all"/>
+            </div>
+          </div>
+          <div class="space-y-2">
+            <label class="text-sm font-semibold text-slate-300 ml-1">Password</label>
+            <div class="relative group">
+              <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-500 transition-colors" style="font-size:20px">lock</span>
+              <input id="signup-password" type="password" placeholder="Min 6 characters" class="w-full pl-12 pr-12 py-3.5 bg-slate-900/50 border border-slate-800 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none text-white placeholder:text-slate-500 transition-all"/>
+              <button type="button" onclick="togglePw('signup-password',this)" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200 transition-colors">
+                <span class="material-symbols-outlined" style="font-size:20px">visibility</span>
+              </button>
+            </div>
+          </div>
+          <div class="space-y-2">
+            <label class="text-sm font-semibold text-slate-300 ml-1">Confirm Password</label>
+            <div class="relative group">
+              <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-500 transition-colors" style="font-size:20px">shield</span>
+              <input id="signup-confirm" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter') handleSignup()" class="w-full pl-12 pr-4 py-3.5 bg-slate-900/50 border border-slate-800 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none text-white placeholder:text-slate-500 transition-all"/>
+            </div>
+          </div>
+          <div class="pt-2">
+            <button id="btn-signup" onclick="handleSignup()" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 rounded-lg shadow-lg shadow-blue-500/20 transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+              <span>Create Account</span><span class="material-symbols-outlined" style="font-size:18px">arrow_forward</span>
+            </button>
+          </div>
+        </div>
+        <div class="mt-8 flex items-center gap-4">
+          <div class="h-px flex-1 bg-slate-800"></div>
+          <span class="text-xs font-medium text-slate-500 uppercase tracking-widest">Secure Signup</span>
+          <div class="h-px flex-1 bg-slate-800"></div>
+        </div>
+        <div class="mt-6 text-center">
+          <p class="text-slate-400">Already have an account? <button onclick="showAuthTab('login')" class="text-blue-500 font-bold hover:underline ml-1">Sign in</button></p>
         </div>
       </div>
-
-      <div style="margin-bottom:20px">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-          <label style="font-size:13px;font-weight:600;color:#cbd5e1">Password</label>
-          <button onclick="handleForgotPassword()" style="font-size:13px;font-weight:600;color:#3b82f6;background:none;border:none;cursor:pointer">Forgot password?</button>
-        </div>
-        <div class="input-wrap">
-          <span class="material-symbols-outlined input-icon" style="font-size:18px">lock</span>
-          <input id="login-password" type="password" placeholder="••••••••" class="auth-input" onkeydown="if(event.key==='Enter') handleLogin()"/>
-        </div>
+      <div class="flex justify-center items-center gap-8 opacity-50 hover:opacity-100 transition-all mt-6">
+        <div class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">verified_user</span><span class="text-xs font-mono uppercase tracking-tighter">AES-256 Encrypted</span></div>
+        <div class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">terminal</span><span class="text-xs font-mono uppercase tracking-tighter">Dev-Friendly API</span></div>
       </div>
-
-      <button id="btn-login" onclick="handleLogin()" class="btn-auth">Sign In &nbsp;→</button>
     </div>
 
-    <!-- SIGNUP FORM -->
-    <div id="screen-signup" class="hidden">
-      <div id="signup-error" class="hidden" style="margin-bottom:16px;padding:12px;border-radius:10px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);color:#f87171;font-size:13px;text-align:center"></div>
-      <div id="signup-success" class="hidden" style="margin-bottom:16px;padding:12px;border-radius:10px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2);color:#34d399;font-size:13px;text-align:center"></div>
-
-      <div style="margin-bottom:14px">
-        <label style="display:block;font-size:13px;font-weight:600;color:#cbd5e1;margin-bottom:8px">Email address</label>
-        <div class="input-wrap">
-          <span class="material-symbols-outlined input-icon" style="font-size:18px">mail</span>
-          <input id="signup-email" type="email" placeholder="name@example.com" class="auth-input"/>
-        </div>
-      </div>
-      <div style="margin-bottom:14px">
-        <label style="display:block;font-size:13px;font-weight:600;color:#cbd5e1;margin-bottom:8px">Password</label>
-        <div class="input-wrap">
-          <span class="material-symbols-outlined input-icon" style="font-size:18px">lock</span>
-          <input id="signup-password" type="password" placeholder="Min 6 characters" class="auth-input" style="padding-right:44px"/>
-          <button onclick="togglePw('signup-password',this)" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#64748b">
-            <span class="material-symbols-outlined" style="font-size:18px">visibility</span>
-          </button>
-        </div>
-      </div>
-      <div style="margin-bottom:20px">
-        <label style="display:block;font-size:13px;font-weight:600;color:#cbd5e1;margin-bottom:8px">Confirm Password</label>
-        <div class="input-wrap">
-          <span class="material-symbols-outlined input-icon" style="font-size:18px">shield</span>
-          <input id="signup-confirm" type="password" placeholder="••••••••" class="auth-input" onkeydown="if(event.key==='Enter') handleSignup()"/>
-        </div>
-      </div>
-
-      <button id="btn-signup" onclick="handleSignup()" class="btn-auth">Create Account &nbsp;→</button>
-      <p style="text-align:center;font-size:11px;color:#334155;margin-top:12px;text-transform:uppercase;letter-spacing:0.08em;font-weight:700">🔒 Secure · Encrypted</p>
-    </div>
   </div>
+</main>
 
-  <p style="text-align:center;margin-top:20px;font-size:12px;color:#1e293b">
-    Privacy Policy &nbsp;·&nbsp; Terms &nbsp;·&nbsp; Support
-  </p>
-</div>
+<footer class="p-8 text-center border-t border-slate-800">
+  <p class="text-xs text-slate-500 font-mono">© 2025 GMAT TRAINER // VERSION 3.1.0</p>
+</footer>
 
 <script>
-  window.showAuthTab = function showAuthTab(tab) {
+  window.showAuthTab = function(tab) {
     const isLogin = tab === 'login';
-    document.getElementById('screen-login').classList.toggle('hidden', !isLogin);
-    document.getElementById('screen-signup').classList.toggle('hidden', isLogin);
-    document.getElementById('tab-login-btn').classList.toggle('active', isLogin);
-    document.getElementById('tab-signup-btn').classList.toggle('active', !isLogin);
+    document.getElementById('view-login').classList.toggle('hidden', !isLogin);
+    document.getElementById('view-signup').classList.toggle('hidden', isLogin);
+  };
+  window.showScreen = function(name) { showAuthTab(name === 'signup' ? 'signup' : 'login'); };
+
+  function setBtnLoading(id, loading, defaultHTML) {
+    const btn = document.getElementById(id);
+    if (!btn) return;
+    btn.disabled = loading;
+    btn.innerHTML = loading ? '<span class="spin material-symbols-outlined" style="font-size:16px">progress_activity</span>&nbsp; Please wait…' : defaultHTML;
   }
-  function showScreen(name) {
-    showAuthTab(name === 'login' ? 'login' : 'signup');
+  function setMsg(prefix, type, msg) {
+    const errEl = document.getElementById(prefix+'-error');
+    const sucEl = document.getElementById(prefix+'-success');
+    if (errEl) { errEl.textContent = type==='error' ? msg : ''; errEl.classList.toggle('hidden', type!=='error'||!msg); }
+    if (sucEl) { sucEl.textContent = type==='success' ? msg : ''; sucEl.classList.toggle('hidden', type!=='success'||!msg); }
   }
-  window.showScreen = showScreen;
-  @keyframes bounce { from { transform:translateY(0); } to { transform:translateY(-4px); } }
+  function togglePw(inputId, btn) {
+    const input = document.getElementById(inputId);
+    if (!input) return;
+    const show = input.type === 'password';
+    input.type = show ? 'text' : 'password';
+    btn.querySelector('span').textContent = show ? 'visibility_off' : 'visibility';
+  }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="auth.js"></script>
