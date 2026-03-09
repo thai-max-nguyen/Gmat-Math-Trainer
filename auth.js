@@ -211,20 +211,24 @@ window.sb.auth.onAuthStateChange(async (event, session) => {
     // Update nav
     if (typeof window.updateNavUser === "function") window.updateNavUser(session.user, streak, score);
 
-    // Call page-specific init — poll until initPage exists (DOM may still be parsing)
+    // Call page-specific init — poll until initPage exists
     let tries = 0;
     const tryInit = () => {
       if (typeof window.initPage === "function") {
         try { window.initPage(); } catch(e) { console.error("initPage error:", e); }
         showLoading(false);
-      } else if (tries++ < 60) {
-        setTimeout(tryInit, 150);
+      } else if (tries++ < 40) {
+        setTimeout(tryInit, 200);
       } else {
-        // initPage not defined on this page — just hide loader
-        showLoading(false);
+        showLoading(false); // give up waiting, just hide loader
       }
     };
-    setTimeout(tryInit, 300);
+    // Wait for scripts to load first
+    if (document.readyState === "complete") {
+      setTimeout(tryInit, 200);
+    } else {
+      window.addEventListener("load", () => setTimeout(tryInit, 100));
+    }
 
   } else {
     window.currentUser = null;

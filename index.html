@@ -29,6 +29,38 @@
     caret-color: #fff;
   }
 </style>
+<script>
+  // Define auth tab switching EARLY so onclick handlers work
+  function showAuthTab(tab) {
+    var isLogin = tab === 'login';
+    var l = document.getElementById('view-login');
+    var s = document.getElementById('view-signup');
+    if (l) l.classList.toggle('hidden', !isLogin);
+    if (s) s.classList.toggle('hidden', isLogin);
+  }
+  window.showAuthTab = showAuthTab;
+  function showScreen(name) { showAuthTab(name === 'signup' ? 'signup' : 'login'); }
+  window.showScreen = showScreen;
+  function togglePw(inputId, btn) {
+    var input = document.getElementById(inputId);
+    if (!input) return;
+    var show = input.type === 'password';
+    input.type = show ? 'text' : 'password';
+    btn.querySelector('span').textContent = show ? 'visibility_off' : 'visibility';
+  }
+  function setBtnLoading(id, loading, defaultHTML) {
+    var btn = document.getElementById(id);
+    if (!btn) return;
+    btn.disabled = loading;
+    btn.innerHTML = loading ? '<span style="display:inline-block;animation:spin 0.75s linear infinite" class="material-symbols-outlined">progress_activity</span> Please wait...' : defaultHTML;
+  }
+  function setMsg(prefix, type, msg) {
+    var errEl = document.getElementById(prefix+'-error');
+    var sucEl = document.getElementById(prefix+'-success');
+    if (errEl) { errEl.textContent = type==='error' ? msg : ''; errEl.classList.toggle('hidden', type!=='error'||!msg); }
+    if (sucEl) { sucEl.textContent = type==='success' ? msg : ''; sucEl.classList.toggle('hidden', type!=='success'||!msg); }
+  }
+</script>
 </head>
 <body class="bg-[#0F172A] text-slate-100 min-h-screen flex flex-col" style="font-family:'Inter',sans-serif">
 
@@ -151,34 +183,7 @@
   <p class="text-xs text-slate-500 font-mono">© 2025 GMAT TRAINER // VERSION 3.1.0</p>
 </footer>
 
-<script>
-  window.showAuthTab = function(tab) {
-    const isLogin = tab === 'login';
-    document.getElementById('view-login').classList.toggle('hidden', !isLogin);
-    document.getElementById('view-signup').classList.toggle('hidden', isLogin);
-  };
-  window.showScreen = function(name) { showAuthTab(name === 'signup' ? 'signup' : 'login'); };
-
-  function setBtnLoading(id, loading, defaultHTML) {
-    const btn = document.getElementById(id);
-    if (!btn) return;
-    btn.disabled = loading;
-    btn.innerHTML = loading ? '<span class="spin material-symbols-outlined" style="font-size:16px">progress_activity</span>&nbsp; Please wait…' : defaultHTML;
-  }
-  function setMsg(prefix, type, msg) {
-    const errEl = document.getElementById(prefix+'-error');
-    const sucEl = document.getElementById(prefix+'-success');
-    if (errEl) { errEl.textContent = type==='error' ? msg : ''; errEl.classList.toggle('hidden', type!=='error'||!msg); }
-    if (sucEl) { sucEl.textContent = type==='success' ? msg : ''; sucEl.classList.toggle('hidden', type!=='success'||!msg); }
-  }
-  function togglePw(inputId, btn) {
-    const input = document.getElementById(inputId);
-    if (!input) return;
-    const show = input.type === 'password';
-    input.type = show ? 'text' : 'password';
-    btn.querySelector('span').textContent = show ? 'visibility_off' : 'visibility';
-  }
-</script>
+<!-- UI functions defined in head -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="auth.js"></script>
 </body>
