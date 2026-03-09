@@ -9,7 +9,6 @@ const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFz
 window.sb          = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 window.currentUser = null;
 
-// ── Which page type is this? ─────────────────────
 const _isAuthPage = window.location.pathname.endsWith("index.html")
   || window.location.pathname === "/"
   || window.location.pathname === "";
@@ -19,14 +18,11 @@ function showLoading(on) {
   const el = document.getElementById("loading-overlay");
   if (!el) return;
   if (on) {
-    el.style.display = "flex";
+    el.style.cssText = "display:flex !important; visibility:visible !important; opacity:1 !important;";
     el.classList.remove("hidden");
   } else {
-    el.style.display = "none";
+    el.style.cssText = "display:none !important; visibility:hidden !important; opacity:0 !important; pointer-events:none !important;";
     el.classList.add("hidden");
-    el.style.visibility = "hidden";
-    el.style.opacity = "0";
-    el.style.pointerEvents = "none";
   }
 }
 
@@ -46,49 +42,37 @@ function setBtnLoading(id, loading, defaultHTML) {
     : defaultHTML;
 }
 
-function togglePw(inputId, btn) {
-  const input = document.getElementById(inputId);
-  if (!input) return;
-  const show = input.type === "password";
-  input.type = show ? "text" : "password";
-  btn.querySelector("span").textContent = show ? "visibility_off" : "visibility";
-}
-
-// ── Auth handlers (used on index.html) ───────────
+// ── Auth handlers ─────────────────────────────────
 async function handleLogin() {
   const email    = document.getElementById("login-email")?.value.trim();
   const password = document.getElementById("login-password")?.value;
-  setMsg("login", "error", "");
   if (!email || !password) { setMsg("login", "error", "Please enter your email and password."); return; }
-  const errEl = document.getElementById("login-error");
-  const sucEl = document.getElementById("login-success");
-  if (errEl) errEl.classList.add("hidden");
-  if (sucEl) sucEl.classList.add("hidden");
+  setMsg("login", "error", "");
   setBtnLoading("btn-login", true);
   const { error } = await window.sb.auth.signInWithPassword({ email, password });
-  setBtnLoading("btn-login", false, "Sign In &nbsp;→");
+  setBtnLoading("btn-login", false, `Sign In <span class="material-symbols-outlined" style="font-size:18px">arrow_forward</span>`);
   if (error) {
-    const msg = error.message.includes("Invalid login") ? "❌ Invalid email or password." : error.message;
-    setMsg("login", "error", msg);
+    setMsg("login", "error", error.message.includes("Invalid login") ? "❌ Invalid email or password." : error.message);
   }
-  // On success, onAuthStateChange fires → redirects to practice.html
+  // onAuthStateChange will redirect to practice.html on success
 }
 
 async function handleSignup() {
   const email    = document.getElementById("signup-email")?.value.trim();
   const password = document.getElementById("signup-password")?.value;
   const confirm  = document.getElementById("signup-confirm")?.value;
-  setMsg("signup", "error", "");
   if (!email || !password || !confirm) { setMsg("signup", "error", "Please fill in all fields."); return; }
   if (password.length < 6)             { setMsg("signup", "error", "Password must be at least 6 characters."); return; }
   if (password !== confirm)            { setMsg("signup", "error", "Passwords do not match."); return; }
+  setMsg("signup", "error", "");
   setBtnLoading("btn-signup", true);
-  const { data, error } = await window.sb.auth.signUp({ email, password, options: { data: { email } } });
-  setBtnLoading("btn-signup", false, "Create Account &nbsp;→");
+  const { data, error } = await window.sb.auth.signUp({ email, password });
+  setBtnLoading("btn-signup", false, `Create Account <span class="material-symbols-outlined" style="font-size:18px">arrow_forward</span>`);
   if (error) { setMsg("signup", "error", error.message); return; }
   if (data?.session) return; // onAuthStateChange handles redirect
+  // Auto sign-in after signup
   const { error: signInErr } = await window.sb.auth.signInWithPassword({ email, password });
-  if (signInErr) { setMsg("signup", "success", "Account created! Please sign in."); showScreen("login"); }
+  if (signInErr) { setMsg("signup", "success", "✅ Account created! Please sign in."); showScreen("login"); }
 }
 
 async function handleForgotPassword() {
@@ -96,7 +80,7 @@ async function handleForgotPassword() {
   if (!email) { setMsg("login", "error", "Enter your email address first."); return; }
   const { error } = await window.sb.auth.resetPasswordForEmail(email, { redirectTo: window.location.origin + "/index.html" });
   if (error) setMsg("login", "error", error.message);
-  else setMsg("login", "success", "📧 Password reset email sent — check your inbox.");
+  else setMsg("login", "success", "📧 Password reset email sent!");
 }
 
 async function handleLogout() {
@@ -105,16 +89,8 @@ async function handleLogout() {
   window.location.href = "index.html";
 }
 
-// ── Login page screen switching ──────────────────
 function showScreen(name) {
-  // Use showAuthTab if available (index.html), otherwise fallback
-  if (typeof window.showAuthTab === "function") {
-    window.showAuthTab(name);
-  } else {
-    ["screen-login","screen-signup"].forEach(id => document.getElementById(id)?.classList.add("hidden"));
-    const map = { login:"screen-login", signup:"screen-signup" };
-    document.getElementById(map[name])?.classList.remove("hidden");
-  }
+  if (typeof window.showAuthTab === "function") window.showAuthTab(name);
 }
 
 // ── Data loading ─────────────────────────────────
@@ -197,66 +173,78 @@ function calcPredictedScore(progress) {
   return Math.round(550 + (totalCorrect / totalAttempts) * 200);
 }
 
-// ── Auth state listener ───────────────────────────
-window.sb.auth.onAuthStateChange(async (event, session) => {
-  if (session?.user) {
-    window.currentUser = session.user;
+// ── Core init: run once on app pages ─────────────
+let _appInitDone = false;
 
-    if (_isAuthPage) {
-      // On login page → redirect to app
+async function _runAppInit(user) {
+  if (_appInitDone) return;
+  _appInitDone = true;
+
+  window.currentUser = user;
+  showLoading(true);
+
+  // Fetch data
+  const data = await loadUserProgress(user.id);
+  window._supabaseProgress = buildProgressFromSupabase(data);
+  window._supabaseDaily    = buildDailyFromSupabase(data);
+  window._supabaseAttempts = buildAttemptsFromSupabase(data);
+
+  const streak = calcStreakFromDaily(window._supabaseDaily);
+  const score  = calcPredictedScore(window._supabaseProgress);
+  if (typeof window.updateNavUser === "function") window.updateNavUser(user, streak, score);
+
+  // Poll for initPage (app.js may still be parsing)
+  let tries = 0;
+  const tryInit = () => {
+    if (typeof window.initPage === "function") {
+      try { window.initPage(); } catch(e) { console.error("initPage error:", e); }
+      showLoading(false);
+    } else if (tries++ < 50) {
+      setTimeout(tryInit, 100);
+    } else {
+      console.warn("initPage not found after 5s");
+      showLoading(false);
+    }
+  };
+  tryInit();
+}
+
+// ── Boot: check session first, then listen for changes ──
+(async () => {
+  if (_isAuthPage) {
+    // On login page: just check if already logged in → redirect
+    const { data: { session } } = await window.sb.auth.getSession();
+    if (session) {
       window.location.href = "practice.html";
       return;
     }
+    // Show login form
+    showLoading(false);
+    showScreen("login");
 
-    // On app pages → load data and init
-    showLoading(true);
-    const data = await loadUserProgress(session.user.id);
-    window._supabaseProgress = buildProgressFromSupabase(data);
-    window._supabaseDaily    = buildDailyFromSupabase(data);
-    window._supabaseAttempts = buildAttemptsFromSupabase(data);
-
-    const streak = calcStreakFromDaily(window._supabaseDaily);
-    const score  = calcPredictedScore(window._supabaseProgress);
-
-    // Update nav
-    if (typeof window.updateNavUser === "function") window.updateNavUser(session.user, streak, score);
-
-    // Data is ready — now call initPage, polling until the function exists
-    let tries = 0;
-    const tryInit = () => {
-      if (typeof window.initPage === "function") {
-        try { window.initPage(); } catch(e) { console.error("initPage error:", e); }
-        showLoading(false);
-      } else if (tries++ < 50) {
-        setTimeout(tryInit, 100);
-      } else {
-        showLoading(false);
-      }
-    };
-    tryInit();
+    // Listen for login events only on auth page
+    window.sb.auth.onAuthStateChange((event, session) => {
+      if (session) window.location.href = "practice.html";
+    });
 
   } else {
-    window.currentUser = null;
-    showLoading(false);
-    if (!_isAuthPage) {
-      // Not logged in on an app page → redirect to login
+    // On app pages: get session once and init
+    const { data: { session } } = await window.sb.auth.getSession();
+    if (!session) {
       window.location.href = "index.html";
-    } else {
-      // Show login screen
-      showScreen("login");
+      return;
     }
-  }
-});
+    // Init app with session user
+    await _runAppInit(session.user);
 
-// ── On page load: check session ───────────────────
-(async () => {
-  const { data: { session } } = await window.sb.auth.getSession();
-  if (!session) {
-    showLoading(false);
-    if (!_isAuthPage) {
-      window.location.href = "index.html";
-    } else {
-      showScreen("login");
-    }
+    // Also listen for token refresh (silently update user, don't re-init)
+    window.sb.auth.onAuthStateChange((event, session) => {
+      if (!session) {
+        window.location.href = "index.html";
+      } else if (event === "SIGNED_OUT") {
+        window.location.href = "index.html";
+      }
+      // TOKEN_REFRESHED etc — don't re-run init
+    });
   }
 })();
