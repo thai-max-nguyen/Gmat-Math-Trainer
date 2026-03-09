@@ -740,11 +740,11 @@ function formatDate(iso) {
 
 // ─── LOAD / SAVE ─────────────────────────────────
 function loadProgress() {
-// === MULTI-PAGE ADAPTER ===
-
-
-// Expose cards array for other pages
-window.gmatCards = FLASHCARDS.map(c => ({ id: c.id, topic: c.topic, q: c.question }));
+  return window._supabaseProgress ? { ...window._supabaseProgress } : {};
+}
+function saveProgress(p) {
+  window._supabaseProgress = p;
+}
 
 function ensureMeta(p) {
   if (!p[META_KEY]) p[META_KEY] = {};
@@ -1623,34 +1623,30 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+
+// Expose cards array for other pages
+window.gmatCards = FLASHCARDS.map(c => ({ id: c.id, topic: c.topic, q: c.question }));
+
 // ═══════════════════════════════════════════════
 //  MULTI-PAGE: initPage() called by auth.js
-//  Only runs on practice.html (has #flashcard-box)
 // ═══════════════════════════════════════════════
 window.initPage = function() {
-  // Only initialize flashcard logic on practice page
   if (!document.getElementById('flashcard-box') && !document.getElementById('btn-show-answer')) return;
+  if (typeof window.initAppWithCloudData === 'function') window.initAppWithCloudData();
 
-  // Run the standard cloud-data init
-  if (typeof window.initAppWithCloudData === 'function') {
-    window.initAppWithCloudData();
-  }
-
-  // Update header pills
   const progress = _appProgress || {};
   const meta     = _appMeta     || {};
   const el = id => document.getElementById(id);
 
-  const totalSeen = Object.values(progress).filter(p => p?.attempts > 0).length;
   let totalCorrect = 0, totalAttempts = 0;
   Object.values(progress).forEach(p => { if (p?.attempts) { totalAttempts += p.attempts; totalCorrect += p.correct||0; } });
+  const totalSeen = Object.values(progress).filter(p => p?.attempts > 0).length;
   const acc = totalAttempts > 0 ? Math.round(totalCorrect/totalAttempts*100) : null;
 
   if (el('header-streak'))   el('header-streak').textContent   = meta.streak || 0;
   if (el('header-total'))    el('header-total').textContent    = totalSeen;
-  if (el('header-accuracy')) el('header-accuracy').textContent = acc ? `${acc}%` : '—%';
+  if (el('header-accuracy')) el('header-accuracy').textContent = acc ? acc+'%' : '-%';
 
-  // Check for ?card= param to jump to specific card
   const params = new URLSearchParams(window.location.search);
   const cardId = params.get('card');
   if (cardId) {
@@ -1658,7 +1654,6 @@ window.initPage = function() {
     if (targetCard && typeof renderCard === 'function') renderCard(targetCard);
   }
 
-  // Update nav
   const streak = meta.streak || 0;
   const score  = totalAttempts >= 5 ? Math.round(550 + (totalCorrect/totalAttempts)*200) : null;
   if (typeof window.updateNavUser === 'function') window.updateNavUser(window.currentUser, streak, score);
