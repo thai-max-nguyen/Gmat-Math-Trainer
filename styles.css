@@ -3,6 +3,9 @@
    Dark mode by default, light theme via [data-theme="light"]
    ════════════════════════════════════════════════════════════ */
 
+/* Ensure [hidden] works even when .btn sets display:inline-flex */
+[hidden] { display: none !important; }
+
 :root {
   /* Dark theme (default) */
   --bg:           #0b1020;
