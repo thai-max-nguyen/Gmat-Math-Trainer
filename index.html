@@ -1,190 +1,230 @@
 <!DOCTYPE html>
-<html class="dark" lang="en">
+<html lang="en" data-theme="dark">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>GMAT Trainer — Sign In</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-<script>
-  tailwind.config = {
-    darkMode: "class",
-    theme: {
-      extend: {
-        colors: { "primary": "#3B82F6", "background-dark": "#0F172A" },
-        fontFamily: { "display": ["Inter", "sans-serif"] },
-      },
-    },
-  }
-</script>
-<style>
-  body { font-family: 'Inter', sans-serif; }
-  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .spin { animation: spin 0.75s linear infinite; display: inline-block; }
-  input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus {
-    -webkit-box-shadow: 0 0 0px 1000px #0f172a inset !important;
-    -webkit-text-fill-color: #fff !important;
-    caret-color: #fff;
-  }
-</style>
-<script>
-  // Define auth tab switching EARLY so onclick handlers work
-  function showAuthTab(tab) {
-    var isLogin = tab === 'login';
-    var l = document.getElementById('view-login');
-    var s = document.getElementById('view-signup');
-    if (l) l.classList.toggle('hidden', !isLogin);
-    if (s) s.classList.toggle('hidden', isLogin);
-  }
-  window.showAuthTab = showAuthTab;
-  function showScreen(name) { showAuthTab(name === 'signup' ? 'signup' : 'login'); }
-  window.showScreen = showScreen;
-  function togglePw(inputId, btn) {
-    var input = document.getElementById(inputId);
-    if (!input) return;
-    var show = input.type === 'password';
-    input.type = show ? 'text' : 'password';
-    btn.querySelector('span').textContent = show ? 'visibility_off' : 'visibility';
-  }
-  function setBtnLoading(id, loading, defaultHTML) {
-    var btn = document.getElementById(id);
-    if (!btn) return;
-    btn.disabled = loading;
-    btn.innerHTML = loading ? '<span style="display:inline-block;animation:spin 0.75s linear infinite" class="material-symbols-outlined">progress_activity</span> Please wait...' : defaultHTML;
-  }
-  function setMsg(prefix, type, msg) {
-    var errEl = document.getElementById(prefix+'-error');
-    var sucEl = document.getElementById(prefix+'-success');
-    if (errEl) { errEl.textContent = type==='error' ? msg : ''; errEl.classList.toggle('hidden', type!=='error'||!msg); }
-    if (sucEl) { sucEl.textContent = type==='success' ? msg : ''; sucEl.classList.toggle('hidden', type!=='success'||!msg); }
-  }
-</script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GMAT Math Trainer</title>
+  <meta name="description" content="A focused GMAT Quant practice app — 160+ Problem Solving and Data Sufficiency questions, with timer, weak-area detection, and spaced repetition." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
 </head>
-<body class="bg-[#0F172A] text-slate-100 min-h-screen flex flex-col" style="font-family:'Inter',sans-serif">
-
-<header class="flex items-center justify-between border-b border-slate-800 px-6 lg:px-20 py-4 bg-white/5 backdrop-blur-md sticky top-0 z-50">
-  <div class="flex items-center gap-3">
-    <div class="text-blue-500">
-      <svg class="w-8 h-8" fill="none" viewBox="0 0 48 48"><g clip-path="url(#c0)"><path clip-rule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fill-rule="evenodd"/></g><defs><clipPath id="c0"><rect fill="white" height="48" width="48"/></clipPath></defs></svg>
-    </div>
-    <h2 class="text-xl font-bold">GMAT Trainer</h2>
-  </div>
-  <span class="text-sm text-slate-500 hidden md:block">System Status: <span class="text-emerald-500">Online</span></span>
-</header>
-
-<main class="flex-1 flex items-center justify-center p-6">
-  <div class="w-full max-w-[480px]">
-
-    <!-- LOGIN -->
-    <div id="view-login">
-      <div class="text-center mb-8">
-        <h1 class="text-4xl font-black tracking-tight text-white mb-2">Welcome back</h1>
-        <p class="text-slate-400">Sign in to continue your GMAT prep journey.</p>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" width="28" height="28">
+          <path d="M16 2 L30 16 L16 30 L2 16 Z" fill="currentColor" opacity="0.15" />
+          <path d="M16 2 L30 16 L16 30 L2 16 Z" fill="none" stroke="currentColor" stroke-width="2" />
+          <path d="M10 16 L14 20 L22 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
       </div>
-      <div class="bg-[#111827] p-8 rounded-xl border border-slate-800 shadow-xl">
-        <div id="login-error" class="hidden mb-5 p-3 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-400 text-sm text-center"></div>
-        <div id="login-success" class="hidden mb-5 p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm text-center"></div>
-        <div class="space-y-5">
-          <div class="space-y-2">
-            <label class="text-sm font-semibold text-slate-300 ml-1">Email address</label>
-            <div class="relative group">
-              <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-500 transition-colors" style="font-size:20px">mail</span>
-              <input id="login-email" type="email" placeholder="name@example.com" onkeydown="if(event.key==='Enter') handleLogin()" class="w-full pl-12 pr-4 py-3.5 bg-slate-900/50 border border-slate-800 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none text-white placeholder:text-slate-500 transition-all"/>
-            </div>
-          </div>
-          <div class="space-y-2">
-            <div class="flex justify-between items-center ml-1">
-              <label class="text-sm font-semibold text-slate-300">Password</label>
-              <button onclick="handleForgotPassword()" class="text-sm text-blue-500 font-semibold hover:underline">Forgot password?</button>
-            </div>
-            <div class="relative group">
-              <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-500 transition-colors" style="font-size:20px">lock</span>
-              <input id="login-password" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter') handleLogin()" class="w-full pl-12 pr-4 py-3.5 bg-slate-900/50 border border-slate-800 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none text-white placeholder:text-slate-500 transition-all"/>
-            </div>
-          </div>
-          <div class="pt-2">
-            <button id="btn-login" onclick="handleLogin()" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 rounded-lg shadow-lg shadow-blue-500/20 transition-all active:scale-[0.98] flex items-center justify-center gap-2">
-              <span>Sign In</span><span class="material-symbols-outlined" style="font-size:18px">arrow_forward</span>
-            </button>
-          </div>
-        </div>
-        <div class="mt-8 flex items-center gap-4">
-          <div class="h-px flex-1 bg-slate-800"></div>
-          <span class="text-xs font-medium text-slate-500 uppercase tracking-widest">or</span>
-          <div class="h-px flex-1 bg-slate-800"></div>
-        </div>
-        <div class="mt-6 text-center">
-          <p class="text-slate-400">Don't have an account? <button onclick="showAuthTab('signup')" class="text-blue-500 font-bold hover:underline ml-1">Create one free</button></p>
-        </div>
+      <div>
+        <div class="brand-title">GMAT Math Trainer</div>
+        <div class="brand-sub" id="bank-summary">Loading…</div>
       </div>
     </div>
-
-    <!-- SIGNUP -->
-    <div id="view-signup" class="hidden">
-      <div class="text-center mb-8">
-        <h1 class="text-4xl font-black tracking-tight text-white mb-2">Create your account</h1>
-        <p class="text-slate-400">Start your journey to a 700+ score with focused practice.</p>
+    <div class="header-stats">
+      <div class="stat-pill" title="Today's accuracy">
+        <span class="stat-pill-icon">✓</span>
+        <span class="stat-pill-value" id="hdr-accuracy">—</span>
+        <span class="stat-pill-label">Acc</span>
       </div>
-      <div class="bg-[#111827] p-8 rounded-xl border border-slate-800 shadow-xl">
-        <div id="signup-error" class="hidden mb-5 p-3 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-400 text-sm text-center"></div>
-        <div id="signup-success" class="hidden mb-5 p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm text-center"></div>
-        <div class="space-y-5">
-          <div class="space-y-2">
-            <label class="text-sm font-semibold text-slate-300 ml-1">Email address</label>
-            <div class="relative group">
-              <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-500 transition-colors" style="font-size:20px">mail</span>
-              <input id="signup-email" type="email" placeholder="name@example.com" class="w-full pl-12 pr-4 py-3.5 bg-slate-900/50 border border-slate-800 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none text-white placeholder:text-slate-500 transition-all"/>
-            </div>
-          </div>
-          <div class="space-y-2">
-            <label class="text-sm font-semibold text-slate-300 ml-1">Password</label>
-            <div class="relative group">
-              <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-500 transition-colors" style="font-size:20px">lock</span>
-              <input id="signup-password" type="password" placeholder="Min 6 characters" class="w-full pl-12 pr-12 py-3.5 bg-slate-900/50 border border-slate-800 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none text-white placeholder:text-slate-500 transition-all"/>
-              <button type="button" onclick="togglePw('signup-password',this)" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200 transition-colors">
-                <span class="material-symbols-outlined" style="font-size:20px">visibility</span>
-              </button>
-            </div>
-          </div>
-          <div class="space-y-2">
-            <label class="text-sm font-semibold text-slate-300 ml-1">Confirm Password</label>
-            <div class="relative group">
-              <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-500 transition-colors" style="font-size:20px">shield</span>
-              <input id="signup-confirm" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter') handleSignup()" class="w-full pl-12 pr-4 py-3.5 bg-slate-900/50 border border-slate-800 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none text-white placeholder:text-slate-500 transition-all"/>
-            </div>
-          </div>
-          <div class="pt-2">
-            <button id="btn-signup" onclick="handleSignup()" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 rounded-lg shadow-lg shadow-blue-500/20 transition-all active:scale-[0.98] flex items-center justify-center gap-2">
-              <span>Create Account</span><span class="material-symbols-outlined" style="font-size:18px">arrow_forward</span>
-            </button>
-          </div>
-        </div>
-        <div class="mt-8 flex items-center gap-4">
-          <div class="h-px flex-1 bg-slate-800"></div>
-          <span class="text-xs font-medium text-slate-500 uppercase tracking-widest">Secure Signup</span>
-          <div class="h-px flex-1 bg-slate-800"></div>
-        </div>
-        <div class="mt-6 text-center">
-          <p class="text-slate-400">Already have an account? <button onclick="showAuthTab('login')" class="text-blue-500 font-bold hover:underline ml-1">Sign in</button></p>
-        </div>
+      <div class="stat-pill" title="Questions answered today">
+        <span class="stat-pill-icon">⊙</span>
+        <span class="stat-pill-value" id="hdr-today">0</span>
+        <span class="stat-pill-label">Today</span>
       </div>
-      <div class="flex justify-center items-center gap-8 opacity-50 hover:opacity-100 transition-all mt-6">
-        <div class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">verified_user</span><span class="text-xs font-mono uppercase tracking-tighter">AES-256 Encrypted</span></div>
-        <div class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">terminal</span><span class="text-xs font-mono uppercase tracking-tighter">Dev-Friendly API</span></div>
+      <div class="stat-pill" title="Day streak">
+        <span class="stat-pill-icon">⚡</span>
+        <span class="stat-pill-value" id="hdr-streak">0</span>
+        <span class="stat-pill-label">Streak</span>
       </div>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark/light theme" title="Toggle theme">
+        <span class="theme-icon-dark">◐</span>
+        <span class="theme-icon-light">◑</span>
+      </button>
     </div>
+  </header>
 
-  </div>
-</main>
+  <nav class="tab-bar">
+    <button class="tab-btn active" data-tab="practice">Practice</button>
+    <button class="tab-btn" data-tab="dashboard">Dashboard</button>
+    <button class="tab-btn" data-tab="review">Review</button>
+  </nav>
 
-<footer class="p-8 text-center border-t border-slate-800">
-  <p class="text-xs text-slate-500 font-mono">© 2025 GMAT TRAINER // VERSION 3.1.0</p>
-</footer>
+  <main class="app-main">
+    <!-- ─────────── PRACTICE TAB ─────────── -->
+    <section class="tab-panel active" id="tab-practice">
+      <div class="filter-row">
+        <div class="filter-group">
+          <label for="filter-type">Type</label>
+          <select id="filter-type">
+            <option value="all">All (PS + DS)</option>
+            <option value="PS">Problem Solving</option>
+            <option value="DS">Data Sufficiency</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="filter-topic">Topic</label>
+          <select id="filter-topic">
+            <option value="all">All topics</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="filter-difficulty">Difficulty</label>
+          <select id="filter-difficulty">
+            <option value="all">All</option>
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="filter-mode">Mode</label>
+          <select id="filter-mode">
+            <option value="random">Random</option>
+            <option value="weak">Weak areas</option>
+            <option value="missed">Missed (SR)</option>
+            <option value="unseen">Unseen first</option>
+          </select>
+        </div>
+        <button class="btn btn-secondary btn-small" id="btn-restart">↻ Restart</button>
+      </div>
 
-<!-- UI functions defined in head -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-<script src="auth.js"></script>
+      <div class="question-card" id="question-card">
+        <div class="qcard-meta">
+          <span class="badge badge-type" id="q-type">—</span>
+          <span class="badge badge-topic" id="q-topic">—</span>
+          <span class="badge badge-difficulty" id="q-difficulty">—</span>
+          <span class="badge badge-id" id="q-id">#—</span>
+          <div class="spacer"></div>
+          <div class="timer" id="q-timer" title="Time on this question (target: 2 min)">
+            <span class="timer-icon">⏱</span>
+            <span class="timer-value" id="q-timer-value">0:00</span>
+          </div>
+        </div>
+        <div class="qcard-question" id="q-question">
+          Select filters and start practicing.
+        </div>
+        <div class="qcard-choices" id="q-choices"></div>
+        <div class="qcard-actions">
+          <button class="btn btn-secondary" id="btn-skip">Skip</button>
+          <button class="btn btn-primary" id="btn-submit" disabled>Submit answer</button>
+          <button class="btn btn-primary" id="btn-next" hidden>Next question →</button>
+        </div>
+        <div class="qcard-feedback" id="q-feedback" hidden>
+          <div class="feedback-header">
+            <span class="feedback-status" id="feedback-status"></span>
+            <span class="feedback-time" id="feedback-time"></span>
+          </div>
+          <div class="feedback-body">
+            <div class="feedback-correct">
+              <span class="feedback-label">Correct answer:</span>
+              <span id="feedback-answer"></span>
+            </div>
+            <div class="feedback-explanation" id="feedback-explanation"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="session-tracker">
+        <div class="session-stat">
+          <div class="session-stat-value" id="ss-correct">0</div>
+          <div class="session-stat-label">Correct</div>
+        </div>
+        <div class="session-stat">
+          <div class="session-stat-value" id="ss-wrong">0</div>
+          <div class="session-stat-label">Wrong</div>
+        </div>
+        <div class="session-stat">
+          <div class="session-stat-value" id="ss-skipped">0</div>
+          <div class="session-stat-label">Skipped</div>
+        </div>
+        <div class="session-stat">
+          <div class="session-stat-value" id="ss-accuracy">—</div>
+          <div class="session-stat-label">Session Acc</div>
+        </div>
+        <div class="session-stat">
+          <div class="session-stat-value" id="ss-avg-time">—</div>
+          <div class="session-stat-label">Avg Time</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────── DASHBOARD TAB ─────────── -->
+    <section class="tab-panel" id="tab-dashboard">
+      <div class="dashboard-grid">
+        <div class="dash-card big">
+          <div class="dash-card-label">Total questions answered</div>
+          <div class="dash-card-value" id="dash-total">0</div>
+          <div class="dash-card-sub"><span id="dash-coverage">0%</span> of bank covered</div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-card-label">All-time accuracy</div>
+          <div class="dash-card-value" id="dash-accuracy">—</div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-card-label">Day streak</div>
+          <div class="dash-card-value" id="dash-streak">0</div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-card-label">Avg time / question</div>
+          <div class="dash-card-value" id="dash-avg-time">—</div>
+          <div class="dash-card-sub">target: 2:00</div>
+        </div>
+      </div>
+
+      <div class="dash-section">
+        <h3 class="dash-section-title">Performance by topic</h3>
+        <div class="topic-bars" id="dash-topic-bars">
+          <div class="empty-state">No data yet. Answer some questions to see your weak areas.</div>
+        </div>
+      </div>
+
+      <div class="dash-section">
+        <h3 class="dash-section-title">Performance by difficulty</h3>
+        <div class="topic-bars" id="dash-difficulty-bars"></div>
+      </div>
+
+      <div class="dash-section">
+        <h3 class="dash-section-title">Spaced-repetition queue</h3>
+        <div class="dash-meta-row">
+          <div><strong id="dash-sr-due">0</strong> questions due for review</div>
+          <div><strong id="dash-sr-total">0</strong> in repetition pool</div>
+          <button class="btn btn-secondary btn-small" id="btn-reset-progress">Reset all progress</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────── REVIEW TAB ─────────── -->
+    <section class="tab-panel" id="tab-review">
+      <div class="review-header">
+        <h3>Recent attempts</h3>
+        <div class="filter-group inline">
+          <label for="review-filter">Show:</label>
+          <select id="review-filter">
+            <option value="all">All</option>
+            <option value="wrong">Wrong only</option>
+            <option value="correct">Correct only</option>
+            <option value="skipped">Skipped only</option>
+          </select>
+        </div>
+      </div>
+      <div class="review-list" id="review-list">
+        <div class="empty-state">No attempts yet. Start practicing on the Practice tab.</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <span>Built for self-study · 100% local · No tracking · Open source</span>
+    <span>Press <kbd>1–5</kbd> to choose, <kbd>Enter</kbd> to submit, <kbd>N</kbd> for next, <kbd>S</kbd> to skip</span>
+  </footer>
+
+  <!-- Question bank + app logic -->
+  <script src="data/questions.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

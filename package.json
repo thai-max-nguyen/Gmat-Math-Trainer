@@ -1,10 +1,10 @@
 {
   "name": "gmat-math-trainer",
-  "version": "1.0.0",
-  "description": "Offline GMAT Club Math Flashcards 2025 trainer with error tracking.",
+  "version": "2.0.0",
+  "description": "Local-first GMAT Quant practice app: 160+ Problem Solving and Data Sufficiency questions, timer, weak-area detection, and spaced repetition. No backend, no auth.",
   "private": true,
   "scripts": {
-    "serve": "npx serve ."
+    "start": "npx serve -p 4173 .",
+    "serve": "npx serve -p 4173 ."
   }
 }
-
