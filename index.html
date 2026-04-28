@@ -88,6 +88,7 @@
             <option value="weak">Weak areas</option>
             <option value="missed">Missed (SR)</option>
             <option value="unseen">Unseen first</option>
+            <option value="flagged">⚑ Flagged</option>
           </select>
         </div>
         <button class="btn btn-secondary btn-small" id="btn-restart">↻ Restart</button>
@@ -100,6 +101,7 @@
           <span class="badge badge-difficulty" id="q-difficulty">—</span>
           <span class="badge badge-id" id="q-id">#—</span>
           <div class="spacer"></div>
+          <button class="btn-flag" id="btn-flag" title="Flag this question for review" aria-label="Flag question">⚑</button>
           <div class="timer" id="q-timer" title="Time on this question (target: 2 min)">
             <span class="timer-icon">⏱</span>
             <span class="timer-value" id="q-timer-value">0:00</span>
@@ -111,8 +113,13 @@
         <div class="qcard-choices" id="q-choices"></div>
         <div class="qcard-actions">
           <button class="btn btn-secondary" id="btn-skip">Skip</button>
+          <button class="btn btn-hint" id="btn-hint" title="Get a hint">💡 Hint</button>
           <button class="btn btn-primary" id="btn-submit" disabled>Submit answer</button>
           <button class="btn btn-primary" id="btn-next" hidden>Next question →</button>
+        </div>
+        <div class="hint-panel" id="hint-panel" hidden>
+          <div class="hint-icon">💡</div>
+          <div class="hint-text" id="hint-text"></div>
         </div>
         <div class="qcard-feedback" id="q-feedback" hidden>
           <div class="feedback-header">
@@ -125,6 +132,12 @@
               <span id="feedback-answer"></span>
             </div>
             <div class="feedback-explanation" id="feedback-explanation"></div>
+          </div>
+          <div class="feedback-actions">
+            <button class="btn btn-theory" id="btn-theory">📚 Learn Theory</button>
+            <button class="btn btn-retry-same" id="btn-retry-same">↺ Same Difficulty</button>
+            <button class="btn btn-retry-harder" id="btn-retry-harder">↑ Go Harder</button>
+            <button class="btn btn-retry-easier" id="btn-retry-easier" hidden>↓ Easier First</button>
           </div>
         </div>
       </div>
@@ -223,8 +236,53 @@
     <span>Press <kbd>1–5</kbd> to choose, <kbd>Enter</kbd> to submit, <kbd>N</kbd> for next, <kbd>S</kbd> to skip</span>
   </footer>
 
+  <!-- Theory modal -->
+  <div class="modal-overlay" id="theory-modal" hidden>
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title-row">
+          <span class="modal-icon" id="theory-icon"></span>
+          <h2 class="modal-title" id="theory-title"></h2>
+        </div>
+        <button class="modal-close" id="theory-close" aria-label="Close theory panel">✕</button>
+      </div>
+      <div class="modal-tabs">
+        <button class="modal-tab active" data-panel="concept">Concept</button>
+        <button class="modal-tab" data-panel="example">Worked Example</button>
+        <button class="modal-tab" data-panel="traps">GMAT Traps</button>
+        <button class="modal-tab" data-panel="steps">Solve Steps</button>
+      </div>
+      <div class="modal-body">
+        <!-- Concept panel -->
+        <div class="modal-panel active" id="modal-concept">
+          <p class="theory-summary" id="theory-summary"></p>
+          <div class="theory-facts" id="theory-facts"></div>
+        </div>
+        <!-- Example panel -->
+        <div class="modal-panel" id="modal-example">
+          <div class="example-problem" id="example-problem"></div>
+          <div class="example-steps" id="example-steps"></div>
+          <div class="example-answer" id="example-answer"></div>
+        </div>
+        <!-- Traps panel -->
+        <div class="modal-panel" id="modal-traps">
+          <div class="traps-list" id="traps-list"></div>
+        </div>
+        <!-- Steps panel -->
+        <div class="modal-panel" id="modal-steps">
+          <div class="steps-list" id="steps-list"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" id="theory-practice-same">Practice this topic</button>
+        <button class="btn btn-secondary" id="theory-dismiss">Close</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Question bank + app logic -->
   <script src="data/questions.js"></script>
+  <script src="data/theories.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

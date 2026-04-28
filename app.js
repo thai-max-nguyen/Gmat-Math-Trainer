@@ -31,6 +31,8 @@
     qTimerTick: null,
     // filters
     filters: { type: 'all', topic: 'all', difficulty: 'all', mode: 'random' },
+    // flagged question ids: Set stored as array in localStorage
+    flagged: new Set(),
     // theme
     theme: 'dark',
     // today's date (for streak)
@@ -65,14 +67,22 @@
       'q-timer', 'q-timer-value',
       'q-question', 'q-choices',
       'btn-skip', 'btn-submit', 'btn-next',
+      'btn-flag',
+      'btn-hint', 'hint-panel', 'hint-text',
       'q-feedback', 'feedback-status', 'feedback-time',
       'feedback-answer', 'feedback-explanation',
+      'btn-theory', 'btn-retry-same', 'btn-retry-harder', 'btn-retry-easier',
       'ss-correct', 'ss-wrong', 'ss-skipped', 'ss-accuracy', 'ss-avg-time',
       'dash-total', 'dash-coverage', 'dash-accuracy', 'dash-streak', 'dash-avg-time',
       'dash-topic-bars', 'dash-difficulty-bars',
       'dash-sr-due', 'dash-sr-total',
       'btn-reset-progress',
       'review-filter', 'review-list',
+      'theory-modal', 'theory-close', 'theory-dismiss',
+      'theory-icon', 'theory-title', 'theory-summary', 'theory-facts',
+      'example-problem', 'example-steps', 'example-answer',
+      'traps-list', 'steps-list',
+      'theory-practice-same',
     ].forEach(id => { dom[id] = $(id); });
   }
 
@@ -86,13 +96,14 @@
       state.attempts = Array.isArray(data.attempts) ? data.attempts : [];
       state.daily    = (data.daily && typeof data.daily === 'object') ? data.daily : {};
       state.theme    = (data.theme === 'light' || data.theme === 'dark') ? data.theme : 'dark';
+      state.flagged  = new Set(Array.isArray(data.flagged) ? data.flagged : []);
       if (data.filters && typeof data.filters === 'object') {
         state.filters = Object.assign(state.filters, data.filters);
       }
       // Validate filter values against allowed sets — guards against stale/invalid stored data
       const ALLOWED_TYPES = ['all', 'PS', 'DS'];
       const ALLOWED_DIFFS = ['all', 'easy', 'medium', 'hard'];
-      const ALLOWED_MODES = ['random', 'weak', 'missed', 'unseen'];
+      const ALLOWED_MODES = ['random', 'weak', 'missed', 'unseen', 'flagged'];
       if (!ALLOWED_TYPES.includes(state.filters.type)) state.filters.type = 'all';
       if (!ALLOWED_DIFFS.includes(state.filters.difficulty)) state.filters.difficulty = 'all';
       if (!ALLOWED_MODES.includes(state.filters.mode)) state.filters.mode = 'random';
@@ -114,6 +125,7 @@
         daily:    state.daily,
         theme:    state.theme,
         filters:  state.filters,
+        flagged:  [...state.flagged],
       }));
     } catch (e) {
       // Likely quota exceeded — try to free space by trimming attempts then retry once
@@ -233,6 +245,11 @@
       if (unseen.length > 0) return unseen[Math.floor(Math.random() * unseen.length)];
     }
 
+    if (mode === 'flagged') {
+      const flagged = pool.filter(q => state.flagged.has(q.id));
+      if (flagged.length > 0) return flagged[Math.floor(Math.random() * flagged.length)];
+    }
+
     // Default: random; avoid the very last question if possible
     const lastId = state.current?.id;
     let candidates = pool.filter(q => q.id !== lastId);
@@ -260,6 +277,8 @@
       dom['btn-submit'].disabled = true;
       dom['btn-next'].hidden = true;
       dom['btn-skip'].disabled = true;
+      dom['btn-hint'].hidden = true;
+      dom['hint-panel'].hidden = true;
       // Reset timer display
       dom['q-timer'].classList.remove('warn', 'over');
       dom['q-timer-value'].textContent = '0:00';
@@ -267,36 +286,7 @@
       return;
     }
 
-    dom['q-type'].textContent = q.type;
-    dom['q-topic'].textContent = `${q.topic}${q.subtopic ? ' · ' + q.subtopic : ''}`;
-    dom['q-difficulty'].textContent = q.difficulty;
-    dom['q-difficulty'].dataset.level = q.difficulty;
-    dom['q-id'].textContent = `#${q.id}`;
-    dom['q-question'].textContent = q.question;
-
-    // Render choices
-    const cont = dom['q-choices'];
-    cont.innerHTML = '';
-    q.choices.forEach((text, i) => {
-      const letter = String.fromCharCode(65 + i);
-      const div = document.createElement('div');
-      div.className = 'choice';
-      div.dataset.idx = i;
-      div.innerHTML = `<div class="choice-letter">${letter}</div><div class="choice-text"></div>`;
-      div.querySelector('.choice-text').textContent = text;
-      div.addEventListener('click', () => onChoiceClick(i));
-      cont.appendChild(div);
-    });
-
-    dom['q-feedback'].hidden = true;
-    dom['q-feedback'].className = 'qcard-feedback';
-    dom['btn-submit'].hidden = false;
-    dom['btn-submit'].disabled = true;
-    dom['btn-skip'].hidden = false;
-    dom['btn-skip'].disabled = false;
-    dom['btn-next'].hidden = true;
-
-    startTimer();
+    renderQuestion(q);
   }
 
   function onChoiceClick(idx) {
@@ -426,7 +416,160 @@
     dom['feedback-explanation'].textContent = q.explanation || '';
     dom['btn-submit'].hidden = true;
     dom['btn-skip'].hidden = true;
+    dom['btn-hint'].hidden = true;
+    dom['hint-panel'].hidden = true;
     dom['btn-next'].hidden = false;
+
+    // Retry buttons — contextual difficulty
+    const diffs = ['easy', 'medium', 'hard'];
+    const curIdx = diffs.indexOf(q.difficulty);
+    const hasHarder = curIdx < 2 && state.bank.some(x => x.topic === q.topic && x.difficulty === diffs[curIdx + 1]);
+    const hasEasier = curIdx > 0 && state.bank.some(x => x.topic === q.topic && x.difficulty === diffs[curIdx - 1]);
+    dom['btn-retry-harder'].hidden = !hasHarder;
+    dom['btn-retry-easier'].hidden = wasCorrect ? !hasEasier : true;
+  }
+
+  // ─── Flag ─────────────────────────────────────────
+  function toggleFlag() {
+    const q = state.current;
+    if (!q) return;
+    if (state.flagged.has(q.id)) {
+      state.flagged.delete(q.id);
+    } else {
+      state.flagged.add(q.id);
+    }
+    updateFlagButton();
+    save();
+  }
+
+  function updateFlagButton() {
+    const q = state.current;
+    if (!q || !dom['btn-flag']) return;
+    const flagged = state.flagged.has(q.id);
+    dom['btn-flag'].classList.toggle('flagged', flagged);
+    dom['btn-flag'].title = flagged ? 'Unflag this question' : 'Flag this question for review';
+    dom['btn-flag'].textContent = flagged ? '⚑' : '⚑';
+  }
+
+  // ─── Hint ─────────────────────────────────────────
+  function showHint() {
+    const q = state.current;
+    if (!q || state.submitted) return;
+    const theory = (window.getTheory || (() => null))(q.topic, q.subtopic);
+    let hint = '';
+    if (theory && theory.solveSteps && theory.solveSteps.length > 0) {
+      hint = theory.solveSteps[0];
+    } else {
+      hint = `This is a ${q.topic} problem. Think about the core formula or property for this topic.`;
+    }
+    dom['hint-text'].textContent = hint;
+    dom['hint-panel'].hidden = false;
+    dom['btn-hint'].disabled = true;
+  }
+
+  // ─── Theory modal ─────────────────────────────────
+  function openTheoryModal(topic, subtopic) {
+    if (!window.getTheory) return;
+    const t = window.getTheory(topic, subtopic);
+    dom['theory-icon'].textContent = t.icon || '∑';
+    dom['theory-title'].textContent = t.title;
+    dom['theory-summary'].textContent = t.summary;
+
+    // Key facts
+    dom['theory-facts'].innerHTML = '';
+    (t.keyFacts || []).forEach(fact => {
+      const li = document.createElement('div');
+      li.className = 'theory-fact';
+      li.innerHTML = `<span class="theory-fact-bullet">→</span><span>${escapeHtml(fact)}</span>`;
+      dom['theory-facts'].appendChild(li);
+    });
+
+    // Example
+    const ex = t.example || {};
+    dom['example-problem'].innerHTML = `<div class="ex-label">Problem</div><div class="ex-text">${escapeHtml(ex.problem || '')}</div>`;
+    dom['example-steps'].innerHTML = '<div class="ex-label">Solution</div>' +
+      (ex.steps || []).map((s, i) => `<div class="ex-step"><span class="ex-step-num">${i + 1}</span><span>${escapeHtml(s)}</span></div>`).join('');
+    dom['example-answer'].innerHTML = ex.answer ? `<div class="ex-answer"><span class="ex-answer-label">Answer:</span> ${escapeHtml(ex.answer)}</div>` : '';
+
+    // Traps
+    dom['traps-list'].innerHTML = (t.traps || []).map(trap =>
+      `<div class="trap-item"><span class="trap-icon">⚠</span><span>${escapeHtml(trap)}</span></div>`
+    ).join('') || '<div class="empty-state">No specific traps noted for this topic.</div>';
+
+    // Solve steps
+    dom['steps-list'].innerHTML = (t.solveSteps || []).map(step =>
+      `<div class="step-item">${escapeHtml(step)}</div>`
+    ).join('');
+
+    // Reset to first tab
+    document.querySelectorAll('.modal-tab').forEach(b => b.classList.toggle('active', b.dataset.panel === 'concept'));
+    document.querySelectorAll('.modal-panel').forEach(p => p.classList.toggle('active', p.id === 'modal-concept'));
+
+    // Store current topic for "practice this topic" button
+    dom['theory-modal'].dataset.topic = topic;
+    dom['theory-modal'].hidden = false;
+    document.body.classList.add('modal-open');
+  }
+
+  function closeTheoryModal() {
+    dom['theory-modal'].hidden = true;
+    document.body.classList.remove('modal-open');
+  }
+
+  // ─── Retry same type ──────────────────────────────
+  function retryType(targetDifficulty) {
+    const q = state.current;
+    if (!q) return;
+    // Temp override filters, pick from same topic + difficulty
+    const pool = state.bank.filter(x =>
+      x.topic === q.topic &&
+      x.difficulty === targetDifficulty &&
+      x.id !== q.id
+    );
+    if (pool.length === 0) return nextQuestion();
+    state.current = null; // prevent "avoid last question" logic from excluding
+    state.submitted = false;
+    state.selectedChoice = null;
+    stopTimer();
+    // Pick random from pool
+    const next = pool[Math.floor(Math.random() * pool.length)];
+    state.current = next;
+    renderQuestion(next);
+  }
+
+  function renderQuestion(q) {
+    dom['q-type'].textContent = q.type;
+    dom['q-topic'].textContent = `${q.topic}${q.subtopic ? ' · ' + q.subtopic : ''}`;
+    dom['q-difficulty'].textContent = q.difficulty;
+    dom['q-difficulty'].dataset.level = q.difficulty;
+    dom['q-id'].textContent = `#${q.id}`;
+    dom['q-question'].textContent = q.question;
+
+    const cont = dom['q-choices'];
+    cont.innerHTML = '';
+    q.choices.forEach((text, i) => {
+      const letter = String.fromCharCode(65 + i);
+      const div = document.createElement('div');
+      div.className = 'choice';
+      div.dataset.idx = i;
+      div.innerHTML = `<div class="choice-letter">${letter}</div><div class="choice-text"></div>`;
+      div.querySelector('.choice-text').textContent = text;
+      div.addEventListener('click', () => onChoiceClick(i));
+      cont.appendChild(div);
+    });
+
+    dom['q-feedback'].hidden = true;
+    dom['q-feedback'].className = 'qcard-feedback';
+    dom['btn-submit'].hidden = false;
+    dom['btn-submit'].disabled = true;
+    dom['btn-skip'].hidden = false;
+    dom['btn-skip'].disabled = false;
+    dom['btn-hint'].hidden = false;
+    dom['btn-hint'].disabled = false;
+    dom['hint-panel'].hidden = true;
+    dom['btn-next'].hidden = true;
+    updateFlagButton();
+    startTimer();
   }
 
   // ─── Timer ──────────────────────────────────────
@@ -697,6 +840,70 @@
     dom['btn-next'].addEventListener('click', nextQuestion);
     dom['theme-toggle'].addEventListener('click', toggleTheme);
     dom['btn-reset-progress'].addEventListener('click', resetProgress);
+
+    // Flag
+    dom['btn-flag'].addEventListener('click', toggleFlag);
+
+    // Hint
+    dom['btn-hint'].addEventListener('click', showHint);
+
+    // Retry buttons
+    dom['btn-retry-same'].addEventListener('click', () => {
+      const q = state.current;
+      if (q) retryType(q.difficulty);
+    });
+    dom['btn-retry-harder'].addEventListener('click', () => {
+      const q = state.current;
+      if (!q) return;
+      const diffs = ['easy', 'medium', 'hard'];
+      const next = diffs[diffs.indexOf(q.difficulty) + 1];
+      if (next) retryType(next);
+    });
+    dom['btn-retry-easier'].addEventListener('click', () => {
+      const q = state.current;
+      if (!q) return;
+      const diffs = ['easy', 'medium', 'hard'];
+      const prev = diffs[diffs.indexOf(q.difficulty) - 1];
+      if (prev) retryType(prev);
+    });
+
+    // Theory modal
+    dom['btn-theory'].addEventListener('click', () => {
+      const q = state.current;
+      if (q) openTheoryModal(q.topic, q.subtopic);
+    });
+    dom['theory-close'].addEventListener('click', closeTheoryModal);
+    dom['theory-dismiss'].addEventListener('click', closeTheoryModal);
+    dom['theory-modal'].addEventListener('click', e => {
+      if (e.target === dom['theory-modal']) closeTheoryModal();
+    });
+    dom['theory-practice-same'].addEventListener('click', () => {
+      const topic = dom['theory-modal'].dataset.topic;
+      closeTheoryModal();
+      if (topic) {
+        dom['filter-topic'].value = topic;
+        state.filters.topic = topic;
+        save();
+        nextQuestion();
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === 'practice'));
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === 'tab-practice'));
+      }
+    });
+    // Theory modal tabs
+    document.querySelectorAll('.modal-tab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const panel = btn.dataset.panel;
+        document.querySelectorAll('.modal-tab').forEach(b => b.classList.toggle('active', b === btn));
+        document.querySelectorAll('.modal-panel').forEach(p => p.classList.toggle('active', p.id === 'modal-' + panel));
+      });
+    });
+    // Close modal on Escape
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && !dom['theory-modal'].hidden) {
+        closeTheoryModal();
+        e.preventDefault();
+      }
+    });
     dom['review-filter'].addEventListener('change', renderReview);
 
     // Keyboard shortcuts
