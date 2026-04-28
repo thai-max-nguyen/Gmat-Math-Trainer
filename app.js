@@ -82,13 +82,27 @@
       const raw = localStorage.getItem(STORAGE_KEY);
       if (!raw) return;
       const data = JSON.parse(raw);
-      state.progress = data.progress || {};
-      state.attempts = data.attempts || [];
-      state.daily    = data.daily || {};
-      state.theme    = data.theme || 'dark';
-      state.filters  = Object.assign(state.filters, data.filters || {});
+      state.progress = (data.progress && typeof data.progress === 'object') ? data.progress : {};
+      state.attempts = Array.isArray(data.attempts) ? data.attempts : [];
+      state.daily    = (data.daily && typeof data.daily === 'object') ? data.daily : {};
+      state.theme    = (data.theme === 'light' || data.theme === 'dark') ? data.theme : 'dark';
+      if (data.filters && typeof data.filters === 'object') {
+        state.filters = Object.assign(state.filters, data.filters);
+      }
+      // Validate filter values against allowed sets — guards against stale/invalid stored data
+      const ALLOWED_TYPES = ['all', 'PS', 'DS'];
+      const ALLOWED_DIFFS = ['all', 'easy', 'medium', 'hard'];
+      const ALLOWED_MODES = ['random', 'weak', 'missed', 'unseen'];
+      if (!ALLOWED_TYPES.includes(state.filters.type)) state.filters.type = 'all';
+      if (!ALLOWED_DIFFS.includes(state.filters.difficulty)) state.filters.difficulty = 'all';
+      if (!ALLOWED_MODES.includes(state.filters.mode)) state.filters.mode = 'random';
+      // Topic filter validated against current bank topics
+      const validTopics = new Set(['all', ...(window.GMAT_TOPICS || [])]);
+      if (!validTopics.has(state.filters.topic)) state.filters.topic = 'all';
     } catch (e) {
-      console.warn('Failed to load saved state:', e);
+      console.warn('Failed to load saved state — starting fresh:', e);
+      // Clear corrupted entry so we don't re-fail forever
+      try { localStorage.removeItem(STORAGE_KEY); } catch (_) {}
     }
   }
 
@@ -102,7 +116,19 @@
         filters:  state.filters,
       }));
     } catch (e) {
-      console.warn('Failed to save state:', e);
+      // Likely quota exceeded — try to free space by trimming attempts then retry once
+      console.warn('Failed to save state, attempting trim:', e);
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          progress: state.progress,
+          attempts: state.attempts.slice(0, 100),
+          daily:    state.daily,
+          theme:    state.theme,
+          filters:  state.filters,
+        }));
+      } catch (e2) {
+        console.warn('Save still failed after trim:', e2);
+      }
     }
   }
 
@@ -128,13 +154,21 @@
   }
 
   function getProgress(qid) {
-    if (!state.progress[qid]) {
-      state.progress[qid] = {
+    let p = state.progress[qid];
+    if (!p || typeof p !== 'object') {
+      p = state.progress[qid] = {
         attempts: 0, correct: 0, wrong: 0, skipped: 0,
         lastSeen: null, srBox: 0, srNextDue: null, lastTimeSec: null
       };
+      return p;
     }
-    return state.progress[qid];
+    // Auto-heal missing fields (e.g. from older save formats)
+    if (typeof p.attempts !== 'number') p.attempts = 0;
+    if (typeof p.correct  !== 'number') p.correct  = 0;
+    if (typeof p.wrong    !== 'number') p.wrong    = 0;
+    if (typeof p.skipped  !== 'number') p.skipped  = 0;
+    if (typeof p.srBox    !== 'number') p.srBox    = 0;
+    return p;
   }
 
   // ─── Filtering & question selection ──────────────
@@ -215,13 +249,20 @@
     const q = pickNext();
     state.current = q;
     if (!q) {
-      dom['q-question'].textContent = 'No questions match these filters. Try changing them.';
+      const bankEmpty = !state.bank || state.bank.length === 0;
+      dom['q-question'].textContent = bankEmpty
+        ? 'No questions are loaded. Check that data/questions.js loaded correctly.'
+        : 'No questions match these filters. Try changing them.';
       dom['q-choices'].innerHTML = '';
       dom['q-feedback'].hidden = true;
+      dom['q-feedback'].className = 'qcard-feedback';
       dom['btn-submit'].hidden = false;
       dom['btn-submit'].disabled = true;
       dom['btn-next'].hidden = true;
       dom['btn-skip'].disabled = true;
+      // Reset timer display
+      dom['q-timer'].classList.remove('warn', 'over');
+      dom['q-timer-value'].textContent = '0:00';
       ['q-type','q-topic','q-difficulty','q-id'].forEach(id => dom[id].textContent = '—');
       return;
     }
@@ -308,7 +349,9 @@
     if (wasCorrect) state.session.correct++;
     else state.session.wrong++;
 
-    // Daily counters
+    // Daily counters — recompute today every time so a long-running tab
+    // (open across midnight) attributes activity to the correct date.
+    state.today = dateKey(new Date());
     const dk = state.today;
     if (!state.daily[dk]) state.daily[dk] = { count: 0, correct: 0 };
     state.daily[dk].count++;
@@ -409,6 +452,8 @@
 
   // ─── Header / session / dashboard ──────────────
   function renderHeader() {
+    // Refresh today key so the "Today" counter updates if app stays open across midnight.
+    state.today = dateKey(new Date());
     const all = Object.values(state.progress);
     const totalAttempts = all.reduce((s, p) => s + (p.attempts || 0), 0);
     const totalCorrect  = all.reduce((s, p) => s + (p.correct  || 0), 0);
@@ -558,7 +603,11 @@
     let items = state.attempts;
     if (filter !== 'all') items = items.filter(a => a.kind === filter);
     if (items.length === 0) {
-      cont.innerHTML = '<div class="empty-state">No attempts yet.</div>';
+      // Distinguish "no attempts at all" vs "filter matches none"
+      const msg = state.attempts.length === 0
+        ? 'No attempts yet. Start practicing on the Practice tab.'
+        : `No ${filter} attempts. Try a different filter.`;
+      cont.innerHTML = `<div class="empty-state">${escapeHtml(msg)}</div>`;
       return;
     }
     items.slice(0, 50).forEach(a => {
@@ -659,8 +708,13 @@
           onChoiceClick(idx);
           e.preventDefault();
         }
-      } else if (e.key === 'Enter' && !state.submitted && state.selectedChoice != null) {
-        submitAnswer(); e.preventDefault();
+      } else if (e.key === 'Enter') {
+        if (!state.submitted && state.selectedChoice != null) {
+          submitAnswer(); e.preventDefault();
+        } else if (state.submitted) {
+          // After submission, Enter advances — matches user expectation for keyboard flow.
+          nextQuestion(); e.preventDefault();
+        }
       } else if ((e.key === 'n' || e.key === 'N') && state.submitted) {
         nextQuestion(); e.preventDefault();
       } else if ((e.key === 's' || e.key === 'S') && !state.submitted) {

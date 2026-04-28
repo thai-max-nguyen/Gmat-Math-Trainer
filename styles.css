@@ -325,6 +325,7 @@ kbd {
   line-height: 1.7;
   margin-bottom: 22px;
   white-space: pre-wrap;
+  overflow-wrap: anywhere;
   font-weight: 500;
 }
 
@@ -380,7 +381,7 @@ kbd {
   border-color: var(--primary);
 }
 
-.choice-text { flex: 1; line-height: 1.5; }
+.choice-text { flex: 1; line-height: 1.5; overflow-wrap: anywhere; min-width: 0; }
 
 .choice.correct {
   border-color: var(--success-bd);
