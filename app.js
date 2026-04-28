@@ -34,7 +34,7 @@
     // flagged question ids: Set stored as array in localStorage
     flagged: new Set(),
     // theme
-    theme: 'dark',
+    theme: 'light',
     // today's date (for streak)
     today: dateKey(new Date()),
     daily: {}, // { 'YYYY-MM-DD': { count, correct } }
@@ -67,7 +67,7 @@
       'q-timer', 'q-timer-value',
       'q-question', 'q-choices',
       'btn-skip', 'btn-submit', 'btn-next',
-      'btn-flag',
+      'btn-flag', 'btn-theory-meta',
       'btn-hint', 'hint-panel', 'hint-text',
       'q-feedback', 'feedback-status', 'feedback-time',
       'feedback-answer', 'feedback-explanation',
@@ -95,7 +95,7 @@
       state.progress = (data.progress && typeof data.progress === 'object') ? data.progress : {};
       state.attempts = Array.isArray(data.attempts) ? data.attempts : [];
       state.daily    = (data.daily && typeof data.daily === 'object') ? data.daily : {};
-      state.theme    = (data.theme === 'light' || data.theme === 'dark') ? data.theme : 'dark';
+      state.theme    = (data.theme === 'light' || data.theme === 'dark') ? data.theme : 'light';
       state.flagged  = new Set(Array.isArray(data.flagged) ? data.flagged : []);
       if (data.filters && typeof data.filters === 'object') {
         state.filters = Object.assign(state.filters, data.filters);
@@ -357,6 +357,29 @@
 
     save();
     showFeedback(q, wasCorrect, timeSec, 'correct');
+    // ─── Duolingo-style feedback animations ───
+    if (wasCorrect) {
+      // Bounce the choices container, float +XP, shower confetti
+      const choices = dom['q-choices'];
+      if (choices) {
+        choices.classList.remove('anim-bounce-in');
+        // Force reflow so the animation re-plays on consecutive correct answers
+        // eslint-disable-next-line no-unused-expressions
+        void choices.offsetWidth;
+        choices.classList.add('anim-bounce-in');
+      }
+      spawnXpFloat('+10 XP');
+      spawnConfetti();
+    } else {
+      // Shake the question card on a wrong answer
+      const card = document.getElementById('question-card');
+      if (card) {
+        card.classList.remove('anim-shake');
+        void card.offsetWidth;
+        card.classList.add('anim-shake');
+        setTimeout(() => card.classList.remove('anim-shake'), 550);
+      }
+    }
     renderHeader();
     renderSession();
     renderDashboard();
@@ -783,6 +806,43 @@
     return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   }
 
+  // ─── Duolingo-style celebratory effects ─────────
+  function spawnConfetti() {
+    const colors = ['#58CC02','#1CB0F6','#FFC800','#FF4B4B','#CE82FF','#FF9600'];
+    const frag = document.createDocumentFragment();
+    const pieces = [];
+    for (let i = 0; i < 25; i++) {
+      const el = document.createElement('div');
+      el.className = 'confetti-piece';
+      const size = 6 + Math.random() * 6;
+      el.style.cssText =
+        `left: ${Math.random() * 100}%;` +
+        `background: ${colors[Math.floor(Math.random() * colors.length)]};` +
+        `animation-duration: ${0.8 + Math.random() * 1}s;` +
+        `animation-delay: ${Math.random() * 0.3}s;` +
+        `width: ${size}px;` +
+        `height: ${size}px;` +
+        `border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};`;
+      frag.appendChild(el);
+      pieces.push(el);
+    }
+    document.body.appendChild(frag);
+    setTimeout(() => pieces.forEach(p => p.remove()), 2200);
+  }
+
+  function spawnXpFloat(text) {
+    const card = document.getElementById('question-card');
+    if (!card) return;
+    const el = document.createElement('div');
+    el.className = 'xp-float';
+    el.textContent = text;
+    const rect = card.getBoundingClientRect();
+    el.style.left = (rect.left + rect.width / 2) + 'px';
+    el.style.top = (rect.top + 24) + 'px';
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 900);
+  }
+
   // ─── Theme ──────────────────────────────────────
   function applyTheme() {
     document.documentElement.setAttribute('data-theme', state.theme);
@@ -840,6 +900,12 @@
     dom['btn-next'].addEventListener('click', nextQuestion);
     dom['theme-toggle'].addEventListener('click', toggleTheme);
     dom['btn-reset-progress'].addEventListener('click', resetProgress);
+
+    // Theory (always-visible meta button)
+    dom['btn-theory-meta'].addEventListener('click', () => {
+      const q = state.current;
+      if (q) openTheoryModal(q.topic, q.subtopic);
+    });
 
     // Flag
     dom['btn-flag'].addEventListener('click', toggleFlag);
