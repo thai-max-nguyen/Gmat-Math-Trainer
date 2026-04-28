@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>GMAT Trainer — Sign In</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script>
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: { "primary": "#3B82F6", "background-dark": "#0F172A" },
+        fontFamily: { "display": ["Inter", "sans-serif"] },
+      },
+    },
+  }
+</script>
+<style>
+  body { font-family: 'Inter', sans-serif; }
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .spin { animation: spin 0.75s linear infinite; display: inline-block; }
+  input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px #0f172a inset !important;
+    -webkit-text-fill-color: #fff !important;
+    caret-color: #fff;
+  }
+</style>
+<script>
+  // Define auth tab switching EARLY so onclick handlers work
+  function showAuthTab(tab) {
+    var isLogin = tab === 'login';
+    var l = document.getElementById('view-login');
+    var s = document.getElementById('view-signup');
+    if (l) l.classList.toggle('hidden', !isLogin);
+    if (s) s.classList.toggle('hidden', isLogin);
+  }
+  window.showAuthTab = showAuthTab;
+  function showScreen(name) { showAuthTab(name === 'signup' ? 'signup' : 'login'); }
+  window.showScreen = showScreen;
+  function togglePw(inputId, btn) {
+    var input = document.getElementById(inputId);
+    if (!input) return;
+    var show = input.type === 'password';
+    input.type = show ? 'text' : 'password';
+    btn.querySelector('span').textContent = show ? 'visibility_off' : 'visibility';
+  }
+  function setBtnLoading(id, loading, defaultHTML) {
+    var btn = document.getElementById(id);
+    if (!btn) return;
+    btn.disabled = loading;
+    btn.innerHTML = loading ? '<span style="display:inline-block;animation:spin 0.75s linear infinite" class="material-symbols-outlined">progress_activity</span> Please wait...' : defaultHTML;
+  }
+  function setMsg(prefix, type, msg) {
+    var errEl = document.getElementById(prefix+'-error');
+    var sucEl = document.getElementById(prefix+'-success');
+    if (errEl) { errEl.textContent = type==='error' ? msg : ''; errEl.classList.toggle('hidden', type!=='error'||!msg); }
+    if (sucEl) { sucEl.textContent = type==='success' ? msg : ''; sucEl.classList.toggle('hidden', type!=='success'||!msg); }
+  }
+</script>
+</head>
+<body class="bg-[#0F172A] text-slate-100 min-h-screen flex flex-col" style="font-family:'Inter',sans-serif">
+
+<header class="flex items-center justify-between border-b border-slate-800 px-6 lg:px-20 py-4 bg-white/5 backdrop-blur-md sticky top-0 z-50">
+  <div class="flex items-center gap-3">
+    <div class="text-blue-500">
+      <svg class="w-8 h-8" fill="none" viewBox="0 0 48 48"><g clip-path="url(#c0)"><path clip-rule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fill-rule="evenodd"/></g><defs><clipPath id="c0"><rect fill="white" height="48" width="48"/></clipPath></defs></svg>
+    </div>
+    <h2 class="text-xl font-bold">GMAT Trainer</h2>
+  </div>
+  <span class="text-sm text-slate-500 hidden md:block">System Status: <span class="text-emerald-500">Online</span></span>
+</header>
+
+<main class="flex-1 flex items-center justify-center p-6">
+  <div class="w-full max-w-[480px]">
+
+    <!-- LOGIN -->
+    <div id="view-login">
+      <div class="text-center mb-8">
+        <h1 class="text-4xl font-black tracking-tight text-white mb-2">Welcome back</h1>
+        <p class="text-slate-400">Sign in to continue your GMAT prep journey.</p>
+      </div>
+      <div class="bg-[#111827] p-8 rounded-xl border border-slate-800 shadow-xl">
+        <div id="login-error" class="hidden mb-5 p-3 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-400 text-sm text-center"></div>
+        <div id="login-success" class="hidden mb-5 p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm text-center"></div>
+        <div class="space-y-5">
+          <div class="space-y-2">
+            <label class="text-sm font-semibold text-slate-300 ml-1">Email address</label>
+            <div class="relative group">
+              <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-500 transition-colors" style="font-size:20px">mail</span>
+              <input id="login-email" type="email" placeholder="name@example.com" onkeydown="if(event.key==='Enter') handleLogin()" class="w-full pl-12 pr-4 py-3.5 bg-slate-900/50 border border-slate-800 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none text-white placeholder:text-slate-500 transition-all"/>
+            </div>
+          </div>
+          <div class="space-y-2">
+            <div class="flex justify-between items-center ml-1">
+              <label class="text-sm font-semibold text-slate-300">Password</label>
+              <button onclick="handleForgotPassword()" class="text-sm text-blue-500 font-semibold hover:underline">Forgot password?</button>
+            </div>
+            <div class="relative group">
+              <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-500 transition-colors" style="font-size:20px">lock</span>
+              <input id="login-password" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter') handleLogin()" class="w-full pl-12 pr-4 py-3.5 bg-slate-900/50 border border-slate-800 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none text-white placeholder:text-slate-500 transition-all"/>
+            </div>
+          </div>
+          <div class="pt-2">
+            <button id="btn-login" onclick="handleLogin()" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 rounded-lg shadow-lg shadow-blue-500/20 transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+              <span>Sign In</span><span class="material-symbols-outlined" style="font-size:18px">arrow_forward</span>
+            </button>
+          </div>
+        </div>
+        <div class="mt-8 flex items-center gap-4">
+          <div class="h-px flex-1 bg-slate-800"></div>
+          <span class="text-xs font-medium text-slate-500 uppercase tracking-widest">or</span>
+          <div class="h-px flex-1 bg-slate-800"></div>
+        </div>
+        <div class="mt-6 text-center">
+          <p class="text-slate-400">Don't have an account? <button onclick="showAuthTab('signup')" class="text-blue-500 font-bold hover:underline ml-1">Create one free</button></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIGNUP -->
+    <div id="view-signup" class="hidden">
+      <div class="text-center mb-8">
+        <h1 class="text-4xl font-black tracking-tight text-white mb-2">Create your account</h1>
+        <p class="text-slate-400">Start your journey to a 700+ score with focused practice.</p>
+      </div>
+      <div class="bg-[#111827] p-8 rounded-xl border border-slate-800 shadow-xl">
+        <div id="signup-error" class="hidden mb-5 p-3 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-400 text-sm text-center"></div>
+        <div id="signup-success" class="hidden mb-5 p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm text-center"></div>
+        <div class="space-y-5">
+          <div class="space-y-2">
+            <label class="text-sm font-semibold text-slate-300 ml-1">Email address</label>
+            <div class="relative group">
+              <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-500 transition-colors" style="font-size:20px">mail</span>
+              <input id="signup-email" type="email" placeholder="name@example.com" class="w-full pl-12 pr-4 py-3.5 bg-slate-900/50 border border-slate-800 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none text-white placeholder:text-slate-500 transition-all"/>
+            </div>
+          </div>
+          <div class="space-y-2">
+            <label class="text-sm font-semibold text-slate-300 ml-1">Password</label>
+            <div class="relative group">
+              <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-500 transition-colors" style="font-size:20px">lock</span>
+              <input id="signup-password" type="password" placeholder="Min 6 characters" class="w-full pl-12 pr-12 py-3.5 bg-slate-900/50 border border-slate-800 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none text-white placeholder:text-slate-500 transition-all"/>
+              <button type="button" onclick="togglePw('signup-password',this)" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200 transition-colors">
+                <span class="material-symbols-outlined" style="font-size:20px">visibility</span>
+              </button>
+            </div>
+          </div>
+          <div class="space-y-2">
+            <label class="text-sm font-semibold text-slate-300 ml-1">Confirm Password</label>
+            <div class="relative group">
+              <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-500 transition-colors" style="font-size:20px">shield</span>
+              <input id="signup-confirm" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter') handleSignup()" class="w-full pl-12 pr-4 py-3.5 bg-slate-900/50 border border-slate-800 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none text-white placeholder:text-slate-500 transition-all"/>
+            </div>
+          </div>
+          <div class="pt-2">
+            <button id="btn-signup" onclick="handleSignup()" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 rounded-lg shadow-lg shadow-blue-500/20 transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+              <span>Create Account</span><span class="material-symbols-outlined" style="font-size:18px">arrow_forward</span>
+            </button>
+          </div>
+        </div>
+        <div class="mt-8 flex items-center gap-4">
+          <div class="h-px flex-1 bg-slate-800"></div>
+          <span class="text-xs font-medium text-slate-500 uppercase tracking-widest">Secure Signup</span>
+          <div class="h-px flex-1 bg-slate-800"></div>
+        </div>
+        <div class="mt-6 text-center">
+          <p class="text-slate-400">Already have an account? <button onclick="showAuthTab('login')" class="text-blue-500 font-bold hover:underline ml-1">Sign in</button></p>
+        </div>
+      </div>
+      <div class="flex justify-center items-center gap-8 opacity-50 hover:opacity-100 transition-all mt-6">
+        <div class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">verified_user</span><span class="text-xs font-mono uppercase tracking-tighter">AES-256 Encrypted</span></div>
+        <div class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">terminal</span><span class="text-xs font-mono uppercase tracking-tighter">Dev-Friendly API</span></div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="p-8 text-center border-t border-slate-800">
+  <p class="text-xs text-slate-500 font-mono">© 2025 GMAT TRAINER // VERSION 3.1.0</p>
+</footer>
+
+<!-- UI functions defined in head -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="auth.js"></script>
+</body>
+</html>
