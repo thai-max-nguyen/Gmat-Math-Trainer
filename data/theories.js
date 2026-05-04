@@ -1246,6 +1246,1178 @@ const GMAT_THEORIES = {
     ],
   },
 
+  // ─── VERBAL — CRITICAL REASONING ─────────────────────────────
+
+  'Critical Reasoning': {
+    title: 'Critical Reasoning',
+    icon: '🧠',
+    summary: 'CR tests your ability to analyze short arguments. You must identify premises, conclusion, and assumptions, then strengthen, weaken, evaluate, infer, or fix the logic. The key is reading every word literally — no outside knowledge.',
+    keyFacts: [
+      'Premise = stated fact; Conclusion = the claim drawn from premises',
+      'Assumption = unstated link the conclusion needs to be true',
+      '7 question types — each has its OWN trigger words in the stem:',
+      '• Strengthen — "most strongly supports", "best supports", "most justifies"',
+      '• Weaken — "most weakens", "casts doubt on", "calls into question"',
+      '• Assumption — "assumes which", "depends on", "required by the argument"',
+      '• Inference — "must be true", "can be properly inferred", "follows logically"',
+      '• Flaw — "vulnerable to criticism", "logical error", "reasoning flaw"',
+      '• Evaluate — "most useful to determine", "answer to which question"',
+      '• Bold-Face — "the two boldface portions play what roles" (look for evidence vs. conclusion)',
+      'Conclusion-locator words: "therefore", "thus", "so", "hence", "clearly"',
+      'Premise-locator words: "because", "since", "given that", "as"',
+    ],
+    example: {
+      problem: 'A new diet pill caused weight loss in 80% of trial participants. Therefore, the pill works. Which weakens?',
+      steps: [
+        'Identify conclusion: "the pill works"',
+        'Identify gap: did pill itself cause loss, or were participants also dieting?',
+        'Best weakener: "Trial participants also followed a strict diet" — undermines causal claim',
+      ],
+      answer: 'Alternative cause weakens',
+    },
+    traps: [
+      'Out of Scope — sounds smart but addresses something other than the conclusion',
+      'Opposite Direction — strengthens when stem asks weaken (or vice-versa)',
+      'Too Strong / Too Weak — extreme words ("all", "never", "must") rarely correct; mild qualifiers ("some", "may") rarely strong enough',
+      'Real-World Knowledge — only use what the passage states; everyday facts are bait',
+      'Restating a Premise — does not add new support; common wrong-answer pattern',
+      'Half-right / half-wrong — first clause matches, second clause distorts; eliminate',
+    ],
+    solveSteps: [
+      '1. Read the question STEM first — know which of the 7 types you are facing',
+      '2. Read the argument; identify conclusion in your own words',
+      '3. Identify premises that support it; spot the gap (assumption)',
+      '4. Predict the answer shape before reading choices (e.g., "I need an alternative cause")',
+      '5. Eliminate by trap — out-of-scope, reversed direction, extreme — then pick the strongest survivor',
+    ],
+  },
+
+  'Strengthen': {
+    title: 'Strengthen the Argument',
+    icon: '➕',
+    summary: 'A Strengthen choice provides new information that makes the conclusion more likely true. You are not asked to prove the conclusion — just push it further toward "true".',
+    keyFacts: [
+      'Strengthen = adds support to the conclusion',
+      'Often closes a logical gap or rules out an alternative cause',
+      'Can be a new premise, statistic, or controlled comparison',
+      'GMAT keywords: "most strengthens", "most supports", "best supports"',
+    ],
+    example: {
+      problem: 'City X built a bike lane and bike commuting rose 40%. Conclusion: bike lanes increase commuting. Strengthener?',
+      steps: [
+        'Gap: maybe other factors (gas prices, weather) caused the rise',
+        'Strong: "Cities Y and Z added bike lanes and saw similar increases" — replication supports causal claim',
+      ],
+      answer: 'Replicated result',
+    },
+    traps: [
+      '"Could strengthen" vs "most strengthens" — pick the strongest',
+      'Restating premise — does not add new support',
+      'Strengthening an unstated sub-point — must hit the main conclusion',
+    ],
+    solveSteps: [
+      '1. Pin down the conclusion exactly',
+      '2. Find the gap or alternative cause',
+      '3. Look for an answer that closes the gap or rules out the alternative',
+    ],
+  },
+
+  'Weaken': {
+    title: 'Weaken the Argument',
+    icon: '➖',
+    summary: 'A Weakener provides new information that makes the conclusion less likely. The most common weakeners introduce an alternative explanation or counterexample.',
+    keyFacts: [
+      'Weaken = reduces support for the conclusion (does not need to disprove)',
+      'Most powerful weakener: alternative cause for the observed effect',
+      'Counterexample to an absolute claim is also a strong weakener',
+      'GMAT keywords: "most weakens", "casts doubt on", "calls into question"',
+    ],
+    example: {
+      problem: 'Coffee drinkers have lower Parkinson rates, so coffee prevents Parkinson. Weakener?',
+      steps: [
+        'Conclusion: coffee → lower Parkinson (causal)',
+        'Best weakener: people genetically resistant to Parkinson also tend to enjoy coffee — alternative cause/correlation, not causation',
+      ],
+      answer: 'Alternative cause',
+    },
+    traps: [
+      'Choices that restate the argument',
+      'Choices that weaken a premise but not the conclusion',
+      '"Some" or "a few" qualifiers are usually too weak to weaken on GMAT',
+    ],
+    solveSteps: [
+      '1. Identify the conclusion and the causal/logical jump',
+      '2. Brainstorm alternative explanations',
+      '3. Match an answer that introduces one of those alternatives',
+    ],
+  },
+
+  'Assumption': {
+    title: 'Find the Assumption',
+    icon: '🔗',
+    summary: 'An assumption is an unstated premise the conclusion requires. Use the Negation Test: if you negate the choice and the argument falls apart, that choice is the assumption.',
+    keyFacts: [
+      'Assumption is necessary, not sufficient',
+      'Negation Test: negate the choice; if the conclusion no longer follows, that is your assumption',
+      'Assumption answers are usually modest in scope',
+      'GMAT keywords: "the argument assumes", "depends on which", "required by the argument"',
+    ],
+    example: {
+      problem: 'Sales rose after we changed the logo. So the new logo caused the increase. Assumption?',
+      steps: [
+        'Required: nothing else changed at the same time',
+        'Choice: "no other major marketing change occurred concurrently"',
+        'Negate: "another major change occurred" — destroys causal claim. Confirms assumption.',
+      ],
+      answer: 'No other change occurred',
+    },
+    traps: [
+      'Strengtheners — they support but are not required',
+      'Extreme assumption choices ("always", "never") — usually too strong',
+      'Choices that are facts in the passage — those are premises, not assumptions',
+    ],
+    solveSteps: [
+      '1. Identify conclusion and explicit premises',
+      '2. Ask "what unstated link is needed?"',
+      '3. Apply Negation Test on top 2 choices',
+    ],
+  },
+
+  // ─── VERBAL — SENTENCE CORRECTION ─────────────────────────────
+
+  'Sentence Correction': {
+    title: 'Sentence Correction',
+    icon: '✏️',
+    summary: 'SC tests grammar, usage, and meaning. The underlined portion may be wrong; choose the most concise, grammatical, and meaning-preserving option. Choice A is always identical to the original.',
+    keyFacts: [
+      'Choice A = NO CHANGE (always identical to the underlined original)',
+      '6 BIG GRAMMAR RULES the GMAT tests over and over:',
+      '• 1. Subject-Verb Agreement — singular subject takes singular verb. Hide-the-subject trick: "The list of items IS on the desk" (not are).',
+      '• 2. Parallelism — items in a list/comparison share grammatical form. "She likes hiking, swimming, AND BIKING" (not "and to bike").',
+      '• 3. Modifiers — placed next to what they describe. "Walking down the street, I saw the trees" (not "the trees were tall").',
+      '• 4. Pronouns — must agree in number and have a clear antecedent. "Each student turned in HIS or HER paper" (not "their").',
+      '• 5. Verb Tense — sequence of tenses must reflect timeline. "By the time he arrives, she WILL HAVE LEFT".',
+      '• 6. Comparisons & Idioms — compare like to like; learn idioms ("not only … but also", "different from", "between X and Y").',
+      'Concision matters — between two grammatical options, the shorter and clearer wins',
+      'Meaning must be preserved — never pick a choice that subtly changes meaning',
+      'Eliminate splits: if 3 choices share an error, kill all 3 at once',
+    ],
+    example: {
+      problem: 'The committee, along with the board members, [are/is] going to vote.',
+      steps: [
+        'Subject = "the committee" (singular). "along with the board members" is a prepositional interrupter, not a compound subject',
+        'Singular subject takes singular verb: "is"',
+      ],
+      answer: 'is going to vote',
+    },
+    traps: [
+      'Redundancy — "rose by an additional increase of 10%" (rose AND additional are duplicates)',
+      'Faulty Comparison — "Singapore\'s climate is hotter than Tokyo" (compare climate to climate, not to a city)',
+      'Interrupters that hide the subject (along with, as well as, including)',
+      'Modifier placed too far from what it modifies',
+      '"Like" vs "such as" — "like" compares, "such as" introduces examples',
+      'Wordy passive constructions when a concise active version exists',
+      'Subjunctive after "demand/require/insist that" — verb must be base form ("demand that he BE on time")',
+      '"Being" — almost always wrong on GMAT; eliminate first',
+    ],
+    solveSteps: [
+      '1. READ FOR EAR — read the original sentence. Does it sound clearly wrong?',
+      '2. IDENTIFY THE ERROR — pin it to one of the 6 Big Rules (S-V, parallel, modifier, pronoun, tense, idiom)',
+      '3. ELIMINATE OBVIOUSLY WRONG — kill any choice that repeats the same error or introduces a new one',
+      '4. COMPARE REMAINING — focus on the splits between the 2-3 survivors',
+      '5. PICK MOST CONCISE — among grammatical, meaning-preserving options, the shortest clearest one wins',
+    ],
+  },
+
+  'Subject-Verb Agreement': {
+    title: 'Subject-Verb Agreement',
+    icon: '⚖',
+    summary: 'A verb must agree in number with its subject — singular subject takes singular verb, plural subject takes plural verb. The trick: GMAT hides the subject behind interrupters or inverts the order.',
+    keyFacts: [
+      'Singular subject + singular verb (the dog runs)',
+      'Plural subject + plural verb (the dogs run)',
+      'Phrases like "along with", "as well as", "in addition to" do NOT change subject number',
+      '"Each", "every", "neither", "either" + noun = singular',
+      '"Either A or B" — verb agrees with B (the closer subject)',
+      'Collective nouns (committee, jury) usually singular on GMAT',
+    ],
+    example: {
+      problem: 'The list of items [is/are] on the desk.',
+      steps: [
+        'Subject = "list" (singular)',
+        '"of items" is a prepositional phrase — not the subject',
+        'Singular verb: "is"',
+      ],
+      answer: 'is',
+    },
+    traps: [
+      'Prepositional phrases that put a plural noun next to the verb',
+      'Inversions: "There are/is many people" — find the real subject after the verb',
+      'Compound subjects with "and" are plural; with "or" follow the closer noun',
+    ],
+    solveSteps: [
+      '1. Find the verb',
+      '2. Strip out interrupting phrases and prepositional phrases',
+      '3. Identify the true subject',
+      '4. Match number',
+    ],
+  },
+
+  'Parallelism': {
+    title: 'Parallelism',
+    icon: '∥',
+    summary: 'When you list things or compare things, the items must share the same grammatical form — all gerunds, all infinitives, all noun phrases, etc.',
+    keyFacts: [
+      'Lists need parallel form: "running, jumping, swimming" (all -ing)',
+      'Comparisons need parallel form: "X is more than Y" — X and Y must match',
+      'Correlative pairs: "not only X but also Y", "either X or Y", "both X and Y" — X and Y parallel',
+      'Watch for verb tense parallelism in compound predicates',
+    ],
+    example: {
+      problem: 'She likes hiking, swimming, and to bike.',
+      steps: [
+        'List has hiking, swimming, to bike',
+        'Mismatch: hiking/swimming are gerunds; to bike is infinitive',
+        'Fix: "hiking, swimming, and biking"',
+      ],
+      answer: 'biking',
+    },
+    traps: [
+      'Almost-parallel: "her singing and to dance"',
+      'Comparing nouns to actions: "her job is more demanding than her sister" should be "than her sister\'s"',
+      'Idiomatic correlatives — "not only … but also" must keep structure on both sides',
+    ],
+    solveSteps: [
+      '1. Identify the list or comparison structure',
+      '2. Match each item\'s grammatical form',
+      '3. If comparing, ensure the things compared are like-things',
+    ],
+  },
+
+  'Modifiers': {
+    title: 'Modifiers',
+    icon: '↪',
+    summary: 'A modifier (word, phrase, or clause) must be placed next to the noun or verb it describes. Misplaced or dangling modifiers create absurd meaning.',
+    keyFacts: [
+      'Opening participial phrase modifies the subject right after it',
+      'Wrong: "Walking down the street, the trees were tall" → trees are not walking',
+      'Right: "Walking down the street, I noticed tall trees"',
+      '"That" introduces essential clauses (no comma); "which" introduces non-essential clauses (comma)',
+      'Adverbs/adjectives must clearly modify the right element',
+    ],
+    example: {
+      problem: 'Having finished the report, the deadline still seemed close.',
+      steps: [
+        'Opening modifier "Having finished the report" needs a person as subject',
+        '"the deadline" cannot finish a report — dangling modifier',
+        'Fix: "Having finished the report, I felt the deadline was still close"',
+      ],
+      answer: 'I felt the deadline was still close',
+    },
+    traps: [
+      'Dangling participial phrases',
+      '"Which" with no clear noun antecedent',
+      '"Only" placed in wrong slot — meaning shifts',
+    ],
+    solveSteps: [
+      '1. Find the modifier (opening phrase, that-clause, etc.)',
+      '2. Identify what it should describe',
+      '3. Verify the closest noun/verb is the right target',
+    ],
+  },
+
+  // ─── VERBAL — READING COMPREHENSION ───────────────────────────
+
+  'Reading Comprehension': {
+    title: 'Reading Comprehension',
+    icon: '📖',
+    summary: 'RC asks you to understand a 200-400 word passage and answer questions about main idea, details, inferences, tone, and structure. The correct answer is always supported directly by the passage.',
+    keyFacts: [
+      'Main Idea: the central thesis, not a detail',
+      'Detail questions: scan for the keyword in the passage',
+      'Inference: must be a logical extension of explicit statements',
+      'Function: why did the author include this paragraph/sentence?',
+      'Tone: pick a moderate tone — extreme tones rarely correct',
+      'Always reread the cited line ± 2 lines before answering',
+    ],
+    example: {
+      problem: 'Passage describes a new theory and notes one expert disagrees. Q: author\'s tone?',
+      steps: [
+        'Author presents theory neutrally and acknowledges criticism',
+        'Tone is "balanced" or "measured", not "enthusiastic" or "skeptical"',
+      ],
+      answer: 'Balanced',
+    },
+    traps: [
+      'Trap answers paraphrase the passage but distort meaning',
+      'Out-of-scope answers — never mentioned in passage',
+      'Extreme answers ("only", "always", "must") rarely correct',
+      'Half-right, half-wrong: one clause matches, the other does not — eliminate',
+    ],
+    solveSteps: [
+      '1. Read passage actively — note structure, purpose of each paragraph',
+      '2. Read question; rephrase in your own words',
+      '3. Predict the answer before looking at choices',
+      '4. Eliminate choices that distort, exceed, or fall outside the passage',
+    ],
+  },
+
+  // ─── DATA INSIGHTS ────────────────────────────────────────────
+  'Data Sufficiency': {
+    title: 'Data Sufficiency (DS)',
+    icon: '⚖️',
+    summary: 'DS questions present a question and two statements. Determine if the statements (alone or combined) provide sufficient data to answer the question — you never need to find the actual answer.',
+    keyFacts: [
+      'Answer choices are ALWAYS: A=St.1 alone, B=St.2 alone, C=Both together, D=Either alone, E=Neither',
+      'Sufficient = can determine a unique answer (or definitively yes/no)',
+      'Insufficient = multiple possible answers exist',
+      '"Is x positive?" — Statement gives x = 2 → sufficient (yes). Statement gives x² = 4 → insufficient (x = 2 or −2)',
+      'NEVER solve for the actual value — only determine if you COULD',
+    ],
+    example: {
+      problem: 'Is x > 0?\n(1) x² = 9\n(2) x > −1',
+      steps: [
+        'St.(1) alone: x = 3 or x = −3 → cannot determine if x > 0 → INSUFFICIENT',
+        'St.(2) alone: x > −1 means x could be 0, 0.5, 3, etc. → not always > 0 → INSUFFICIENT',
+        'Both together: x > −1 AND x² = 9 → x = 3 (x = −3 violates x > −1) → x > 0 → SUFFICIENT',
+        'Answer: C',
+      ],
+      answer: 'C — Both statements together are sufficient',
+    },
+    traps: [
+      'Forgetting that 0 is neither positive nor negative',
+      'Saying "sufficient" because you found one value — you need the ONLY value',
+      'Not testing both positive and negative cases for squared terms',
+      'Confusing "could be true" with "must be true" — DS needs must be true',
+      'Rushing to C — always test each statement alone first',
+    ],
+    solveSteps: [
+      '1. Rephrase the question — what exactly must be determined?',
+      '2. Test Statement (1) ALONE — is the answer uniquely determined? Label S or I',
+      '3. Test Statement (2) ALONE — same check. Label S or I',
+      '4. Only if both are I: test both together',
+      '5. Choose A/B/C/D/E based on the matrix',
+    ],
+  },
+
+  'Two-Part Analysis': {
+    title: 'Two-Part Analysis (TPA)',
+    icon: '🔀',
+    summary: 'TPA questions require selecting two answers — one for each column — that together satisfy a set of conditions. Both selections must simultaneously satisfy the stated constraints.',
+    keyFacts: [
+      'Both column answers must satisfy ALL given conditions simultaneously',
+      'Typical format: find X and Y such that X + Y = k and some other constraint holds',
+      'Table has 5+ rows — each row gives one (X, Y) pair option',
+      'Wrong traps: pairs where one column is correct but the other is not',
+      'Always verify both columns against both conditions before choosing',
+    ],
+    example: {
+      problem: 'A committee needs 2 members from Group A and 1 from Group B. Group A has {Alice, Bob, Carol}. Select one pair from Group A that always works together, and one from Group B.',
+      steps: [
+        'Identify the constraint: 2 from A, 1 from B',
+        'Evaluate each row for Column 1 (Group A pair)',
+        'Evaluate each row for Column 2 (Group B person)',
+        'Both selections must satisfy the condition simultaneously',
+      ],
+      answer: 'Select row where Column 1 satisfies the A-constraint AND Column 2 satisfies the B-constraint',
+    },
+    traps: [
+      'Choosing a pair that satisfies only one column\'s constraint',
+      'Forgetting to verify the selected pair against BOTH conditions',
+      'Misreading "at least" vs "exactly" in the constraint',
+      'Assuming the two columns are independent — they may interact',
+    ],
+    solveSteps: [
+      '1. Read the question stem carefully — identify what Column 1 and Column 2 must each represent',
+      '2. List the conditions that must hold',
+      '3. For each row, check Column 1 condition independently',
+      '4. For passing rows, check if Column 2 also satisfies its condition',
+      '5. Select the row where BOTH columns satisfy their conditions',
+    ],
+  },
+
+  'Table Analysis': {
+    title: 'Table Analysis (TA)',
+    icon: '📋',
+    summary: 'TA questions present a sortable table. You evaluate 3 statements as True/False or Yes/No based on the data. You may sort by any column to help.',
+    keyFacts: [
+      'Statements are evaluated independently — one T/F per statement',
+      '"Must be true" requires EVERY row to satisfy the condition',
+      '"Could be true" only requires at least ONE row to satisfy it',
+      'You can sort the table — useful for finding max/min, rankings, or thresholds',
+      'Watch for column headers and units — common confusion point',
+    ],
+    example: {
+      problem: 'Given a table of company revenues (cols: Company, Revenue, Region):\nStatement 1: More than half the companies are in Region A.\nStatement 2: No company has revenue over $1B.\nStatement 3: The median revenue is between $300M and $500M.',
+      steps: [
+        'Sort by Region — count Region A vs total → T or F',
+        'Scan Revenue column for any > $1B → T or F',
+        'Sort by Revenue — find median value → T or F',
+      ],
+      answer: 'Evaluate each statement True/False independently',
+    },
+    traps: [
+      'Confusing "all" with "some" — "all" = must be true for every row',
+      'Missing unit conversions (thousands vs millions)',
+      'Forgetting to count rows carefully — off-by-one errors',
+      'Treating approximate values as exact when the table shows rounded figures',
+    ],
+    solveSteps: [
+      '1. Read all column headers and units first',
+      '2. For each statement, identify which column(s) are relevant',
+      '3. Sort by relevant column if needed',
+      '4. Check if the statement holds for ALL rows (must be true) or just some (could be true)',
+      '5. Mark True/False for each statement independently',
+    ],
+  },
+
+  'Graphics Interpretation': {
+    title: 'Graphics Interpretation (GI)',
+    icon: '📈',
+    summary: 'GI questions present a graph (bar, line, scatter, pie) and ask you to fill in blanks in statements or answer questions about what the graph shows.',
+    keyFacts: [
+      'Read axis labels and units BEFORE looking at the data',
+      'Identify the chart type — each type has different reading strategies',
+      'Scatter plots: look for correlation direction (positive/negative) and strength',
+      'Bar/line: read relative heights, not exact values unless required',
+      'Pie charts: percentages sum to 100%; use proportional reasoning',
+    ],
+    example: {
+      problem: 'A scatter plot shows hours studied (x-axis) vs. test score (y-axis). A trend line is shown.\nStatement: A student who studies 6 hours is predicted to score approximately 75.',
+      steps: [
+        'Locate x = 6 on the horizontal axis',
+        'Trace up to the trend line',
+        'Read the y-value at the intersection',
+        'Compare to 75 — True/False',
+      ],
+      answer: 'Read from the graph at x = 6 and report the y-value',
+    },
+    traps: [
+      'Extrapolating beyond the graph\'s range — do not go past the data shown',
+      'Confusing correlation with causation in scatter plots',
+      'Misreading the scale — check if axes start at 0 or a non-zero value',
+      'Confusing "approximately" with "exactly" — GI allows small margins of error',
+    ],
+    solveSteps: [
+      '1. Identify graph type and read title',
+      '2. Read BOTH axis labels and units carefully',
+      '3. Note the scale — does the y-axis start at 0?',
+      '4. For each fill-in, locate the relevant data point',
+      '5. Report only what the graph directly shows — no inference beyond data',
+    ],
+  },
+
+  'Multi-Source Reasoning': {
+    title: 'Multi-Source Reasoning (MSR)',
+    icon: '🗂',
+    summary: 'MSR presents 2-3 tabs with different source types (emails, memos, charts, tables). Questions ask you to synthesize information across sources or evaluate whether claims are supported.',
+    keyFacts: [
+      'Each tab is a separate source — read all tabs before answering',
+      'Information may appear only in one tab — check all before concluding it\'s absent',
+      'Inference questions: must be supported by at least one tab, not contradict others',
+      '"Supported by" vs "contradicted by" — key distinction in answer choices',
+      'Dates matter — earlier memos may be superseded by later ones',
+    ],
+    example: {
+      problem: 'Tab 1 (Email): "We shipped 500 units on March 3." Tab 2 (Invoice): "Invoice for 450 units dated March 5."\nQuestion: Did the full shipment of 500 units get invoiced?',
+      steps: [
+        'Read Tab 1: shipment = 500 units, March 3',
+        'Read Tab 2: invoice = 450 units, March 5',
+        '500 ≠ 450 → full shipment NOT fully invoiced',
+        'Answer: No / Not supported',
+      ],
+      answer: 'No — the invoice covers only 450 of 500 units',
+    },
+    traps: [
+      'Missing information in one tab — check ALL tabs before concluding',
+      'Date confusion — newer documents may supersede older ones',
+      'Inferring beyond what any single tab directly states',
+      '"Supported" means DIRECTLY stated or logically implied — not plausible',
+    ],
+    solveSteps: [
+      '1. Read all tabs to get the full picture before answering',
+      '2. Note the source type and date of each tab',
+      '3. For each question, identify which tabs contain relevant info',
+      '4. Synthesize across tabs — look for agreements and contradictions',
+      '5. For inference questions: answer must be directly supported by at least one tab',
+    ],
+  },
+
+  'Boldface': {
+    title: 'Boldface CR Questions',
+    icon: '🔲',
+    summary: 'Boldface questions show two highlighted portions of an argument and ask you to identify the logical role each plays — e.g., main conclusion, intermediate conclusion, premise, counter-premise, or background.',
+    keyFacts: [
+      'The argument has a Main Conclusion — often not bolded',
+      'Bolded portions are typically: premise, counter-argument, intermediate conclusion, evidence',
+      'Counter-premise introduces an opposing view the author then dismisses',
+      'Intermediate conclusion = a sub-conclusion that supports the main claim',
+      'Trigger: "The two boldface portions play which roles in the argument above?"',
+      'Correct answer must accurately describe BOTH portions — half-right = wrong',
+    ],
+    example: {
+      problem: 'Boldface #1: "Sales rose 20% this quarter." Boldface #2: "Therefore, the new marketing strategy is a success." What roles?',
+      steps: [
+        'Boldface #1 is a premise (stated fact) supporting the conclusion',
+        'Boldface #2 uses "therefore" → it IS the main conclusion',
+        'Answer: "The first is evidence for the claim made in the second; the second is the main conclusion"',
+      ],
+      answer: '#1 = evidence/premise; #2 = main conclusion',
+    },
+    traps: [
+      '"Supports the conclusion" vs "IS the conclusion" — critically different',
+      'Counter-premise trap: a bolded objection is NOT a premise for the main conclusion',
+      'Intermediate conclusion can be both a conclusion AND a premise for the final conclusion',
+      'Reading choices too quickly — answer must fit BOTH bolded portions accurately',
+    ],
+    solveSteps: [
+      '1. Read the full argument; identify the main conclusion (often NOT bolded)',
+      '2. Label each bolded portion: premise / counter-premise / intermediate conclusion / main conclusion',
+      '3. Characterize both portions independently',
+      '4. Match to answer choices — eliminate any that mislabel either portion',
+    ],
+  },
+
+  'Flaw': {
+    title: 'Find the Flaw',
+    icon: '⚠️',
+    summary: 'Flaw questions ask you to identify the logical error in the argument. The argument always has a gap between premises and conclusion that undermines the reasoning.',
+    keyFacts: [
+      'Trigger words: "the argument is flawed because it", "vulnerable to criticism because", "logical error"',
+      'Common flaw types: ad hominem, false dichotomy, circular reasoning, correlation/causation, hasty generalization, unrepresentative sample',
+      'Correlation ≠ causation: just because A and B co-occur does NOT mean A caused B',
+      'Hasty generalization: applying a pattern from a small sample to a large population',
+      'False dichotomy: assuming only 2 options exist when more are possible',
+      'Circular reasoning: using the conclusion as a premise',
+    ],
+    example: {
+      problem: 'Everyone in my office who drinks coffee is productive. Therefore, coffee improves productivity.',
+      steps: [
+        'Correlation used to claim causation — just because coffee-drinkers are productive does not mean coffee CAUSES productivity',
+        'Alternative: productive people may choose coffee for other reasons',
+        'Flaw: "It treats a correlation as if it established causation"',
+      ],
+      answer: 'Correlation–causation flaw',
+    },
+    traps: [
+      'Picking an answer that identifies a weakness that is real but NOT the primary flaw',
+      'Confusing a weak argument with a flawed one — flaw must be about the logical structure',
+      'Extreme language: "The argument assumes without justification that ALL X..." may be wrong if the argument only says "most"',
+    ],
+    solveSteps: [
+      '1. Identify the conclusion and premises',
+      '2. Ask: "What assumption is required? Can I poke a hole in it?"',
+      '3. Name the flaw type (correlation-causation? hasty generalization? false dichotomy?)',
+      '4. Pick the answer that names the same flaw — exact wording will vary',
+    ],
+  },
+
+  'Evaluate': {
+    title: 'Evaluate the Argument',
+    icon: '⚖️',
+    summary: 'Evaluate questions ask which piece of information would be most useful in assessing whether the conclusion is well-supported. The best answer helps determine if the argument is strong OR weak — it works in both directions.',
+    keyFacts: [
+      'Trigger: "which of the following would be most useful to know in evaluating the argument?"',
+      'The correct answer is a QUESTION or piece of info — not a statement that strengthens or weakens',
+      'Best test: "If YES → strengthens / If NO → weakens" (or vice versa). If only one direction matters, it is a strengthener/weakener trap',
+      'Focus on the assumption gap — what must be true for the conclusion to hold?',
+      'Evaluate ≠ Strengthen and ≠ Weaken — the answer is useful IN BOTH SCENARIOS',
+    ],
+    example: {
+      problem: 'A city built a new park and crime in that neighborhood dropped 15%. The park improved public safety. Evaluate question: which piece of information would be most useful?',
+      steps: [
+        'Gap: was the crime drop caused by the park, or by other factors?',
+        'Best evaluate: "Did crime drop in comparable neighborhoods without new parks over the same period?"',
+        'If YES → park was not special (weakens); if NO → park may have caused it (strengthens)',
+      ],
+      answer: 'Ask whether crime dropped elsewhere too (tests alternative explanation)',
+    },
+    traps: [
+      '"If YES, strengthens; if NO, irrelevant" → this is a strengthener, not evaluate',
+      'Answers about irrelevant details (cost of park, number of visitors) — not tied to the core gap',
+      'Answers that directly state a fact — evaluate choices ask questions or present variables',
+    ],
+    solveSteps: [
+      '1. Identify conclusion and the assumption gap',
+      '2. Predict the question you need answered: "I need to know if X is responsible or if Y caused it"',
+      '3. Apply YES/NO test: does the answer work in both directions?',
+      '4. Eliminate one-directional answers (they are strengtheners or weakeners, not evaluators)',
+    ],
+  },
+
+  'Inference': {
+    title: 'Inference / Must Be True',
+    icon: '💡',
+    summary: 'Inference questions ask what MUST be true based on the information in the passage. The correct answer follows logically from the stated facts — no outside knowledge, no stretching.',
+    keyFacts: [
+      'Trigger: "which of the following must be true", "can be properly inferred", "follows logically from"',
+      'Correct answer: provable directly from stated facts — 100% supported, not just probably true',
+      'Wrong-answer traps: too extreme, only probable (not certain), contradicts stated facts',
+      'The passage premises are FACTS — accept them even if they seem odd',
+      'EXCEPT variant: find 4 answers that must be true; the 5th does NOT follow',
+      'Combine facts when needed: if "All A are B" and "All B are C", then "All A are C" must be true',
+    ],
+    example: {
+      problem: 'Every employee who completed the training received a certificate. Maria completed the training. What must be true?',
+      steps: [
+        'Directly applies: Maria completed training → Maria received certificate',
+        'No need to infer anything — it directly follows from the universal rule',
+      ],
+      answer: 'Maria received a certificate',
+    },
+    traps: [
+      '"Probably true" is NOT "must be true" — the answer must be guaranteed',
+      '"Some" vs "All" — if the passage says "some X are Y", you cannot infer "all X are Y"',
+      'Scope creep: the answer goes beyond what the passage states ("therefore the program is effective")',
+      'Extreme language in wrong answers: "always", "never", "all" — rarely must-be-true',
+    ],
+    solveSteps: [
+      '1. Read all premises as established facts',
+      '2. Combine facts using valid logical links (all/some/none, if-then)',
+      '3. Test each answer: "Can I prove this 100% from the stated info?"',
+      '4. Eliminate anything that requires outside knowledge, probability, or exaggeration',
+    ],
+  },
+
+  'Paradox': {
+    title: 'Resolve the Paradox',
+    icon: '🔀',
+    summary: 'Paradox questions present two facts that appear contradictory and ask you to find an explanation that makes BOTH facts true simultaneously.',
+    keyFacts: [
+      'Trigger: "which of the following, if true, best resolves the apparent paradox?"',
+      'Two facts are stated — both are TRUE. The paradox is how they can BOTH be true',
+      'Correct answer: explains why BOTH facts hold; does not deny either fact',
+      'Wrong answer: explains only one fact, or introduces a new contradiction',
+      'Strategy: state the paradox in your own words — "X happened even though Y suggests it should not"',
+    ],
+    example: {
+      problem: 'A hospital installed new safety equipment, yet patient injury rates increased. Resolve.',
+      steps: [
+        'Paradox: new safety = more injuries? That seems backwards.',
+        'Resolution needed: something that makes BOTH true simultaneously',
+        'Best resolution: "The hospital began treating higher-risk patients after installing the equipment" → more risk → more injuries, equipment notwithstanding',
+      ],
+      answer: 'Patient risk profile changed (making both facts compatible)',
+    },
+    traps: [
+      'Answers that deny one of the two stated facts — both must remain true',
+      'Answers that explain only the unexpected outcome without accounting for why the expected outcome did not happen',
+      'Irrelevant third factor that does not connect the two facts',
+      'Strengthening the paradox: the answer makes the contradiction even more puzzling',
+    ],
+    solveSteps: [
+      '1. State the paradox explicitly: "Fact A says X, Fact B suggests NOT-X — how can both be true?"',
+      '2. Predict the type of resolution: additional context, hidden third factor, scope difference',
+      '3. Test each answer: Does it preserve BOTH facts and eliminate the contradiction?',
+      '4. Eliminate answers that only partially explain or introduce new problems',
+    ],
+  },
+
+  'Verb Tense': {
+    title: 'Verb Tense (SC)',
+    icon: '⏱',
+    summary: 'GMAT Sentence Correction tests logical tense consistency. Perfect tense (has/have + past participle) indicates action completed before another past action. Simple past describes completed actions at a definite time.',
+    keyFacts: [
+      'Simple past (did) = completed at a specific time in the past',
+      'Present perfect (has done) = action with ongoing relevance or no definite time',
+      'Past perfect (had done) = completed BEFORE another past action',
+      'Never use "would have" in the if-clause of a conditional',
+      'Tense must be CONSISTENT within a sentence unless sequence logic requires change',
+    ],
+    example: {
+      problem: 'By the time the merger was announced, the company [had already lost / already lost] most of its market share.',
+      steps: [
+        'Two past events: "announced" and "losing market share"',
+        'Losing market share happened BEFORE the announcement',
+        'Use past perfect (had already lost) for the earlier event',
+      ],
+      answer: '"had already lost" — past perfect for the earlier event',
+    },
+    traps: [
+      'Using simple past for an action that clearly precedes another past action',
+      'Using present perfect with a definite time marker ("yesterday," "in 2010")',
+      'Mixing "would" in the if-clause: "If I would have known" is always wrong',
+      'Changing tense mid-sentence without logical reason',
+    ],
+    solveSteps: [
+      '1. Identify all verbs in the sentence',
+      '2. Determine the chronological sequence of events',
+      '3. Match tense to sequence: earlier event → past perfect; later event → simple past',
+      '4. Check for time markers that lock in a specific tense',
+      '5. Eliminate choices that violate tense logic',
+    ],
+  },
+
+  'Pronouns': {
+    title: 'Pronoun Reference (SC)',
+    icon: '↔',
+    summary: 'Every pronoun must have a clear, unambiguous antecedent. GMAT tests pronoun-antecedent agreement (number and gender), pronoun case (subject vs object), and ambiguous reference.',
+    keyFacts: [
+      'A pronoun must refer to exactly ONE clear antecedent — ambiguous reference is wrong',
+      '"It" must refer to a singular noun; "they" to a plural noun',
+      '"Its" = possessive of "it"; "it\'s" = it is (never correct on GMAT)',
+      'A pronoun cannot refer to a noun acting as an adjective (e.g., "the company\'s growth — it grew" is wrong because "company" is possessive)',
+      '"Who" = people; "that/which" = things',
+    ],
+    example: {
+      problem: 'The committee told the managers that they needed to revise their reports.',
+      steps: [
+        '"They" is ambiguous — could refer to "committee" or "managers"',
+        'GMAT will offer a rewrite that removes ambiguity',
+        'Correct version: The committee told the managers that the managers needed to revise their reports.',
+      ],
+      answer: 'Rewrite to clarify which noun the pronoun refers to',
+    },
+    traps: [
+      '"Them" used where a clear noun phrase is needed',
+      'Pronoun agrees in number with a word near it but not its actual antecedent',
+      '"Company" acting as adjective — cannot be the antecedent for "it"',
+      'Using "they" to refer to an unnamed group (e.g., "In France, they drink wine")',
+    ],
+    solveSteps: [
+      '1. Identify each pronoun in the sentence',
+      '2. Find the intended antecedent for each pronoun',
+      '3. Check: is the antecedent singular/plural matching the pronoun?',
+      '4. Check: is there only ONE possible antecedent (no ambiguity)?',
+      '5. Eliminate choices with unclear or mismatched pronoun references',
+    ],
+  },
+
+  'Comparisons': {
+    title: 'Comparisons (SC)',
+    icon: '≈',
+    summary: 'GMAT requires grammatically parallel and logically equivalent comparisons. "Like" compares nouns; "as" introduces clauses. "More than" vs "greater than" depends on count vs magnitude.',
+    keyFacts: [
+      '"Like" = compare nouns: "Like Einstein, Newton was a genius"',
+      '"As" = compare clauses: "As Einstein did, Newton worked alone"',
+      'Compared items must be structurally parallel (noun to noun, clause to clause)',
+      '"Those of" is often needed: "Revenues of Company A exceeded those of Company B"',
+      '"More than" (quantity) vs "greater than" (magnitude)',
+    ],
+    example: {
+      problem: 'The infrastructure of city X is more advanced than city Y.',
+      steps: [
+        'Comparing "infrastructure of city X" to "city Y" — illogical (infrastructure ≠ city)',
+        'Correct: "...more advanced than that of city Y" or "...more advanced than city Y\'s"',
+        'Must compare infrastructure to infrastructure, not to a city',
+      ],
+      answer: 'Add "that of" or possessive to match the comparison logically',
+    },
+    traps: [
+      'Comparing a part to a whole: "the policy of X is better than Y" (should be "Y\'s policy")',
+      'Using "like" when a clause follows (should be "as")',
+      '"As much" vs "more": "as much as" for equal comparisons',
+      'Omitting "those of" when comparing plural nouns',
+    ],
+    solveSteps: [
+      '1. Identify what is being compared on each side of "than/as/like"',
+      '2. Check that both sides are logically equivalent (noun to noun)',
+      '3. Check that both sides are grammatically parallel',
+      '4. Add "that of / those of" if a noun is compared to a group',
+      '5. Choose "like" (nouns) or "as" (clauses) correctly',
+    ],
+  },
+
+  'Coordinate Geometry': {
+    title: 'Coordinate Geometry',
+    icon: '📐',
+    summary: 'GMAT tests coordinate geometry including slope, distance, midpoint, equations of lines, and properties of circles and triangles on the coordinate plane.',
+    keyFacts: [
+      'Slope = (y₂ - y₁) / (x₂ - x₁) = rise / run',
+      'Parallel lines have equal slopes; perpendicular lines have slopes that multiply to -1',
+      'Distance formula: √[(x₂-x₁)² + (y₂-y₁)²]',
+      'Midpoint: ((x₁+x₂)/2, (y₁+y₂)/2)',
+      'Equation of line: y = mx + b where m = slope, b = y-intercept',
+      'Circle centered at (h,k) with radius r: (x-h)² + (y-k)² = r²',
+    ],
+    example: {
+      problem: 'Line L passes through (2, 3) and (6, 7). What is the slope of a line perpendicular to L?',
+      steps: [
+        'Slope of L = (7-3)/(6-2) = 4/4 = 1',
+        'Perpendicular slope = -1/1 = -1',
+      ],
+      answer: '-1',
+    },
+    traps: [
+      'Forgetting to negate AND invert for perpendicular slope',
+      'Division by zero when the line is vertical (undefined slope)',
+      'Confusing (x₁ - x₂) with (x₂ - x₁) — both give same slope if consistent',
+      'Circle equation: not expanding to standard form before reading radius',
+    ],
+    solveSteps: [
+      '1. Plot key points if helpful to visualize',
+      '2. Apply relevant formula (slope, distance, midpoint)',
+      '3. For perpendicular: negate and invert the slope',
+      '4. For lines in DS: two conditions needed → two points OR slope + one point',
+      '5. Sanity check: does the answer make geometric sense?',
+    ],
+  },
+
+  'Overlapping Sets': {
+    title: 'Overlapping Sets (Venn Diagrams)',
+    icon: '⭕',
+    summary: 'Overlapping sets problems use the inclusion-exclusion formula: |A ∪ B| = |A| + |B| - |A ∩ B|. For three sets: |A ∪ B ∪ C| = |A| + |B| + |C| - |A∩B| - |A∩C| - |B∩C| + |A∩B∩C|.',
+    keyFacts: [
+      'Two sets: Total = A + B - Both + Neither',
+      'Three sets: Total = A + B + C - (A∩B) - (A∩C) - (B∩C) + (A∩B∩C) + Neither',
+      '"Only A" = |A| - |A∩B| (for two sets)',
+      '"Exactly two of three" = (A∩B) + (A∩C) + (B∩C) - 3(A∩B∩C)',
+      'A double matrix (2×2 table) is more efficient than Venn for two overlapping attributes',
+    ],
+    example: {
+      problem: 'Of 100 students, 60 study Math, 50 study English, and 30 study both. How many study neither?',
+      steps: [
+        'Total = Math + English - Both + Neither',
+        '100 = 60 + 50 - 30 + Neither',
+        'Neither = 100 - 80 = 20',
+      ],
+      answer: '20 students study neither',
+    },
+    traps: [
+      'Forgetting to subtract the "both" category, causing double-counting',
+      'For three sets, forgetting to ADD back the triple-overlap',
+      'Using "at least one" when "exactly one" is asked (remove overlaps)',
+      'Confusing "neither" as 0 when the problem doesn\'t state everyone is in a set',
+    ],
+    solveSteps: [
+      '1. Write out the formula for two or three sets',
+      '2. Fill in known values',
+      '3. Solve for the unknown',
+      '4. For DS: confirm you have enough equations to solve for the unknown',
+      '5. Draw a Venn or matrix diagram to avoid errors',
+    ],
+  },
+
+  'Modular Arithmetic': {
+    title: 'Remainders & Modular Arithmetic',
+    icon: '÷',
+    summary: 'Remainder questions test the pattern of remainders when dividing by a fixed number. Key: a ≡ r (mod n) means a = qn + r where 0 ≤ r < n.',
+    keyFacts: [
+      'If x = qn + r, then x has remainder r when divided by n',
+      'Remainders can be added and multiplied: (a+b) mod n = ((a mod n) + (b mod n)) mod n',
+      'Cyclicity of units digit: powers of 2 cycle in 4 (2,4,8,6); powers of 3 in 4 (3,9,7,1)',
+      'Consecutive integers: n consecutive integers contain exactly one multiple of n',
+      'If a has remainder r₁ and b has remainder r₂ (same divisor), then a+b has remainder r₁+r₂ (or that minus the divisor if ≥ divisor)',
+    ],
+    example: {
+      problem: 'What is the remainder when 7²⁰ is divided by 5?',
+      steps: [
+        'Units digits of powers of 7 cycle: 7,9,3,1,7,9,3,1... (cycle of 4)',
+        '7²⁰: 20 is divisible by 4, so units digit = 1 (same as 7⁴)',
+        'A number with units digit 1 divided by 5 has remainder 1',
+      ],
+      answer: 'Remainder = 1',
+    },
+    traps: [
+      'Forgetting cyclicity — do not compute large powers directly',
+      'When remainder is 0, the number IS divisible by the divisor',
+      'The remainder from a product is the product of individual remainders (mod divisor)',
+      'Negative remainders: if result is negative, add the divisor to make it positive',
+    ],
+    solveSteps: [
+      '1. Identify the divisor and what\'s being divided',
+      '2. Use patterns/cycles for powers rather than direct computation',
+      '3. Apply the addition/multiplication rules for remainders',
+      '4. Check: is the answer between 0 and (divisor - 1)?',
+      '5. Verify with a small example to confirm the pattern',
+    ],
+  },
+
+  // ─── 700+ TRAPS & SPECIAL TOPICS ─────────────────────────────
+
+  'Number Line': {
+    title: 'Number Line & Counting',
+    icon: '↔',
+    summary: 'Number-line questions test inclusive/exclusive counting, spacing between integers, and symmetric ranges around 0. One off-by-one error costs the question.',
+    keyFacts: [
+      'Integers from a to b INCLUSIVE: b − a + 1',
+      'Integers from a to b EXCLUSIVE: b − a − 1',
+      'Multiples of k from a to b: ⌊b/k⌋ − ⌊(a−1)/k⌋',
+      'Even integers from a to b (both even): (b − a)/2 + 1',
+      'Spacing on a number line: n equally spaced points create n−1 gaps',
+      'Symmetric range: integers −n to n (inclusive) = 2n + 1 total',
+    ],
+    example: {
+      problem: 'How many integers from 10 to 99, inclusive, are NOT divisible by 3?',
+      steps: [
+        'Total integers: 99 − 10 + 1 = 90',
+        'Multiples of 3: ⌊99/3⌋ − ⌊9/3⌋ = 33 − 3 = 30',
+        'NOT divisible by 3: 90 − 30 = 60',
+      ],
+      answer: '60',
+    },
+    traps: [
+      '"From a to b" — always clarify inclusive vs exclusive',
+      'Off-by-one: 1 to 10 has 10 integers, not 9',
+      'Multiples of k: use floor formula, not just b/k − a/k',
+      '"Every nth element" problems: watch whether endpoints are included',
+    ],
+    solveSteps: [
+      '1. Determine inclusive or exclusive',
+      '2. Use formula: b − a + 1 (inclusive)',
+      '3. For multiples: ⌊b/k⌋ − ⌊(a−1)/k⌋',
+      '4. Verify with small example (k=2, a=1, b=10 → 5 evens)',
+    ],
+  },
+
+  'Scope Shift': {
+    title: 'CR Scope Shift (Argument Errors)',
+    icon: '↝',
+    summary: 'Most GMAT Critical Reasoning wrong answers exploit scope shifts — introducing new terms, swapping cause/effect, or conflating correlation with causation.',
+    keyFacts: [
+      'Stimulus scope ≠ answer choice scope: eliminate answers outside the argument',
+      'Cause ↔ Effect confusion: "A causes B" ≠ "B causes A"',
+      'Correlation ≠ Causation: two events co-occurring does not mean one caused the other',
+      'Analogy errors: "X worked for Y, therefore X will work for Z" ignores differences',
+      'Representativeness: a sample conclusion about all requires a representative sample',
+      'Circular reasoning: conclusion restates the premise in different words',
+    ],
+    example: {
+      problem: 'Identify the scope shift: "Students who use laptops in class get lower grades. Therefore, laptops cause lower grades."',
+      steps: [
+        'Correlation established: laptop use correlates with lower grades',
+        'Scope shift: jumps to CAUSATION without eliminating confounds',
+        'Possible confound: students who struggle attend class less attentively AND use laptops more',
+        'Weaken it: show another factor causes both laptop use and lower grades',
+      ],
+      answer: 'Correlation–causation scope shift',
+    },
+    traps: [
+      'GMAT rarely makes obvious logical errors — the flaw is usually subtle',
+      '"Strengthen" answers that just restate the premise add no logical support',
+      'Extreme language (always, never, all, none) in answer choices = usually wrong',
+      'Eliminate choices that are TRUE but IRRELEVANT to the argument\'s logic',
+    ],
+    solveSteps: [
+      '1. Identify the conclusion (often after "therefore", "thus", "so")',
+      '2. Identify the premise(s)',
+      '3. Find the logical gap (scope shift, missing link)',
+      '4. Test each answer against that specific gap',
+    ],
+  },
+
+  'Idioms': {
+    title: 'SC Idioms & Prepositions',
+    icon: '∈',
+    summary: 'GMAT SC tests ~100 idiomatic prepositional phrases. Preposition choice is non-negotiable — it is tested by ear, not logic.',
+    keyFacts: [
+      'Agree WITH (a person) vs Agree ON (a topic) vs Agree TO (a proposal)',
+      'Differ FROM (comparison) vs Differ WITH (disagreement)',
+      'Credit X WITH Y (give credit for doing Y)',
+      'Attribute X TO Y (cause attributed to Y)',
+      'Consider X Y (no "as" or "to be"): "I consider him a genius" ✓',
+      'Regard X AS Y: "I regard him as a genius" ✓ — not "regard him to be"',
+      'Between X AND Y (not "between X or Y")',
+      'From X TO Y (not "from X until Y" for ranges)',
+    ],
+    example: {
+      problem: 'Which is correct? (A) "The increase is attributed to inflation" vs (B) "The increase is attributed by inflation"',
+      steps: [
+        'Idiom: "attribute X TO Y" is the fixed English prepositional phrase',
+        '"attributed by" would mean inflation is doing the attributing — nonsensical',
+        'Answer: (A)',
+      ],
+      answer: 'A',
+    },
+    traps: [
+      '"Like" vs "such as" — "such as" gives examples, "like" makes comparisons',
+      '"As" vs "like" — use "as" before a clause (subject + verb)',
+      '"Whether" vs "if" — use "whether" for two possibilities in noun clauses',
+      'Redundant prepositions: "off of" → "off", "inside of" → "inside"',
+    ],
+    solveSteps: [
+      '1. Circle the preposition — is it part of a fixed idiom?',
+      '2. Test the idiom with a simple sentence you know is correct',
+      '3. Eliminate choices that change the idiom',
+      '4. If stuck, pick the more concise option',
+    ],
+  },
+
+  'RC Main Idea': {
+    title: 'RC Main Idea & Author Purpose',
+    icon: '📌',
+    summary: 'Main Idea questions ask what the passage is PRIMARILY about — the answer must cover the whole passage, not just one paragraph, and must match the author\'s tone.',
+    keyFacts: [
+      'Correct answer: broad enough to cover the passage, specific enough to exclude distortors',
+      'Too narrow: covers only one paragraph or example',
+      'Too broad: introduces scope the passage never discusses',
+      'Author tone words: "suggests", "argues", "contends" = opinion; "notes", "reports" = neutral',
+      'Primary purpose verbs: analyze, argue, challenge, describe, illustrate, reconcile',
+      'Intro + conclusion sentences carry the most weight for main idea',
+    ],
+    example: {
+      problem: 'A 250-word passage describes recent research on how sleep deprivation affects decision-making, argues that current workplace norms undervalue sleep, and calls for policy change. What is the primary purpose?',
+      steps: [
+        'Research description = evidence layer',
+        'Argument about workplace norms = main claim',
+        'Policy call = conclusion of argument',
+        'Primary purpose: to argue that workplace norms should change to accommodate sleep needs',
+        'Eliminate: "to describe sleep research" (too narrow — ignores the argument)',
+      ],
+      answer: 'To argue that current policies undervalue sleep and should be reformed',
+    },
+    traps: [
+      'Extreme language in answer choices ("proves", "conclusively shows") — authors hedge',
+      'Choices that use words FROM the passage but distort the meaning',
+      'Correct-fact-wrong-purpose: true about a paragraph but not the whole passage',
+      'Reversed tone: if author is critical, eliminate "supportive" answers',
+    ],
+    solveSteps: [
+      '1. Note the first and last sentence of each paragraph',
+      '2. Identify the author\'s stance (positive, critical, neutral)',
+      '3. Pick the answer that matches both scope AND tone',
+      '4. Eliminate too-narrow (single paragraph) and too-broad (adds new topics)',
+    ],
+  },
+
+  'Weighted Average': {
+    title: 'Weighted Average & Mixtures',
+    icon: '⚖',
+    summary: 'Weighted average is one of the highest-frequency 700+ topics. The Alligation method (see-saw) solves mixture problems in 20 seconds.',
+    keyFacts: [
+      'Weighted avg = Σ(weight × value) / Σ(weights)',
+      'If two groups have averages A and B, overall average is between A and B',
+      'Overall avg closer to A → group A is larger',
+      'Alligation: d1/d2 = w2/w1 (distances from the mean = inverse of weights)',
+      'Mixture replacement: after removing x from V and adding x of new: new conc = old × (1 − x/V)^n',
+    ],
+    example: {
+      problem: 'Class A: 20 students, avg score 70. Class B: 30 students, avg score 80. Combined average?',
+      steps: [
+        'Weighted: (20×70 + 30×80) / (20+30)',
+        '= (1400 + 2400) / 50',
+        '= 3800 / 50 = 76',
+        'Alligation check: closer to 80 (larger group) ✓',
+      ],
+      answer: '76',
+    },
+    traps: [
+      '"Average of averages" (unweighted) is WRONG when groups have different sizes',
+      'Trap: they give you the group sizes and hope you average the averages directly',
+      'Mixture replacement: successive removal — use (1 − x/V)^n formula, not linear subtraction',
+      'DS trap: knowing overall average + one group average is NOT sufficient without group sizes',
+    ],
+    solveSteps: [
+      '1. List each group\'s (weight, value)',
+      '2. Compute Σ(w × v) and Σ(w)',
+      '3. Divide — or use Alligation for speed',
+      '4. Sanity check: result must be BETWEEN the two group averages',
+    ],
+  },
+
+  'Sentence Structure': {
+    title: 'SC Sentence Structure & Clauses',
+    icon: '⎪',
+    summary: 'GMAT SC tests whether every modifier, clause, and appositive logically attaches to the right element. Misplaced modifiers and dangling participles are among the most tested errors.',
+    keyFacts: [
+      'Opening participial phrase modifies the subject of the main clause',
+      '"Having done X, the team…" — the team must have done X',
+      'Relative clause ("which/that") must immediately follow the noun it modifies',
+      'Appositive ("X, a noun phrase, Y") — the noun phrase must match X',
+      'Parallel structure: items in a list must be grammatically identical',
+      'Correlative conjunctions: "not only X but also Y" — X and Y must be parallel',
+    ],
+    example: {
+      problem: 'Choose the correct form: (A) "Running late, the bus was missed by Maria." (B) "Running late, Maria missed the bus."',
+      steps: [
+        'Opening phrase "Running late" must modify the subject',
+        '(A): subject = "the bus" — the bus was not running late',
+        '(B): subject = "Maria" — Maria was running late ✓',
+        'Answer: (B)',
+      ],
+      answer: 'B',
+    },
+    traps: [
+      'Long noun phrases between modifier and subject obscure the misplacement',
+      '"Which" traps: "She won the award, which surprised everyone" — does "which" refer to winning or the award?',
+      'Parallel list errors hidden by commas: "to run, jumping, and swim" fails parallelism',
+      'False subject: "There are/is" — the real subject comes AFTER the verb',
+    ],
+    solveSteps: [
+      '1. Identify every modifier — find what it is supposed to modify',
+      '2. Check that modifier is adjacent to its referent',
+      '3. Check parallel structure in lists and correlatives',
+      '4. Read the sentence aloud — awkward rhythm often signals an error',
+    ],
+  },
+
+  'Data Sufficiency Strategy': {
+    title: 'DS Strategy & Traps',
+    icon: 'DS',
+    summary: 'Data Sufficiency is unique to GMAT. The five answer choices are always the same — memorize them. The most common wrong answers are C (when D is correct) and B (when A is correct).',
+    keyFacts: [
+      'A: (1) ALONE sufficient, (2) alone not sufficient',
+      'B: (2) ALONE sufficient, (1) alone not sufficient',
+      'C: BOTH together sufficient, but neither alone',
+      'D: EACH statement ALONE sufficient',
+      'E: NEITHER statement, even together, sufficient',
+      'YES/NO questions: sufficient = always YES or always NO (not sometimes)',
+      'VALUE questions: sufficient = exactly one value',
+      'NEVER assume information from one statement while testing the other',
+    ],
+    example: {
+      problem: 'Is x > 0? (1) x² > 0  (2) |x| > 0',
+      steps: [
+        '(1): x² > 0 → x ≠ 0, but x could be positive or negative → NOT sufficient',
+        '(2): |x| > 0 → x ≠ 0, but x could be positive or negative → NOT sufficient',
+        'Together: still only know x ≠ 0 → NOT sufficient',
+        'Answer: E',
+        'Trap: many test-takers assume x² > 0 implies x > 0 — wrong, x could be negative',
+      ],
+      answer: 'E',
+    },
+    traps: [
+      'x² > 4 does NOT mean x > 2 (x could be < −2)',
+      'Even powers eliminate sign information: x² = 4 → x = ±2',
+      'Forgetting to test NEGATIVE values and ZERO for integer/sufficiency questions',
+      '"Value" trap: ST(1): x = 3 if y = 1, or x = 5 if y = 2 → NOT sufficient (value depends on unknown)',
+      'C-trap: the answer appears to need both statements, but one statement alone is enough',
+    ],
+    solveSteps: [
+      '1. Rephrase the question to its simplest form',
+      '2. Test ST(1) ALONE — try multiple values',
+      '3. Test ST(2) ALONE — try multiple values',
+      '4. Test together ONLY if neither alone is sufficient',
+      '5. For YES/NO: look for a case where you get both YES and NO → not sufficient',
+    ],
+  },
+
+  'Graphic Interpretation': {
+    title: 'GI — Graphic Interpretation',
+    icon: '📉',
+    summary: 'GI questions present a chart, graph, or scatter plot with two fill-in-the-blank statements. You must read the graph precisely and complete both statements correctly.',
+    keyFacts: [
+      'Common formats: bar chart, line graph, pie chart, scatter plot, bubble chart',
+      'Read axis labels carefully — units often trick test-takers (thousands, millions)',
+      'Scatter plot: positive correlation = upward slope, negative = downward',
+      'Pie chart: always check what 100% represents (sales, units, etc.)',
+      'Bar charts: absolute values vs relative change — the question usually tests one specifically',
+      'Both blanks must be correct simultaneously — don\'t forget to complete the second blank',
+    ],
+    example: {
+      problem: 'A bar chart shows revenue for 2020–2023. Revenue was $10M, $12M, $9M, $15M. Statement: "The year with the greatest year-over-year change was ___, with a change of ___."',
+      steps: [
+        'YoY changes: 2020→2021: +$2M; 2021→2022: −$3M; 2022→2023: +$6M',
+        'Greatest absolute change: 2022→2023, change = +$6M',
+        'But "greatest change" — check if negative changes count: |−$3M| = $3M < $6M',
+        'Answer: 2023, $6M increase',
+      ],
+      answer: '2023; +$6M',
+    },
+    traps: [
+      'Confusing absolute change with percent change — verify which the question asks',
+      'Reading bar height at the wrong scale marking',
+      'Bubble charts: bubble SIZE is a third variable, not related to position',
+      'Secondary axis: some charts have two y-axes with different scales',
+    ],
+    solveSteps: [
+      '1. Read both axes, legends, and title before looking at blanks',
+      '2. Note the unit on each axis',
+      '3. Answer blank 1, then independently answer blank 2',
+      '4. Reread the completed statement to ensure it makes logical sense',
+    ],
+  },
+
   // Default fallback
   'default': {
     title: 'GMAT Quant',

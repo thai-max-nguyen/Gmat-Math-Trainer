@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GMAT Math Trainer</title>
-  <meta name="description" content="A focused GMAT Quant practice app — 160+ Problem Solving and Data Sufficiency questions, with timer, weak-area detection, and spaced repetition." />
+  <meta name="description" content="A focused GMAT Quant practice app — 300 Problem Solving and Data Sufficiency questions, with timer, weak-area detection, spaced repetition, XP, hearts, and achievements." />
   <link rel="stylesheet" href="styles.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -21,11 +21,23 @@
         </svg>
       </div>
       <div>
-        <div class="brand-title">GMAT Math Trainer</div>
+        <div class="brand-title-row">
+          <div class="brand-title">GMAT Focus Trainer</div>
+          <div class="level-badge" id="level-badge" title="Your level">
+            <span class="level-badge-star">⭐</span>
+            <span class="level-badge-text">Lv.<span id="hdr-level">1</span></span>
+          </div>
+          <div class="gmat-score-badge" id="gmat-score-badge" title="Estimated GMAT Focus Score (205–805)">
+            <span class="gmat-score-label">Score est.</span>
+            <span class="gmat-score-value" id="gmat-score-value">—</span>
+          </div>
+        </div>
         <div class="brand-sub" id="bank-summary">Loading…</div>
       </div>
     </div>
     <div class="header-stats">
+      <div class="hearts-display" id="hearts-display" title="Hearts — lose one per wrong answer">
+      </div>
       <div class="stat-pill" title="Today's accuracy">
         <span class="stat-pill-icon">✓</span>
         <span class="stat-pill-value" id="hdr-accuracy">—</span>
@@ -41,104 +53,263 @@
         <span class="stat-pill-value" id="hdr-streak">0</span>
         <span class="stat-pill-label">Streak</span>
       </div>
+      <div class="daily-goal-ring" id="daily-goal-ring" title="Daily goal: 10 questions">
+        <svg viewBox="0 0 36 36" width="38" height="38">
+          <circle cx="18" cy="18" r="15.9" fill="none" stroke="var(--border)" stroke-width="3"></circle>
+          <circle id="goal-ring-arc" cx="18" cy="18" r="15.9" fill="none" stroke="var(--duo-green)" stroke-width="3"
+                  stroke-dasharray="100,100" stroke-dashoffset="100" stroke-linecap="round"
+                  transform="rotate(-90 18 18)"></circle>
+        </svg>
+        <span class="daily-goal-text" id="daily-goal-text">0/10</span>
+      </div>
+      <button class="sound-toggle" id="sound-toggle" aria-label="Toggle sound" title="Toggle sound effects">
+        <span class="sound-icon-on">🔊</span>
+        <span class="sound-icon-off">🔇</span>
+      </button>
       <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark/light theme" title="Toggle theme">
         <span class="theme-icon-dark">◐</span>
         <span class="theme-icon-light">◑</span>
       </button>
     </div>
   </header>
+  <!-- XP progress bar -->
+  <div class="xp-bar-wrap" title="XP progress to next level">
+    <div class="xp-bar-fill" id="xp-bar-fill"></div>
+    <div class="xp-bar-text" id="xp-bar-text">0 / 50 XP</div>
+  </div>
 
   <nav class="tab-bar">
     <button class="tab-btn active" data-tab="practice">Practice</button>
     <button class="tab-btn" data-tab="dashboard">Dashboard</button>
+    <button class="tab-btn" data-tab="plan">Study Plan</button>
     <button class="tab-btn" data-tab="review">Review</button>
+    <button class="tab-btn" data-tab="settings">Settings</button>
   </nav>
+
 
   <main class="app-main">
     <!-- ─────────── PRACTICE TAB ─────────── -->
     <section class="tab-panel active" id="tab-practice">
-      <div class="filter-row">
-        <div class="filter-group">
-          <label for="filter-type">Type</label>
-          <select id="filter-type">
-            <option value="all">All (PS + DS)</option>
-            <option value="PS">Problem Solving</option>
-            <option value="DS">Data Sufficiency</option>
-          </select>
-        </div>
-        <div class="filter-group">
-          <label for="filter-topic">Topic</label>
-          <select id="filter-topic">
-            <option value="all">All topics</option>
-          </select>
-        </div>
-        <div class="filter-group">
-          <label for="filter-difficulty">Difficulty</label>
-          <select id="filter-difficulty">
-            <option value="all">All</option>
-            <option value="easy">Easy</option>
-            <option value="medium">Medium</option>
-            <option value="hard">Hard</option>
-          </select>
-        </div>
-        <div class="filter-group">
-          <label for="filter-mode">Mode</label>
-          <select id="filter-mode">
-            <option value="random">Random</option>
-            <option value="weak">Weak areas</option>
-            <option value="missed">Missed (SR)</option>
-            <option value="unseen">Unseen first</option>
-            <option value="flagged">⚑ Flagged</option>
-          </select>
-        </div>
-        <button class="btn btn-secondary btn-small" id="btn-restart">↻ Restart</button>
-      </div>
+      <div class="practice-layout">
+
+        <!-- ── Left sidebar: filters + view toggle ── -->
+        <aside class="practice-sidebar">
+          <div class="view-toggle" id="view-toggle">
+            <button class="view-toggle-btn active" data-view="filter" type="button">⊞ Grid</button>
+            <button class="view-toggle-btn" data-view="skillmap" type="button">🗺 Map</button>
+          </div>
+
+          <div class="filter-col">
+            <!-- Core filters — always visible -->
+            <div class="filter-group">
+              <label for="filter-section">Section</label>
+              <select id="filter-section">
+                <option value="all">All</option>
+                <option value="Quant">📐 Quant</option>
+                <option value="Verbal">📖 Verbal</option>
+                <option value="Data Insights">📊 Data Insights</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="filter-difficulty">Difficulty</label>
+              <select id="filter-difficulty">
+                <option value="all">All</option>
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="filter-mode">Mode</label>
+              <select id="filter-mode">
+                <option value="random">Random</option>
+                <option value="weak">Weak areas</option>
+                <option value="missed">Missed (SR)</option>
+                <option value="unseen">Unseen first</option>
+                <option value="flagged">⚑ Flagged</option>
+                <option value="adaptive">📈 Adaptive</option>
+                <option value="challenge">⏱ Challenge (90s)</option>
+                <option value="recent_wrong">🔁 Recent Mistakes</option>
+              </select>
+            </div>
+
+            <!-- Advanced filters — collapsed by default -->
+            <button class="more-filters-toggle" id="more-filters-toggle" aria-expanded="false">+ More filters</button>
+            <div class="more-filters-body" id="more-filters-body" hidden>
+              <div class="filter-group">
+                <label for="filter-type">Type</label>
+                <select id="filter-type">
+                  <option value="all">All types</option>
+                  <optgroup label="── Quantitative ──">
+                    <option value="PS">Problem Solving</option>
+                  </optgroup>
+                  <optgroup label="── Verbal ──">
+                    <option value="CR">Critical Reasoning</option>
+                    <option value="RC">Reading Comp.</option>
+                    <option value="SC">Sentence Correction†</option>
+                  </optgroup>
+                  <optgroup label="── Data Insights ──">
+                    <option value="DS">Data Sufficiency</option>
+                    <option value="TPA">Two-Part Analysis</option>
+                    <option value="MSR">Multi-Source Reasoning</option>
+                    <option value="TA">Table Analysis</option>
+                    <option value="GI">Graphics Interpretation</option>
+                  </optgroup>
+                </select>
+              </div>
+              <div class="filter-group">
+                <label for="filter-topic">Topic</label>
+                <select id="filter-topic">
+                  <option value="all">All topics</option>
+                </select>
+              </div>
+            </div>
+
+            <button class="btn btn-secondary btn-small" id="btn-restart" style="width:100%;margin-top:8px">↻ Restart</button>
+            <button class="btn btn-primary btn-small exam-mode-btn" id="btn-exam-mode" style="width:100%;margin-top:8px">🎓 Exam Simulation</button>
+            <button class="btn btn-secondary btn-small" id="btn-formula-sheet" style="width:100%;margin-top:6px">📐 Formula Sheet</button>
+          </div>
+          <!-- Daily Missions -->
+          <div class="daily-missions-card" id="daily-missions-card">
+            <div class="daily-missions-header">
+              <span class="daily-missions-icon">⚡</span>
+              <span class="daily-missions-title">Today's Missions</span>
+            </div>
+            <div class="daily-missions-list" id="daily-missions-list"></div>
+          </div>
+          <div class="daily-tip-card" id="daily-tip-card">
+            <div class="daily-tip-header">💡 Daily Tip</div>
+            <div class="daily-tip-text" id="daily-tip-text"></div>
+            <button class="daily-tip-next" id="btn-tip-next" title="Next tip">→</button>
+          </div>
+        </aside>
+
+        <!-- ── Right main: question card + skill map ── -->
+        <div class="practice-main">
+          <!-- Focus Nudge -->
+          <div class="focus-nudge" id="focus-nudge" hidden>
+            <span class="focus-nudge-icon">🎯</span>
+            <span class="focus-nudge-text" id="focus-nudge-text"></span>
+            <button class="focus-nudge-btn" id="focus-nudge-btn">Focus now</button>
+            <button class="focus-nudge-dismiss" id="focus-nudge-dismiss" aria-label="Dismiss">×</button>
+          </div>
+
+          <!-- Skill Map (hidden by default) -->
+          <div class="skill-map" id="skill-map" hidden>
+            <div class="skill-map-section skill-map-quant">
+              <div class="skill-map-header skill-map-header-quant">
+                <span class="skill-map-header-icon">📐</span>
+                <span class="skill-map-header-text">Quant</span>
+              </div>
+              <div class="skill-map-nodes" id="skill-map-quant-nodes"></div>
+            </div>
+            <div class="skill-map-section skill-map-verbal">
+              <div class="skill-map-header skill-map-header-verbal">
+                <span class="skill-map-header-icon">📖</span>
+                <span class="skill-map-header-text">Verbal</span>
+              </div>
+              <div class="skill-map-nodes" id="skill-map-verbal-nodes"></div>
+            </div>
+          </div>
 
       <div class="question-card" id="question-card">
+        <div class="qcard-timer-bar" id="qcard-timer-bar">
+          <div class="qcard-timer-bar-fill" id="qcard-timer-bar-fill"></div>
+        </div>
         <div class="qcard-meta">
           <span class="badge badge-type" id="q-type">—</span>
           <span class="badge badge-topic" id="q-topic">—</span>
+          <span class="badge badge-cr-pill" id="q-cr-pill" hidden>—</span>
           <span class="badge badge-difficulty" id="q-difficulty">—</span>
           <span class="badge badge-id" id="q-id">#—</span>
+          <span class="badge badge-adaptive" id="q-adaptive" hidden>📈 Adaptive: Medium</span>
+          <span class="badge badge-legacy" id="q-legacy" hidden title="This question type is not part of GMAT Focus 2026">📚 Extra Practice</span>
           <div class="spacer"></div>
           <button class="btn-theory-meta" id="btn-theory-meta" title="Learn theory for this topic">📚</button>
           <button class="btn-flag" id="btn-flag" title="Flag this question for review" aria-label="Flag question">⚑</button>
+          <button class="btn-bookmark" id="btn-bookmark" title="Bookmark this question [B]" aria-label="Bookmark question">☆</button>
           <div class="timer" id="q-timer" title="Time on this question (target: 2 min)">
             <span class="timer-icon">⏱</span>
             <span class="timer-value" id="q-timer-value">0:00</span>
           </div>
+        </div>
+        <div class="rc-passage-panel" id="rc-passage-panel" hidden>
+          <div class="rc-passage-header">
+            <span class="rc-passage-label">📖 Reading Passage</span>
+            <span class="rc-passage-source" id="rc-passage-source" hidden>—</span>
+            <span class="rc-passage-meta" id="rc-passage-meta" hidden>—</span>
+            <span class="rc-passage-counter" id="rc-passage-counter" hidden>—</span>
+            <div class="spacer"></div>
+            <button class="rc-passage-toggle" id="rc-passage-toggle" type="button">Hide</button>
+          </div>
+          <div class="rc-passage-text" id="rc-passage-text"></div>
         </div>
         <div class="qcard-question" id="q-question">
           Select filters and start practicing.
         </div>
         <div class="qcard-choices" id="q-choices"></div>
         <div class="qcard-actions">
-          <button class="btn btn-secondary" id="btn-skip">Skip</button>
-          <button class="btn btn-hint" id="btn-hint" title="Get a hint">💡 Hint</button>
-          <button class="btn btn-primary" id="btn-submit" disabled>Submit answer</button>
-          <button class="btn btn-primary" id="btn-next" hidden>Next question →</button>
+          <button class="btn btn-secondary" id="btn-skip" title="Skip [S]">Skip</button>
+          <button class="btn btn-hint" id="btn-hint" title="Get a hint [H]">💡 Hint</button>
+          <button class="btn btn-primary" id="btn-submit" disabled title="Submit [Enter]">Submit answer</button>
+          <button class="btn btn-primary" id="btn-next" hidden title="Next question [Enter]">Next question →</button>
+        </div>
+        <div class="kbd-shortcuts-hint">
+          <kbd>1-5</kbd> choose &nbsp; <kbd>Enter</kbd> submit/next &nbsp; <kbd>S</kbd> skip &nbsp; <kbd>H</kbd> hint &nbsp; <kbd>T</kbd> theory &nbsp; <kbd>F</kbd> flag
         </div>
         <div class="hint-panel" id="hint-panel" hidden>
           <div class="hint-icon">💡</div>
           <div class="hint-text" id="hint-text"></div>
         </div>
-        <div class="qcard-feedback" id="q-feedback" hidden>
-          <div class="feedback-header">
-            <span class="feedback-status" id="feedback-status"></span>
-            <span class="feedback-time" id="feedback-time"></span>
+        <!-- Inline explanation (shown after answer, inside card) -->
+        <div class="feedback-inline" id="feedback-inline" hidden>
+          <div class="feedback-inline-answer">
+            <span class="feedback-inline-label" id="feedback-inline-label"></span>
+            <span class="feedback-inline-answer-text" id="feedback-answer"></span>
           </div>
-          <div class="feedback-body">
-            <div class="feedback-correct">
-              <span class="feedback-label">Correct answer:</span>
-              <span id="feedback-answer"></span>
+          <div class="feedback-inline-explanation" id="feedback-explanation"></div>
+          <div class="theory-snippet" id="theory-snippet" hidden></div>
+          <div class="pace-feedback" id="pace-feedback" hidden></div>
+          <div class="difficulty-rating-row" id="difficulty-rating-row" hidden>
+            <span class="difficulty-rating-label">Felt:</span>
+            <button class="diff-rate-btn" data-felt="1" title="Very easy">😊</button>
+            <button class="diff-rate-btn" data-felt="2" title="Easy">🙂</button>
+            <button class="diff-rate-btn" data-felt="3" title="Medium">😐</button>
+            <button class="diff-rate-btn" data-felt="4" title="Hard">😤</button>
+            <button class="diff-rate-btn" data-felt="5" title="Very hard">🥵</button>
+          </div>
+          <!-- Confidence tag — hidden by default, only shown when toggled via settings -->
+          <div class="confidence-tag-row" id="confidence-tag-row" hidden>
+            <span class="confidence-tag-label">Confidence:</span>
+            <button class="confidence-btn confidence-sure" data-confidence="sure" id="ctag-sure">✓ Sure</button>
+            <button class="confidence-btn confidence-unsure" data-confidence="unsure" id="ctag-unsure">~ Unsure</button>
+            <button class="confidence-btn confidence-guessed" data-confidence="guessed" id="ctag-guessed">? Guessed</button>
+          </div>
+          <!-- Error classification — shows only after wrong answer -->
+          <div class="error-tag-row" id="error-tag-row" hidden>
+            <span class="error-tag-label">Why wrong?</span>
+            <button class="error-tag-btn" data-etag="careless" title="Silly/rushed mistake">😅 Careless</button>
+            <button class="error-tag-btn" data-etag="conceptual" title="Didn't know the concept">📚 Conceptual</button>
+            <button class="error-tag-btn" data-etag="timing" title="Ran out of time">⏱ Timing</button>
+            <button class="error-tag-btn" data-etag="misread" title="Misunderstood the question">🔍 Misread</button>
+          </div>
+          <!-- Annotation — always accessible via button -->
+          <div class="annotation-row" id="annotation-row" hidden>
+            <div class="annotation-display" id="annotation-display" hidden></div>
+            <div class="annotation-input-area" id="annotation-input-area" hidden>
+              <textarea class="annotation-textarea" id="annotation-textarea" placeholder="Note to self... (strategy, trap, formula)" maxlength="500" rows="2"></textarea>
+              <div class="annotation-btns">
+                <button class="btn btn-secondary annotation-cancel" id="annotation-cancel">Cancel</button>
+                <button class="btn btn-primary annotation-save" id="annotation-save">Save</button>
+              </div>
             </div>
-            <div class="feedback-explanation" id="feedback-explanation"></div>
+            <button class="btn btn-annotation" id="btn-annotation">📝 Add note</button>
           </div>
-          <div class="feedback-actions">
-            <button class="btn btn-theory" id="btn-theory">📚 Learn Theory</button>
-            <button class="btn btn-retry-same" id="btn-retry-same">↺ Same Difficulty</button>
-            <button class="btn btn-retry-harder" id="btn-retry-harder">↑ Go Harder</button>
-            <button class="btn btn-retry-easier" id="btn-retry-easier" hidden>↓ Easier First</button>
+          <div class="feedback-inline-actions">
+            <button class="btn btn-theory" id="btn-theory">📚 Theory</button>
+            <button class="btn btn-retry-same" id="btn-retry-same">↺ Same</button>
+            <button class="btn btn-retry-harder" id="btn-retry-harder">↑ Harder</button>
+            <button class="btn btn-retry-easier" id="btn-retry-easier" hidden>↓ Easier</button>
           </div>
         </div>
       </div>
@@ -165,10 +336,161 @@
           <div class="session-stat-label">Avg Time</div>
         </div>
       </div>
+        </div><!-- /.practice-main -->
+      </div><!-- /.practice-layout -->
+    </section>
+
+    <!-- ─────────── STUDY PLAN TAB ─────────── -->
+    <section class="tab-panel" id="tab-plan">
+      <!-- Exam Countdown -->
+      <div class="exam-countdown-card" id="exam-countdown-card">
+        <div class="exam-countdown-left" id="exam-countdown-display">
+          <div class="exam-countdown-days" id="exam-days-value">—</div>
+          <div class="exam-countdown-label" id="exam-days-label">days until exam</div>
+          <div class="exam-urgency-bar" id="exam-urgency-bar"></div>
+        </div>
+        <div class="exam-countdown-right">
+          <div class="exam-countdown-title">📅 Exam Date</div>
+          <div class="exam-date-row">
+            <input type="date" id="exam-date-input" class="exam-date-input" />
+            <button class="btn btn-primary btn-small" id="btn-save-exam-date">Set</button>
+          </div>
+          <div class="exam-daily-rec" id="exam-daily-rec"></div>
+        </div>
+      </div>
+      <div class="plan-hero">
+        <div class="plan-hero-icon">🎯</div>
+        <div class="plan-hero-title">Your Path to 700+</div>
+        <div class="plan-hero-sub">Personalized 4-week plan based on your weak areas</div>
+      </div>
+      <div class="plan-score-forecast" id="plan-score-forecast">
+        <div class="plan-forecast-card">
+          <div class="plan-forecast-label">Current Estimate</div>
+          <div class="plan-forecast-score" id="plan-current-score">—</div>
+        </div>
+        <div class="plan-forecast-arrow">→</div>
+        <div class="plan-forecast-card plan-forecast-card--target">
+          <div class="plan-forecast-label">Target Score</div>
+          <div class="plan-forecast-score plan-forecast-score--green">700+</div>
+        </div>
+        <div class="plan-forecast-arrow">→</div>
+        <div class="plan-forecast-card plan-forecast-card--projection" id="plan-projection-card">
+          <div class="plan-forecast-label">30-Day Projection</div>
+          <div class="plan-forecast-score" id="plan-projection-score">—</div>
+          <div class="plan-forecast-sub" id="plan-projection-sub"></div>
+        </div>
+      </div>
+      <div class="plan-section-scores" id="plan-section-scores">
+        <div class="plan-section-card" id="plan-q-card">
+          <div class="plan-section-icon">📐</div>
+          <div class="plan-section-name">Quantitative</div>
+          <div class="plan-section-score" id="plan-q-score">—</div>
+          <div class="plan-section-bar"><div class="plan-section-bar-fill" id="plan-q-bar" style="width:0%"></div></div>
+          <div class="plan-section-range">Range: 60–90</div>
+        </div>
+        <div class="plan-section-card" id="plan-v-card">
+          <div class="plan-section-icon">📖</div>
+          <div class="plan-section-name">Verbal</div>
+          <div class="plan-section-score" id="plan-v-score">—</div>
+          <div class="plan-section-bar"><div class="plan-section-bar-fill plan-section-bar-fill--purple" id="plan-v-bar" style="width:0%"></div></div>
+          <div class="plan-section-range">Range: 60–90</div>
+        </div>
+        <div class="plan-section-card" id="plan-di-card">
+          <div class="plan-section-icon">📊</div>
+          <div class="plan-section-name">Data Insights</div>
+          <div class="plan-section-score" id="plan-di-score">—</div>
+          <div class="plan-section-bar"><div class="plan-section-bar-fill plan-section-bar-fill--orange" id="plan-di-bar" style="width:0%"></div></div>
+          <div class="plan-section-range">Range: 60–90</div>
+        </div>
+      </div>
+      <div class="dash-section">
+        <h3 class="dash-section-title">4-Week Study Roadmap</h3>
+        <div class="plan-weeks" id="plan-weeks">
+          <div class="empty-state">Answer 10+ questions to generate your personalized plan.</div>
+        </div>
+      </div>
+      <div class="dash-section">
+        <h3 class="dash-section-title">Daily Recommendations</h3>
+        <div class="plan-daily" id="plan-daily">
+          <div class="empty-state">Complete more questions to get daily topic recommendations.</div>
+        </div>
+      </div>
+
+      <div class="dash-section">
+        <h3 class="dash-section-title">📅 This Week's Schedule</h3>
+        <div id="plan-week-grid"></div>
+      </div>
+
+      <div class="dash-section">
+        <h3 class="dash-section-title">📋 Today's Priority Queue</h3>
+        <p class="plan-queue-desc">Next questions to tackle for fastest score improvement</p>
+        <div id="plan-priority-queue"></div>
+      </div>
+
+      <div class="dash-section">
+        <h3 class="dash-section-title">📊 Section Coverage</h3>
+        <div id="plan-coverage"></div>
+      </div>
     </section>
 
     <!-- ─────────── DASHBOARD TAB ─────────── -->
     <section class="tab-panel" id="tab-dashboard">
+      <!-- Quick-filter chips -->
+      <div class="quick-filter-chips" id="quick-filter-chips">
+        <button class="qf-chip qf-chip--weak"   id="qf-weak">🎯 Practice Weak Areas</button>
+        <button class="qf-chip qf-chip--unseen" id="qf-unseen">🆕 New Questions</button>
+        <button class="qf-chip qf-chip--hard"   id="qf-hard">💪 Hard Mode</button>
+        <button class="qf-chip qf-chip--sr"     id="qf-sr">🔁 Due for Review</button>
+      </div>
+
+      <!-- Study Phase Banner -->
+      <div class="study-phase-banner" id="study-phase-banner">
+        <div class="phase-badge" id="phase-badge">🌱 Foundation</div>
+        <div class="phase-info">
+          <div class="phase-label" id="phase-label">Foundation Phase</div>
+          <div class="phase-desc" id="phase-desc">Focus on accuracy first. Get concepts right before worrying about speed.</div>
+        </div>
+        <div class="phase-progress-wrap">
+          <div class="phase-progress-bar" id="phase-progress-bar"></div>
+        </div>
+        <div class="phase-next" id="phase-next"></div>
+      </div>
+
+      <!-- Score Predictor Widget -->
+      <div class="score-predictor-card" id="score-predictor-card">
+        <div class="score-predictor-header">
+          <span class="score-predictor-title">📊 GMAT Focus Score Estimate</span>
+          <span class="score-predictor-info" title="Based on accuracy weighted by difficulty. Requires 15+ answers.">ⓘ</span>
+        </div>
+        <div class="score-predictor-main">
+          <div class="score-total-wrap">
+            <div class="score-total-label">Total</div>
+            <div class="score-total-value" id="score-total">—</div>
+            <div class="score-total-range">205 – 805</div>
+          </div>
+          <div class="score-sections">
+            <div class="score-section">
+              <div class="score-section-icon">📐</div>
+              <div class="score-section-name">Quant</div>
+              <div class="score-section-val" id="score-quant">—</div>
+              <div class="score-section-bar"><div class="score-section-bar-fill score-section-bar-fill--blue" id="score-quant-bar" style="width:0%"></div></div>
+            </div>
+            <div class="score-section">
+              <div class="score-section-icon">📖</div>
+              <div class="score-section-name">Verbal</div>
+              <div class="score-section-val" id="score-verbal">—</div>
+              <div class="score-section-bar"><div class="score-section-bar-fill score-section-bar-fill--purple" id="score-verbal-bar" style="width:0%"></div></div>
+            </div>
+            <div class="score-section">
+              <div class="score-section-icon">📊</div>
+              <div class="score-section-name">Data Insights</div>
+              <div class="score-section-val" id="score-di">—</div>
+              <div class="score-section-bar"><div class="score-section-bar-fill score-section-bar-fill--orange" id="score-di-bar" style="width:0%"></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="score-predictor-note" id="score-predictor-note">Answer 15+ questions to unlock score estimate.</div>
+      </div>
       <div class="dashboard-grid">
         <div class="dash-card big">
           <div class="dash-card-label">Total questions answered</div>
@@ -190,9 +512,84 @@
         </div>
       </div>
 
+      <!-- Section accuracy rings -->
+      <div class="section-rings-row" id="section-rings-row">
+        <div class="section-ring-card" id="ring-quant">
+          <svg class="ring-svg" viewBox="0 0 80 80" width="80" height="80">
+            <circle class="ring-bg" cx="40" cy="40" r="32" fill="none" stroke-width="7"/>
+            <circle class="ring-fill ring-fill--quant" cx="40" cy="40" r="32" fill="none" stroke-width="7"
+                    stroke-dasharray="201.1" stroke-dashoffset="201.1" stroke-linecap="round"
+                    transform="rotate(-90 40 40)" id="ring-arc-quant"/>
+          </svg>
+          <div class="ring-label">📐 Quant</div>
+          <div class="ring-pct" id="ring-pct-quant">—</div>
+          <div class="ring-sub" id="ring-sub-quant">accuracy</div>
+        </div>
+        <div class="section-ring-card" id="ring-verbal">
+          <svg class="ring-svg" viewBox="0 0 80 80" width="80" height="80">
+            <circle class="ring-bg" cx="40" cy="40" r="32" fill="none" stroke-width="7"/>
+            <circle class="ring-fill ring-fill--verbal" cx="40" cy="40" r="32" fill="none" stroke-width="7"
+                    stroke-dasharray="201.1" stroke-dashoffset="201.1" stroke-linecap="round"
+                    transform="rotate(-90 40 40)" id="ring-arc-verbal"/>
+          </svg>
+          <div class="ring-label">📖 Verbal</div>
+          <div class="ring-pct" id="ring-pct-verbal">—</div>
+          <div class="ring-sub" id="ring-sub-verbal">accuracy</div>
+        </div>
+        <div class="section-ring-card" id="ring-di">
+          <svg class="ring-svg" viewBox="0 0 80 80" width="80" height="80">
+            <circle class="ring-bg" cx="40" cy="40" r="32" fill="none" stroke-width="7"/>
+            <circle class="ring-fill ring-fill--di" cx="40" cy="40" r="32" fill="none" stroke-width="7"
+                    stroke-dasharray="201.1" stroke-dashoffset="201.1" stroke-linecap="round"
+                    transform="rotate(-90 40 40)" id="ring-arc-di"/>
+          </svg>
+          <div class="ring-label">📊 Data Insights</div>
+          <div class="ring-pct" id="ring-pct-di">—</div>
+          <div class="ring-sub" id="ring-sub-di">accuracy</div>
+        </div>
+      </div>
+
+      <!-- Score Momentum -->
+      <div class="momentum-row" id="momentum-row"></div>
+
+      <!-- Section Balance -->
+      <div class="dash-section" id="section-balance-section">
+        <h3 class="dash-section-title">Section Balance</h3>
+        <div id="section-balance-bar"></div>
+      </div>
+
+      <div class="dash-section" id="weak-spots-section" hidden>
+        <h3 class="dash-section-title">🎯 Weak Spots — Drill These</h3>
+        <div id="weak-spots-list"></div>
+      </div>
+
+      <!-- Weekly Streak Calendar -->
+      <div class="streak-calendar-card" id="streak-calendar-card">
+        <div class="streak-calendar-title">📅 28-Day Activity</div>
+        <div class="streak-calendar-grid" id="streak-calendar-grid"></div>
+      </div>
+
+      <div class="dash-charts-row">
+        <div class="dash-chart-card">
+          <h3 class="dash-section-title">Daily Activity (7 days)</h3>
+          <div class="chart-wrap"><canvas id="chart-daily"></canvas></div>
+        </div>
+        <div class="dash-chart-card">
+          <h3 class="dash-section-title">Difficulty Breakdown</h3>
+          <div class="chart-wrap chart-wrap--donut"><canvas id="chart-difficulty-donut"></canvas></div>
+        </div>
+      </div>
+
       <div class="dash-section">
-        <h3 class="dash-section-title">Performance by topic</h3>
-        <div class="topic-bars" id="dash-topic-bars">
+        <h3 class="dash-section-title">Score Trajectory</h3>
+        <div class="chart-wrap" id="score-history-wrap"><canvas id="chart-score-history"></canvas></div>
+        <p class="chart-empty-msg" id="score-history-empty" hidden>Answer 15+ questions to see your score trajectory.</p>
+      </div>
+
+      <div class="dash-section">
+        <h3 class="dash-section-title">Accuracy by Topic</h3>
+        <div class="chart-wrap chart-wrap--tall"><canvas id="chart-topic-accuracy"></canvas></div>
+        <div class="topic-bars" id="dash-topic-bars" style="display:none">
           <div class="empty-state">No data yet. Answer some questions to see your weak areas.</div>
         </div>
       </div>
@@ -203,39 +600,297 @@
       </div>
 
       <div class="dash-section">
-        <h3 class="dash-section-title">Spaced-repetition queue</h3>
+        <h3 class="dash-section-title">Topic Mastery</h3>
+        <div class="mastery-grid" id="dash-mastery-grid">
+          <div class="empty-state">Answer 5+ questions per topic to start earning stars.</div>
+        </div>
+      </div>
+
+      <div class="dash-section">
+        <h3 class="dash-section-title">Personal Records</h3>
+        <div class="records-row" id="dash-records-row"></div>
+      </div>
+
+      <div class="dash-section">
+        <h3 class="dash-section-title">Share Your Progress</h3>
+        <div class="dash-meta-row">
+          <div>Generate a shareable scorecard you can paste anywhere.</div>
+          <button class="btn btn-primary btn-small" id="btn-export-progress">📋 Export Progress</button>
+        </div>
+        <pre class="export-preview" id="export-preview" hidden></pre>
+      </div>
+
+      <div class="dash-section">
+        <h3 class="dash-section-title">Spaced-repetition queue <span class="sr-algo-badge">SM2</span></h3>
         <div class="dash-meta-row">
           <div><strong id="dash-sr-due">0</strong> questions due for review</div>
           <div><strong id="dash-sr-total">0</strong> in repetition pool</div>
+          <button class="btn btn-sr-review" id="btn-start-sr-review" hidden>🔁 Start SR Review</button>
           <button class="btn btn-secondary btn-small" id="btn-reset-progress">Reset all progress</button>
         </div>
+        <div class="sr-forecast" id="sr-forecast"></div>
+      </div>
+
+      <div class="dash-section dash-verbal" id="dash-verbal-section">
+        <h3 class="dash-section-title">Verbal Performance</h3>
+        <div class="topic-bars topic-bars--verbal" id="dash-verbal-bars">
+          <div class="empty-state">Answer Verbal questions (CR / SC / RC) to see your performance.</div>
+        </div>
+      </div>
+
+      <div class="dash-two-col">
+        <div class="dash-section">
+          <div class="dash-section-title">🎯 Weakness Radar</div>
+          <div id="weakness-radar"></div>
+        </div>
+        <div class="dash-section">
+          <div class="dash-section-title">🏆 Top Strengths</div>
+          <div id="strength-radar"></div>
+        </div>
+      </div>
+      <div class="dash-section">
+        <div id="confidence-stats"></div>
+      </div>
+      <div class="dash-section">
+        <div class="dash-section-title">⏱ Time Management</div>
+        <div id="time-analytics"></div>
       </div>
     </section>
 
     <!-- ─────────── REVIEW TAB ─────────── -->
     <section class="tab-panel" id="tab-review">
-      <div class="review-header">
-        <h3>Recent attempts</h3>
-        <div class="filter-group inline">
-          <label for="review-filter">Show:</label>
-          <select id="review-filter">
-            <option value="all">All</option>
-            <option value="wrong">Wrong only</option>
-            <option value="correct">Correct only</option>
-            <option value="skipped">Skipped only</option>
-          </select>
+      <div class="review-subtabs">
+        <button class="review-subtab active" data-subtab="attempts">Recent Attempts</button>
+        <button class="review-subtab" data-subtab="errors">Error Journal</button>
+        <button class="review-subtab" data-subtab="patterns">Patterns</button>
+        <button class="review-subtab" data-subtab="stats">Stats</button>
+        <button class="review-subtab" data-subtab="badges">Badges</button>
+        <button class="review-subtab" data-subtab="mastery">Mastery</button>
+        <button class="review-subtab" data-subtab="bookmarks">★ Saved</button>
+      </div>
+
+      <div class="review-subpanel active" id="review-attempts">
+        <div class="review-header">
+          <h3>Recent attempts</h3>
+          <div class="filter-group inline">
+            <label for="review-filter">Show:</label>
+            <select id="review-filter">
+              <option value="all">All</option>
+              <option value="wrong">Wrong only</option>
+              <option value="correct">Correct only</option>
+              <option value="skipped">Skipped only</option>
+            </select>
+          </div>
+        </div>
+        <div class="review-list" id="review-list">
+          <div class="empty-state">No attempts yet. Start practicing on the Practice tab.</div>
         </div>
       </div>
-      <div class="review-list" id="review-list">
-        <div class="empty-state">No attempts yet. Start practicing on the Practice tab.</div>
+
+      <div class="review-subpanel" id="review-patterns" hidden>
+        <div class="review-header">
+          <h3>Error Patterns</h3>
+          <p class="review-errors-desc">Where your wrong answers cluster — by topic, type, and difficulty</p>
+        </div>
+        <div id="error-patterns-content"></div>
+      </div>
+
+      <div class="review-subpanel" id="review-errors" hidden>
+        <div class="review-header">
+          <h3>Error Journal</h3>
+          <p class="review-errors-desc">Questions you've answered wrong — sorted by frequency</p>
+        </div>
+        <div id="error-journal-list"></div>
+      </div>
+
+      <div class="review-subpanel" id="review-mastery" hidden>
+        <div class="review-header">
+          <h3>Topic Mastery</h3>
+          <p class="review-errors-desc">Your skill level per GMAT topic — keep practicing to reach ★★★★★</p>
+        </div>
+        <div id="mastery-grid"></div>
+      </div>
+
+      <div class="review-subpanel" id="review-badges" hidden>
+        <div class="review-header">
+          <h3>Achievement Badges</h3>
+          <p class="review-errors-desc">Earn badges by practicing consistently and hitting milestones</p>
+        </div>
+        <div id="achievement-gallery"></div>
+      </div>
+
+      <div class="review-subpanel" id="review-bookmarks" hidden>
+        <div class="review-header">
+          <h3>Saved Questions</h3>
+          <p class="review-errors-desc">Questions you bookmarked — practice them any time</p>
+        </div>
+        <div id="bookmark-list"></div>
+        <div class="bookmark-actions" id="bookmark-actions" hidden>
+          <button class="btn btn-primary" id="btn-drill-bookmarks">Practice Saved Questions</button>
+        </div>
+      </div>
+
+      <div class="review-subpanel" id="review-stats" hidden>
+        <div class="dash-section">
+          <h3 class="dash-section-title">Outcome Breakdown</h3>
+          <div class="chart-wrap chart-wrap--donut chart-wrap--small"><canvas id="chart-review-donut"></canvas></div>
+        </div>
+        <div class="dash-section">
+          <h3 class="dash-section-title">Topic Performance</h3>
+          <div class="topic-perf-table-wrap">
+            <table class="topic-perf-table" id="topic-perf-table">
+              <thead>
+                <tr>
+                  <th>Topic</th>
+                  <th>Attempts</th>
+                  <th>Accuracy</th>
+                  <th>Trend</th>
+                </tr>
+              </thead>
+              <tbody id="topic-perf-body"></tbody>
+            </table>
+            <div class="empty-state" id="topic-perf-empty">Answer some questions to see topic performance.</div>
+          </div>
+        </div>
+        <div class="review-stats-grid">
+          <div class="dash-section review-stats-card">
+            <h3 class="dash-section-title">Hardest Questions for You</h3>
+            <div class="hardest-list" id="hardest-list">
+              <div class="empty-state">No wrong answers yet — keep practicing.</div>
+            </div>
+          </div>
+          <div class="dash-section review-stats-card">
+            <h3 class="dash-section-title">Fastest Average Topic</h3>
+            <div class="fastest-card" id="fastest-card">
+              <div class="empty-state">Complete a few questions to see your fastest topic.</div>
+            </div>
+          </div>
+        </div>
+        <div class="dash-section">
+          <h3 class="dash-section-title">Pacing vs GMAT Targets</h3>
+          <div id="type-pacing-table"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─────────── SETTINGS TAB ─────────── -->
+    <section class="tab-panel" id="tab-settings">
+      <div class="dash-section">
+        <h3 class="dash-section-title">Practice Settings</h3>
+        <div class="settings-list">
+          <div class="setting-row">
+            <div class="setting-label">
+              <div class="setting-title">Daily Goal</div>
+              <div class="setting-desc">Number of questions to aim for each day.</div>
+            </div>
+            <div class="setting-control">
+              <input type="range" id="set-daily-goal" min="5" max="25" step="5" />
+              <div class="setting-value" id="set-daily-goal-val">10</div>
+            </div>
+          </div>
+          <div class="setting-row">
+            <div class="setting-label">
+              <div class="setting-title">Heart Regen Time</div>
+              <div class="setting-desc">How long until a heart refills.</div>
+            </div>
+            <div class="setting-control">
+              <select id="set-heart-regen">
+                <option value="15">15 min</option>
+                <option value="30">30 min</option>
+                <option value="60">60 min</option>
+              </select>
+            </div>
+          </div>
+          <div class="setting-row">
+            <div class="setting-label">
+              <div class="setting-title">Sound Effects</div>
+              <div class="setting-desc">Beeps and chirps on actions.</div>
+            </div>
+            <div class="setting-control">
+              <label class="toggle-switch">
+                <input type="checkbox" id="set-sound" />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+          <div class="setting-row">
+            <div class="setting-label">
+              <div class="setting-title">Timer Warning Threshold</div>
+              <div class="setting-desc">When the timer turns yellow.</div>
+            </div>
+            <div class="setting-control">
+              <select id="set-warn-threshold">
+                <option value="60">60 s</option>
+                <option value="90">90 s</option>
+                <option value="120">120 s</option>
+              </select>
+            </div>
+          </div>
+          <div class="setting-row">
+            <div class="setting-label">
+              <div class="setting-title">Hard Mode</div>
+              <div class="setting-desc">Hides the timer for added pressure.</div>
+            </div>
+            <div class="setting-control">
+              <label class="toggle-switch">
+                <input type="checkbox" id="set-hard-mode" />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dash-section">
+        <h3 class="dash-section-title">Danger Zone</h3>
+        <div class="dash-meta-row">
+          <div>Wipes all attempts, XP, hearts, and achievements.</div>
+          <button class="btn btn-secondary btn-small" id="btn-reset-progress-2">Reset all progress</button>
+        </div>
       </div>
     </section>
   </main>
 
   <footer class="app-footer">
     <span>Built for self-study · 100% local · No tracking · Open source</span>
-    <span>Press <kbd>1–5</kbd> to choose, <kbd>Enter</kbd> to submit, <kbd>N</kbd> for next, <kbd>S</kbd> to skip</span>
+    <span class="footer-shortcuts">
+      Press <kbd>1–5</kbd> to choose, <kbd>Enter</kbd> to submit, <kbd>N</kbd> for next, <kbd>S</kbd> to skip
+      <button class="help-btn" id="help-btn" title="Keyboard shortcuts (?)" aria-label="Show keyboard shortcuts">?</button>
+    </span>
   </footer>
+
+  <!-- Keyboard help modal -->
+  <div class="modal-overlay" id="help-modal" hidden>
+    <div class="modal-card modal-card-small">
+      <div class="modal-header">
+        <div class="modal-title-row">
+          <span class="modal-icon" style="background:var(--duo-blue-bg); border-color:var(--duo-blue); color:var(--duo-blue-dark); box-shadow:0 3px 0 var(--duo-blue-dark);">⌨</span>
+          <h2 class="modal-title">Keyboard Shortcuts</h2>
+        </div>
+        <button class="modal-close" id="help-close" aria-label="Close help">✕</button>
+      </div>
+      <div class="modal-body">
+        <table class="shortcut-table">
+          <tbody>
+            <tr><td><kbd>1</kbd>–<kbd>5</kbd> or <kbd>A</kbd>–<kbd>E</kbd></td><td>Select choice</td></tr>
+            <tr><td><kbd>B</kbd> (after submit)</td><td>Bookmark question</td></tr>
+            <tr><td><kbd>Enter</kbd></td><td>Submit / Next</td></tr>
+            <tr><td><kbd>N</kbd></td><td>Next question</td></tr>
+            <tr><td><kbd>S</kbd></td><td>Skip question</td></tr>
+            <tr><td><kbd>M</kbd></td><td>Mute / unmute</td></tr>
+            <tr><td><kbd>F</kbd></td><td>Flag question</td></tr>
+            <tr><td><kbd>T</kbd></td><td>Open theory</td></tr>
+            <tr><td><kbd>H</kbd></td><td>Show hint</td></tr>
+            <tr><td><kbd>?</kbd></td><td>Show this help</td></tr>
+            <tr><td><kbd>Esc</kbd></td><td>Close modal</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" id="help-dismiss">Got it</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Theory modal -->
   <div class="modal-overlay" id="theory-modal" hidden>
@@ -256,6 +911,8 @@
       <div class="modal-body">
         <!-- Concept panel -->
         <div class="modal-panel active" id="modal-concept">
+          <!-- Question-specific explanation (shown only after submission) -->
+          <div class="theory-q-explanation" id="theory-q-explanation" hidden></div>
           <p class="theory-summary" id="theory-summary"></p>
           <div class="theory-facts" id="theory-facts"></div>
         </div>
@@ -281,9 +938,355 @@
     </div>
   </div>
 
+  <!-- Combo counter (top-center, animates in/out) -->
+  <div class="combo-badge" id="combo-badge" hidden>
+    <span class="combo-fire">🔥</span>
+    <span class="combo-text">x<span id="combo-count">0</span> combo!</span>
+  </div>
+
+  <!-- Achievement toast container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Out of hearts modal -->
+  <div class="modal-overlay" id="hearts-modal" hidden>
+    <div class="modal-card modal-card-small">
+      <div class="modal-header">
+        <div class="modal-title-row">
+          <span class="modal-icon" style="background:var(--duo-red-bg); border-color:var(--duo-red); color:var(--duo-red-dark); box-shadow:0 3px 0 var(--duo-red-dark);">💔</span>
+          <h2 class="modal-title">Out of Hearts!</h2>
+        </div>
+      </div>
+      <div class="modal-body">
+        <p class="theory-summary" style="margin:0 0 12px;">You've run out of hearts. Hearts regenerate every 30 minutes.</p>
+        <div id="hearts-regen-msg" class="theory-summary" style="font-family:'JetBrains Mono', monospace; font-size:14px; padding:12px 14px; background:var(--surface-soft); border-radius:12px; border:2px solid var(--border); margin:0;"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="hearts-practice-mode">Skip to Practice (no hearts)</button>
+        <button class="btn btn-primary" id="hearts-refill">+ Refill Hearts</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Level up overlay -->
+  <div class="levelup-overlay" id="levelup-overlay" hidden>
+    <div class="levelup-content">
+      <div class="levelup-burst"></div>
+      <div class="levelup-star">⭐</div>
+      <div class="levelup-title">LEVEL UP!</div>
+      <div class="levelup-sub">You reached <span id="levelup-level">2</span> 🎉</div>
+    </div>
+  </div>
+
+  <!-- Session summary overlay (every 10 questions) -->
+  <div class="modal-overlay" id="summary-modal" hidden>
+    <div class="modal-card modal-card-small summary-card">
+      <div class="modal-header" style="justify-content:center; flex-direction:column; gap:10px; text-align:center;">
+        <div class="summary-trophy" id="summary-trophy">🏆</div>
+        <h2 class="modal-title summary-title" id="summary-title">Lesson Complete!</h2>
+        <div class="summary-message" id="summary-message"></div>
+      </div>
+      <div class="modal-body">
+        <div class="summary-stats">
+          <div class="summary-stat">
+            <div class="summary-stat-icon" style="color:var(--duo-yellow-dark);">⚡</div>
+            <div class="summary-stat-value" id="summary-xp">+0</div>
+            <div class="summary-stat-label">XP Earned</div>
+          </div>
+          <div class="summary-stat">
+            <div class="summary-stat-icon" style="color:var(--duo-green-dark);">✓</div>
+            <div class="summary-stat-value" id="summary-acc">0%</div>
+            <div class="summary-stat-label">Accuracy</div>
+          </div>
+          <div class="summary-stat">
+            <div class="summary-stat-icon" style="color:var(--duo-blue-dark);">⏱</div>
+            <div class="summary-stat-value" id="summary-avgtime">0:00</div>
+            <div class="summary-stat-label">Avg Time</div>
+          </div>
+        </div>
+        <div class="summary-score-delta" id="summary-score-delta" hidden>
+          <span class="summary-score-delta-label">Score estimate</span>
+          <span class="summary-score-delta-value" id="summary-score-delta-value"></span>
+        </div>
+        <div class="summary-type-breakdown" id="summary-type-breakdown"></div>
+        <div class="summary-topic-breakdown" id="summary-topic-breakdown"></div>
+        <div class="summary-next-action" id="summary-next-action"></div>
+      </div>
+      <div class="modal-footer" style="justify-content:center;">
+        <button class="btn btn-primary btn-large" id="summary-continue">Continue →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── Exam Mode Setup Modal ─── -->
+  <div class="modal-overlay" id="exam-modal" hidden>
+    <div class="modal-card modal-card-small">
+      <div class="modal-header">
+        <h2 class="modal-title">🎓 Exam Simulation</h2>
+        <button class="modal-close" id="exam-modal-close">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="exam-modal-desc">Simulate real GMAT Focus 2026 conditions — timed, no interruptions, no hearts.</p>
+        <div class="exam-setup-row">
+          <label class="exam-label">Mode</label>
+          <select id="exam-section">
+            <optgroup label="— GMAT Focus 2026 Official —">
+              <option value="full">Full Test (37Q Quant + 23Q Verbal + 20Q DI)</option>
+              <option value="Quant">Quant Only (37Q · 70 min)</option>
+              <option value="Verbal">Verbal Only (23Q · 45 min)</option>
+              <option value="Data Insights">Data Insights (20Q · 45 min)</option>
+            </optgroup>
+            <optgroup label="— Practice Drills —">
+              <option value="mini">Mini Drill (10Q · ~20 min)</option>
+              <option value="all">Mixed All Sections</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="exam-setup-row" id="exam-count-row">
+          <label class="exam-label">Questions</label>
+          <select id="exam-count">
+            <option value="5">5 questions (~10 min)</option>
+            <option value="10" selected>10 questions (~20 min)</option>
+            <option value="15">15 questions (~30 min)</option>
+            <option value="20">20 questions (~40 min)</option>
+          </select>
+        </div>
+        <div class="exam-setup-row">
+          <label class="exam-label">Difficulty</label>
+          <select id="exam-difficulty">
+            <option value="all">Mixed (realistic)</option>
+            <option value="hard">Hard only (700+)</option>
+            <option value="medium">Medium only</option>
+          </select>
+        </div>
+        <div class="exam-time-preview" id="exam-time-preview">Official: 37 questions · 70 minutes · No interruptions</div>
+        <button class="btn btn-primary" id="btn-start-exam" style="width:100%;margin-top:16px">▶ Start Simulation</button>
+        <button class="btn btn-secondary" id="btn-di-warmup" style="width:100%;margin-top:8px">🔥 DI Warmup (3 questions)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── Exam Results Modal ─── -->
+  <div class="modal-overlay" id="exam-results-modal" hidden>
+    <div class="modal-card modal-card-small">
+      <div class="modal-header" style="justify-content:center;flex-direction:column;gap:8px;text-align:center;">
+        <div style="font-size:48px" id="exam-results-trophy">🏆</div>
+        <h2 class="modal-title">Simulation Complete!</h2>
+      </div>
+      <div class="modal-body">
+        <div class="exam-results-grid" id="exam-results-grid"></div>
+        <button class="btn btn-primary" id="exam-results-close" style="width:100%;margin-top:16px">Continue Practicing</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── Quill the Owl mascot ─── -->
+  <div class="quill-wrap" id="quill-wrap" title="Max — your GMAT study buddy">
+    <div class="quill-bubble" id="quill-bubble" hidden>
+      <span id="quill-msg"></span>
+      <div class="quill-bubble-tail"></div>
+    </div>
+    <button class="quill-btn" id="quill-btn" aria-label="Max the cat — click to chat">
+      <!--
+        Max — orange tabby cat mascot, pure SVG
+        viewBox: 0 0 100 120  (head + body + tail)
+        Inspired by simonovakb/css-cat proportions, adapted to SVG
+      -->
+      <svg class="quill-svg" id="quill-svg" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <!-- Tabby stripe gradient for body -->
+          <radialGradient id="bodyGrad" cx="50%" cy="40%" r="55%">
+            <stop offset="0%" stop-color="#FFB347"/>
+            <stop offset="100%" stop-color="#E8860A"/>
+          </radialGradient>
+          <radialGradient id="bellyGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#FFF0D0"/>
+            <stop offset="100%" stop-color="#FFDBA0"/>
+          </radialGradient>
+          <!-- Eye gradient — bright amber -->
+          <radialGradient id="eyeGrad" cx="35%" cy="35%" r="60%">
+            <stop offset="0%" stop-color="#FFE066"/>
+            <stop offset="100%" stop-color="#D4A000"/>
+          </radialGradient>
+        </defs>
+
+        <!-- ── TAIL (behind body, animated via CSS) ── -->
+        <path class="cat-tail" d="M 68 95 Q 95 80 90 60 Q 85 42 72 50" fill="none"
+              stroke="#E8860A" stroke-width="7" stroke-linecap="round"/>
+
+        <!-- ── BODY ── -->
+        <ellipse cx="46" cy="88" rx="28" ry="24" fill="url(#bodyGrad)"/>
+        <!-- Tabby stripes on body -->
+        <path d="M 28 80 Q 36 76 38 88" fill="none" stroke="#C06A00" stroke-width="2.5" stroke-linecap="round" opacity="0.5"/>
+        <path d="M 34 72 Q 42 68 44 82" fill="none" stroke="#C06A00" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+        <!-- Belly -->
+        <ellipse cx="44" cy="93" rx="16" ry="14" fill="url(#bellyGrad)"/>
+
+        <!-- ── FRONT PAWS ── -->
+        <ellipse cx="30" cy="110" rx="10" ry="6" fill="#E8860A"/>
+        <ellipse cx="30" cy="110" rx="7" ry="4" fill="#FFB347"/>
+        <ellipse cx="58" cy="110" rx="10" ry="6" fill="#E8860A"/>
+        <ellipse cx="58" cy="110" rx="7" ry="4" fill="#FFB347"/>
+        <!-- Toe lines -->
+        <line x1="26" y1="108" x2="26" y2="113" stroke="#C06A00" stroke-width="1" stroke-linecap="round"/>
+        <line x1="30" y1="107" x2="30" y2="113" stroke="#C06A00" stroke-width="1" stroke-linecap="round"/>
+        <line x1="34" y1="108" x2="34" y2="113" stroke="#C06A00" stroke-width="1" stroke-linecap="round"/>
+        <line x1="54" y1="108" x2="54" y2="113" stroke="#C06A00" stroke-width="1" stroke-linecap="round"/>
+        <line x1="58" y1="107" x2="58" y2="113" stroke="#C06A00" stroke-width="1" stroke-linecap="round"/>
+        <line x1="62" y1="108" x2="62" y2="113" stroke="#C06A00" stroke-width="1" stroke-linecap="round"/>
+
+        <!-- ── HEAD ── -->
+        <ellipse cx="46" cy="46" rx="30" ry="28" fill="url(#bodyGrad)"/>
+        <!-- Forehead tabby stripes -->
+        <path d="M 36 24 Q 38 30 36 36" fill="none" stroke="#C06A00" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+        <path d="M 46 22 Q 46 29 46 35" fill="none" stroke="#C06A00" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+        <path d="M 56 24 Q 54 30 56 36" fill="none" stroke="#C06A00" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+
+        <!-- ── EARS ── -->
+        <!-- Left ear -->
+        <polygon points="18,32 14,10 32,24" fill="#E8860A"/>
+        <polygon points="20,30 17,14 30,24" fill="#F5A0A0"/>
+        <!-- Right ear -->
+        <polygon points="74,32 78,10 60,24" fill="#E8860A"/>
+        <polygon points="72,30 75,14 62,24" fill="#F5A0A0"/>
+
+        <!-- ── FACE (muzzle) ── -->
+        <ellipse cx="46" cy="54" rx="17" ry="13" fill="url(#bellyGrad)"/>
+
+        <!-- ── EYES: idle (big round amber) ── -->
+        <g id="quill-eyes-open">
+          <circle cx="34" cy="44" r="8" fill="white"/>
+          <circle cx="58" cy="44" r="8" fill="white"/>
+          <circle cx="34" cy="44" r="5.5" fill="url(#eyeGrad)"/>
+          <circle cx="58" cy="44" r="5.5" fill="url(#eyeGrad)"/>
+          <circle cx="34" cy="44" r="3" fill="#111"/>
+          <circle cx="58" cy="44" r="3" fill="#111"/>
+          <!-- Shine dots -->
+          <circle cx="36" cy="42" r="1.5" fill="white"/>
+          <circle cx="60" cy="42" r="1.5" fill="white"/>
+        </g>
+
+        <!-- ── EYES: happy (curved arcs = happy squint) ── -->
+        <g id="quill-eyes-happy" style="display:none">
+          <path d="M 26 44 Q 34 36 42 44" fill="none" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+          <path d="M 50 44 Q 58 36 66 44" fill="none" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+          <!-- Rosy cheeks -->
+          <ellipse cx="26" cy="53" rx="7" ry="4" fill="#FF8FA3" opacity="0.45"/>
+          <ellipse cx="66" cy="53" rx="7" ry="4" fill="#FF8FA3" opacity="0.45"/>
+        </g>
+
+        <!-- ── EYES: sad (half-closed, droopy) ── -->
+        <g id="quill-eyes-sad" style="display:none">
+          <circle cx="34" cy="46" r="8" fill="white"/>
+          <circle cx="58" cy="46" r="8" fill="white"/>
+          <circle cx="34" cy="47" r="3.5" fill="#111"/>
+          <circle cx="58" cy="47" r="3.5" fill="#111"/>
+          <!-- droopy eyelid lines -->
+          <path d="M 26 43 Q 34 39 42 43" fill="#E8860A" stroke="none"/>
+          <path d="M 50 43 Q 58 39 66 43" fill="#E8860A" stroke="none"/>
+        </g>
+
+        <!-- ── EYES: thinking (one squint, one open) ── -->
+        <g id="quill-eyes-think" style="display:none">
+          <!-- Left: open -->
+          <circle cx="34" cy="44" r="8" fill="white"/>
+          <circle cx="34" cy="44" r="5.5" fill="url(#eyeGrad)"/>
+          <circle cx="34" cy="44" r="3" fill="#111"/>
+          <circle cx="36" cy="42" r="1.5" fill="white"/>
+          <!-- Right: squint -->
+          <path d="M 50 44 Q 58 37 66 44" fill="none" stroke="#111" stroke-width="3" stroke-linecap="round"/>
+        </g>
+
+        <!-- ── NOSE ── -->
+        <polygon points="46,57 43,54 49,54" fill="#FF7BAC"/>
+        <!-- Mouth -->
+        <path d="M 43 58 Q 46 62 49 58" fill="none" stroke="#C06A00" stroke-width="1.5" stroke-linecap="round"/>
+
+        <!-- ── WHISKERS ── -->
+        <line x1="18" y1="54" x2="38" y2="56" stroke="#888" stroke-width="1" stroke-linecap="round" opacity="0.7"/>
+        <line x1="16" y1="58" x2="37" y2="58" stroke="#888" stroke-width="1" stroke-linecap="round" opacity="0.7"/>
+        <line x1="18" y1="62" x2="38" y2="60" stroke="#888" stroke-width="1" stroke-linecap="round" opacity="0.7"/>
+        <line x1="74" y1="54" x2="54" y2="56" stroke="#888" stroke-width="1" stroke-linecap="round" opacity="0.7"/>
+        <line x1="76" y1="58" x2="55" y2="58" stroke="#888" stroke-width="1" stroke-linecap="round" opacity="0.7"/>
+        <line x1="74" y1="62" x2="54" y2="60" stroke="#888" stroke-width="1" stroke-linecap="round" opacity="0.7"/>
+
+        <!-- ── GRADUATION CAP ── -->
+        <rect x="24" y="18" width="44" height="7" rx="3.5" fill="#1A1A1A"/>
+        <rect x="38" y="11" width="16" height="9" rx="2" fill="#1A1A1A"/>
+        <!-- Tassel -->
+        <line x1="68" y1="18" x2="75" y2="30" stroke="#FFC800" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="76" cy="32" r="4" fill="#FFC800"/>
+        <line x1="76" y1="35" x2="74" y2="42" stroke="#FFC800" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="76" y1="35" x2="79" y2="41" stroke="#FFC800" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Formula Sheet Modal -->
+  <div class="modal-overlay" id="formula-modal" hidden>
+    <div class="modal-card modal-card--wide">
+      <div class="modal-header">
+        <h2 class="modal-title">📐 GMAT Formula Sheet</h2>
+        <button class="modal-close" id="formula-close">✕</button>
+      </div>
+      <div class="formula-sheet">
+        <div class="formula-section">
+          <h3>Arithmetic</h3>
+          <div class="formula-row"><span class="formula-name">% change</span><code>(new−old)/old × 100</code></div>
+          <div class="formula-row"><span class="formula-name">% of</span><code>part/whole × 100</code></div>
+          <div class="formula-row"><span class="formula-name">Compound Interest</span><code>A = P(1 + r/n)^(nt)</code></div>
+          <div class="formula-row"><span class="formula-name">Simple Interest</span><code>I = P·r·t</code></div>
+        </div>
+        <div class="formula-section">
+          <h3>Algebra</h3>
+          <div class="formula-row"><span class="formula-name">Quadratic</span><code>x = (−b ± √(b²−4ac)) / 2a</code></div>
+          <div class="formula-row"><span class="formula-name">Difference of squares</span><code>(a+b)(a−b) = a²−b²</code></div>
+          <div class="formula-row"><span class="formula-name">(a+b)²</span><code>a² + 2ab + b²</code></div>
+          <div class="formula-row"><span class="formula-name">(a−b)²</span><code>a² − 2ab + b²</code></div>
+        </div>
+        <div class="formula-section">
+          <h3>Geometry</h3>
+          <div class="formula-row"><span class="formula-name">Circle area</span><code>πr²</code></div>
+          <div class="formula-row"><span class="formula-name">Circle circumference</span><code>2πr</code></div>
+          <div class="formula-row"><span class="formula-name">Triangle area</span><code>½bh</code></div>
+          <div class="formula-row"><span class="formula-name">Pythagorean</span><code>a² + b² = c²</code></div>
+          <div class="formula-row"><span class="formula-name">Common right triangles</span><code>3-4-5, 5-12-13, 1-1-√2, 1-√3-2</code></div>
+        </div>
+        <div class="formula-section">
+          <h3>Statistics</h3>
+          <div class="formula-row"><span class="formula-name">Mean</span><code>Sum / Count</code></div>
+          <div class="formula-row"><span class="formula-name">Median</span><code>Middle value (sorted)</code></div>
+          <div class="formula-row"><span class="formula-name">Range</span><code>Max − Min</code></div>
+          <div class="formula-row"><span class="formula-name">Weighted mean</span><code>Σ(w·x) / Σw</code></div>
+        </div>
+        <div class="formula-section">
+          <h3>Combinatorics</h3>
+          <div class="formula-row"><span class="formula-name">Permutation nPr</span><code>n! / (n−r)!</code></div>
+          <div class="formula-row"><span class="formula-name">Combination nCr</span><code>n! / (r!(n−r)!)</code></div>
+          <div class="formula-row"><span class="formula-name">Probability</span><code>favourable / total</code></div>
+          <div class="formula-row"><span class="formula-name">P(A or B)</span><code>P(A)+P(B)−P(A∩B)</code></div>
+        </div>
+        <div class="formula-section">
+          <h3>Word Problems</h3>
+          <div class="formula-row"><span class="formula-name">Rate</span><code>D = R × T</code></div>
+          <div class="formula-row"><span class="formula-name">Work</span><code>1/t₁ + 1/t₂ = 1/T</code></div>
+          <div class="formula-row"><span class="formula-name">Mixture</span><code>c₁V₁ + c₂V₂ = c_f(V₁+V₂)</code></div>
+        </div>
+        <div class="formula-section">
+          <h3>DS Answer Key</h3>
+          <div class="formula-row formula-row--ds"><span class="ds-letter">A</span><span>Statement (1) ALONE sufficient</span></div>
+          <div class="formula-row formula-row--ds"><span class="ds-letter">B</span><span>Statement (2) ALONE sufficient</span></div>
+          <div class="formula-row formula-row--ds"><span class="ds-letter">C</span><span>BOTH together sufficient</span></div>
+          <div class="formula-row formula-row--ds"><span class="ds-letter">D</span><span>EACH alone sufficient</span></div>
+          <div class="formula-row formula-row--ds"><span class="ds-letter">E</span><span>NEITHER sufficient</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Question bank + app logic -->
   <script src="data/questions.js"></script>
   <script src="data/theories.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
