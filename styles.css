@@ -2112,7 +2112,11 @@ body[data-active-tab="practice"] .xp-bar-wrap { display: none; }
 }
 
 /* Session summary modal */
-.modal-card-small { max-width: 480px; }
+.modal-card-small {
+  max-width: 480px;
+  height: auto;       /* content-fit, not 80vh */
+  min-height: unset;  /* drop the 480px floor */
+}
 .summary-card { animation: bounceIn 0.5s var(--easing); }
 .summary-card .modal-header {
   border-bottom: none;
