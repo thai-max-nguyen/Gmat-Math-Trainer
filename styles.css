@@ -1981,7 +1981,8 @@ body[data-active-tab="practice"] .xp-bar-wrap { display: none; }
 .toast-container {
   position: fixed;
   bottom: 24px;
-  right: 108px; /* clear cat mascot (72px) + 12px gap + 24px base */
+  left: 24px;     /* opposite corner from cat mascot (bottom-right) */
+  right: auto;
   z-index: 9000;
   display: flex;
   flex-direction: column;
@@ -2006,12 +2007,12 @@ body[data-active-tab="practice"] .xp-bar-wrap { display: none; }
   animation: toastExit 0.4s var(--easing) forwards;
 }
 @keyframes toastSlide {
-  from { opacity: 0; transform: translateX(120%); }
+  from { opacity: 0; transform: translateX(-110%); }
   to   { opacity: 1; transform: translateX(0); }
 }
 @keyframes toastExit {
   from { opacity: 1; transform: translateX(0); }
-  to   { opacity: 0; transform: translateX(120%); }
+  to   { opacity: 0; transform: translateX(-110%); }
 }
 .achievement-icon {
   width: 44px;
@@ -3655,7 +3656,7 @@ body[data-active-tab="practice"] .xp-bar-wrap { display: none; }
   .quill-wrap { bottom: 80px; right: 12px; }
   .quill-svg { width: 56px; height: 67px; }
   .quill-bubble { max-width: 160px; font-size: 12px; }
-  .toast-container { right: 78px; } /* clear mobile cat (56px) + 10px gap + 12px base */
+  .toast-container { left: 12px; right: auto; } /* bottom-left on mobile too */
 }
 
 /* ════════════════════════════════════════════════

@@ -1133,20 +1133,25 @@
   function playSound(name) {
     if (!state.soundOn) return;
     if (name === 'correct') {
-      glide(523.25, 659.25, 150, 'triangle', 0.18); // C5 → E5
+      // Warm two-note chime: C5 then E5, soft triangle
+      tone(523.25, 120, 'triangle', 0.15, 0);
+      tone(783.99, 180, 'triangle', 0.14, 110);
     } else if (name === 'wrong') {
-      glide(329.63, 261.63, 220, 'sawtooth', 0.16); // E4 → C4
+      // Gentle "whoops" — soft sine dip, no harsh sawtooth
+      tone(330, 80, 'sine', 0.12, 0);
+      tone(220, 180, 'sine', 0.10, 70);
     } else if (name === 'levelup') {
-      // C5, E5, G5, C6 arpeggio — 80ms each
-      tone(523.25, 90, 'triangle', 0.18, 0);
-      tone(659.25, 90, 'triangle', 0.18, 90);
+      // Bright ascending chime: C5 E5 G5 C6
+      tone(523.25, 90, 'triangle', 0.16, 0);
+      tone(659.25, 90, 'triangle', 0.17, 90);
       tone(783.99, 90, 'triangle', 0.18, 180);
-      tone(1046.5, 220, 'triangle', 0.22, 270);
+      tone(1046.5, 240, 'triangle', 0.20, 270);
     } else if (name === 'achievement') {
-      tone(880, 120, 'triangle', 0.16, 0);   // A5
-      tone(1318.51, 220, 'triangle', 0.18, 100); // E6
+      // Celebratory sparkle: two soft high tones
+      tone(880, 100, 'triangle', 0.13, 0);
+      tone(1108.73, 200, 'triangle', 0.15, 90); // C#6
     } else if (name === 'skip') {
-      tone(440, 120, 'sine', 0.10, 0);
+      tone(440, 100, 'sine', 0.08, 0);
     }
   }
   function applySoundUi() {
