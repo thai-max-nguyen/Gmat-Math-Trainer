@@ -1981,7 +1981,7 @@ body[data-active-tab="practice"] .xp-bar-wrap { display: none; }
 .toast-container {
   position: fixed;
   bottom: 24px;
-  right: 24px;
+  right: 108px; /* clear cat mascot (72px) + 12px gap + 24px base */
   z-index: 9000;
   display: flex;
   flex-direction: column;
@@ -3644,6 +3644,7 @@ body[data-active-tab="practice"] .xp-bar-wrap { display: none; }
   .quill-wrap { bottom: 80px; right: 12px; }
   .quill-svg { width: 56px; height: 67px; }
   .quill-bubble { max-width: 160px; font-size: 12px; }
+  .toast-container { right: 78px; } /* clear mobile cat (56px) + 10px gap + 12px base */
 }
 
 /* ════════════════════════════════════════════════
