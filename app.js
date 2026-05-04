@@ -2087,14 +2087,16 @@
 
   // CR: render the argument as a styled quote block; if it has a closing question, surface it below.
   function renderCrQuestion(q) {
+    // Prefer explicit `argument` field (new-style questions) over the legacy heuristic split
+    if (q.argument) {
+      return `<div class="cr-argument">${escapeHtml(q.argument)}</div><div class="cr-question">${escapeHtml(q.question || '')}</div>`;
+    }
+    // Legacy: argument and question packed into q.question — split on trailing question sentence
     const text = q.question || '';
-    // Heuristic: split off the trailing question (last sentence ending in '?') so we can present it separately.
     const trimmed = text.trim();
     const lastQ = trimmed.lastIndexOf('?');
     if (lastQ > 0 && lastQ > trimmed.length * 0.4) {
-      // Find the start of that final question sentence
       let start = lastQ;
-      // Walk back to a sentence boundary
       for (let i = lastQ - 1; i >= 0; i--) {
         const c = trimmed[i];
         if (c === '.' || c === '!' || c === '?' || c === '\n') { start = i + 1; break; }
