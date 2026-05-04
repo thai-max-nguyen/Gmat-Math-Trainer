@@ -2114,8 +2114,12 @@ body[data-active-tab="practice"] .xp-bar-wrap { display: none; }
 /* Session summary modal */
 .modal-card-small {
   max-width: 480px;
-  height: auto;       /* content-fit, not 80vh */
-  min-height: unset;  /* drop the 480px floor */
+  height: auto;
+  min-height: unset;
+}
+.modal-card-small .modal-body {
+  flex: none;      /* don't expand — let content determine height */
+  min-height: unset;
 }
 .summary-card { animation: bounceIn 0.5s var(--easing); }
 .summary-card .modal-header {
@@ -2212,11 +2216,12 @@ body[data-active-tab="practice"] .xp-bar-wrap { display: none; }
 .summary-topic-name {
   font-weight: 600;
   color: var(--text-primary);
-  min-width: 100px;
-  max-width: 120px;
+  min-width: 130px;
+  max-width: 170px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  flex-shrink: 0;
 }
 .summary-topic-bar-wrap {
   flex: 1;
@@ -2230,10 +2235,12 @@ body[data-active-tab="practice"] .xp-bar-wrap { display: none; }
   border-radius: 3px;
   transition: width 0.4s ease;
 }
-.summary-topic-bar--ok  { background: #22c55e; }
-.summary-topic-bar--mid { background: #f59e0b; }
-.summary-topic-bar--low { background: #ef4444; }
+.summary-topic-bar--ok   { background: #22c55e; }
+.summary-topic-bar--mid  { background: #f59e0b; }
+.summary-topic-bar--low  { background: #ef4444; }
+.summary-topic-bar--none { background: var(--border); } /* 0% = neutral, not red */
 .summary-topic-pct { font-weight: 700; font-size: 11px; min-width: 30px; text-align: right; }
+.summary-type-acc--none { color: var(--text-secondary); }
 
 /* Summary next-action tip */
 .summary-next-tip {

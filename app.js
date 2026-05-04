@@ -2504,7 +2504,7 @@
         topicBreakdownEl.innerHTML = '<div class="summary-type-title">Topics this session</div>' +
           entries.map(([topic, s]) => {
             const pct = Math.round(s.correct / s.total * 100);
-            const cls = pct >= 80 ? 'ok' : pct >= 50 ? 'mid' : 'low';
+            const cls = pct === 0 ? 'none' : pct >= 80 ? 'ok' : pct >= 50 ? 'mid' : 'low';
             const barW = pct;
             return `<div class="summary-topic-row">
               <span class="summary-topic-name">${escapeHtml(topic)}</span>
