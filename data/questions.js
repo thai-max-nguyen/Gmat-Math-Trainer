@@ -481,70 +481,381 @@ const QUESTIONS = [
     question: 'A train travels at 60 mph for 2.5 hours. Distance covered:',
     choices: ['120 mi', '125 mi', '140 mi', '150 mi', '180 mi'],
     answer: 'D',
-    explanation: 'd = rt = 60 · 2.5 = 150 miles.'
+    explanation: 'd = rt = 60 · 2.5 = 150 miles.',
+    hint: 'Direct d = r × t. Multiply rate by time. Watch units (mph × hours = miles).',
+    theory: {
+      title: 'Distance = Rate × Time',
+      icon: '🚂',
+      summary: 'd = r × t is the entire rate equation. Plug in two, solve for the third.',
+      keyFacts: [
+        'd = r × t  →  r = d/t,  t = d/r',
+        'Units must align: mph × hours → miles; km/h × hours → km',
+        '2.5 hours = 2h 30m, NOT 2h 50m — decimal hours ≠ minutes',
+        'If rate is per minute and time in hours, convert first',
+      ],
+      example: {
+        problem: 'Train at 60 mph for 2.5 hours. How far?',
+        steps: ['Plug in: d = 60 × 2.5', 'Compute: d = 150', 'Units: mph × hr = miles ✓'],
+        answer: '150 miles',
+      },
+      traps: [
+        'Mismatched units (minutes vs hours, km vs miles)',
+        '2.5 hr ≠ 2:50 — it is 2:30',
+      ],
+      solveSteps: [
+        '1. Identify which of d, r, t are given',
+        '2. Check unit consistency — convert if needed',
+        '3. Apply d = rt and solve for the missing variable',
+      ],
+    },
   },
   {
     id: 64, type: 'PS', topic: 'Word Problems', subtopic: 'Rate', difficulty: 'medium',
     question: 'Car A and Car B start 200 miles apart, driving toward each other at 40 and 60 mph. They meet in:',
     choices: ['1 hr', '1.5 hr', '2 hr', '2.5 hr', '3 hr'],
     answer: 'C',
-    explanation: 'Closing rate = 100 mph. Time = 200 / 100 = 2 hr.'
+    explanation: 'Closing rate = 100 mph. Time = 200 / 100 = 2 hr.',
+    hint: 'Moving toward each other → ADD speeds (closing rate). Moving same direction → SUBTRACT.',
+    theory: {
+      title: 'Relative Speed (Closing Rate)',
+      icon: '↔',
+      summary: 'When two objects move, the gap closes (or opens) at the RELATIVE speed, not either individual speed.',
+      keyFacts: [
+        'Toward each other: closing rate = r₁ + r₂',
+        'Same direction (chase): closing rate = r_fast − r_slow',
+        'Time to meet = initial gap / closing rate',
+        'Distance each travels = its own speed × meeting time',
+      ],
+      example: {
+        problem: 'A and B 200 mi apart, toward each other at 40 and 60 mph. Meet when?',
+        steps: ['Closing rate = 40 + 60 = 100 mph', 'Time = gap / closing = 200/100 = 2 hr', 'Check: A goes 80 mi, B goes 120 mi, sum = 200 ✓'],
+        answer: '2 hours',
+      },
+      traps: [
+        'Adding speeds when objects move SAME direction (should subtract)',
+        'Using individual speed instead of closing rate',
+        'Forgetting head start when one starts earlier',
+      ],
+      solveSteps: [
+        '1. Determine direction: toward, away, or chase?',
+        '2. Compute relative speed (add or subtract)',
+        '3. Apply time = gap / relative speed',
+      ],
+    },
   },
   {
     id: 65, type: 'PS', topic: 'Word Problems', subtopic: 'Rate', difficulty: 'hard',
     question: 'A jogger runs out at 6 mph and back at 4 mph along the same path. Average speed for the round trip:',
     choices: ['4.5 mph', '4.8 mph', '5.0 mph', '5.2 mph', '5.5 mph'],
     answer: 'B',
-    explanation: 'Harmonic mean: 2(6)(4) / (6 + 4) = 48 / 10 = 4.8 mph.'
+    explanation: 'Harmonic mean: 2(6)(4) / (6 + 4) = 48 / 10 = 4.8 mph.',
+    hint: 'Same distance each leg → use HARMONIC mean: 2ab/(a+b). NOT (a+b)/2 — that is the trap.',
+    theory: {
+      title: 'Average Speed — Harmonic Mean',
+      icon: '⚖',
+      summary: 'Average speed ≠ average of speeds. Slower leg eats more time → average pulled toward slower speed. Equal distance → harmonic mean.',
+      keyFacts: [
+        'Avg speed = total distance / total time (ALWAYS)',
+        'Equal distance both legs → Avg = 2ab / (a + b)  (harmonic mean)',
+        'Equal time both legs → Avg = (a + b) / 2  (arithmetic mean)',
+        'Round trip = equal distance → harmonic mean ALWAYS applies',
+        'Harmonic mean < arithmetic mean — answer pulled toward slower speed',
+      ],
+      example: {
+        problem: 'Out at 6 mph, back at 4 mph, same path. Avg speed for round trip?',
+        steps: [
+          'Pick distance d = 12 mi each leg (any number works — it cancels)',
+          'Time out = 12/6 = 2 hr',
+          'Time back = 12/4 = 3 hr',
+          'Total: 24 mi / 5 hr = 4.8 mph',
+          'Shortcut: 2(6)(4)/(6+4) = 48/10 = 4.8 ✓',
+        ],
+        answer: '4.8 mph',
+      },
+      traps: [
+        '(6+4)/2 = 5 mph — WRONG. Arithmetic mean only applies if TIMES are equal',
+        'Answer must be between the two speeds, closer to slower one',
+        'Same path / round trip = same distance, even if not said explicitly',
+      ],
+      solveSteps: [
+        '1. Ask: what is equal — distance or time?',
+        '2. Equal distance → harmonic mean  2ab/(a+b)',
+        '3. Equal time → arithmetic mean  (a+b)/2',
+        '4. Sanity: result lies between a and b, pulled toward slower',
+      ],
+    },
   },
   {
     id: 66, type: 'PS', topic: 'Word Problems', subtopic: 'Rate', difficulty: 'medium',
     question: 'A car travels 300 miles in 5 hours, then 200 miles in 4 hours. Average speed for the entire trip?',
     choices: ['50 mph', '52 mph', '55 mph', '55.6 mph', '60 mph'],
     answer: 'D',
-    explanation: 'Total distance / total time = 500 / 9 ≈ 55.56 mph.'
+    explanation: 'Total distance / total time = 500 / 9 ≈ 55.56 mph.',
+    hint: 'Average speed = TOTAL distance / TOTAL time. Never average the two segment speeds.',
+    theory: {
+      title: 'Average Speed — Always Total/Total',
+      icon: '∑',
+      summary: 'When distances AND times differ across legs, you cannot use harmonic OR arithmetic shortcut. Always sum distances, sum times, divide.',
+      keyFacts: [
+        'Avg = (d₁ + d₂ + ...) / (t₁ + t₂ + ...)',
+        'Shortcuts (harmonic, arithmetic) only work in special cases',
+        'Default: just sum and divide',
+        'Individual segment speeds: 300/5 = 60, 200/4 = 50 — useless on their own',
+      ],
+      example: {
+        problem: '300 mi in 5 hr, then 200 mi in 4 hr. Avg?',
+        steps: ['Total distance = 300 + 200 = 500', 'Total time = 5 + 4 = 9', 'Avg = 500 / 9 ≈ 55.56 mph'],
+        answer: '55.6 mph',
+      },
+      traps: [
+        'Averaging 60 and 50 → 55 mph (WRONG — arithmetic mean only works when times equal)',
+        'Forgetting that segments may have unequal distances AND times',
+      ],
+      solveSteps: [
+        '1. Tabulate (d, t) for each leg',
+        '2. Sum distances; sum times',
+        '3. Divide. Do not shortcut',
+      ],
+    },
   },
   {
     id: 67, type: 'PS', topic: 'Word Problems', subtopic: 'Rate', difficulty: 'hard',
     question: 'A boat goes 30 km downstream and 30 km back. Stream speed = 2 km/h, total time = 8 hours. Boat speed in still water?',
     choices: ['6 km/h', '7 km/h', '8 km/h', '9 km/h', '10 km/h'],
     answer: 'C',
-    explanation: '30/(v+2) + 30/(v−2) = 8. Try v = 8: 30/10 + 30/6 = 3 + 5 = 8 ✓.'
+    explanation: '30/(v+2) + 30/(v−2) = 8. Try v = 8: 30/10 + 30/6 = 3 + 5 = 8 ✓.',
+    hint: 'Downstream rate = boat + current. Upstream = boat − current. Time = distance / effective rate.',
+    theory: {
+      title: 'Boat & Current (Stream) Problems',
+      icon: '⛵',
+      summary: 'Current helps downstream, fights upstream. Effective speed changes per direction.',
+      keyFacts: [
+        'Downstream speed = v_boat + v_current',
+        'Upstream speed = v_boat − v_current',
+        'Time = distance / effective speed',
+        'Round trip total: d/(v+c) + d/(v−c)',
+        'Plug-in answers often faster than algebra',
+      ],
+      example: {
+        problem: '30 km down + 30 km back. Current 2 km/h, total time 8 hr. Boat speed?',
+        steps: [
+          'Equation: 30/(v+2) + 30/(v−2) = 8',
+          'Try v = 8: 30/10 + 30/6 = 3 + 5 = 8 ✓',
+          'Confirmed: v = 8 km/h',
+        ],
+        answer: '8 km/h',
+      },
+      traps: [
+        'Treating downstream and upstream as same rate',
+        'Heavy algebra: faster to plug in answer choices',
+        'Round trip time ≠ 2 × (one-way time at avg speed) unless symmetric',
+      ],
+      solveSteps: [
+        '1. Define v_boat, v_current — write down both effective speeds',
+        '2. Set up time equation: t = d/(v+c) + d/(v−c)',
+        '3. Plug in answer choices — fastest path',
+      ],
+    },
   },
   {
     id: 68, type: 'PS', topic: 'Word Problems', subtopic: 'Work', difficulty: 'medium',
     question: 'Alice can paint a wall in 6 hours, Bob in 4 hours. Together?',
     choices: ['2 hr', '2.4 hr', '3 hr', '4 hr', '5 hr'],
     answer: 'B',
-    explanation: '1/T = 1/6 + 1/4 = 5/12 ⇒ T = 12/5 = 2.4 hr.'
+    explanation: '1/T = 1/6 + 1/4 = 5/12 ⇒ T = 12/5 = 2.4 hr.',
+    hint: 'Add rates, NOT times. Rate = 1/time. Together time = 1 / (1/a + 1/b) = ab/(a+b).',
+    theory: {
+      title: 'Combined Work Rate',
+      icon: '🔨',
+      summary: 'Work is additive in RATES (work per unit time), not in times. Convert each worker to a rate, sum, invert.',
+      keyFacts: [
+        'Rate = 1 / time-to-finish-alone',
+        'Together rate = sum of individual rates',
+        'Together time = 1 / (combined rate)',
+        'Shortcut for 2 workers: T = ab/(a+b)',
+        'Combined time ALWAYS less than each individual time',
+      ],
+      example: {
+        problem: 'Alice: 6 hr alone, Bob: 4 hr alone. Together?',
+        steps: [
+          'Alice rate = 1/6 wall per hour',
+          'Bob rate = 1/4 wall per hour',
+          'Combined = 1/6 + 1/4 = 2/12 + 3/12 = 5/12 per hour',
+          'Time = 1 / (5/12) = 12/5 = 2.4 hr',
+          'Shortcut: (6·4)/(6+4) = 24/10 = 2.4 ✓',
+        ],
+        answer: '2.4 hr',
+      },
+      traps: [
+        'Averaging times: (6+4)/2 = 5 — WRONG. Rates add, not times',
+        'Together time must be LESS than fastest worker alone (here < 4 hr)',
+      ],
+      solveSteps: [
+        '1. Convert each worker to rate = 1/time',
+        '2. Sum the rates',
+        '3. Invert sum to get combined time',
+      ],
+    },
   },
   {
     id: 69, type: 'PS', topic: 'Word Problems', subtopic: 'Work', difficulty: 'hard',
     question: 'Pipe A fills a tank in 3 hours; pipe B drains it in 5 hours. Both open simultaneously, how long to fill (starting from empty)?',
     choices: ['3 hr', '4 hr', '5 hr', '7.5 hr', '8 hr'],
     answer: 'D',
-    explanation: 'Net rate = 1/3 − 1/5 = 2/15 of tank per hour. Time = 15/2 = 7.5 hr.'
+    explanation: 'Net rate = 1/3 − 1/5 = 2/15 of tank per hour. Time = 15/2 = 7.5 hr.',
+    hint: 'Draining = negative rate. Net rate = fill rate − drain rate. Invert net for total time.',
+    theory: {
+      title: 'Opposing Rates (Fill vs Drain)',
+      icon: '💧',
+      summary: 'When forces work against each other, subtract rates. Only net rate matters.',
+      keyFacts: [
+        'Filler rate is positive, drainer rate is negative',
+        'Net rate = fill rate − drain rate',
+        'If drain ≥ fill, tank NEVER fills',
+        'Time to fill = 1 / net rate',
+        'Net time always GREATER than fill-alone time (drain slows it)',
+      ],
+      example: {
+        problem: 'A fills in 3 hr; B drains in 5 hr. Both open. Fill time?',
+        steps: [
+          'A rate = 1/3, B rate = −1/5',
+          'Net = 1/3 − 1/5 = 5/15 − 3/15 = 2/15',
+          'Time = 1 / (2/15) = 15/2 = 7.5 hr',
+        ],
+        answer: '7.5 hr',
+      },
+      traps: [
+        'Adding instead of subtracting when one drains',
+        'Forgetting to check: does it ever fill at all?',
+        'Net time must EXCEED fill-alone time of 3 hr',
+      ],
+      solveSteps: [
+        '1. Assign sign to each rate (+ fill, − drain)',
+        '2. Sum signed rates → net rate',
+        '3. Time = 1 / net (only if net > 0)',
+      ],
+    },
   },
   {
     id: 70, type: 'PS', topic: 'Word Problems', subtopic: 'Mixtures', difficulty: 'medium',
     question: 'A 30-liter solution is 20% salt. How much pure water must be added to make it 15% salt?',
     choices: ['5 L', '8 L', '10 L', '12 L', '15 L'],
     answer: 'C',
-    explanation: 'Salt = 6 L (constant). 6 / (30 + x) = 0.15 ⇒ 30 + x = 40 ⇒ x = 10.'
+    explanation: 'Salt = 6 L (constant). 6 / (30 + x) = 0.15 ⇒ 30 + x = 40 ⇒ x = 10.',
+    hint: 'Adding pure water → SOLUTE stays constant. Track salt amount, not concentration.',
+    theory: {
+      title: 'Mixtures — Track the Solute',
+      icon: '🧪',
+      summary: 'When diluting (adding pure solvent), the solute amount is FIXED. Only total volume changes.',
+      keyFacts: [
+        'Initial solute = initial volume × initial concentration',
+        'Add pure solvent → solute unchanged, denominator grows',
+        'Add pure solute → solute grows, denominator grows',
+        'Drain & replace → solute decreases proportionally',
+        'Final concentration = (final solute) / (final total)',
+      ],
+      example: {
+        problem: '30 L at 20% salt. Add water to reach 15% salt. Water needed?',
+        steps: [
+          'Salt amount = 30 × 0.20 = 6 L (locked)',
+          'Equation: 6 / (30 + x) = 0.15',
+          '30 + x = 40 → x = 10',
+        ],
+        answer: '10 L',
+      },
+      traps: [
+        'Trying to compute concentration changes directly (wastes time)',
+        'Forgetting solute stays constant when adding pure solvent',
+      ],
+      solveSteps: [
+        '1. Compute initial solute amount (volume × concentration)',
+        '2. Determine what is added: pure solvent, pure solute, or another mix',
+        '3. Build equation: final solute / final total = final concentration',
+      ],
+    },
   },
   {
     id: 71, type: 'PS', topic: 'Word Problems', subtopic: 'Mixtures', difficulty: 'hard',
     question: 'A 50-liter mix is 40% acid. How many liters must be drained and replaced with pure acid to make it 60% acid?',
     choices: ['10 L', '12.5 L', '15 L', '50/3 L (≈16.67)', '20 L'],
     answer: 'D',
-    explanation: 'Drain x: acid removed = 0.4x; replaced with x liters of acid. New acid = 20 − 0.4x + x = 20 + 0.6x. Total = 50. (20 + 0.6x)/50 = 0.6 ⇒ 0.6x = 10 ⇒ x = 50/3.'
+    explanation: 'Drain x: acid removed = 0.4x; replaced with x liters of acid. New acid = 20 − 0.4x + x = 20 + 0.6x. Total = 50. (20 + 0.6x)/50 = 0.6 ⇒ 0.6x = 10 ⇒ x = 50/3.',
+    hint: 'Drain-and-replace: total volume STAYS 50. Track net change in acid: −0.4x + x = +0.6x.',
+    theory: {
+      title: 'Mixtures — Drain & Replace',
+      icon: '🔁',
+      summary: 'Drain-and-replace keeps TOTAL volume constant. Only the solute amount shifts by (new − old)·x.',
+      keyFacts: [
+        'Total volume stays the same throughout',
+        'Acid removed when draining x liters = x · (current concentration)',
+        'Acid added back = x · (replacement concentration)',
+        'Net change in acid = x · (replacement conc − current conc)',
+        'Replacing with PURE solute: replacement conc = 1.0',
+      ],
+      example: {
+        problem: '50 L at 40% acid. Drain x, refill with pure acid to reach 60%. x?',
+        steps: [
+          'Initial acid = 50 × 0.4 = 20 L',
+          'Drain x → lose 0.4x acid',
+          'Add x pure acid → gain x',
+          'Final acid = 20 − 0.4x + x = 20 + 0.6x',
+          'Need (20 + 0.6x) / 50 = 0.6 → 0.6x = 10 → x = 50/3',
+        ],
+        answer: '50/3 L (≈16.67)',
+      },
+      traps: [
+        'Forgetting the drained portion CONTAINS solute (loses 0.4x acid, not all x)',
+        'Treating drain-and-replace as just "add x"',
+      ],
+      solveSteps: [
+        '1. Note total volume is unchanged',
+        '2. Compute solute removed: x × current concentration',
+        '3. Compute solute added: x × replacement concentration',
+        '4. Build final = initial − removed + added, set ratio to target',
+      ],
+    },
   },
   {
     id: 72, type: 'PS', topic: 'Word Problems', subtopic: 'Age', difficulty: 'medium',
     question: 'Mary is 3 times as old as her son. In 5 years she will be twice as old. Mary\'s current age?',
     choices: ['10', '12', '15', '18', '20'],
     answer: 'C',
-    explanation: 'M = 3S; M + 5 = 2(S + 5). Substitute: 3S + 5 = 2S + 10 ⇒ S = 5, M = 15.'
+    explanation: 'M = 3S; M + 5 = 2(S + 5). Substitute: 3S + 5 = 2S + 10 ⇒ S = 5, M = 15.',
+    hint: 'Set variables for CURRENT ages. Future = current + years. Translate each sentence to equation.',
+    theory: {
+      title: 'Age Problems — Two-Equation Setup',
+      icon: '🎂',
+      summary: 'Define variables for current ages. Every "in N years" or "N years ago" adds/subtracts N from BOTH sides.',
+      keyFacts: [
+        'Let variables = CURRENT ages',
+        '"In N years" → age + N',
+        '"N years ago" → age − N',
+        'Age difference is INVARIANT (never changes over time)',
+        '"X times as old" → multiplicative relation NOW or at the given time',
+      ],
+      example: {
+        problem: 'Mary = 3× son now. In 5 yr, Mary = 2× son. Mary now?',
+        steps: [
+          'Let S = son now, M = mary now',
+          'Equation 1: M = 3S',
+          'Equation 2: M + 5 = 2(S + 5)',
+          'Substitute: 3S + 5 = 2S + 10 → S = 5',
+          'So M = 3 × 5 = 15',
+        ],
+        answer: '15',
+      },
+      traps: [
+        'Adding 5 to only one person\'s age (must add to BOTH)',
+        'Confusing "3 times older" (meaning 4× total) vs "3 times as old" (3× total)',
+        'Mixing past and future references in one equation',
+      ],
+      solveSteps: [
+        '1. Define variables for CURRENT ages',
+        '2. Translate each sentence to an equation (now or shifted)',
+        '3. Solve system — typically substitution',
+        '4. Sanity check: ages must be positive integers',
+      ],
+    },
   },
   {
     id: 73, type: 'PS', topic: 'Word Problems', subtopic: 'Compound Interest', difficulty: 'medium',

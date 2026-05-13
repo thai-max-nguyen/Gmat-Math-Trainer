@@ -2446,3 +2446,17 @@ function getTheory(topic, subtopic) {
   if (subtopic && GMAT_THEORIES[subtopic]) return GMAT_THEORIES[subtopic];
   return GMAT_THEORIES['default'];
 }
+
+// Per-question theory resolver. Merges q.theory over topic theory key-by-key,
+// so a question can override summary/keyFacts/example/traps/solveSteps independently.
+// Schema for q.theory: { title?, icon?, summary?, keyFacts?[], example?{problem,steps,answer}, traps?[], solveSteps?[] }
+function resolveTheory(q) {
+  const base = (q && getTheory(q.topic, q.subtopic)) || GMAT_THEORIES['default'];
+  if (!q || !q.theory) return base;
+  return Object.assign({}, base, q.theory);
+}
+
+if (typeof window !== 'undefined') {
+  window.getTheory = getTheory;
+  window.resolveTheory = resolveTheory;
+}

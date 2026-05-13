@@ -1528,11 +1528,11 @@
         paceEl.hidden = true;
       }
 
-      // Show theory snippet on wrong answers
+      // Show theory snippet on wrong answers (prefer per-question theory)
       const snippetEl = document.getElementById('theory-snippet');
       if (snippetEl) {
-        if (!wasCorrect && kind !== 'skipped' && window.getTheory) {
-          const theory = window.getTheory(q.topic, q.subtopic);
+        if (!wasCorrect && kind !== 'skipped' && (window.resolveTheory || window.getTheory)) {
+          const theory = window.resolveTheory ? window.resolveTheory(q) : window.getTheory(q.topic, q.subtopic);
           if (theory && theory.summary) {
             snippetEl.hidden = false;
             snippetEl.innerHTML = `<span class="theory-snippet-icon">💡</span><strong>${escapeHtml(theory.title)}</strong>: ${escapeHtml(theory.summary.slice(0, 150))}${theory.summary.length > 150 ? '…' : ''}`;
@@ -1916,8 +1916,11 @@
   // ─── Theory modal ─────────────────────────────────
   function openTheoryModal(topic, subtopic, question) {
     document.dispatchEvent(new CustomEvent('quill:theory'));
-    if (!window.getTheory) return;
-    const t = window.getTheory(topic, subtopic);
+    if (!window.getTheory && !window.resolveTheory) return;
+    // Prefer per-question theory (q.theory merged over topic), fallback to topic
+    const t = (question && window.resolveTheory)
+      ? window.resolveTheory(question)
+      : window.getTheory(topic, subtopic);
 
     // Inject question-specific explanation at top if available and already submitted
     const qExplEl = document.getElementById('theory-q-explanation');
