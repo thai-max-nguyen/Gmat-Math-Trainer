@@ -8989,6 +8989,602 @@ const QUESTION_THEORIES = {
         "3. Together → C"
       ]
     }
+  },
+  "291": {
+    "hint": "Mean = sum/count = (4+8+10+14)/4 = 36/4 = 9.",
+    "theory": {
+      "title": "Statistics — Arithmetic Mean",
+      "icon": "📊",
+      "summary": "Add every value, divide by how many. No shortcut needed for four small numbers.",
+      "keyFacts": [
+        "Sum = 4+8+10+14 = 36",
+        "Count = 4",
+        "Mean = 36/4 = 9",
+        "Mean need not be one of the listed values"
+      ],
+      "example": {
+        "problem": "Mean of 4, 8, 10, 14?",
+        "steps": [
+          "Sum = 36",
+          "36 / 4 = 9 → C"
+        ],
+        "answer": "C (9)"
+      },
+      "traps": [
+        "Dividing by 3 (miscounting the data points)"
+      ],
+      "solveSteps": [
+        "1. Sum the values",
+        "2. Divide by the count"
+      ]
+    }
+  },
+  "292": {
+    "hint": "Even count (6): median = avg of 3rd & 4th = (9+11)/2 = 10.",
+    "theory": {
+      "title": "Statistics — Median of an Even Set",
+      "icon": "📊",
+      "summary": "Sort (already sorted here). With n even, median = average of the two middle terms (positions n/2 and n/2+1).",
+      "keyFacts": [
+        "n = 6 → middle positions 3 and 4",
+        "3rd = 9, 4th = 11",
+        "Median = (9+11)/2 = 10",
+        "Median of even set may not be a member"
+      ],
+      "example": {
+        "problem": "Median of {3,7,9,11,15,21}?",
+        "steps": [
+          "Middle two: 9 and 11",
+          "(9+11)/2 = 10 → B"
+        ],
+        "answer": "B (10)"
+      },
+      "traps": [
+        "Taking a single middle value (9 or 11) instead of averaging both"
+      ],
+      "solveSteps": [
+        "1. Sort; find n",
+        "2. Even n → average positions n/2 and n/2+1"
+      ]
+    }
+  },
+  "293": {
+    "hint": "Range = max − min = 19 − 3 = 16.",
+    "theory": {
+      "title": "Statistics — Range",
+      "icon": "📊",
+      "summary": "Range = largest value − smallest value. Order is irrelevant; only the extremes matter.",
+      "keyFacts": [
+        "Max = 19, min = 3",
+        "Range = 19 − 3 = 16",
+        "Unsorted set is fine — just scan for extremes",
+        "Range ignores all middle values"
+      ],
+      "example": {
+        "problem": "Range of {12,4,7,19,10,3}?",
+        "steps": [
+          "Max 19, min 3",
+          "19 − 3 = 16 → D"
+        ],
+        "answer": "D (16)"
+      },
+      "traps": [
+        "Subtracting first and last as listed (12−3) instead of true max/min"
+      ],
+      "solveSteps": [
+        "1. Find max and min",
+        "2. Subtract"
+      ]
+    }
+  },
+  "294": {
+    "hint": "Favorable {5,6} → 2/6 = 1/3.",
+    "theory": {
+      "title": "Probability — Single Die Event",
+      "icon": "🎲",
+      "summary": "P = favorable outcomes / total outcomes. 'Greater than 4' means strictly {5,6}.",
+      "keyFacts": [
+        "Total outcomes = 6",
+        "'>4' → {5,6} (NOT including 4)",
+        "P = 2/6 = 1/3",
+        "Strict inequality excludes 4"
+      ],
+      "example": {
+        "problem": "P(roll > 4) on a fair die?",
+        "steps": [
+          "Favorable {5,6} → 2",
+          "2/6 = 1/3 → C"
+        ],
+        "answer": "C (1/3)"
+      },
+      "traps": [
+        "Including 4 ('≥4' → 3/6) — question says greater than"
+      ],
+      "solveSteps": [
+        "1. List favorable outcomes carefully (strict vs inclusive)",
+        "2. Divide by total"
+      ]
+    }
+  },
+  "295": {
+    "hint": "Complement: non-red = 1 − P(red) = 1 − 3/12 = 9/12 = 3/4.",
+    "theory": {
+      "title": "Probability — Complement of a Category",
+      "icon": "🎲",
+      "summary": "P(not red) = (total − red)/total, or 1 − P(red). Faster than summing the other colours.",
+      "keyFacts": [
+        "Total = 3+4+5 = 12",
+        "Non-red = 4+5 = 9 (or 12−3)",
+        "P = 9/12 = 3/4",
+        "Complement = 1 − 3/12"
+      ],
+      "example": {
+        "problem": "3R,4B,5G; P(non-red)?",
+        "steps": [
+          "Total 12, red 3",
+          "(12−3)/12 = 9/12 = 3/4 → E"
+        ],
+        "answer": "E (3/4)"
+      },
+      "traps": [
+        "Computing P(red)=1/4 and forgetting to take the complement"
+      ],
+      "solveSteps": [
+        "1. P(not X) = 1 − P(X)",
+        "2. Simplify the fraction"
+      ]
+    }
+  },
+  "296": {
+    "hint": "4 outcomes; exactly one head = {HT, TH} → 2/4 = 1/2.",
+    "theory": {
+      "title": "Probability — Exactly One of Two Coins",
+      "icon": "🎲",
+      "summary": "Enumerate the 4 equally likely outcomes; count those with exactly one head.",
+      "keyFacts": [
+        "Sample space: HH, HT, TH, TT (4 outcomes)",
+        "Exactly one head: HT, TH → 2",
+        "P = 2/4 = 1/2",
+        "'Exactly one' excludes HH and TT"
+      ],
+      "example": {
+        "problem": "Two fair coins, P(exactly one head)?",
+        "steps": [
+          "Favorable: HT, TH",
+          "2/4 = 1/2 → C"
+        ],
+        "answer": "C (1/2)"
+      },
+      "traps": [
+        "Counting HH as 'a head' — 'exactly one' means precisely one"
+      ],
+      "solveSteps": [
+        "1. List the 4 outcomes",
+        "2. Count exactly-one-head cases / 4"
+      ]
+    }
+  },
+  "297": {
+    "hint": "4 distinct letters → 4! = 24.",
+    "theory": {
+      "title": "Counting — Permutations of Distinct Letters",
+      "icon": "🔢",
+      "summary": "n distinct letters arrange in n! ways. MATH has 4 different letters → 4!.",
+      "keyFacts": [
+        "Letters M,A,T,H all distinct",
+        "Arrangements = 4! = 24",
+        "No repeated letters → no division",
+        "4! = 4·3·2·1"
+      ],
+      "example": {
+        "problem": "Arrangements of 'MATH'?",
+        "steps": [
+          "4 distinct letters",
+          "4! = 24 → D"
+        ],
+        "answer": "D (24)"
+      },
+      "traps": [
+        "Using 4² or dividing by a repeat that doesn't exist"
+      ],
+      "solveSteps": [
+        "1. Count distinct letters n",
+        "2. n! (divide by repeats if any)"
+      ]
+    }
+  },
+  "298": {
+    "hint": "Order irrelevant → C(7,3) = 35.",
+    "theory": {
+      "title": "Counting — Committee = Combination",
+      "icon": "🔢",
+      "summary": "Choosing a committee doesn't care about order → use C(n,k) = n!/(k!(n−k)!).",
+      "keyFacts": [
+        "C(7,3) = 7!/(3!·4!)",
+        "= (7·6·5)/(3·2·1)",
+        "= 210/6 = 35",
+        "Committee → combination, not permutation"
+      ],
+      "example": {
+        "problem": "Committees of 3 from 7?",
+        "steps": [
+          "C(7,3) = (7·6·5)/6",
+          "= 35 → C"
+        ],
+        "answer": "C (35)"
+      },
+      "traps": [
+        "Using P(7,3)=210 (order doesn't matter for a committee)"
+      ],
+      "solveSteps": [
+        "1. Unordered selection → C(n,k)",
+        "2. Compute n!/(k!(n−k)!)"
+      ]
+    }
+  },
+  "299": {
+    "hint": "Exactly one boy → C(5,1)·C(4,1) = 5·4 = 20.",
+    "theory": {
+      "title": "Counting — Constrained Selection by Type",
+      "icon": "🔢",
+      "summary": "Pick the required number from each group separately and multiply. Exactly one boy + one girl.",
+      "keyFacts": [
+        "Boys: C(5,1) = 5 ways",
+        "Girls: C(4,1) = 4 ways (the other seat must be a girl)",
+        "Total = 5 · 4 = 20",
+        "'Exactly one boy' from a 2-pick → the other is a girl"
+      ],
+      "example": {
+        "problem": "2 students, exactly 1 boy, from 5B/4G?",
+        "steps": [
+          "Boy: 5 choices",
+          "Girl: 4 → 5·4 = 20 → D"
+        ],
+        "answer": "D (20)"
+      },
+      "traps": [
+        "Using C(9,2)=36 (ignores the exactly-one-boy constraint)"
+      ],
+      "solveSteps": [
+        "1. Choose required count from each group",
+        "2. Multiply the group counts"
+      ]
+    }
+  },
+  "300": {
+    "hint": "Var = Σ(dev²)/n = 32/8 = 4 → SD = 2.",
+    "theory": {
+      "title": "Statistics — Standard Deviation From Deviations",
+      "icon": "📊",
+      "summary": "SD = √(mean of squared deviations from the mean). Compute each deviation, square, average, square-root.",
+      "keyFacts": [
+        "Mean = 5; deviations: −3,−1,−1,−1,0,0,2,4",
+        "Squares: 9,1,1,1,0,0,4,16 → sum 32",
+        "Variance = 32/8 = 4",
+        "SD = √4 = 2"
+      ],
+      "example": {
+        "problem": "SD of {2,4,4,4,5,5,7,9}, mean 5?",
+        "steps": [
+          "Σ(dev²) = 32",
+          "Var = 32/8 = 4 → SD = 2 → C"
+        ],
+        "answer": "C (2)"
+      },
+      "traps": [
+        "Reporting the variance 4 instead of its root 2"
+      ],
+      "solveSteps": [
+        "1. Deviations from the mean",
+        "2. Square, average → variance",
+        "3. √variance = SD"
+      ]
+    }
+  },
+  "301": {
+    "hint": "(1) x−y>−2 allows x<y. (2) 2x>2y ⇔ x>y: sufficient. B.",
+    "theory": {
+      "title": "DS — Strict Order From a Clean Inequality",
+      "icon": "📊",
+      "summary": "x−y>−2 permits both x<y and x>y. Dividing 2x>2y by a positive 2 gives x>y directly.",
+      "keyFacts": [
+        "(1) x−y>−2: x−y could be −1 (x<y) or 1 (x>y) → insufficient",
+        "(2) 2x>2y → divide by 2 → x>y: sufficient",
+        "Dividing an inequality by a positive keeps direction",
+        "One sufficient, one not → B"
+      ],
+      "example": {
+        "problem": "Is x>y? (1) x−y>−2 (2) 2x>2y",
+        "steps": [
+          "(1) x−y=−1 → x<y; =1 → x>y: ambiguous → insufficient",
+          "(2) x>y directly: SUFFICIENT",
+          "Only (2) → B"
+        ],
+        "answer": "B"
+      },
+      "traps": [
+        "Reading x−y>−2 as 'x>y' — it allows a negative difference"
+      ],
+      "solveSteps": [
+        "1. Solve each for the x vs y relation",
+        "2. Loose bound = insufficient; exact order = sufficient",
+        "3. → B"
+      ]
+    }
+  },
+  "302": {
+    "hint": "(1) x∈{2,3}. (2) x>2 only. Together → x=3. C.",
+    "theory": {
+      "title": "DS — Quadratic Roots Plus a Filter",
+      "icon": "📊",
+      "summary": "A quadratic gives two candidate roots; an inequality selects one. Neither alone is enough.",
+      "keyFacts": [
+        "(1) x²−5x+6=0 → x=2 or 3: not unique → insufficient",
+        "(2) x>2 alone: infinitely many x → insufficient",
+        "Together: x>2 eliminates 2 → x=3",
+        "Two roots + one filter = unique"
+      ],
+      "example": {
+        "problem": "x? (1) x²−5x+6=0 (2) x>2",
+        "steps": [
+          "(1) {2,3} → insufficient",
+          "(2) any x>2 → insufficient",
+          "Together → x=3 → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Calling (1) sufficient — it yields two values, not one"
+      ],
+      "solveSteps": [
+        "1. Factor for both roots",
+        "2. Apply the inequality filter",
+        "3. One root left → C"
+      ]
+    }
+  },
+  "303": {
+    "hint": "12 = lcm(4,6). (1) gives 4, (2) gives 6 — need both → C.",
+    "theory": {
+      "title": "DS — Divisible by 12 via lcm(4,6)",
+      "icon": "📊",
+      "summary": "Divisible by 4 and by 6 means divisible by lcm(4,6)=12 (not 24, since they share a factor 2). Neither alone suffices.",
+      "keyFacts": [
+        "(1) 4|n: n=4 → not div 12 → insufficient",
+        "(2) 6|n: n=6 → not div 12 → insufficient",
+        "lcm(4,6) = 12 (shared factor 2 → not 24)",
+        "Together → 12|n → YES"
+      ],
+      "example": {
+        "problem": "Is n divisible by 12? (1) 4|n (2) 6|n",
+        "steps": [
+          "(1) n=4 counterexample → insufficient",
+          "(2) n=6 counterexample → insufficient",
+          "Together → lcm=12 → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Using 4·6=24 as the combined requirement (overcounts the shared 2)"
+      ],
+      "solveSteps": [
+        "1. Each statement alone: counterexample",
+        "2. Combined ⇒ lcm of the divisors",
+        "3. → C"
+      ]
+    }
+  },
+  "304": {
+    "hint": "(1) exactly 2 divisors = definition of prime. (2) standard primality test. Each alone → D.",
+    "theory": {
+      "title": "DS — Two Equivalent Primality Criteria",
+      "icon": "📊",
+      "summary": "Both statements are independently valid definitions/tests of primality, so each is sufficient.",
+      "keyFacts": [
+        "(1) exactly two positive divisors (1 and itself) = the definition of prime: sufficient",
+        "(2) p>1 with no divisor in [2,√p] = the standard primality test: sufficient",
+        "Each fully decides 'is p prime?'",
+        "Independent → D"
+      ],
+      "example": {
+        "problem": "Is p prime? (1) exactly 2 divisors (2) p>1, no factor in [2,√p]",
+        "steps": [
+          "(1) = definition → SUFFICIENT",
+          "(2) = trial-division test → SUFFICIENT",
+          "Each alone → D"
+        ],
+        "answer": "D"
+      },
+      "traps": [
+        "Thinking the √p test needs (1) to confirm — it is self-contained for p>1"
+      ],
+      "solveSteps": [
+        "1. Recognize each as a complete primality criterion",
+        "2. Each alone decides → D"
+      ]
+    }
+  },
+  "305": {
+    "hint": "(1) Pythagoras converse → A right. (2) BC=5 hypotenuse of 3-4-5 → A right. Each alone → D.",
+    "theory": {
+      "title": "DS — Right Angle at A: Two Routes",
+      "icon": "📊",
+      "summary": "AB²+AC²=BC² means the angle opposite BC (angle A) is right. The 3-4-5 with BC=5 as hypotenuse says the same.",
+      "keyFacts": [
+        "(1) AB²+AC²=BC² → by Pythagoras converse, angle A (opposite BC) = 90°: sufficient",
+        "(2) sides 3,4,5 with BC=5 → 5 is the hypotenuse → right angle opposite it = A: sufficient",
+        "Right angle is opposite the longest side",
+        "Each alone → D"
+      ],
+      "example": {
+        "problem": "Is angle A right? (1) AB²+AC²=BC² (2) 3-4-5 with BC=5",
+        "steps": [
+          "(1) converse of Pythagoras → A=90°: SUFFICIENT",
+          "(2) hypotenuse BC → right angle at A: SUFFICIENT",
+          "Each alone → D"
+        ],
+        "answer": "D"
+      },
+      "traps": [
+        "Placing the right angle at the wrong vertex (it's opposite the hypotenuse BC, i.e. at A)"
+      ],
+      "solveSteps": [
+        "1. Right angle is opposite the side in c² of a²+b²=c²",
+        "2. Each statement identifies that as angle A → D"
+      ]
+    }
+  },
+  "306": {
+    "hint": "(1) C=10π→r=5. (2) chord 8 at dist 3 → r=√(4²+3²)=5. Each → area 25π → D.",
+    "theory": {
+      "title": "DS — Radius From Circumference or Chord Geometry",
+      "icon": "📊",
+      "summary": "Area needs r. Circumference gives r directly; a chord with its distance from center gives r via the right triangle (half-chord, distance, radius).",
+      "keyFacts": [
+        "(1) 2πr=10π → r=5 → area 25π: sufficient",
+        "(2) half-chord 4, distance 3 → r=√(4²+3²)=5 → area 25π: sufficient",
+        "Perpendicular from center bisects the chord",
+        "Each alone → D"
+      ],
+      "example": {
+        "problem": "Area? (1) C=10π (2) chord 8 at distance 3 from O",
+        "steps": [
+          "(1) r=5 → 25π: SUFFICIENT",
+          "(2) r=√(16+9)=5 → 25π: SUFFICIENT",
+          "Each alone → D"
+        ],
+        "answer": "D"
+      },
+      "traps": [
+        "Using the full chord 8 (not half = 4) in the radius right triangle"
+      ],
+      "solveSteps": [
+        "1. Circumference → r",
+        "2. Chord: r² = (half-chord)² + (distance)²",
+        "3. Each gives area → D"
+      ]
+    }
+  },
+  "307": {
+    "hint": "x²>x ⇔ x<0 or x>1. (1) x>1 → yes. (2) x<0 → yes. Each alone → D.",
+    "theory": {
+      "title": "DS — Solve the Inequality, Match Each Statement",
+      "icon": "📊",
+      "summary": "x²>x ⇔ x(x−1)>0 ⇔ x<0 OR x>1. Any statement landing entirely inside that solution set is sufficient.",
+      "keyFacts": [
+        "x²>x ⇔ x<0 or x>1 (NOT 0≤x≤1)",
+        "(1) x>1: fully inside → always yes: sufficient",
+        "(2) x<0: fully inside → always yes: sufficient",
+        "Each region independently answers YES → D"
+      ],
+      "example": {
+        "problem": "Is x²>x? (1) x>1 (2) x<0",
+        "steps": [
+          "Solve: x<0 or x>1",
+          "(1) ⊂ solution → YES; (2) ⊂ solution → YES",
+          "Each alone → D"
+        ],
+        "answer": "D"
+      },
+      "traps": [
+        "Assuming x²>x always (false for 0<x<1, e.g. 0.5²=0.25<0.5)"
+      ],
+      "solveSteps": [
+        "1. Solve x²>x → x<0 or x>1",
+        "2. Check each statement ⊆ solution set",
+        "3. Both → D"
+      ]
+    }
+  },
+  "308": {
+    "hint": "Round-trip avg = harmonic mean = 2·60·40/(60+40)=48. Need BOTH legs → C.",
+    "theory": {
+      "title": "DS — Round-Trip Average Speed (Harmonic)",
+      "icon": "📊",
+      "summary": "Equal distances each way → average speed is the harmonic mean of the two speeds, requiring both.",
+      "keyFacts": [
+        "(1) going 60 only: return speed unknown → insufficient",
+        "(2) return 40 only: going speed unknown → insufficient",
+        "Together: 2·60·40/(60+40) = 4800/100 = 48 mph",
+        "NOT the arithmetic mean (50) — equal distance, unequal time"
+      ],
+      "example": {
+        "problem": "Round-trip avg speed? (1) go 60 (2) return 40",
+        "steps": [
+          "Each alone: one leg unknown → insufficient",
+          "Together: harmonic mean = 48 → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Thinking one speed + 'same distance' is enough — both speeds are needed"
+      ],
+      "solveSteps": [
+        "1. Round trip, equal distance → harmonic mean",
+        "2. Need both speeds → C"
+      ]
+    }
+  },
+  "309": {
+    "hint": "Together time needs both rates: 1/6+1/12=1/4 → 4 h. Need both → C.",
+    "theory": {
+      "title": "DS — Combined Work Needs Both Solo Times",
+      "icon": "📊",
+      "summary": "Combined rate = sum of individual rates. One solo time alone can't give the joint time.",
+      "keyFacts": [
+        "(1) A=6h → rate 1/6, B unknown → insufficient",
+        "(2) B=12h → rate 1/12, A unknown → insufficient",
+        "Together: 1/6 + 1/12 = 1/4 → 4 h",
+        "Joint time needs both rates"
+      ],
+      "example": {
+        "problem": "A&B together? (1) A 6h (2) B 12h",
+        "steps": [
+          "Each alone: one rate missing → insufficient",
+          "Together: 1/4 → 4 h → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Averaging the two times (9 h) instead of summing rates"
+      ],
+      "solveSteps": [
+        "1. Combined rate = Σ(1/timeᵢ)",
+        "2. Need every solo time",
+        "3. → C"
+      ]
+    }
+  },
+  "310": {
+    "hint": "(2) = 2×(1): redundant. One equation, two unknowns → x+y not fixed. E.",
+    "theory": {
+      "title": "DS — Redundant Equation Trap",
+      "icon": "📊",
+      "summary": "When statement (2) is just a scalar multiple of (1), it adds zero information. One equation in two unknowns cannot pin x+y.",
+      "keyFacts": [
+        "(1) 2x+3y=13: one equation, two unknowns → x+y varies → insufficient",
+        "(2) 4x+6y=26 = 2·(1): same line → insufficient",
+        "Together still one independent equation → insufficient",
+        "(5,1)→sum 6; (2,3)→sum 5: x+y not determined → E"
+      ],
+      "example": {
+        "problem": "x+y? (1) 2x+3y=13 (2) 4x+6y=26",
+        "steps": [
+          "(2) is 2×(1) → no new info",
+          "One equation, two unknowns → x+y varies",
+          "→ E"
+        ],
+        "answer": "E"
+      },
+      "traps": [
+        "Marking C assuming 'two equations' — they are the same line"
+      ],
+      "solveSteps": [
+        "1. Check if (2) is a multiple of (1)",
+        "2. If yes → only one independent equation",
+        "3. Two unknowns, one equation → E"
+      ]
+    }
   }
 };
 
