@@ -3514,6 +3514,646 @@ const QUESTION_THEORIES = {
         "3. Combine → C"
       ]
     }
+  },
+  "111": {
+    "hint": "Angle needs 2 of 3 angles. Each statement gives only one → neither alone; together C.",
+    "theory": {
+      "title": "DS — Triangle Angle Needs Two Knowns",
+      "icon": "📊",
+      "summary": "Angle A = 180 − B − C. One angle alone leaves A undetermined; both angles together fix it → C.",
+      "keyFacts": [
+        "A = 180 − B − C (need both B and C)",
+        "(1) B=50 only: A unknown",
+        "(2) C=70 only: A unknown",
+        "Together: A = 60 → C"
+      ],
+      "example": {
+        "problem": "Angle A? (1) B=50 (2) C=70",
+        "steps": [
+          "(1) alone: INSUFFICIENT",
+          "(2) alone: INSUFFICIENT",
+          "Together: 180−50−70=60 → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Picking D (one angle is never enough)",
+        "Assuming an unstated isosceles/equilateral"
+      ],
+      "solveSteps": [
+        "1. Note A needs the other two angles",
+        "2. Each alone gives one → insufficient",
+        "3. Together sufficient → C"
+      ]
+    }
+  },
+  "112": {
+    "hint": "Area=LW. (1) L+W=10, (2) L²+W²=50. 2LW=(L+W)²−(L²+W²) → LW from BOTH → C.",
+    "theory": {
+      "title": "DS — Recover a Product via the Square Identity",
+      "icon": "📊",
+      "summary": "Neither perimeter nor diagonal alone gives area, but together (L+W)²−(L²+W²)=2LW yields the product → C.",
+      "keyFacts": [
+        "(1) L+W=10 alone: LW not fixed",
+        "(2) L²+W²=50 alone: LW not fixed",
+        "(L+W)² = L²+2LW+W² → 100 = 50 + 2LW",
+        "LW = 25 (area) → C"
+      ],
+      "example": {
+        "problem": "Rect area? (1) perim 20 (2) diag √50",
+        "steps": [
+          "(1) L+W=10; (2) L²+W²=50",
+          "2LW = 100−50 = 50",
+          "LW=25 → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Thinking perimeter alone gives area",
+        "Choosing E despite the identity working"
+      ],
+      "solveSteps": [
+        "1. Each alone: area not determined",
+        "2. Combine via (L+W)²−(L²+W²)=2LW",
+        "3. Sufficient together → C"
+      ]
+    }
+  },
+  "113": {
+    "hint": "Diameter OR circumference each → r=5 → area. Each alone sufficient → D.",
+    "theory": {
+      "title": "DS — Each Statement Independently Fixes the Circle",
+      "icon": "📊",
+      "summary": "Any single circle measure (d, C, or r) determines all others, hence the area. Two independent sufficient statements → D.",
+      "keyFacts": [
+        "d=10 → r=5 → A=25π",
+        "C=10π → r=5 → A=25π",
+        "Either alone is enough",
+        "Two-alone-sufficient → answer D"
+      ],
+      "example": {
+        "problem": "Circle area? (1) d=10 (2) C=10π",
+        "steps": [
+          "(1) r=5 → 25π: SUFFICIENT",
+          "(2) r=5 → 25π: SUFFICIENT",
+          "Each alone → D"
+        ],
+        "answer": "D"
+      },
+      "traps": [
+        "Picking C (each works alone → D, not C)",
+        "Doubting that C alone gives r"
+      ],
+      "solveSteps": [
+        "1. Does (1) alone fix r? Yes",
+        "2. Does (2) alone fix r? Yes",
+        "3. Both alone → D"
+      ]
+    }
+  },
+  "114": {
+    "hint": "Average = sum/3. (1) sum=30 → avg 10 alone. (2) one value only. Answer A.",
+    "theory": {
+      "title": "DS — Mean Needs the Sum, Not Each Value",
+      "icon": "📊",
+      "summary": "Average of n values needs only their total. A statement giving the sum is sufficient; one individual value is not.",
+      "keyFacts": [
+        "avg = (x+y+z)/3",
+        "(1) sum=30 → avg=10: SUFFICIENT",
+        "(2) x=10 only: y,z unknown: INSUFFICIENT",
+        "Sum suffices; pieces don't"
+      ],
+      "example": {
+        "problem": "Avg of x,y,z? (1) sum=30 (2) x=10",
+        "steps": [
+          "(1) 30/3 = 10: SUFFICIENT",
+          "(2) one value: INSUFFICIENT",
+          "Answer A"
+        ],
+        "answer": "A"
+      },
+      "traps": [
+        "Thinking you need each of x,y,z",
+        "Calling (2) helpful enough"
+      ],
+      "solveSteps": [
+        "1. Mean needs the sum",
+        "2. (1) gives sum → sufficient",
+        "3. (2) partial → A"
+      ]
+    }
+  },
+  "115": {
+    "hint": "Speed = dist/time. Each gives one of the two → neither alone; together C.",
+    "theory": {
+      "title": "DS — Rate Requires Both Distance and Time",
+      "icon": "📊",
+      "summary": "speed = distance/time. Time alone or distance alone can't give speed; both together → C.",
+      "keyFacts": [
+        "speed = d / t (need both)",
+        "(1) t=4 only: speed unknown",
+        "(2) d=240 only: speed unknown",
+        "Together 240/4 = 60 mph → C"
+      ],
+      "example": {
+        "problem": "Speed? (1) 4 hr (2) 240 mi",
+        "steps": [
+          "(1) alone: INSUFFICIENT",
+          "(2) alone: INSUFFICIENT",
+          "240/4 = 60 → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Assuming a 'typical' speed",
+        "Picking D"
+      ],
+      "solveSteps": [
+        "1. speed needs d and t",
+        "2. Each alone gives one",
+        "3. Together → C"
+      ]
+    }
+  },
+  "116": {
+    "hint": "New% = acid / new total. Need acid amount (orig volume) AND water added → C.",
+    "theory": {
+      "title": "DS — Dilution Needs Both Volumes",
+      "icon": "📊",
+      "summary": "New concentration = (original acid) / (original + added). You need original volume (to get acid) and the water added → both → C.",
+      "keyFacts": [
+        "acid = 0.30 · original volume",
+        "new% = acid / (original + water)",
+        "(1) original 50 only — water unknown",
+        "(2) water 25 only — acid amount unknown; together 15/75=20% → C"
+      ],
+      "example": {
+        "problem": "New % acid? (1) orig 50L (2) +25L water",
+        "steps": [
+          "(1) alone: final total unknown",
+          "(2) alone: acid quantity unknown",
+          "Together: 15/75 = 20% → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Thinking 30% lets you skip volumes",
+        "Choosing A or B"
+      ],
+      "solveSteps": [
+        "1. Identify acid amount needs original volume",
+        "2. New total needs added water",
+        "3. Both → C"
+      ]
+    }
+  },
+  "117": {
+    "hint": "Both 5x=25 and x−5=0 give x=5 uniquely. Each alone sufficient → D.",
+    "theory": {
+      "title": "DS — Two Independent Equations, Same Unknown",
+      "icon": "📊",
+      "summary": "Each statement is its own solvable one-variable equation giving x=5. Two-alone-sufficient → D.",
+      "keyFacts": [
+        "(1) 5x=25 → x=5: sufficient",
+        "(2) x−5=0 → x=5: sufficient",
+        "They agree, but agreement isn't required for D",
+        "Each alone solves → D"
+      ],
+      "example": {
+        "problem": "x? (1) 5x=25 (2) x−5=0",
+        "steps": [
+          "(1) x=5: SUFFICIENT",
+          "(2) x=5: SUFFICIENT",
+          "Each alone → D"
+        ],
+        "answer": "D"
+      },
+      "traps": [
+        "Picking C (redundant, but each alone works → D)",
+        "Overthinking identical answers"
+      ],
+      "solveSteps": [
+        "1. Solve (1) alone",
+        "2. Solve (2) alone",
+        "3. Both unique → D"
+      ]
+    }
+  },
+  "118": {
+    "hint": "Find a counterexample. 23 (prime) vs 25 (not) in 20–30; odd 21 vs 23 → E.",
+    "theory": {
+      "title": "DS — Disprove Sufficiency with Counterexamples",
+      "icon": "📊",
+      "summary": "To show a statement insufficient for a yes/no, exhibit one YES and one NO case. Both together still split → E.",
+      "keyFacts": [
+        "(1) 20–30: 23 prime, 25 not → INSUFFICIENT",
+        "(2) odd: 23 prime, 21 not → INSUFFICIENT",
+        "Together odd in 20–30: 23 prime, 25 not → still split",
+        "Mixed yes/no even combined → E"
+      ],
+      "example": {
+        "problem": "N prime? (1) 20<N<30 (2) N odd",
+        "steps": [
+          "(1) 23 vs 25: both possible",
+          "(2) 23 vs 21: both possible",
+          "Together 23 vs 25 → E"
+        ],
+        "answer": "E"
+      },
+      "traps": [
+        "Assuming a range narrows to one prime",
+        "Stopping at C without testing combined"
+      ],
+      "solveSteps": [
+        "1. Seek yes & no example for (1)",
+        "2. Same for (2)",
+        "3. Test combined; still split → E"
+      ]
+    }
+  },
+  "119": {
+    "hint": "xy>0 ? (1) x+y>0 allows xy<0 (5,−1). (2) xyz>0 & z>0 ⇒ xy>0. Answer B.",
+    "theory": {
+      "title": "DS — Sign of a Product",
+      "icon": "📊",
+      "summary": "Sum sign doesn't fix product sign. But dividing a positive product by a positive factor keeps it positive: xyz>0, z>0 ⇒ xy>0.",
+      "keyFacts": [
+        "(1) x+y>0: (5,−1)→xy<0, (2,3)→xy>0: INSUFFICIENT",
+        "(2) xyz>0 and z>0 → xy = xyz/z > 0: SUFFICIENT",
+        "Sum sign ≠ product sign",
+        "Divide out a known-positive factor"
+      ],
+      "example": {
+        "problem": "xy>0? (1) x+y>0 (2) xyz>0,z>0",
+        "steps": [
+          "(1) counterexamples → INSUFFICIENT",
+          "(2) xy = xyz/z > 0 → SUFFICIENT",
+          "Answer B"
+        ],
+        "answer": "B"
+      },
+      "traps": [
+        "Reading x+y>0 as xy>0",
+        "Missing that z>0 lets you isolate xy"
+      ],
+      "solveSteps": [
+        "1. Counterexample-test (1)",
+        "2. Use z>0 to deduce xy sign in (2)",
+        "3. Decide"
+      ]
+    }
+  },
+  "120": {
+    "hint": "Through origin? slope alone no; point alone no; together y=2x → yes. C.",
+    "theory": {
+      "title": "DS — Pin a Line with Slope + a Point",
+      "icon": "📊",
+      "summary": "A line needs slope AND a point to be unique. Slope 2 through (3,6) → y=2x, which passes through (0,0) → C.",
+      "keyFacts": [
+        "(1) slope 2 only: infinitely many parallel lines",
+        "(2) point (3,6) only: infinitely many slopes",
+        "Together: y−6=2(x−3) → y=2x → through origin",
+        "Unique line → answer C"
+      ],
+      "example": {
+        "problem": "Through origin? (1) slope 2 (2) thru (3,6)",
+        "steps": [
+          "Each alone: INSUFFICIENT",
+          "Together: y=2x",
+          "(0,0) on it → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Thinking a point alone determines the line",
+        "Not finishing the y=2x check"
+      ],
+      "solveSteps": [
+        "1. Slope alone / point alone insufficient",
+        "2. Combine → line equation",
+        "3. Test origin → C"
+      ]
+    }
+  },
+  "121": {
+    "hint": "Range = max − min. Need BOTH extremes; each alone gives one → C.",
+    "theory": {
+      "title": "DS — Range Needs Both Extremes",
+      "icon": "📊",
+      "summary": "Range = max − min. A single extreme is not enough; both together → C.",
+      "keyFacts": [
+        "Range = max − min",
+        "(1) max=80 only: min unknown",
+        "(2) min=12 only: max unknown",
+        "Together 80−12=68 → C"
+      ],
+      "example": {
+        "problem": "Range of 7? (1) max=80 (2) min=12",
+        "steps": [
+          "(1) alone: INSUFFICIENT",
+          "(2) alone: INSUFFICIENT",
+          "80−12=68 → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Thinking the other 5 numbers matter (they don't for range)",
+        "Picking D"
+      ],
+      "solveSteps": [
+        "1. Range needs max and min",
+        "2. Each gives one extreme",
+        "3. Together → C"
+      ]
+    }
+  },
+  "122": {
+    "hint": "P(red) needs the RATIO, not the count. (2) 2:1 → 2/3 alone. (1) count only. Answer B.",
+    "theory": {
+      "title": "DS — Probability Needs a Ratio, Not a Count",
+      "icon": "📊",
+      "summary": "P(red)=red/total. The number of reds alone is useless without blue; a ratio fixes the probability directly.",
+      "keyFacts": [
+        "P(red) = red/(red+blue)",
+        "(1) red=8 only: total unknown — INSUFFICIENT",
+        "(2) red = 2·blue → P = 2/3 regardless of size — SUFFICIENT",
+        "Ratios determine probabilities; raw counts often don't"
+      ],
+      "example": {
+        "problem": "P(red)? (1) red=8 (2) red=2·blue",
+        "steps": [
+          "(1) total unknown: INSUFFICIENT",
+          "(2) 2:1 → 2/3: SUFFICIENT",
+          "Answer B"
+        ],
+        "answer": "B"
+      },
+      "traps": [
+        "Thinking 8 reds is enough",
+        "Needing absolute counts when a ratio suffices"
+      ],
+      "solveSteps": [
+        "1. P needs red:total relation",
+        "2. Count alone misses total",
+        "3. Ratio gives P → B"
+      ]
+    }
+  },
+  "123": {
+    "hint": "John's age needs sister's age AND the relation. Each alone misses one → C.",
+    "theory": {
+      "title": "DS — Age Problem Needs Relation + Anchor",
+      "icon": "📊",
+      "summary": "A ratio/relation needs a concrete anchor value to pin an age. The relation alone or the anchor alone is insufficient; together → C.",
+      "keyFacts": [
+        "(1) relation only (no sister's age): can't fix John",
+        "(2) sister now 10 only: no relation to John",
+        "Together: 5yr ago sister 5 → John 10 then → 15 now",
+        "Relation + anchor → unique"
+      ],
+      "example": {
+        "problem": "John's age? (1) 5yr ago John=2×sister (2) sister now 10",
+        "steps": [
+          "Each alone: INSUFFICIENT",
+          "Sister 5yr ago = 5; John then 10",
+          "John now 15 → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Thinking the relation alone solves it",
+        "Not shifting both ages by 5 years"
+      ],
+      "solveSteps": [
+        "1. Relation alone underdetermined",
+        "2. Anchor alone underdetermined",
+        "3. Combine, shift years → C"
+      ]
+    }
+  },
+  "124": {
+    "hint": "2^x·3^y needs both x and y. Each statement gives one → C.",
+    "theory": {
+      "title": "DS — Expression with Two Independent Unknowns",
+      "icon": "📊",
+      "summary": "2^x·3^y has two free variables. Fixing only x or only y leaves it variable; both → C.",
+      "keyFacts": [
+        "Two independent unknowns x and y",
+        "(1) x=2 only: y free",
+        "(2) y=3 only: x free",
+        "Together 4·27=108 → C"
+      ],
+      "example": {
+        "problem": "2^x·3^y? (1) x=2 (2) y=3",
+        "steps": [
+          "(1) alone: INSUFFICIENT",
+          "(2) alone: INSUFFICIENT",
+          "4·27=108 → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Assuming a default for the missing variable",
+        "Picking A or B"
+      ],
+      "solveSteps": [
+        "1. Count independent unknowns (2)",
+        "2. Each statement fixes one",
+        "3. Both needed → C"
+      ]
+    }
+  },
+  "125": {
+    "hint": "(a+b)/c needs numerator AND denominator. Each gives one → C.",
+    "theory": {
+      "title": "DS — Fraction Needs Numerator and Denominator",
+      "icon": "📊",
+      "summary": "A quotient requires both its top and bottom. One statement gives a+b, the other c; only together is the value fixed → C.",
+      "keyFacts": [
+        "Value = (a+b)/c",
+        "(1) a+b=12 only: c unknown",
+        "(2) c=4 only: a+b unknown",
+        "Together 12/4=3 → C"
+      ],
+      "example": {
+        "problem": "(a+b)/c? (1) a+b=12 (2) c=4",
+        "steps": [
+          "Each alone: INSUFFICIENT",
+          "12/4 = 3",
+          "→ C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Thinking a+b alone determines the ratio",
+        "Dividing by an assumed c"
+      ],
+      "solveSteps": [
+        "1. Need numerator and denominator",
+        "2. Each supplies one",
+        "3. Together → C"
+      ]
+    }
+  },
+  "126": {
+    "hint": "Work-rate: 1/A = 1/4 − 1/6. Need combined time AND Bob's time → C.",
+    "theory": {
+      "title": "DS — Work Rates Add",
+      "icon": "📊",
+      "summary": "Rates add: 1/together = 1/A + 1/B. Knowing the combined time and one solo time isolates the other → C.",
+      "keyFacts": [
+        "1/4 = 1/A + 1/B",
+        "(1) combined 4h only: A,B both unknown",
+        "(2) Bob 6h only: combined unknown",
+        "Together: 1/A = 1/4 − 1/6 = 1/12 → A=12 → C"
+      ],
+      "example": {
+        "problem": "Alice alone? (1) together 4h (2) Bob 6h",
+        "steps": [
+          "Each alone: INSUFFICIENT",
+          "1/A = 1/4 − 1/6 = 1/12",
+          "A = 12 → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Adding times (4+6) instead of rates",
+        "Picking A or B"
+      ],
+      "solveSteps": [
+        "1. Write 1/together = 1/A + 1/B",
+        "2. Need two of three to isolate A",
+        "3. Both → C"
+      ]
+    }
+  },
+  "127": {
+    "hint": "Right? (1) AB²+BC²=AC² IS the Pythagorean converse → right at B: sufficient. (2) isosceles only. A.",
+    "theory": {
+      "title": "DS — Pythagorean Converse Proves Right Angle",
+      "icon": "📊",
+      "summary": "If the sides satisfy a²+b²=c², the triangle is right (converse of Pythagoras) — sufficient. Equal sides only means isosceles, not right.",
+      "keyFacts": [
+        "(1) AB²+BC²=AC² → right angle at B: SUFFICIENT",
+        "(2) AB=BC → isosceles, may or may not be right: INSUFFICIENT",
+        "Converse of Pythagoras is a valid sufficiency tool",
+        "One sufficient, one not → A"
+      ],
+      "example": {
+        "problem": "Right triangle? (1) AB²+BC²=AC² (2) AB=BC",
+        "steps": [
+          "(1) Pythagorean converse → right: SUFFICIENT",
+          "(2) isosceles only: INSUFFICIENT",
+          "Answer A"
+        ],
+        "answer": "A"
+      },
+      "traps": [
+        "Thinking isosceles implies right",
+        "Doubting the converse holds"
+      ],
+      "solveSteps": [
+        "1. (1): does it match a²+b²=c²? → right",
+        "2. (2): equal sides ≠ right",
+        "3. A"
+      ]
+    }
+  },
+  "128": {
+    "hint": "60% female → males are 40%. (1) 30 males =40% → total 75. (2) 45 fem=60% → 75. Each → D.",
+    "theory": {
+      "title": "DS — Known Percent Lets One Count Give the Total",
+      "icon": "📊",
+      "summary": "With the percentage fixed, ANY single subgroup count back-solves the total. Both statements independently do this → D.",
+      "keyFacts": [
+        "Female 60% → male 40%",
+        "(1) 30 male = 40% → total 75: SUFFICIENT",
+        "(2) 45 female = 60% → total 75: SUFFICIENT",
+        "Each alone fixes total → D"
+      ],
+      "example": {
+        "problem": "Total? 60% female. (1) 30 male (2) 45 female",
+        "steps": [
+          "(1) 30/0.40 = 75: SUFFICIENT",
+          "(2) 45/0.60 = 75: SUFFICIENT",
+          "Each alone → D"
+        ],
+        "answer": "D"
+      },
+      "traps": [
+        "Picking C (each works alone → D)",
+        "Forgetting male share = 100−60"
+      ],
+      "solveSteps": [
+        "1. Use the fixed percent",
+        "2. Each count back-solves total",
+        "3. Both alone → D"
+      ]
+    }
+  },
+  "129": {
+    "hint": "x from x+y=7 needs y. Each alone gives one equation/value → together C.",
+    "theory": {
+      "title": "DS — Two Unknowns Need Two Facts",
+      "icon": "📊",
+      "summary": "One equation in x and y can't fix x; pairing it with y's value does → C.",
+      "keyFacts": [
+        "(1) x+y=7: one equation, two unknowns",
+        "(2) y=3 only: x free",
+        "Together x = 7−3 = 4",
+        "2 unknowns → need 2 independent facts"
+      ],
+      "example": {
+        "problem": "x? (1) x+y=7 (2) y=3",
+        "steps": [
+          "Each alone: INSUFFICIENT",
+          "x = 7 − 3 = 4",
+          "→ C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Treating x+y=7 as giving x",
+        "Picking A"
+      ],
+      "solveSteps": [
+        "1. Count unknowns vs equations",
+        "2. Need 2 independent facts",
+        "3. Together → C"
+      ]
+    }
+  },
+  "130": {
+    "hint": "Square needs equal sides AND right angles. (1)=rhombus, (2)=rectangle; together → square. C.",
+    "theory": {
+      "title": "DS — Square = Rhombus + Rectangle",
+      "icon": "📊",
+      "summary": "Equal sides alone → rhombus (not necessarily square). Right angles alone → rectangle. Both conditions together force a square → C.",
+      "keyFacts": [
+        "(1) 4 equal sides → rhombus (could be non-square)",
+        "(2) 4 right angles → rectangle (could be non-square)",
+        "Square = equilateral AND equiangular",
+        "Both together → square → C"
+      ],
+      "example": {
+        "problem": "Square? (1) sides equal (2) angles 90°",
+        "steps": [
+          "(1) rhombus possible: INSUFFICIENT",
+          "(2) rectangle possible: INSUFFICIENT",
+          "Together → square → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Thinking equal sides ⇒ square",
+        "Thinking right angles ⇒ square"
+      ],
+      "solveSteps": [
+        "1. Equal sides → rhombus only",
+        "2. Right angles → rectangle only",
+        "3. Both → square → C"
+      ]
+    }
   }
 };
 
