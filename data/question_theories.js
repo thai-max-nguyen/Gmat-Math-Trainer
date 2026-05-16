@@ -2877,6 +2877,643 @@ const QUESTION_THEORIES = {
         "3. Simplify"
       ]
     }
+  },
+  "91": {
+    "hint": "“At least 2 women” → easier as TOTAL − (0 women) − (1 woman). C(10,5) − C(6,5) − C(4,1)C(6,4).",
+    "theory": {
+      "title": "Combinations — Complement for 'At Least'",
+      "icon": "🔢",
+      "summary": "“At least k” over many cases is faster as total minus the few forbidden cases (0 and 1 here).",
+      "keyFacts": [
+        "Total ways = C(10,5) = 252",
+        "0 women = C(6,5) = 6",
+        "1 woman = C(4,1)·C(6,4) = 4·15 = 60",
+        "≥2 women = 252 − 6 − 60 = 186"
+      ],
+      "example": {
+        "problem": "Committee 5 from 6M+4W, ≥2 women.",
+        "steps": [
+          "All: C(10,5) = 252",
+          "Forbidden: 0W(6) + 1W(60) = 66",
+          "252 − 66 = 186"
+        ],
+        "answer": "186"
+      },
+      "traps": [
+        "Summing exactly-2,3,4 with arithmetic slips",
+        "Forgetting the 1-woman case in the complement"
+      ],
+      "solveSteps": [
+        "1. Total unrestricted",
+        "2. Subtract the 'too few' cases",
+        "3. Remainder = at-least count"
+      ]
+    }
+  },
+  "92": {
+    "hint": "Exactly 1 woman = (choose 1 of 4 women)·(choose 2 of 5 men) = C(4,1)·C(5,2).",
+    "theory": {
+      "title": "Combinations — Exact Composition (Multiply Groups)",
+      "icon": "🔢",
+      "summary": "Pick the required count from each group separately, then multiply the per-group counts.",
+      "keyFacts": [
+        "Independent selections → multiply",
+        "Women: C(4,1) = 4",
+        "Men: C(5,2) = 10",
+        "4 · 10 = 40"
+      ],
+      "example": {
+        "problem": "Team of 3 from 5M+4W, exactly 1 woman.",
+        "steps": [
+          "1 woman: C(4,1) = 4",
+          "2 men: C(5,2) = 10",
+          "4·10 = 40"
+        ],
+        "answer": "40"
+      },
+      "traps": [
+        "Adding instead of multiplying the groups",
+        "Choosing 2 women (mis-reading 'exactly 1')"
+      ],
+      "solveSteps": [
+        "1. Decide count from each group",
+        "2. Combination per group",
+        "3. Multiply"
+      ]
+    }
+  },
+  "93": {
+    "hint": "P = favorable / total = 1/6.",
+    "theory": {
+      "title": "Basic Probability",
+      "icon": "🎲",
+      "summary": "For equally likely outcomes, probability = favorable outcomes ÷ total outcomes.",
+      "keyFacts": [
+        "P(event) = favorable / total",
+        "Fair die: 6 equally likely faces",
+        "One face = 5 → 1/6",
+        "0 ≤ P ≤ 1"
+      ],
+      "example": {
+        "problem": "P(rolling a 5 on a fair die)",
+        "steps": [
+          "Favorable = 1 (the face 5)",
+          "Total = 6",
+          "1/6"
+        ],
+        "answer": "1/6"
+      },
+      "traps": [
+        "Using 5/6 (confusing the face value with probability)",
+        "Forgetting all 6 faces are equally likely"
+      ],
+      "solveSteps": [
+        "1. Count favorable",
+        "2. Count total equally-likely",
+        "3. Divide"
+      ]
+    }
+  },
+  "94": {
+    "hint": "Independent events → multiply. P(HH) = ½·½ = ¼.",
+    "theory": {
+      "title": "Independent Events — Multiply",
+      "icon": "🎲",
+      "summary": "If events don't affect each other, P(both) = P(A)·P(B).",
+      "keyFacts": [
+        "Independent: P(A and B) = P(A)·P(B)",
+        "Coin: P(H) = ½ each flip",
+        "½ · ½ = ¼",
+        "List check: HH,HT,TH,TT → 1/4 are HH"
+      ],
+      "example": {
+        "problem": "Two coins, P(both heads)?",
+        "steps": [
+          "P(H)=½, P(H)=½",
+          "½·½ = ¼"
+        ],
+        "answer": "1/4"
+      },
+      "traps": [
+        "Adding ½+½ = 1",
+        "Using 1/3 (ignoring HT≠TH)"
+      ],
+      "solveSteps": [
+        "1. Confirm independence",
+        "2. Multiply the probabilities",
+        "3. Simplify"
+      ]
+    }
+  },
+  "95": {
+    "hint": "Without replacement → denominator shrinks. P = (3/8)·(2/7) = 3/28.",
+    "theory": {
+      "title": "Dependent Draws (Without Replacement)",
+      "icon": "🎲",
+      "summary": "Each draw changes the pool. Multiply sequential probabilities, updating both favorable and total counts.",
+      "keyFacts": [
+        "1st red: 3/8",
+        "2nd red: 2/7 (one red and one total gone)",
+        "(3/8)·(2/7) = 6/56 = 3/28",
+        "Without replacement → counts decrease"
+      ],
+      "example": {
+        "problem": "3R/5B, draw 2 no replace, P(both red)?",
+        "steps": [
+          "P(1st R) = 3/8",
+          "P(2nd R | R) = 2/7",
+          "6/56 = 3/28"
+        ],
+        "answer": "3/28"
+      },
+      "traps": [
+        "Keeping 3/8·3/8 (that's with replacement)",
+        "Not reducing total from 8 to 7"
+      ],
+      "solveSteps": [
+        "1. P(first)",
+        "2. P(second) with pool reduced",
+        "3. Multiply, simplify"
+      ]
+    }
+  },
+  "96": {
+    "hint": "“At least one” → 1 − P(none). 1 − (½)³ = 7/8.",
+    "theory": {
+      "title": "Complement Rule — 'At Least One'",
+      "icon": "🎲",
+      "summary": "P(at least one) = 1 − P(zero). Computing the single 'none' case beats summing many cases.",
+      "keyFacts": [
+        "P(≥1) = 1 − P(0)",
+        "P(no heads in 3) = (½)³ = 1/8",
+        "1 − 1/8 = 7/8",
+        "Works for any 'at least one' setup"
+      ],
+      "example": {
+        "problem": "P(≥1 head in 3 flips)",
+        "steps": [
+          "P(all tails) = (1/2)³ = 1/8",
+          "1 − 1/8 = 7/8"
+        ],
+        "answer": "7/8"
+      },
+      "traps": [
+        "Adding P(1)+P(2)+P(3) with errors",
+        "Forgetting to subtract from 1"
+      ],
+      "solveSteps": [
+        "1. Find P(none)",
+        "2. Subtract from 1",
+        "3. That's P(at least one)"
+      ]
+    }
+  },
+  "97": {
+    "hint": "Conditional: given 1st white removed, pool is 2W+2B → P(white) = 2/4 = 1/2.",
+    "theory": {
+      "title": "Conditional Probability — Reduced Pool",
+      "icon": "🎲",
+      "summary": "P(B|A) is computed in the world where A already happened — update the counts, then take the simple ratio.",
+      "keyFacts": [
+        "Start 3W, 2B",
+        "Given 1st white gone → 2W, 2B (4 total)",
+        "P(2nd white | 1st white) = 2/4 = 1/2",
+        "Condition first, then count"
+      ],
+      "example": {
+        "problem": "3W/2B, P(2nd white | 1st white)?",
+        "steps": [
+          "Remove 1 white → 2W, 2B",
+          "P = 2/4 = 1/2"
+        ],
+        "answer": "1/2"
+      },
+      "traps": [
+        "Using original 3/5",
+        "Computing joint P(both) instead of conditional"
+      ],
+      "solveSteps": [
+        "1. Apply the condition (adjust pool)",
+        "2. Count favorable / new total",
+        "3. Simplify"
+      ]
+    }
+  },
+  "98": {
+    "hint": "36 ordered outcomes; sum 7 has 6 ways → 6/36 = 1/6.",
+    "theory": {
+      "title": "Two-Dice Sums",
+      "icon": "🎲",
+      "summary": "Two dice → 36 equally likely ordered pairs. Count pairs giving the target sum. Sum 7 is the most likely (6 ways).",
+      "keyFacts": [
+        "Total outcomes = 6·6 = 36",
+        "Sum 7: (1,6)(2,5)(3,4)(4,3)(5,2)(6,1) = 6",
+        "6/36 = 1/6",
+        "Ways per sum: 2&12→1, 7→6 (triangular)"
+      ],
+      "example": {
+        "problem": "Die rolled twice, P(sum = 7)?",
+        "steps": [
+          "Favorable pairs = 6",
+          "Total = 36",
+          "6/36 = 1/6"
+        ],
+        "answer": "1/6"
+      },
+      "traps": [
+        "Using 11 outcomes (sums 2–12) as the denominator",
+        "Not counting (a,b) and (b,a) separately"
+      ],
+      "solveSteps": [
+        "1. Total = 36 ordered pairs",
+        "2. Count pairs hitting the sum",
+        "3. Divide"
+      ]
+    }
+  },
+  "99": {
+    "hint": "aₙ = a₁ + (n−1)d. d=4, a₁=7 → a₁₀ = 7 + 9·4 = 43.",
+    "theory": {
+      "title": "Arithmetic Sequence — nth Term",
+      "icon": "🔢",
+      "summary": "Constant common difference d. The nth term is a₁ + (n−1)d — note it's (n−1), not n.",
+      "keyFacts": [
+        "aₙ = a₁ + (n−1)d",
+        "d = 11 − 7 = 4",
+        "a₁₀ = 7 + 9·4 = 43",
+        "(n−1) factor, not n"
+      ],
+      "example": {
+        "problem": "7,11,15,19,… 10th term?",
+        "steps": [
+          "d = 4, a₁ = 7",
+          "a₁₀ = 7 + (10−1)·4",
+          "= 7 + 36 = 43"
+        ],
+        "answer": "43"
+      },
+      "traps": [
+        "Using n·d (gives 47)",
+        "Wrong common difference sign"
+      ],
+      "solveSteps": [
+        "1. d = consecutive difference",
+        "2. aₙ = a₁ + (n−1)d",
+        "3. Substitute n"
+      ]
+    }
+  },
+  "100": {
+    "hint": "Series sum = n·(first+last)/2 = 50·(2+100)/2 = 2550.",
+    "theory": {
+      "title": "Arithmetic Series Sum",
+      "icon": "Σ",
+      "summary": "Sum = (number of terms)·(first + last)/2 — the average term times the count.",
+      "keyFacts": [
+        "S = n(a₁ + aₙ)/2",
+        "50 even numbers: first 2, last 100",
+        "50·(2+100)/2 = 50·51 = 2550",
+        "n = count of terms (here 50, not 100)"
+      ],
+      "example": {
+        "problem": "2 + 4 + … + 100 (50 terms)",
+        "steps": [
+          "n = 50, first 2, last 100",
+          "50·(102)/2 = 50·51",
+          "= 2550"
+        ],
+        "answer": "2550"
+      },
+      "traps": [
+        "Using n = 100 instead of 50 terms",
+        "Forgetting to divide by 2"
+      ],
+      "solveSteps": [
+        "1. Count terms n",
+        "2. (first+last)/2 = average",
+        "3. × n"
+      ]
+    }
+  },
+  "101": {
+    "hint": "Geometric: aₙ = a₁·r^(n−1). r=2, a₁=3 → a₇ = 3·2⁶ = 192.",
+    "theory": {
+      "title": "Geometric Sequence — nth Term",
+      "icon": "🔢",
+      "summary": "Constant ratio r between terms. nth term = a₁·r^(n−1) (exponent is n−1).",
+      "keyFacts": [
+        "aₙ = a₁·r^(n−1)",
+        "r = 6/3 = 2",
+        "a₇ = 3·2⁶ = 3·64 = 192",
+        "Exponent n−1, not n"
+      ],
+      "example": {
+        "problem": "3,6,12,24,… 7th term?",
+        "steps": [
+          "r = 2, a₁ = 3",
+          "a₇ = 3·2^(7−1) = 3·64",
+          "= 192"
+        ],
+        "answer": "192"
+      },
+      "traps": [
+        "Using r⁷ (gives 384)",
+        "Adding instead of multiplying by r"
+      ],
+      "solveSteps": [
+        "1. r = term ÷ previous term",
+        "2. aₙ = a₁·r^(n−1)",
+        "3. Compute the power"
+      ]
+    }
+  },
+  "102": {
+    "hint": "Sum 1..n = n(n+1)/2 = 100·101/2 = 5050.",
+    "theory": {
+      "title": "Sum of First n Integers",
+      "icon": "Σ",
+      "summary": "1 + 2 + … + n = n(n+1)/2 (Gauss pairing). Memorize it cold.",
+      "keyFacts": [
+        "Σ₁ⁿ = n(n+1)/2",
+        "100·101/2 = 5050",
+        "1..(n−1) would be (n−1)n/2 = 4950",
+        "Inclusive of both endpoints"
+      ],
+      "example": {
+        "problem": "Sum 1 to 100 inclusive",
+        "steps": [
+          "n = 100",
+          "100·101/2",
+          "= 5050"
+        ],
+        "answer": "5050"
+      },
+      "traps": [
+        "Using 99·100/2 = 4950 (off by one)",
+        "Forgetting the /2"
+      ],
+      "solveSteps": [
+        "1. Identify n",
+        "2. n(n+1)/2",
+        "3. Compute"
+      ]
+    }
+  },
+  "103": {
+    "hint": "d from two terms: (35−11)/(10−4)=4. Then a₁ = a₄ − 3d = 11 − 12 = −1.",
+    "theory": {
+      "title": "Arithmetic Sequence — Find a₁ from Two Terms",
+      "icon": "🔢",
+      "summary": "The difference between any two terms is (gap in indices)·d. Solve d, then step back to a₁.",
+      "keyFacts": [
+        "aₘ − aₖ = (m − k)·d",
+        "(35 − 11)/(10 − 4) = 24/6 = 4",
+        "a₁ = a₄ − 3d = 11 − 12 = −1",
+        "Step from a known term, not from scratch"
+      ],
+      "example": {
+        "problem": "a₄=11, a₁₀=35. Find a₁.",
+        "steps": [
+          "d = 24/6 = 4",
+          "a₁ = 11 − 3·4",
+          "= −1"
+        ],
+        "answer": "−1"
+      },
+      "traps": [
+        "Dividing by 10−4=6 wrong, or using 10−1",
+        "Adding 3d instead of subtracting to reach a₁"
+      ],
+      "solveSteps": [
+        "1. d = Δterm / Δindex",
+        "2. a₁ = known term − (index−1)·d",
+        "3. Compute"
+      ]
+    }
+  },
+  "104": {
+    "hint": "DS: (1) solves x=4 uniquely → sufficient. (2) only a sign → not. Answer A.",
+    "theory": {
+      "title": "Data Sufficiency — One Statement Solves It",
+      "icon": "📊",
+      "summary": "DS asks if you CAN determine the value, not what it is. A linear equation in one unknown is sufficient; a mere sign/range usually isn't.",
+      "keyFacts": [
+        "(1) 2x+3=11 → x=4: unique → sufficient",
+        "(2) x>0: infinitely many x → insufficient",
+        "One sufficient, the other not → answer A (or B)",
+        "Never average/combine the actual values"
+      ],
+      "example": {
+        "problem": "Value of x? (1) 2x+3=11 (2) x>0",
+        "steps": [
+          "(1) → x = 4 alone: SUFFICIENT",
+          "(2) → any positive: INSUFFICIENT",
+          "Only (1) works → A"
+        ],
+        "answer": "A"
+      },
+      "traps": [
+        "Solving the value and ignoring the sufficiency question",
+        "Calling (2) sufficient because it 'helps'"
+      ],
+      "solveSteps": [
+        "1. Test (1) alone: unique answer?",
+        "2. Test (2) alone: unique answer?",
+        "3. Map to AD / BCE grid"
+      ]
+    }
+  },
+  "105": {
+    "hint": "Want x+y. (2) 2x+2y=10 → x+y=5 alone. (1) x−y=3 alone can't give the sum. Answer B.",
+    "theory": {
+      "title": "Data Sufficiency — Solve for the Asked Expression",
+      "icon": "📊",
+      "summary": "You need the exact quantity asked (x+y), not necessarily x and y individually. A statement giving the combination directly is sufficient.",
+      "keyFacts": [
+        "Target = x+y (the expression, not each variable)",
+        "(2) 2x+2y=10 → x+y=5: sufficient",
+        "(1) x−y=3: many (x,y) → sum varies → insufficient",
+        "Don't demand individual x,y if the sum suffices"
+      ],
+      "example": {
+        "problem": "x+y? (1) x−y=3 (2) 2x+2y=10",
+        "steps": [
+          "(1) sum not fixed: INSUFFICIENT",
+          "(2) ÷2 → x+y=5: SUFFICIENT",
+          "Answer B"
+        ],
+        "answer": "B"
+      },
+      "traps": [
+        "Thinking you must find x and y separately",
+        "Combining when (2) already suffices alone"
+      ],
+      "solveSteps": [
+        "1. Identify the exact target expression",
+        "2. Can each statement pin it down?",
+        "3. AD / BCE"
+      ]
+    }
+  },
+  "106": {
+    "hint": "Is x>0? (1) x²>0 only says x≠0 (±). (2) x³>0 ⇒ x>0 (odd power keeps sign). Answer B.",
+    "theory": {
+      "title": "Data Sufficiency — Sign via Powers",
+      "icon": "📊",
+      "summary": "Even powers destroy sign information; odd powers preserve it. x²>0 ⇒ x≠0 only; x³>0 ⇒ x>0.",
+      "keyFacts": [
+        "x² > 0 → x ≠ 0 (could be + or −): insufficient",
+        "x³ > 0 → x > 0 (odd power keeps sign): sufficient",
+        "Even power = no sign info",
+        "Odd power = same sign as x"
+      ],
+      "example": {
+        "problem": "Is x>0? (1) x²>0 (2) x³>0",
+        "steps": [
+          "(1) x=±2 both satisfy: INSUFFICIENT",
+          "(2) x³>0 only if x>0: SUFFICIENT",
+          "Answer B"
+        ],
+        "answer": "B"
+      },
+      "traps": [
+        "Reading x²>0 as x>0",
+        "Thinking both are needed"
+      ],
+      "solveSteps": [
+        "1. Even power → sign unknown",
+        "2. Odd power → sign of x",
+        "3. Decide sufficiency"
+      ]
+    }
+  },
+  "107": {
+    "hint": "Even n? (1) n² even ⇒ n even (odd²=odd). (2) n+3 odd ⇒ n even. EACH alone → D.",
+    "theory": {
+      "title": "Data Sufficiency — Parity Logic",
+      "icon": "📊",
+      "summary": "odd² is odd, so n² even forces n even. n+odd = odd forces n even. Both statements independently nail parity → answer D.",
+      "keyFacts": [
+        "n² even ⇒ n even (contrapositive of odd²=odd)",
+        "n + 3 odd ⇒ n even",
+        "Each statement alone is sufficient → D",
+        "D requires BOTH alone work"
+      ],
+      "example": {
+        "problem": "Is n even? (1) n² even (2) n+3 odd",
+        "steps": [
+          "(1) odd²=odd, so n² even → n even: SUFF",
+          "(2) odd−3=even → n even: SUFF",
+          "Each alone → D"
+        ],
+        "answer": "D"
+      },
+      "traps": [
+        "Answering C (each works alone, so it's D)",
+        "Thinking n² even allows odd n"
+      ],
+      "solveSteps": [
+        "1. Test (1) parity logic alone",
+        "2. Test (2) parity logic alone",
+        "3. Both alone → D"
+      ]
+    }
+  },
+  "108": {
+    "hint": "Div by 4? (1) div by 2 → could be 2,6 (no): insufficient. (2) div by 8 ⇒ div by 4. Answer B.",
+    "theory": {
+      "title": "Data Sufficiency — Divisibility Implications",
+      "icon": "📊",
+      "summary": "Divisible by 8 ⇒ divisible by 4 (8 contains 4). Divisible by 2 does NOT imply divisible by 4 (6 is a counterexample).",
+      "keyFacts": [
+        "8 = 4·2 → multiple of 8 is a multiple of 4",
+        "Multiple of 2: 2,6,10 are NOT multiples of 4 → insufficient",
+        "Counterexample kills sufficiency",
+        "Stronger divisor implies weaker"
+      ],
+      "example": {
+        "problem": "n div by 4? (1) div by 2 (2) div by 8",
+        "steps": [
+          "(1) n=6 div by 2, not 4: INSUFFICIENT",
+          "(2) div by 8 ⇒ div by 4: SUFFICIENT",
+          "Answer B"
+        ],
+        "answer": "B"
+      },
+      "traps": [
+        "Assuming even ⇒ divisible by 4",
+        "Overlooking that 8 implies 4"
+      ],
+      "solveSteps": [
+        "1. Try a counterexample for the weak statement",
+        "2. Check the strong statement's implication",
+        "3. AD / BCE"
+      ]
+    }
+  },
+  "109": {
+    "hint": "Discount% needs BOTH price and discount amount. (1) sale only, (2) discount only → together C.",
+    "theory": {
+      "title": "Data Sufficiency — Two Pieces Needed",
+      "icon": "📊",
+      "summary": "Discount% = discount / original. You need original price AND discount; each statement supplies only one piece → both together (C).",
+      "keyFacts": [
+        "Discount% = (discount / original)·100",
+        "(1) sale price 80 only — original unknown",
+        "(2) discount 20 only — original unknown",
+        "Together: original = 80+20 = 100 → 20%"
+      ],
+      "example": {
+        "problem": "Discount%? (1) sale $80 (2) discount $20",
+        "steps": [
+          "(1) alone: original unknown — INSUFF",
+          "(2) alone: original unknown — INSUFF",
+          "Together: P=100, 20/100 → 20% → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Thinking (1) alone gives % (no original)",
+        "Picking E though together they work"
+      ],
+      "solveSteps": [
+        "1. List what the % formula needs",
+        "2. Each statement supplies one input",
+        "3. Combine → C if together sufficient"
+      ]
+    }
+  },
+  "110": {
+    "hint": "x=5? (1) x²=25 → x=±5. (2) x>0 alone says nothing specific. Together x=5 → C.",
+    "theory": {
+      "title": "Data Sufficiency — Quadratic Gives Two Roots",
+      "icon": "📊",
+      "summary": "x²=25 yields x=±5 (two values) → not sufficient alone. The sign statement removes the negative; together they pin x=5.",
+      "keyFacts": [
+        "x² = 25 → x = 5 OR −5: insufficient",
+        "x > 0 alone: any positive: insufficient",
+        "Together: x=5 only → sufficient → C",
+        "Square roots in DS almost always give ±"
+      ],
+      "example": {
+        "problem": "Is x=5? (1) x²=25 (2) x>0",
+        "steps": [
+          "(1) x=±5: INSUFFICIENT",
+          "(2) x>0: INSUFFICIENT",
+          "Together → x=5 → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Taking x²=25 as x=5 only (forgot −5)",
+        "Choosing A by ignoring the negative root"
+      ],
+      "solveSteps": [
+        "1. Solve (1) — note ± roots",
+        "2. (2) narrows sign",
+        "3. Combine → C"
+      ]
+    }
   }
 };
 
