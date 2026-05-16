@@ -4774,6 +4774,628 @@ const QUESTION_THEORIES = {
         "3. Statement giving n → sufficient → A"
       ]
     }
+  },
+  "151": {
+    "hint": "Median of 5 = the 3rd value (c) — but only once you know c IS the middle. Need order + value → C.",
+    "theory": {
+      "title": "DS — Median Needs Position AND Value",
+      "icon": "📊",
+      "summary": "The median of 5 numbers is the 3rd when sorted. You need TWO things: which element sits in the middle, and what its value is.",
+      "keyFacts": [
+        "Median of 5 distinct = 3rd in sorted order",
+        "(1) a<b<c<d<e → c is the middle, but value unknown → insufficient",
+        "(2) c=10 → a value, but is c the middle? not stated → insufficient",
+        "Together: c is the middle AND c=10 → median=10"
+      ],
+      "example": {
+        "problem": "Median of {a,b,c,d,e}? (1) a<b<c<d<e (2) c=10",
+        "steps": [
+          "(1) names c as median position, no number → insufficient",
+          "(2) c=10 but c could be smallest if unsorted → insufficient",
+          "Together: middle = c = 10 → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Taking (2) alone — c=10 means nothing until c is shown to be the middle term"
+      ],
+      "solveSteps": [
+        "1. Median of n=5 → need the 3rd sorted value",
+        "2. One statement gives position, the other the value",
+        "3. Both required → C"
+      ]
+    }
+  },
+  "152": {
+    "hint": "Length = speed × time. Passing a POINT means distance travelled = train length. Need both → C.",
+    "theory": {
+      "title": "DS — Train Past a Point = Its Own Length",
+      "icon": "📊",
+      "summary": "When a train clears a fixed point, the distance it covers equals its own length. Length = speed × time-to-pass — both inputs required.",
+      "keyFacts": [
+        "Past a point: distance covered = train length",
+        "(1) t=10 s alone: speed unknown → length unknown",
+        "(2) v=60 mph alone: time-to-pass unknown → length unknown",
+        "Together: L = 60 mph × 10 s (convert units) → single value"
+      ],
+      "example": {
+        "problem": "Train length? (1) passes a point in 10 s (2) speed 60 mph",
+        "steps": [
+          "(1) alone: L = v·10, v free → insufficient",
+          "(2) alone: L = 60·t, t free → insufficient",
+          "Together: L = 60 mph·(10/3600 h) ≈ 0.167 mi → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Confusing 'pass a point' (distance = length) with 'pass a platform' (distance = length + platform)"
+      ],
+      "solveSteps": [
+        "1. Past a point → covered distance = length",
+        "2. L = v·t needs both v and t",
+        "3. One each → C"
+      ]
+    }
+  },
+  "153": {
+    "hint": "Exterior = 180−interior; n = 360/exterior. (1) and (2) each fully determine n → D.",
+    "theory": {
+      "title": "DS — Regular Polygon: One Angle Fixes n",
+      "icon": "📊",
+      "summary": "A regular polygon is fully described by any one of: interior angle, exterior angle, or n. Each implies the others.",
+      "keyFacts": [
+        "Exterior = 180° − interior; n = 360° / exterior",
+        "(1) exterior 36° → n = 360/36 = 10: sufficient",
+        "(2) interior 144° → exterior 36° → n = 10: sufficient",
+        "Each statement alone pins n → D"
+      ],
+      "example": {
+        "problem": "Sides of regular polygon (interior 144°)? (1) exterior 36° (2) interior 144°",
+        "steps": [
+          "(1) n = 360/36 = 10: SUFFICIENT",
+          "(2) ext = 180−144 = 36 → n = 10: SUFFICIENT",
+          "Each alone → D"
+        ],
+        "answer": "D"
+      },
+      "traps": [
+        "Marking C — the two facts are equivalent restatements, each self-sufficient"
+      ],
+      "solveSteps": [
+        "1. Link interior↔exterior↔n",
+        "2. Test each statement alone for n",
+        "3. Both sufficient → D"
+      ]
+    }
+  },
+  "154": {
+    "hint": "|x|=4 → x=±4 (two roots). Sign resolves it. Need both → C.",
+    "theory": {
+      "title": "DS — Absolute Value Hides a Sign",
+      "icon": "📊",
+      "summary": "|x|=4 gives two candidates, +4 and −4. A 'is x = 4?' question is undecided until the sign is fixed.",
+      "keyFacts": [
+        "(1) |x|=4 → x ∈ {4, −4} → can't confirm x=4 → insufficient",
+        "(2) x>0 alone: no magnitude → insufficient",
+        "Together: x>0 eliminates −4 → x=4 → YES",
+        "A definite-value DS needs both magnitude and sign"
+      ],
+      "example": {
+        "problem": "Is x=4? (1) |x|=4 (2) x>0",
+        "steps": [
+          "(1) x=4 or −4 → answer could be yes or no → insufficient",
+          "(2) positive but value unknown → insufficient",
+          "Together: positive root of |x|=4 is 4 → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Reading |x|=4 as x=4 — drops the negative root"
+      ],
+      "solveSteps": [
+        "1. Split |x|=k into x=k, x=−k",
+        "2. Use the other statement to kill one branch",
+        "3. One branch left → C"
+      ]
+    }
+  },
+  "155": {
+    "hint": "C(n,3) needs n; the captain rule changes the formula. Need group size AND the rule → C.",
+    "theory": {
+      "title": "DS — Combinations Need n and the Constraint",
+      "icon": "📊",
+      "summary": "Counting teams requires the pool size n and any selection constraint. A constraint without n, or n without the constraint, leaves the count undetermined.",
+      "keyFacts": [
+        "(1) n=7 alone: C(7,3)=35 — but a captain rule may apply → not the asked count",
+        "(2) 'must include captain' alone: no n → can't count",
+        "Together: captain fixed, choose 2 from remaining 6 → C(6,2)=15",
+        "The constraint changes the formula, not just the number"
+      ],
+      "example": {
+        "problem": "Teams of 3? (1) group has 7 (2) each team must include the captain",
+        "steps": [
+          "(1) alone: unclear if captain rule applies → ambiguous → insufficient",
+          "(2) alone: no group size → insufficient",
+          "Together: 1 captain + C(6,2)=15 → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Answering C(7,3)=35 from (1) alone, ignoring the constraint in (2)"
+      ],
+      "solveSteps": [
+        "1. Identify pool size n and any forced member",
+        "2. Apply constraint before counting",
+        "3. Need both pieces → C"
+      ]
+    }
+  },
+  "156": {
+    "hint": "Joint P(HH) needs per-coin probabilities AND independence. Fairness + independence → C.",
+    "theory": {
+      "title": "DS — Joint Probability Needs Both Marginals and Independence",
+      "icon": "📊",
+      "summary": "P(both heads) = P(H₁)·P(H₂) ONLY if the coins are independent. You need the individual probabilities and the independence assumption.",
+      "keyFacts": [
+        "(1) each fair → P(H)=½ each, but if correlated, P(HH) ≠ ¼ → insufficient",
+        "(2) independent, but P(H) per coin unknown (could be biased) → insufficient",
+        "Together: ½ · ½ = ¼",
+        "Independence alone doesn't give numbers; numbers alone don't give joint"
+      ],
+      "example": {
+        "problem": "P(both heads)? (1) each coin fair (2) coins independent",
+        "steps": [
+          "(1) fair but possibly linked → joint unknown → insufficient",
+          "(2) independent but maybe biased → insufficient",
+          "Together: ½·½ = ¼ → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Assuming 'fair' implies independence — it does not"
+      ],
+      "solveSteps": [
+        "1. Joint = product only under independence",
+        "2. Need marginals (fair) AND independence",
+        "3. Both → C"
+      ]
+    }
+  },
+  "157": {
+    "hint": "Margin = (price−cost)/price. One number alone gives nothing. Need both → C.",
+    "theory": {
+      "title": "DS — Margin Needs Cost AND Price",
+      "icon": "📊",
+      "summary": "Profit margin = (selling − cost) / selling. A single dollar figure can't produce a ratio; you need both endpoints.",
+      "keyFacts": [
+        "(1) cost $40 alone: price unknown → margin unknown",
+        "(2) price $50 alone: cost unknown → margin unknown",
+        "Together: (50−40)/50 = 20% (or 25% on cost)",
+        "A ratio needs two reference values"
+      ],
+      "example": {
+        "problem": "Profit margin? (1) cost $40 (2) price $50",
+        "steps": [
+          "(1) alone: margin = (P−40)/P, P free → insufficient",
+          "(2) alone: margin = (50−C)/50, C free → insufficient",
+          "Together: both fixed → single margin → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Thinking one price 'feels like enough' — a percentage always needs a base"
+      ],
+      "solveSteps": [
+        "1. Margin formula needs cost and price",
+        "2. One statement gives each",
+        "3. Both → C"
+      ]
+    }
+  },
+  "158": {
+    "hint": "aₙ = a₁+(n−1)d. Need first term AND common difference → C.",
+    "theory": {
+      "title": "DS — Arithmetic Term Needs a₁ and d",
+      "icon": "📊",
+      "summary": "Any term of an arithmetic sequence is a₁ + (n−1)d. Two parameters → need two independent facts.",
+      "keyFacts": [
+        "(1) a₁=3 alone: d unknown → a₁₀ varies → insufficient",
+        "(2) d=4 alone: a₁ unknown → insufficient",
+        "Together: a₁₀ = 3 + 9·4 = 39",
+        "Two unknowns (a₁, d) need both statements"
+      ],
+      "example": {
+        "problem": "10th term? (1) a₁=3 (2) d=4",
+        "steps": [
+          "(1) alone: 3 + 9d, d free → insufficient",
+          "(2) alone: a₁ + 36, a₁ free → insufficient",
+          "Together: 3 + 36 = 39 → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Thinking the first term alone defines the sequence — the step d is missing"
+      ],
+      "solveSteps": [
+        "1. aₙ formula has two parameters",
+        "2. Each statement gives one",
+        "3. Both → C"
+      ]
+    }
+  },
+  "159": {
+    "hint": "A line's quadrants depend on slope AND intercept. Need both → C.",
+    "theory": {
+      "title": "DS — Which Quadrants a Line Hits",
+      "icon": "📊",
+      "summary": "Which quadrants a line passes through is fixed only by its full equation (slope and intercept together). Either alone leaves a family of lines.",
+      "keyFacts": [
+        "(1) slope 1, intercept free: y=x+5 vs y=x−5 hit different quadrant patterns → insufficient",
+        "(2) y-int 2, slope free: vertical-ish vs shallow lines differ → insufficient",
+        "Together: y = x + 2 — for x<−2, both x,y<0 → passes QIII → YES",
+        "Need the whole equation to trace quadrants"
+      ],
+      "example": {
+        "problem": "Does L pass through QIII? (1) slope 1 (2) y-int 2",
+        "steps": [
+          "(1) alone: intercept free → can't tell → insufficient",
+          "(2) alone: slope free → insufficient",
+          "Together: y=x+2; at x=−5 → y=−3 (QIII) → YES → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Assuming a positive y-intercept keeps a line out of QIII — slope can still drag it there"
+      ],
+      "solveSteps": [
+        "1. Quadrant question → need full line equation",
+        "2. Slope + intercept together",
+        "3. Trace sign of x,y → C"
+      ]
+    }
+  },
+  "160": {
+    "hint": "12 = 4·3. Div by 4 OR by 6 alone misses a factor. Together gives LCM(4,6)=12 → C.",
+    "theory": {
+      "title": "DS — Divisible by 12 via Combined Factors",
+      "icon": "📊",
+      "summary": "12 = 2²·3. Divisibility by 4 gives 2²; by 6 gives 2·3. Neither alone guarantees 2²·3, but together they force it.",
+      "keyFacts": [
+        "(1) 4|x: x=4 → not div 12; x=12 → yes → insufficient",
+        "(2) 6|x: x=6 → not div 12; x=12 → yes → insufficient",
+        "Together x divisible by lcm(4,6)=12 → always YES",
+        "Note lcm(4,6)=12, NOT 4·6=24 (shared factor 2)"
+      ],
+      "example": {
+        "problem": "Is x divisible by 12? (1) 4|x (2) 6|x",
+        "steps": [
+          "(1) counterexample x=4 → insufficient",
+          "(2) counterexample x=6 → insufficient",
+          "Together: x multiple of lcm(4,6)=12 → definite YES → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Computing lcm as 4·6=24 — overlap of the factor 2 makes it 12"
+      ],
+      "solveSteps": [
+        "1. Factor target: 12 = 2²·3",
+        "2. Check primes each statement guarantees",
+        "3. Combined lcm covers 12 → C"
+      ]
+    }
+  },
+  "161": {
+    "hint": "Phase the timeline: 2 h fill-only, then net rate. Net = 1/3 − 1/5 = 2/15. Total 4.5 h.",
+    "theory": {
+      "title": "Work — Inlet With a Mid-Job Drain",
+      "icon": "🚰",
+      "summary": "Break the job at the moment the situation changes. Before the drain opens, only the inlet works; after, the NET rate (inlet − drain) applies.",
+      "keyFacts": [
+        "Inlet rate = 1/3 tank/hr; drain rate = 1/5 tank/hr",
+        "First 2 h (fill only): 2 × 1/3 = 2/3 filled",
+        "Remaining 1/3 at net rate 1/3 − 1/5 = 2/15 per hr",
+        "Time for remainder = (1/3)/(2/15) = 2.5 h"
+      ],
+      "example": {
+        "problem": "Fill 1/3 in 3h, drain empties in 5h, drain opens at t=2h until full. Total time?",
+        "steps": [
+          "Phase 1 (0–2h): filled = 2/3",
+          "Phase 2: remaining 1/3 ÷ net (2/15) = 2.5 h",
+          "Total = 2 + 2.5 = 4.5 h → B"
+        ],
+        "answer": "B (4.5 hrs)"
+      },
+      "traps": [
+        "Applying the net rate to the whole job (ignoring the 2 h inlet-only head start)"
+      ],
+      "solveSteps": [
+        "1. Split at the event (drain opens at 2h)",
+        "2. Phase 1: inlet only → fraction done",
+        "3. Phase 2: remainder ÷ (inlet − drain) → add times"
+      ]
+    }
+  },
+  "162": {
+    "hint": "Combined rate 1 h, then B+C only. A+B+C=1/2 → 1/2 done in 1h; rest 1/2 ÷ 1/4 = 2h. Total 3h.",
+    "theory": {
+      "title": "Work — Machine Drops Out Mid-Job",
+      "icon": "🚰",
+      "summary": "Sum rates while all run, compute work done in that window, then finish the remainder at the reduced combined rate.",
+      "keyFacts": [
+        "Rates: A=1/4, B=1/6, C=1/12 → A+B+C = 3/12+2/12+1/12 = 1/2 per hr",
+        "First 1 h all three: 1/2 of job done",
+        "After A breaks: B+C = 2/12+1/12 = 1/4 per hr",
+        "Remaining 1/2 ÷ (1/4) = 2 h"
+      ],
+      "example": {
+        "problem": "A,B,C alone in 4,6,12 h; A breaks after 1h. Total time?",
+        "steps": [
+          "All three 1 h → 1/2 complete",
+          "B+C finish remaining 1/2 at 1/4 per hr → 2 h",
+          "Total = 1 + 2 = 3 h → D"
+        ],
+        "answer": "D (3 hr)"
+      },
+      "traps": [
+        "Forgetting to remove A's rate after the breakdown and using 1/2 throughout"
+      ],
+      "solveSteps": [
+        "1. Sum all rates, work the 'all on' window",
+        "2. Subtract the lost machine's rate",
+        "3. Remainder ÷ new rate, sum the times"
+      ]
+    }
+  },
+  "163": {
+    "hint": "Without replacement → second prob shrinks. 4/9 × 3/8 = 1/6.",
+    "theory": {
+      "title": "Probability — Dependent Draws (No Replacement)",
+      "icon": "🎲",
+      "summary": "Without replacement, the pool changes after each draw. Multiply sequential conditional probabilities — both numerator and denominator drop.",
+      "keyFacts": [
+        "Total balls = 4+3+2 = 9",
+        "P(1st red) = 4/9",
+        "After a red is removed: 3 red of 8 left → P(2nd red) = 3/8",
+        "P(both) = 4/9 × 3/8 = 12/72 = 1/6"
+      ],
+      "example": {
+        "problem": "4R,3B,2G; draw 2 without replacement; P(both red)?",
+        "steps": [
+          "P(red then red) = (4/9)·(3/8)",
+          "= 12/72 = 1/6 → A",
+          "(With replacement it would be (4/9)² = 16/81 — different)"
+        ],
+        "answer": "A (1/6)"
+      },
+      "traps": [
+        "Using 4/9 × 4/9 (treats it as with-replacement) → 16/81, the decoy choice"
+      ],
+      "solveSteps": [
+        "1. Find total, P(first)",
+        "2. Decrement both counts for P(second | first)",
+        "3. Multiply"
+      ]
+    }
+  },
+  "164": {
+    "hint": "List prime sums 2,3,5,7,11; count ordered pairs out of 36. = 15/36 = 5/12.",
+    "theory": {
+      "title": "Probability — Prime Sum of Two Dice",
+      "icon": "🎲",
+      "summary": "Enumerate which sums (2–12) are prime, count ordered (die1,die2) pairs for each, divide by 36.",
+      "keyFacts": [
+        "Prime sums in 2–12: 2, 3, 5, 7, 11",
+        "Counts: 2→1, 3→2, 5→4, 7→6, 11→2",
+        "Total favorable = 1+2+4+6+2 = 15",
+        "P = 15/36 = 5/12"
+      ],
+      "example": {
+        "problem": "Two dice, P(sum is prime)?",
+        "steps": [
+          "Sum=7 is the big one: 6 ordered pairs",
+          "Add 2(1)+3(2)+5(4)+11(2) = 9; +6 = 15",
+          "15/36 = 5/12 → A"
+        ],
+        "answer": "A (5/12)"
+      },
+      "traps": [
+        "Forgetting 2 is prime, or treating (1,4) and (4,1) as one outcome"
+      ],
+      "solveSteps": [
+        "1. List prime sums ≤ 12",
+        "2. Count ordered pairs per sum",
+        "3. Sum / 36"
+      ]
+    }
+  },
+  "165": {
+    "hint": "Exactly-2-men = C(4,2)·C(6,3) / C(10,5) = 120/252 = 10/21.",
+    "theory": {
+      "title": "Probability — Committee With Exactly k of a Type",
+      "icon": "🎲",
+      "summary": "Choose the required men and the rest women separately, multiply, divide by all committees of that size.",
+      "keyFacts": [
+        "Total committees: C(10,5) = 252",
+        "Exactly 2 men: C(4,2) = 6 ways for men",
+        "Remaining 3 from 6 women: C(6,3) = 20",
+        "Favorable = 6·20 = 120 → P = 120/252 = 10/21"
+      ],
+      "example": {
+        "problem": "5 from 4M,6W; P(exactly 2 men)?",
+        "steps": [
+          "Men: C(4,2)=6; Women: C(6,3)=20",
+          "Favorable = 120; total C(10,5)=252",
+          "120/252 = 10/21 → A"
+        ],
+        "answer": "A (10/21)"
+      },
+      "traps": [
+        "Using permutations, or forgetting the women must fill the remaining 3 seats exactly"
+      ],
+      "solveSteps": [
+        "1. C(men_total, k) for the required men",
+        "2. C(women_total, size−k) for the rest",
+        "3. Product ÷ C(total, size)"
+      ]
+    }
+  },
+  "166": {
+    "hint": "Complement: total 6! minus AB-adjacent (glue AB → 5!·2). 720 − 240 = 480.",
+    "theory": {
+      "title": "Counting — Non-Adjacent via Complement",
+      "icon": "🔢",
+      "summary": "'Not adjacent' is easiest as total minus adjacent. Glue the two people into one block (×2 for internal order) to count adjacent arrangements.",
+      "keyFacts": [
+        "Total arrangements of 6 = 6! = 720",
+        "Treat A,B as one block → 5 units → 5! = 120",
+        "Block internal order A-B or B-A → ×2 → 240 adjacent",
+        "Non-adjacent = 720 − 240 = 480"
+      ],
+      "example": {
+        "problem": "6 in a row, A and B NOT adjacent. Count?",
+        "steps": [
+          "Total = 720",
+          "Adjacent (AB glued) = 5!·2 = 240",
+          "720 − 240 = 480 → A"
+        ],
+        "answer": "A (480)"
+      },
+      "traps": [
+        "Forgetting the ×2 for the AB/BA internal order (gives 600, a decoy)"
+      ],
+      "solveSteps": [
+        "1. Count all arrangements",
+        "2. Glue the pair, ×2 for their order",
+        "3. Subtract from total"
+      ]
+    }
+  },
+  "167": {
+    "hint": "Neither 2 nor 5 → ends in 1,3,7,9. Per decade sum = 40d+20; total 1–100 = 2000. (Listed key is wrong.)",
+    "theory": {
+      "title": "Sum — Integers Divisible by Neither 2 Nor 5",
+      "icon": "🔢",
+      "summary": "Numbers divisible by neither 2 nor 5 are exactly those ending in 1, 3, 7, or 9. Sum them decade by decade, or use inclusion–exclusion on sums.",
+      "keyFacts": [
+        "Inclusion–exclusion: Σ(1–100) − Σ(÷2) − Σ(÷5) + Σ(÷10)",
+        "= 5050 − 2550 − 1050 + 550 = 2000",
+        "Check: each decade contributes (10d+1)+(10d+3)+(10d+7)+(10d+9) = 40d+20",
+        "Σ over d=0..9 = 40·45 + 200 = 2000"
+      ],
+      "example": {
+        "problem": "Sum of 1–100 divisible by neither 2 nor 5?",
+        "steps": [
+          "Σ÷2 = 2550, Σ÷5 = 1050, Σ÷10 = 550",
+          "Neither = 5050 − 2550 − 1050 + 550 = 2000",
+          "Decade check confirms 2000 → answer is 2000"
+        ],
+        "answer": "2000 (choice A; the question's listed key 'C/2040' is an error — both methods give 2000)"
+      },
+      "traps": [
+        "Forgetting +Σ(÷10): subtracting ÷2 and ÷5 double-removes multiples of 10",
+        "Trusting a wrong answer key instead of verifying with a second method"
+      ],
+      "solveSteps": [
+        "1. Σ(÷2) + Σ(÷5) − Σ(÷10) = Σ(÷2 or 5)",
+        "2. Total − that = neither",
+        "3. Cross-check with the decade pattern 40d+20"
+      ]
+    }
+  },
+  "168": {
+    "hint": "a₄ = a₁r³ → 2r³=54 → r=3. Sum 2+6+18+54+162 = 242.",
+    "theory": {
+      "title": "Sequence — Geometric Ratio From Two Terms",
+      "icon": "🔢",
+      "summary": "Use the gap between known terms to solve for r, then sum. a₄/a₁ = r³ here because they're 3 steps apart.",
+      "keyFacts": [
+        "a₄ = a₁·r³ → 54 = 2·r³ → r³ = 27 → r = 3",
+        "Terms: 2, 6, 18, 54, 162",
+        "Sum of 5 = 2(r⁵−1)/(r−1) = 2·242/2 = 242",
+        "Direct add: 2+6+18+54+162 = 242"
+      ],
+      "example": {
+        "problem": "Geometric: a₁=2, a₄=54. Sum of first 5?",
+        "steps": [
+          "r³ = 54/2 = 27 → r = 3",
+          "List 2,6,18,54,162",
+          "Sum = 242 → D"
+        ],
+        "answer": "D (242)"
+      },
+      "traps": [
+        "Using a₄ = a₁·r⁴ (off-by-one: terms are 3 ratios apart, not 4)"
+      ],
+      "solveSteps": [
+        "1. aₘ/aₖ = r^(m−k) → solve r",
+        "2. Generate the terms",
+        "3. Sum (formula or direct)"
+      ]
+    }
+  },
+  "169": {
+    "hint": "Find digit triples with product 24, then count arrangements per multiset. Total 21.",
+    "theory": {
+      "title": "Counting — 3-Digit Numbers With Digit Product 24",
+      "icon": "🔢",
+      "summary": "Enumerate unordered digit triples (1–9) whose product is 24, then count distinct orderings of each, dividing by repeats.",
+      "keyFacts": [
+        "Triples: {1,3,8}, {1,4,6}, {2,2,6}, {2,3,4}",
+        "All-distinct triple → 3! = 6 arrangements",
+        "{2,2,6} has a repeat → 3!/2! = 3 arrangements",
+        "No 0 allowed (product would be 0); digits ≤ 9"
+      ],
+      "example": {
+        "problem": "How many 3-digit integers have digit product 24?",
+        "steps": [
+          "{1,3,8}:6, {1,4,6}:6, {2,3,4}:6",
+          "{2,2,6}:3 (repeat halves count)",
+          "6+6+6+3 = 21 → C"
+        ],
+        "answer": "C (21)"
+      },
+      "traps": [
+        "Giving {2,2,6} a full 3!=6 (must divide by 2! for the repeated 2)",
+        "Including a triple with a digit >9 (e.g. {1,2,12})"
+      ],
+      "solveSteps": [
+        "1. List all digit multisets (1–9) with product 24",
+        "2. Arrangements = 3!/(repeats!)",
+        "3. Sum across multisets"
+      ]
+    }
+  },
+  "170": {
+    "hint": "Exactly 3 factors ⇔ number = p². Count primes p with p² < 200 → 6.",
+    "theory": {
+      "title": "Number Properties — Exactly Three Factors",
+      "icon": "🔢",
+      "summary": "An integer has exactly 3 divisors iff it is the square of a prime (divisors: 1, p, p²). Count primes whose square is in range.",
+      "keyFacts": [
+        "d(n)=3 ⇔ n = p² for prime p (1, p, p² only)",
+        "Need p² < 200 → p ≤ 14",
+        "Primes ≤ 14: 2,3,5,7,11,13 (their squares 4,9,25,49,121,169)",
+        "17² = 289 > 200 → excluded"
+      ],
+      "example": {
+        "problem": "Positive integers < 200 with exactly 3 factors?",
+        "steps": [
+          "Only prime squares qualify",
+          "p ∈ {2,3,5,7,11,13} → 6 values",
+          "13²=169<200, 17²=289>200 → count 6 → B"
+        ],
+        "answer": "B (6)"
+      },
+      "traps": [
+        "Counting all perfect squares (e.g. 36=6² has 9 factors, not 3)"
+      ],
+      "solveSteps": [
+        "1. Exactly 3 factors → n = prime²",
+        "2. Bound: p² < limit",
+        "3. Count primes under √limit"
+      ]
+    }
   }
 };
 
