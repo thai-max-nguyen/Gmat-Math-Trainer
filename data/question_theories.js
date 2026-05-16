@@ -10192,6 +10192,595 @@ const QUESTION_THEORIES = {
         "2. ÷ 2ⁿ, simplify"
       ]
     }
+  },
+  "331": {
+    "hint": "One-of-each = C(4,1)·C(6,1)/C(10,2) = 24/45 = 8/15.",
+    "theory": {
+      "title": "Probability — One From Each Colour",
+      "icon": "🎲",
+      "summary": "Favorable = (ways to pick 1 red)·(ways to pick 1 blue); divide by total unordered pairs C(10,2).",
+      "keyFacts": [
+        "C(4,1)=4 reds, C(6,1)=6 blues → 24 favorable pairs",
+        "Total = C(10,2) = 45",
+        "P = 24/45 = 8/15",
+        "Unordered: pairing handles red-then-blue and blue-then-red together"
+      ],
+      "example": {
+        "problem": "4R,6B, draw 2; P(one of each)?",
+        "steps": [
+          "Favorable = 4·6 = 24",
+          "24 / C(10,2)=45 → 8/15 → B"
+        ],
+        "answer": "B (8/15)"
+      },
+      "traps": [
+        "Forgetting both draw orders (if using sequential probs, must add RB and BR)"
+      ],
+      "solveSteps": [
+        "1. Favorable = product of single-colour picks",
+        "2. ÷ C(total,2)",
+        "3. Simplify"
+      ]
+    }
+  },
+  "332": {
+    "hint": "d = (a₇−a₃)/(7−3) = 16/4 = 4. a₂₀ = a₁+19d = 3+76 = 79.",
+    "theory": {
+      "title": "Sequence — Common Difference From Two Terms",
+      "icon": "🔢",
+      "summary": "d = (term gap)/(index gap). Recover a₁, then use aₙ = a₁+(n−1)d.",
+      "keyFacts": [
+        "d = (27−11)/(7−3) = 16/4 = 4",
+        "a₁ = a₃ − 2d = 11 − 8 = 3",
+        "a₂₀ = 3 + 19·4 = 79",
+        "Index gap is 4, not 7"
+      ],
+      "example": {
+        "problem": "AP: a₃=11, a₇=27; a₂₀?",
+        "steps": [
+          "d = 16/4 = 4",
+          "a₁=3 → a₂₀ = 3+76 = 79 → B"
+        ],
+        "answer": "B (79)"
+      },
+      "traps": [
+        "Dividing the term gap by 7 instead of (7−3)"
+      ],
+      "solveSteps": [
+        "1. d = Δterm / Δindex",
+        "2. Back out a₁",
+        "3. aₙ = a₁+(n−1)d"
+      ]
+    }
+  },
+  "333": {
+    "hint": "Σ first 50 evens = 2·(1+…+50) = 2·1275 = 2550.",
+    "theory": {
+      "title": "Series — Sum of First n Even Integers",
+      "icon": "🔢",
+      "summary": "Factor out 2: sum of first n evens = 2·(1+2+…+n) = n(n+1).",
+      "keyFacts": [
+        "2+4+…+100 = 2(1+2+…+50)",
+        "1+…+50 = 50·51/2 = 1275",
+        "2·1275 = 2550",
+        "Closed form: n(n+1) = 50·51 = 2550"
+      ],
+      "example": {
+        "problem": "Sum of first 50 positive even integers?",
+        "steps": [
+          "2·(50·51/2)",
+          "= 2550 → C"
+        ],
+        "answer": "C (2550)"
+      },
+      "traps": [
+        "Using n²=2500 (that's sum of first n ODD integers)"
+      ],
+      "solveSteps": [
+        "1. Factor 2 out",
+        "2. Triangular number 1..n",
+        "3. ×2 → n(n+1)"
+      ]
+    }
+  },
+  "334": {
+    "hint": "GP sum = a(rⁿ−1)/(r−1) = 2(243−1)/2 = 242.",
+    "theory": {
+      "title": "Series — Geometric Sum",
+      "icon": "🔢",
+      "summary": "Sₙ = a(rⁿ−1)/(r−1). Plug a=2, r=3, n=5.",
+      "keyFacts": [
+        "r⁵ = 3⁵ = 243",
+        "S₅ = 2(243−1)/(3−1) = 2·242/2",
+        "= 242",
+        "Direct: 2+6+18+54+162 = 242"
+      ],
+      "example": {
+        "problem": "GP a=2, r=3, sum of 5 terms?",
+        "steps": [
+          "2(3⁵−1)/(3−1)",
+          "= 242 → C"
+        ],
+        "answer": "C (242)"
+      },
+      "traps": [
+        "Using n=5 as 3⁴ (off-by-one in rⁿ)"
+      ],
+      "solveSteps": [
+        "1. Sₙ = a(rⁿ−1)/(r−1)",
+        "2. Substitute and compute"
+      ]
+    }
+  },
+  "335": {
+    "hint": "r³ = a₇/a₄ = 192/24 = 8 → r=2. a₁ = 24/r³ = 24/8 = 3.",
+    "theory": {
+      "title": "Sequence — GP Ratio From Two Terms",
+      "icon": "🔢",
+      "summary": "aₘ/aₖ = r^(m−k). Solve r, then back out a₁ from a known term.",
+      "keyFacts": [
+        "a₇/a₄ = r³ = 192/24 = 8 → r = 2",
+        "a₄ = a₁·r³ → 24 = a₁·8",
+        "a₁ = 3",
+        "Index gap 7−4 = 3 → r³"
+      ],
+      "example": {
+        "problem": "GP a₄=24, a₇=192; a₁?",
+        "steps": [
+          "r³ = 8 → r=2",
+          "a₁ = 24/8 = 3 → C"
+        ],
+        "answer": "C (3)"
+      },
+      "traps": [
+        "Using r⁴ or r⁷ instead of r^(7−4)=r³"
+      ],
+      "solveSteps": [
+        "1. r^(Δindex) = ratio of terms",
+        "2. Solve r",
+        "3. Back out a₁"
+      ]
+    }
+  },
+  "336": {
+    "hint": "Factor: x³−6x²+5x = x(x²−6x+5) = x·0 = 0.",
+    "theory": {
+      "title": "Algebra — Substitute the Zero Expression",
+      "icon": "🔢",
+      "summary": "Spot that the target factors to contain the given quadratic, which equals 0 — so the whole product is 0.",
+      "keyFacts": [
+        "Given x²−6x+5 = 0",
+        "x³−6x²+5x = x(x²−6x+5)",
+        "= x · 0 = 0",
+        "No need to solve for x explicitly"
+      ],
+      "example": {
+        "problem": "x²−6x+5=0; x³−6x²+5x?",
+        "steps": [
+          "Factor out x → x(x²−6x+5)",
+          "= x·0 = 0 → B"
+        ],
+        "answer": "B (0)"
+      },
+      "traps": [
+        "Solving for x (1 or 5) and plugging in — slower and error-prone"
+      ],
+      "solveSteps": [
+        "1. Factor the target to expose the given expression",
+        "2. Substitute its zero value"
+      ]
+    }
+  },
+  "337": {
+    "hint": "Square it: (x+1/x)² = x²+2+1/x² = 16 → x²+1/x² = 14.",
+    "theory": {
+      "title": "Algebra — Square the Sum Identity",
+      "icon": "🔢",
+      "summary": "(x+1/x)² = x² + 2 + 1/x². Square the given, subtract the cross term 2.",
+      "keyFacts": [
+        "(x+1/x)² = x² + 2·x·(1/x) + 1/x² = x²+2+1/x²",
+        "4² = 16 = x²+2+1/x²",
+        "x²+1/x² = 16 − 2 = 14",
+        "Cross term is always 2 here"
+      ],
+      "example": {
+        "problem": "x+1/x=4; x²+1/x²?",
+        "steps": [
+          "Square → 16 = x²+2+1/x²",
+          "Subtract 2 → 14 → B"
+        ],
+        "answer": "B (14)"
+      },
+      "traps": [
+        "Forgetting the +2 cross term (would give 16)"
+      ],
+      "solveSteps": [
+        "1. Square the given sum",
+        "2. Subtract the 2 cross term"
+      ]
+    }
+  },
+  "338": {
+    "hint": "4^y = 2^(2y) → 2^(x+2y) = 2^6 → x+2y = 6.",
+    "theory": {
+      "title": "Exponents — Common Base Then Equate",
+      "icon": "🔢",
+      "summary": "Rewrite 4^y as 2^(2y); the product becomes 2^(x+2y). Match exponents to 64=2^6.",
+      "keyFacts": [
+        "4^y = (2²)^y = 2^(2y)",
+        "2^x · 2^(2y) = 2^(x+2y)",
+        "64 = 2^6 → x+2y = 6",
+        "Equal bases → equate exponents"
+      ],
+      "example": {
+        "problem": "2^x·4^y=64; x+2y?",
+        "steps": [
+          "2^(x+2y) = 2^6",
+          "x+2y = 6 → C"
+        ],
+        "answer": "C (6)"
+      },
+      "traps": [
+        "Treating 4^y as 2^y (it's 2^(2y))"
+      ],
+      "solveSteps": [
+        "1. Rewrite all on base 2",
+        "2. Combine exponents",
+        "3. Equate to 2^6"
+      ]
+    }
+  },
+  "339": {
+    "hint": "3^(2x)=81=3⁴ → x=2 → 3^(x+1)=3³=27.",
+    "theory": {
+      "title": "Exponents — Solve x Then Re-substitute",
+      "icon": "🔢",
+      "summary": "Match 3^(2x) to a power of 3 to get x, then evaluate the asked expression.",
+      "keyFacts": [
+        "81 = 3⁴ → 2x = 4 → x = 2",
+        "3^(x+1) = 3^(2+1) = 3³",
+        "= 27",
+        "Don't stop at x; answer the asked power"
+      ],
+      "example": {
+        "problem": "3^(2x)=81; 3^(x+1)?",
+        "steps": [
+          "2x=4 → x=2",
+          "3³ = 27 → C"
+        ],
+        "answer": "C (27)"
+      },
+      "traps": [
+        "Reporting x=2 or 3²=9 instead of 3^(x+1)"
+      ],
+      "solveSteps": [
+        "1. Equate to a power of 3 → x",
+        "2. Substitute into the target"
+      ]
+    }
+  },
+  "340": {
+    "hint": "|x−3|<5 → −2<x<8; x>0 → {1..7} → 7 integers.",
+    "theory": {
+      "title": "Inequalities — Intersect Two Constraints",
+      "icon": "🔢",
+      "summary": "Solve the absolute-value band, intersect with x>0, then count integers strictly inside.",
+      "keyFacts": [
+        "|x−3|<5 → −2 < x < 8",
+        "x>0 → 0 < x < 8",
+        "Integers: 1,2,3,4,5,6,7",
+        "Strict bounds exclude 0 and 8"
+      ],
+      "example": {
+        "problem": "|x−3|<5 and x>0; integer count?",
+        "steps": [
+          "−2<x<8 ∩ x>0 → 0<x<8",
+          "{1..7} → 7 → C"
+        ],
+        "answer": "C (7)"
+      },
+      "traps": [
+        "Including 0 or 8 (strict inequalities exclude them)"
+      ],
+      "solveSteps": [
+        "1. Solve |x−c|<r",
+        "2. Intersect with the other constraint",
+        "3. Count integers"
+      ]
+    }
+  },
+  "341": {
+    "hint": "Inner first: g(2)=5, f(5)=2·5−3=7.",
+    "theory": {
+      "title": "Functions — Composition Order",
+      "icon": "🔢",
+      "summary": "f(g(2)): evaluate g first, feed into f.",
+      "keyFacts": [
+        "g(2) = 2²+1 = 5",
+        "f(5) = 2·5−3 = 7",
+        "Inner function first",
+        "f(g(x)) ≠ g(f(x)) in general"
+      ],
+      "example": {
+        "problem": "f=2x−3, g=x²+1; f(g(2))?",
+        "steps": [
+          "g(2)=5",
+          "f(5)=7 → B"
+        ],
+        "answer": "B (7)"
+      },
+      "traps": [
+        "Applying f first (wrong order)"
+      ],
+      "solveSteps": [
+        "1. Evaluate inner",
+        "2. Feed into outer"
+      ]
+    }
+  },
+  "342": {
+    "hint": "g(f(3))=g(9)=11; f(g(3))=f(5)=25; 11−25 = −14.",
+    "theory": {
+      "title": "Functions — Two Compositions Differ",
+      "icon": "🔢",
+      "summary": "Composition is not commutative. Compute each direction separately, then subtract.",
+      "keyFacts": [
+        "f(3)=9 → g(9)=9+2=11",
+        "g(3)=5 → f(5)=5²=25",
+        "g(f(3)) − f(g(3)) = 11 − 25",
+        "= −14"
+      ],
+      "example": {
+        "problem": "f=x², g=x+2; g(f(3))−f(g(3))?",
+        "steps": [
+          "g(f(3))=11, f(g(3))=25",
+          "11−25 = −14 → A"
+        ],
+        "answer": "A (−14)"
+      },
+      "traps": [
+        "Assuming the two compositions are equal (they're not)"
+      ],
+      "solveSteps": [
+        "1. Compute each composition fully",
+        "2. Subtract in the stated order"
+      ]
+    }
+  },
+  "343": {
+    "hint": "Primes 30–50: 31,37,41,43,47 → 5.",
+    "theory": {
+      "title": "Number Theory — Count Primes in a Range",
+      "icon": "🔢",
+      "summary": "Test each odd non-multiple-of-5 in the range for divisibility by small primes.",
+      "keyFacts": [
+        "Skip evens and multiples of 5",
+        "31,37,41,43,47 are prime",
+        "33=3·11, 39=3·13, 49=7² are NOT prime",
+        "Count = 5"
+      ],
+      "example": {
+        "problem": "Primes between 30 and 50?",
+        "steps": [
+          "Candidates 31,37,41,43,47",
+          "All prime → 5 → C"
+        ],
+        "answer": "C (5)"
+      },
+      "traps": [
+        "Counting 49 as prime (7×7) or missing 31"
+      ],
+      "solveSteps": [
+        "1. List odd, non-5 candidates",
+        "2. Trial-divide by 3,7",
+        "3. Count survivors"
+      ]
+    }
+  },
+  "344": {
+    "hint": "Units of 3^n cycle 3,9,7,1 (period 4). 45 mod 4 = 1 → 3.",
+    "theory": {
+      "title": "Number Theory — Units Digit Cycle",
+      "icon": "🔢",
+      "summary": "Only the base's units digit (3) matters. 3^n units cycle 3,9,7,1 with period 4.",
+      "keyFacts": [
+        "13 ends in 3 → use 3^n",
+        "Cycle: 3¹→3, 3²→9, 3³→7, 3⁴→1",
+        "45 mod 4 = 1 → first in cycle → 3",
+        "Period is 4"
+      ],
+      "example": {
+        "problem": "Units digit of 13^45?",
+        "steps": [
+          "Cycle 3,9,7,1",
+          "45 mod 4 = 1 → 3 → B"
+        ],
+        "answer": "B (3)"
+      },
+      "traps": [
+        "45 mod 4 = 1 but indexing the cycle from 0 → wrong term"
+      ],
+      "solveSteps": [
+        "1. Units digit of base",
+        "2. Find its 4-cycle",
+        "3. Exponent mod 4 → term"
+      ]
+    }
+  },
+  "345": {
+    "hint": "Rem mod 10 = units digit. 7^n cycle 7,9,3,1; 100 mod 4 = 0 → 1.",
+    "theory": {
+      "title": "Number Theory — Remainder mod 10 = Units Digit",
+      "icon": "🔢",
+      "summary": "Mod 10 is the units digit. 7^n cycles 7,9,3,1 (period 4); exponent ≡ 0 mod 4 → the 4th term (1).",
+      "keyFacts": [
+        "7¹→7, 7²→9, 7³→3, 7⁴→1",
+        "100 mod 4 = 0 → last in cycle → 1",
+        "mod 10 ⇔ units digit",
+        "Period 4"
+      ],
+      "example": {
+        "problem": "7^100 mod 10?",
+        "steps": [
+          "Cycle 7,9,3,1",
+          "100 mod 4 = 0 → 1 → A"
+        ],
+        "answer": "A (1)"
+      },
+      "traps": [
+        "Treating 100 mod 4 = 0 as the 1st term instead of the 4th"
+      ],
+      "solveSteps": [
+        "1. mod 10 = units digit",
+        "2. 4-cycle of the base",
+        "3. exp mod 4 (0 → 4th term)"
+      ]
+    }
+  },
+  "346": {
+    "hint": "45-45-90: hyp = leg·√2 = 6√2.",
+    "theory": {
+      "title": "Triangles — Isosceles Right Hypotenuse",
+      "icon": "📐",
+      "summary": "Legs equal, ratio 1:1:√2. Hypotenuse = leg × √2.",
+      "keyFacts": [
+        "45-45-90 ratio = 1 : 1 : √2",
+        "Hyp = 6·√2 = 6√2",
+        "Pythagoras check: √(6²+6²)=√72=6√2",
+        "Not 6·2=12"
+      ],
+      "example": {
+        "problem": "Isosceles right, legs 6; hypotenuse?",
+        "steps": [
+          "leg·√2",
+          "= 6√2 → B"
+        ],
+        "answer": "B (6√2)"
+      },
+      "traps": [
+        "Multiplying by 2 instead of √2"
+      ],
+      "solveSteps": [
+        "1. Recognize 45-45-90",
+        "2. Hyp = leg·√2"
+      ]
+    }
+  },
+  "347": {
+    "hint": "(6−2)·180 = 720°.",
+    "theory": {
+      "title": "Polygons — Hexagon Interior Sum",
+      "icon": "📐",
+      "summary": "Interior angle sum = (n−2)·180°. For n=6 → 720°.",
+      "keyFacts": [
+        "n = 6",
+        "(6−2)·180 = 4·180",
+        "= 720°",
+        "'Regular' doesn't change the sum, only per-angle"
+      ],
+      "example": {
+        "problem": "Interior angle sum, regular hexagon?",
+        "steps": [
+          "(6−2)·180",
+          "= 720° → C"
+        ],
+        "answer": "C (720°)"
+      },
+      "traps": [
+        "Computing per-angle 120° instead of the sum"
+      ],
+      "solveSteps": [
+        "1. (n−2)·180",
+        "2. Evaluate for n=6"
+      ]
+    }
+  },
+  "348": {
+    "hint": "Inscribed → r = side/2 = 5. 100 − π·25 = 100 − 25π.",
+    "theory": {
+      "title": "Geometry — Square Minus Inscribed Circle",
+      "icon": "📐",
+      "summary": "Inscribed circle diameter = square side. Subtract circle area from square area.",
+      "keyFacts": [
+        "Side 10 → circle diameter 10 → r=5",
+        "Square area = 100",
+        "Circle area = π·5² = 25π",
+        "Leftover = 100 − 25π"
+      ],
+      "example": {
+        "problem": "Square side 10, inscribed circle; outside-circle area?",
+        "steps": [
+          "r=5 → circle 25π",
+          "100 − 25π → A"
+        ],
+        "answer": "A (100 − 25π)"
+      },
+      "traps": [
+        "Using r=10 → 100−100π (negative, impossible)"
+      ],
+      "solveSteps": [
+        "1. r = side/2",
+        "2. Square − πr²"
+      ]
+    }
+  },
+  "349": {
+    "hint": "V = πr²h = π·9·7 = 63π.",
+    "theory": {
+      "title": "Solids — Cylinder Volume",
+      "icon": "📐",
+      "summary": "V = πr²h. Square r first.",
+      "keyFacts": [
+        "r=3 → r²=9",
+        "V = π·9·7",
+        "= 63π",
+        "Radius squared, height linear"
+      ],
+      "example": {
+        "problem": "Cylinder r=3, h=7; volume?",
+        "steps": [
+          "r²=9",
+          "π·9·7 = 63π → D"
+        ],
+        "answer": "D (63π)"
+      },
+      "traps": [
+        "Not squaring r → 21π"
+      ],
+      "solveSteps": [
+        "1. r²",
+        "2. ×h×π"
+      ]
+    }
+  },
+  "350": {
+    "hint": "√((5+3)²+(−2−4)²)=√(64+36)=√100=10.",
+    "theory": {
+      "title": "Coordinate — Distance With Negatives",
+      "icon": "📐",
+      "summary": "Distance = √(Δx²+Δy²). Be careful with signs in the differences; squaring removes them.",
+      "keyFacts": [
+        "Δx = 5−(−3) = 8",
+        "Δy = −2−4 = −6",
+        "√(8²+(−6)²) = √(64+36) = √100",
+        "= 10"
+      ],
+      "example": {
+        "problem": "Distance (−3,4)–(5,−2)?",
+        "steps": [
+          "Δ=(8,−6)",
+          "√100 = 10 → B"
+        ],
+        "answer": "B (10)"
+      },
+      "traps": [
+        "Sign slip: 5−(−3)=8 not 2; squaring fixes the −6"
+      ],
+      "solveSteps": [
+        "1. Δx, Δy (mind signs)",
+        "2. √(Δx²+Δy²)"
+      ]
+    }
   }
 };
 
