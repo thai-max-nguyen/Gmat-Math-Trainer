@@ -7785,6 +7785,591 @@ const QUESTION_THEORIES = {
         "3. Cross-check via 180 − 360/n"
       ]
     }
+  },
+  "251": {
+    "hint": "Average speed = total distance / total time = 240/4 = 60.",
+    "theory": {
+      "title": "Rate — Basic Average Speed",
+      "icon": "🚗",
+      "summary": "Speed = distance ÷ time. Plug the totals directly.",
+      "keyFacts": [
+        "d = 240 mi, t = 4 h",
+        "speed = d/t",
+        "240 / 4 = 60 mph",
+        "Units: miles per hour"
+      ],
+      "example": {
+        "problem": "240 mi in 4 h; average speed?",
+        "steps": [
+          "Apply speed = distance / time",
+          "240 / 4 = 60 → C"
+        ],
+        "answer": "C (60 mph)"
+      },
+      "traps": [
+        "Multiplying 240·4 instead of dividing"
+      ],
+      "solveSteps": [
+        "1. Identify total distance and time",
+        "2. Divide d / t"
+      ]
+    }
+  },
+  "252": {
+    "hint": "A's 1-h head start = 60 mi. Closing rate = 75−60 = 15. Time = 60/15 = 4.",
+    "theory": {
+      "title": "Rate — Catch-Up (Same Direction)",
+      "icon": "🚗",
+      "summary": "When chasing in the same direction, the gap closes at the speed DIFFERENCE. Find the head start, divide by the difference.",
+      "keyFacts": [
+        "A travels 1 h alone → 60 mi head start",
+        "Closing rate = 75 − 60 = 15 mph",
+        "Catch-up time = 60 / 15 = 4 h (from B's start)",
+        "Same direction → subtract speeds (not add)"
+      ],
+      "example": {
+        "problem": "A 60 mph, B 75 mph starts 1 h later; B catches A after?",
+        "steps": [
+          "Head start = 60·1 = 60 mi",
+          "60 / (75−60) = 4 h → C"
+        ],
+        "answer": "C (4)"
+      },
+      "traps": [
+        "Adding speeds (135) — that's for opposite directions, not catch-up"
+      ],
+      "solveSteps": [
+        "1. Compute the head-start distance",
+        "2. Closing rate = speed difference",
+        "3. Time = head start / closing rate"
+      ]
+    }
+  },
+  "253": {
+    "hint": "Down=30/2=15, Up=30/3=10. Current = (down−up)/2 = 2.5.",
+    "theory": {
+      "title": "Rate — Current From Down/Up Speeds",
+      "icon": "🚤",
+      "summary": "Downstream = boat+current, upstream = boat−current. Subtract and halve to isolate the current.",
+      "keyFacts": [
+        "Down speed = 30/2 = 15 mph",
+        "Up speed = 30/3 = 10 mph",
+        "current = (15 − 10)/2 = 2.5 mph",
+        "boat = (15 + 10)/2 = 12.5 mph"
+      ],
+      "example": {
+        "problem": "30 mi down in 2 h, up in 3 h; current?",
+        "steps": [
+          "Down=15, Up=10",
+          "(15−10)/2 = 2.5 → C"
+        ],
+        "answer": "C (2.5 mph)"
+      },
+      "traps": [
+        "Reporting 15−10 = 5 as the current (forgot to halve)"
+      ],
+      "solveSteps": [
+        "1. Down & up speeds = dist/time",
+        "2. current = (down − up)/2"
+      ]
+    }
+  },
+  "254": {
+    "hint": "Whole job in 4 h → 1/4 per hour.",
+    "theory": {
+      "title": "Work — Rate Is the Reciprocal of Time",
+      "icon": "🛠️",
+      "summary": "If a whole task takes T hours, the per-hour rate is 1/T of the task.",
+      "keyFacts": [
+        "Time for full job = 4 h",
+        "Rate = 1/4 per hour",
+        "In 1 h → 1/4 of the room",
+        "Rate and time are reciprocals"
+      ],
+      "example": {
+        "problem": "Paints a room in 4 h; fraction in 1 h?",
+        "steps": [
+          "Rate = 1 / 4 per hour",
+          "1 hour → 1/4 → C"
+        ],
+        "answer": "C (1/4)"
+      },
+      "traps": [
+        "Answering 4 (the time) instead of 1/4 (the rate)"
+      ],
+      "solveSteps": [
+        "1. Rate = 1 / total time",
+        "2. Multiply by the hours asked"
+      ]
+    }
+  },
+  "255": {
+    "hint": "Add rates: 1/6 + 1/3 = 1/2 → together 2 h.",
+    "theory": {
+      "title": "Work — Combined Rate",
+      "icon": "🛠️",
+      "summary": "Rates add when working together. Sum the per-hour fractions, then invert for the combined time.",
+      "keyFacts": [
+        "A = 1/6, B = 1/3 per hour",
+        "Combined = 1/6 + 2/6 = 3/6 = 1/2",
+        "Time = 1 / (1/2) = 2 h",
+        "Combined time is less than either alone"
+      ],
+      "example": {
+        "problem": "A 6 h, B 3 h; together?",
+        "steps": [
+          "1/6 + 1/3 = 1/2",
+          "Time = 2 h → C"
+        ],
+        "answer": "C (2 h)"
+      },
+      "traps": [
+        "Averaging the times (6+3)/2 = 4.5 instead of adding rates"
+      ],
+      "solveSteps": [
+        "1. Sum the per-hour rates",
+        "2. Invert the total rate"
+      ]
+    }
+  },
+  "256": {
+    "hint": "Net = 1/4 − 1/6 = 1/12 → 12 h to fill.",
+    "theory": {
+      "title": "Work — Fill vs Drain (Net Rate)",
+      "icon": "🛠️",
+      "summary": "A draining pipe subtracts from the filling rate. Net = fill − drain, then invert.",
+      "keyFacts": [
+        "Fill A = 1/4, drain B = 1/6 per hour",
+        "Net = 1/4 − 1/6 = 3/12 − 2/12 = 1/12",
+        "Time = 1 / (1/12) = 12 h",
+        "Net positive → tank still fills (just slower)"
+      ],
+      "example": {
+        "problem": "Fill in 4 h, drain in 6 h, both open; fill time?",
+        "steps": [
+          "Net = 1/4 − 1/6 = 1/12",
+          "Time = 12 h → C"
+        ],
+        "answer": "C (12 h)"
+      },
+      "traps": [
+        "Adding the rates (1/4 + 1/6) instead of subtracting the drain"
+      ],
+      "solveSteps": [
+        "1. Net = fill rate − drain rate",
+        "2. Invert for time"
+      ]
+    }
+  },
+  "257": {
+    "hint": "Salt = 50 mL stays; new volume 200 mL → 50/200 = 25%.",
+    "theory": {
+      "title": "Mixtures — Dilution Keeps Solute Constant",
+      "icon": "⚗️",
+      "summary": "Adding pure water changes total volume but not the amount of salt. New % = salt / new total.",
+      "keyFacts": [
+        "Salt = 50% of 100 mL = 50 mL",
+        "Add 100 mL water → total 200 mL",
+        "Concentration = 50/200 = 25%",
+        "Solute amount unchanged by dilution"
+      ],
+      "example": {
+        "problem": "100 mL of 50% + 100 mL water; new %?",
+        "steps": [
+          "Salt = 50 mL (unchanged)",
+          "50 / 200 = 25% → D"
+        ],
+        "answer": "D (25%)"
+      },
+      "traps": [
+        "Averaging 50% and 0% to 25% works here by luck — but always track solute, not average %"
+      ],
+      "solveSteps": [
+        "1. Solute amount = original % · original volume",
+        "2. New % = solute / new total volume"
+      ]
+    }
+  },
+  "258": {
+    "hint": "Acid fixed at 10 mL; want 10/(50+x)=0.1 → x=50.",
+    "theory": {
+      "title": "Mixtures — Water to Reach a Target %",
+      "icon": "⚗️",
+      "summary": "Acid stays constant; set acid / (original + added water) = target fraction and solve.",
+      "keyFacts": [
+        "Acid = 20% of 50 = 10 mL (constant)",
+        "Target: 10 / (50 + x) = 0.10",
+        "50 + x = 100 → x = 50",
+        "Halving concentration → doubling volume"
+      ],
+      "example": {
+        "problem": "50 mL of 20% acid → 10%; water to add?",
+        "steps": [
+          "Acid = 10 mL",
+          "10/(50+x) = 0.1 → x = 50 → D"
+        ],
+        "answer": "D (50 mL)"
+      },
+      "traps": [
+        "Thinking you remove acid — only water is added; acid is fixed"
+      ],
+      "solveSteps": [
+        "1. Solute = const",
+        "2. solute/(orig+x) = target",
+        "3. Solve x"
+      ]
+    }
+  },
+  "259": {
+    "hint": "Alligation/balance: 4x + 7(30−x) = 5·30 → x=20.",
+    "theory": {
+      "title": "Mixtures — Weighted Cost Balance",
+      "icon": "⚗️",
+      "summary": "Total cost of components = total cost of the blend. Solve the linear equation for the unknown quantity.",
+      "keyFacts": [
+        "x lb at $4, (30−x) at $7, blend 30 lb at $5",
+        "4x + 7(30−x) = 150",
+        "4x + 210 − 7x = 150 → −3x = −60",
+        "x = 20 lb of the $4 coffee"
+      ],
+      "example": {
+        "problem": "$4 & $7 coffee → 30 lb @ $5; lb of $4?",
+        "steps": [
+          "4x + 7(30−x) = 5·30",
+          "−3x = −60 → x = 20 → D"
+        ],
+        "answer": "D (20)"
+      },
+      "traps": [
+        "Setting up with the blend price on a component (mismatched sides)"
+      ],
+      "solveSteps": [
+        "1. cost_A + cost_B = cost_blend",
+        "2. Expand and solve for x"
+      ]
+    }
+  },
+  "260": {
+    "hint": "x + 4x = 25 → x=5 → Sam = 4·5 = 20.",
+    "theory": {
+      "title": "Ages — Ratio Plus Sum",
+      "icon": "👥",
+      "summary": "Let the smaller be x, the multiple 4x; their sum gives x, then scale for the asked person.",
+      "keyFacts": [
+        "Sister = x, Sam = 4x",
+        "x + 4x = 25 → 5x = 25 → x = 5",
+        "Sam = 4·5 = 20",
+        "Question asks Sam, not the sister"
+      ],
+      "example": {
+        "problem": "Sam = 4× sister, sum 25; Sam?",
+        "steps": [
+          "5x = 25 → x = 5",
+          "Sam = 20 → D"
+        ],
+        "answer": "D (20)"
+      },
+      "traps": [
+        "Reporting the sister's age 5 instead of Sam's 20"
+      ],
+      "solveSteps": [
+        "1. Variables: x and 4x",
+        "2. Sum equation → x",
+        "3. Scale to the asked age"
+      ]
+    }
+  },
+  "261": {
+    "hint": "Anna 5 yr ago = 20 = 2(Ben−5) → Ben = 15.",
+    "theory": {
+      "title": "Ages — Shift Both People to the Past",
+      "icon": "👥",
+      "summary": "Translate 'five years ago' by subtracting 5 from BOTH ages, then apply the ratio.",
+      "keyFacts": [
+        "Anna now 25 → 5 yr ago = 20",
+        "20 = 2 · (Ben − 5)",
+        "Ben − 5 = 10 → Ben = 15",
+        "Both ages shift by the same 5 years"
+      ],
+      "example": {
+        "problem": "5 yr ago Anna 2× Ben; Anna now 25; Ben now?",
+        "steps": [
+          "Anna then = 20",
+          "20 = 2(Ben−5) → Ben = 15 → D"
+        ],
+        "answer": "D (15)"
+      },
+      "traps": [
+        "Using Anna's current 25 in the ratio instead of her past age 20"
+      ],
+      "solveSteps": [
+        "1. Subtract the offset from each age",
+        "2. Apply the ratio at that time",
+        "3. Solve, return to 'now' if needed"
+      ]
+    }
+  },
+  "262": {
+    "hint": "t+8 = 3(t−4) → 2t=20 → t=10.",
+    "theory": {
+      "title": "Ages — Future = k × Past",
+      "icon": "👥",
+      "summary": "Express the future age (t+8) and the past age (t−4), set the multiple relationship, solve.",
+      "keyFacts": [
+        "Future: t + 8",
+        "Past: t − 4",
+        "t + 8 = 3(t − 4) → t + 8 = 3t − 12",
+        "2t = 20 → t = 10"
+      ],
+      "example": {
+        "problem": "In 8 yr, 3× age 4 yr ago; now?",
+        "steps": [
+          "t+8 = 3(t−4)",
+          "2t = 20 → t = 10 → B"
+        ],
+        "answer": "B (10)"
+      },
+      "traps": [
+        "Mixing the signs: writing t−8 or 3t+12"
+      ],
+      "solveSteps": [
+        "1. Write future and past expressions",
+        "2. Set future = k·past",
+        "3. Solve for t"
+      ]
+    }
+  },
+  "263": {
+    "hint": "SP = 1.2·CP → CP = 48/1.2 = 40.",
+    "theory": {
+      "title": "Profit — Back Out Cost From Selling Price",
+      "icon": "💰",
+      "summary": "A 20% profit means SP = 1.20·CP. Divide SP by 1.20 to recover the cost.",
+      "keyFacts": [
+        "SP = CP·(1 + 0.20) = 1.2·CP",
+        "48 = 1.2·CP",
+        "CP = 48 / 1.2 = 40",
+        "Divide (not subtract 20%) to invert a markup"
+      ],
+      "example": {
+        "problem": "20% profit, SP $48; cost?",
+        "steps": [
+          "48 = 1.2·CP",
+          "CP = 40 → D"
+        ],
+        "answer": "D ($40)"
+      },
+      "traps": [
+        "Taking 80% of 48 = 38.40 (treats profit like a discount)"
+      ],
+      "solveSteps": [
+        "1. SP = (1+profit)·CP",
+        "2. CP = SP / (1+profit)"
+      ]
+    }
+  },
+  "264": {
+    "hint": "0.8·CP=144 → CP=180. Profit price = 1.1·180 = 198.",
+    "theory": {
+      "title": "Profit — Two-Step via Cost",
+      "icon": "💰",
+      "summary": "First recover cost from the loss sale, then apply the desired profit to that cost.",
+      "keyFacts": [
+        "20% loss → SP = 0.8·CP = 144 → CP = 180",
+        "Desired 10% profit → SP = 1.10·CP",
+        "1.10 · 180 = 198",
+        "Both % apply to the SAME cost base"
+      ],
+      "example": {
+        "problem": "Sold $144 at 20% loss; price for 10% profit?",
+        "steps": [
+          "CP = 144 / 0.8 = 180",
+          "1.10·180 = 198 → D"
+        ],
+        "answer": "D ($198)"
+      },
+      "traps": [
+        "Adding 30% to 144 directly (skips finding the true cost)"
+      ],
+      "solveSteps": [
+        "1. CP from the loss equation",
+        "2. Apply target profit to CP"
+      ]
+    }
+  },
+  "265": {
+    "hint": "60 mL/min · 60 · 24 = 86400 mL = 86.4 L.",
+    "theory": {
+      "title": "Rate — Unit Chain Over a Day",
+      "icon": "🚿",
+      "summary": "Multiply the per-minute rate by minutes per hour and hours per day, then convert mL→L.",
+      "keyFacts": [
+        "60 mL/min × 60 min/h = 3600 mL/h",
+        "× 24 h = 86,400 mL/day",
+        "÷ 1000 → 86.4 L",
+        "1 L = 1000 mL"
+      ],
+      "example": {
+        "problem": "60 mL/min for a day; liters?",
+        "steps": [
+          "60·60·24 = 86,400 mL",
+          "= 86.4 L → D"
+        ],
+        "answer": "D (86.4 L)"
+      },
+      "traps": [
+        "Stopping at mL (86,400) or using only 24 (skipping ×60 min)"
+      ],
+      "solveSteps": [
+        "1. Scale rate up the time units",
+        "2. Convert mL to L (÷1000)"
+      ]
+    }
+  },
+  "266": {
+    "hint": "5·0.40 + 8·0.25 = 2.00 + 2.00 = 4.00.",
+    "theory": {
+      "title": "Money — Itemized Total",
+      "icon": "💰",
+      "summary": "Multiply quantity by unit price for each item, then sum.",
+      "keyFacts": [
+        "Apples: 5 × 0.40 = 2.00",
+        "Bananas: 8 × 0.25 = 2.00",
+        "Total = 2.00 + 2.00 = 4.00",
+        "Keep the two item costs separate before summing"
+      ],
+      "example": {
+        "problem": "5 apples @0.40, 8 bananas @0.25; total?",
+        "steps": [
+          "Apples 2.00, bananas 2.00",
+          "Sum = 4.00 → C"
+        ],
+        "answer": "C ($4.00)"
+      },
+      "traps": [
+        "Multiplying combined counts by one price"
+      ],
+      "solveSteps": [
+        "1. qty × unit price per item",
+        "2. Add the subtotals"
+      ]
+    }
+  },
+  "267": {
+    "hint": "600 / 30 = 20 min.",
+    "theory": {
+      "title": "Rate — Time = Quantity / Rate",
+      "icon": "🖨️",
+      "summary": "Time to process a quantity = total quantity ÷ processing rate.",
+      "keyFacts": [
+        "Rate = 30 pages/min",
+        "Quantity = 600 pages",
+        "Time = 600 / 30 = 20 min",
+        "Inverse of rate × time = quantity"
+      ],
+      "example": {
+        "problem": "30 pages/min; time for 600?",
+        "steps": [
+          "600 / 30",
+          "= 20 min → C"
+        ],
+        "answer": "C (20 min)"
+      },
+      "traps": [
+        "Multiplying 600·30 instead of dividing"
+      ],
+      "solveSteps": [
+        "1. time = quantity / rate",
+        "2. Mind the units"
+      ]
+    }
+  },
+  "268": {
+    "hint": "Worker-days constant: 8·15=120 → 120/12 = 10 days.",
+    "theory": {
+      "title": "Work — Inverse Proportion (Worker-Days)",
+      "icon": "🛠️",
+      "summary": "Total work = workers × days is constant. More workers → fewer days, inversely.",
+      "keyFacts": [
+        "Work = 8 × 15 = 120 worker-days",
+        "With 12 workers: days = 120 / 12 = 10",
+        "Workers and days are inversely proportional",
+        "Same total work either way"
+      ],
+      "example": {
+        "problem": "8 workers, 15 days; 12 workers take?",
+        "steps": [
+          "Total = 120 worker-days",
+          "120 / 12 = 10 → B"
+        ],
+        "answer": "B (10 days)"
+      },
+      "traps": [
+        "Scaling directly (more workers = more days) — it's inverse"
+      ],
+      "solveSteps": [
+        "1. Constant = workers · days",
+        "2. New days = constant / new workers"
+      ]
+    }
+  },
+  "269": {
+    "hint": "Simple interest: 1000·0.05·3 = 150 → balance 1150.",
+    "theory": {
+      "title": "Money — Simple Interest",
+      "icon": "💰",
+      "summary": "Simple interest = P·r·t (on the original principal only). Add to principal for the balance.",
+      "keyFacts": [
+        "I = P·r·t = 1000·0.05·3",
+        "I = 150",
+        "Balance = 1000 + 150 = 1150",
+        "Simple ≠ compound (no interest-on-interest)"
+      ],
+      "example": {
+        "problem": "$1000 at 5% simple, 3 yr; balance?",
+        "steps": [
+          "I = 1000·0.05·3 = 150",
+          "1000 + 150 = 1150 → C"
+        ],
+        "answer": "C ($1,150)"
+      },
+      "traps": [
+        "Compounding it (1000·1.05³ ≈ 1157.6) — question says simple"
+      ],
+      "solveSteps": [
+        "1. I = P·r·t",
+        "2. Balance = P + I"
+      ]
+    }
+  },
+  "270": {
+    "hint": "Avg speed = TOTAL dist / TOTAL time = 310/5 = 62, not (50+70)/2.",
+    "theory": {
+      "title": "Rate — Average Speed Over Segments",
+      "icon": "🚗",
+      "summary": "Average speed = total distance ÷ total time. Never average the two speeds unless the times are equal.",
+      "keyFacts": [
+        "Leg 1: 50·2 = 100 mi; Leg 2: 70·3 = 210 mi",
+        "Total distance = 310 mi, total time = 5 h",
+        "Avg = 310 / 5 = 62 mph",
+        "Plain (50+70)/2 = 60 is wrong (unequal times)"
+      ],
+      "example": {
+        "problem": "50 mph 2 h then 70 mph 3 h; average?",
+        "steps": [
+          "Distances 100 + 210 = 310",
+          "310 / 5 = 62 → C"
+        ],
+        "answer": "C (62 mph)"
+      },
+      "traps": [
+        "Averaging the speeds to 60 — the 70 mph leg lasts longer, so it pulls the mean up"
+      ],
+      "solveSteps": [
+        "1. Distance per leg = speed·time",
+        "2. Total distance / total time"
+      ]
+    }
   }
 };
 
