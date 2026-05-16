@@ -6607,6 +6607,598 @@ const QUESTION_THEORIES = {
         "2. Total − that"
       ]
     }
+  },
+  "211": {
+    "hint": "7 ≡ −1 (mod 4). (−1)^100 = 1. Remainder 1.",
+    "theory": {
+      "title": "Remainders — Reduce the Base First",
+      "icon": "🔢",
+      "summary": "Replace the base with its small residue mod m before taking the power. 7 ≡ −1 (mod 4), so the parity of the exponent decides everything.",
+      "keyFacts": [
+        "7 mod 4 = 3 ≡ −1 (mod 4)",
+        "(−1)^even = 1; (−1)^odd = −1 ≡ 3",
+        "Exponent 100 is even → 7^100 ≡ 1 (mod 4)",
+        "Using −1 instead of 3 makes the power trivial"
+      ],
+      "example": {
+        "problem": "Remainder of 7^100 ÷ 4?",
+        "steps": [
+          "7 ≡ −1 (mod 4)",
+          "(−1)^100 = 1 → B"
+        ],
+        "answer": "B (1)"
+      },
+      "traps": [
+        "Computing huge powers directly instead of reducing the base mod 4"
+      ],
+      "solveSteps": [
+        "1. base mod m (prefer ±1 forms)",
+        "2. Apply the exponent to the residue",
+        "3. Normalize to 0..m−1"
+      ]
+    }
+  },
+  "212": {
+    "hint": "Scale both by 100: 0.6/0.02 = 60/2 = 30.",
+    "theory": {
+      "title": "Decimals — Clear Decimals by Scaling",
+      "icon": "🔢",
+      "summary": "Multiply numerator and denominator by the same power of 10 so the division becomes whole numbers.",
+      "keyFacts": [
+        "Multiply top & bottom by 100: 0.6→60, 0.02→2",
+        "60 ÷ 2 = 30",
+        "Dividing by a number <1 makes the result larger",
+        "Equivalent: 0.6 × (1/0.02) = 0.6 × 50 = 30"
+      ],
+      "example": {
+        "problem": "0.6 ÷ 0.02?",
+        "steps": [
+          "×100/×100 → 60/2",
+          "= 30 → C"
+        ],
+        "answer": "C (30)"
+      },
+      "traps": [
+        "Expecting a small answer because of decimals — dividing by 0.02 multiplies by 50"
+      ],
+      "solveSteps": [
+        "1. Scale both by 10^k to clear decimals",
+        "2. Do the integer division"
+      ]
+    }
+  },
+  "213": {
+    "hint": "2^x=32 → x=5. 2^(x+2)=2^x·4 = 32·4 = 128.",
+    "theory": {
+      "title": "Exponents — Shift the Exponent",
+      "icon": "🔢",
+      "summary": "2^(x+2) = 2^x · 2² — you don't even need x; multiply the known power by 4.",
+      "keyFacts": [
+        "2^x = 32 = 2⁵ → x = 5",
+        "2^(x+2) = 2^x · 2² = 32 · 4 = 128",
+        "Adding 2 to the exponent multiplies by 2²",
+        "= 2⁷ = 128"
+      ],
+      "example": {
+        "problem": "2^x=32; 2^(x+2)?",
+        "steps": [
+          "2^x = 32",
+          "×2² = ×4 → 128 → C"
+        ],
+        "answer": "C (128)"
+      },
+      "traps": [
+        "Adding instead of multiplying: 32 + 4 = 36 (not how exponents work)"
+      ],
+      "solveSteps": [
+        "1. a^(x+k) = a^x · a^k",
+        "2. Multiply the known value by a^k"
+      ]
+    }
+  },
+  "214": {
+    "hint": "3^(x+2)=9·3^x. Set 9·3^x = 27·3^x·k → k = 9/27 = 1/3.",
+    "theory": {
+      "title": "Exponents — Cancel the Common Power",
+      "icon": "🔢",
+      "summary": "Express both sides with 3^x as a common factor, then it cancels and you solve for k from the constants.",
+      "keyFacts": [
+        "3^(x+2) = 3² · 3^x = 9·3^x",
+        "Equation: 9·3^x = 27·3^x·k",
+        "Divide by 3^x: 9 = 27k",
+        "k = 9/27 = 1/3"
+      ],
+      "example": {
+        "problem": "3^(x+2) = 27·3^x·k; k?",
+        "steps": [
+          "LHS = 9·3^x",
+          "9 = 27k → k = 1/3 → B"
+        ],
+        "answer": "B (1/3)"
+      },
+      "traps": [
+        "Getting k=3 by flipping 9/27 to 27/9"
+      ],
+      "solveSteps": [
+        "1. Rewrite each side as constant · 3^x",
+        "2. Cancel 3^x",
+        "3. Solve the constant equation"
+      ]
+    }
+  },
+  "215": {
+    "hint": "LCM via prime powers: max(2³, 3, 5) = 8·3·5 = 120.",
+    "theory": {
+      "title": "LCM — Highest Power of Each Prime",
+      "icon": "🔢",
+      "summary": "The LCM takes the greatest power of every prime appearing in any number.",
+      "keyFacts": [
+        "6 = 2·3, 8 = 2³, 15 = 3·5",
+        "Primes: 2 (max power 2³), 3 (3¹), 5 (5¹)",
+        "LCM = 2³·3·5 = 120",
+        "Not 6·8·15 = 720 (over-counts shared primes)"
+      ],
+      "example": {
+        "problem": "Smallest int divisible by 6, 8, 15?",
+        "steps": [
+          "2³ from 8, 3 from 6/15, 5 from 15",
+          "8·3·5 = 120 → C"
+        ],
+        "answer": "C (120)"
+      },
+      "traps": [
+        "Multiplying all three numbers (720) instead of taking max prime powers"
+      ],
+      "solveSteps": [
+        "1. Prime-factor each",
+        "2. Take the highest power of each prime",
+        "3. Multiply"
+      ]
+    }
+  },
+  "216": {
+    "hint": "5x−3=22 → 5x=25 → x=5.",
+    "theory": {
+      "title": "Linear — Isolate in Two Steps",
+      "icon": "🔢",
+      "summary": "Undo the operations in reverse order: add the constant, then divide by the coefficient.",
+      "keyFacts": [
+        "5x − 3 = 22",
+        "Add 3: 5x = 25",
+        "Divide by 5: x = 5",
+        "Check: 5·5−3 = 22 ✓"
+      ],
+      "example": {
+        "problem": "5x − 3 = 22; x?",
+        "steps": [
+          "5x = 25",
+          "x = 5 → C"
+        ],
+        "answer": "C (5)"
+      },
+      "traps": [
+        "Dividing before adding 3 (mishandles order of inverse operations)"
+      ],
+      "solveSteps": [
+        "1. Move the constant",
+        "2. Divide by the coefficient",
+        "3. Back-check"
+      ]
+    }
+  },
+  "217": {
+    "hint": "Divide by 3 first: x+2=7 → x=5.",
+    "theory": {
+      "title": "Linear — Divide Out the Factor First",
+      "icon": "🔢",
+      "summary": "When one factor multiplies a bracket, dividing both sides by it is the fastest first move.",
+      "keyFacts": [
+        "3(x+2) = 21",
+        "Divide by 3: x+2 = 7",
+        "x = 5",
+        "Distributing (3x+6=21) also works but is slower"
+      ],
+      "example": {
+        "problem": "3(x+2)=21; x?",
+        "steps": [
+          "x+2 = 7",
+          "x = 5 → B"
+        ],
+        "answer": "B (5)"
+      },
+      "traps": [
+        "Distributing then forgetting the +6 → 3x=21 → x=7 (wrong)"
+      ],
+      "solveSteps": [
+        "1. Divide both sides by the outside factor",
+        "2. Solve the simple linear equation"
+      ]
+    }
+  },
+  "218": {
+    "hint": "Cross-multiply: 5(x−2)=3(x+4) → 2x=22 → x=11.",
+    "theory": {
+      "title": "Proportions — Cross-Multiply",
+      "icon": "🔢",
+      "summary": "An equation of two fractions clears via cross-multiplication, then solve the resulting linear equation.",
+      "keyFacts": [
+        "(x−2)/3 = (x+4)/5",
+        "Cross: 5(x−2) = 3(x+4)",
+        "5x−10 = 3x+12 → 2x = 22",
+        "x = 11"
+      ],
+      "example": {
+        "problem": "(x−2)/3 = (x+4)/5; x?",
+        "steps": [
+          "5(x−2)=3(x+4)",
+          "2x=22 → x=11 → B"
+        ],
+        "answer": "B (11)"
+      },
+      "traps": [
+        "Multiplying only one side by a denominator (must cross both)"
+      ],
+      "solveSteps": [
+        "1. Cross-multiply",
+        "2. Expand both sides",
+        "3. Collect and solve"
+      ]
+    }
+  },
+  "219": {
+    "hint": "Add → 2x=16 → x=8; subtract → y=4. xy=32. Don't stop at x+y.",
+    "theory": {
+      "title": "Systems — Solve Then Multiply",
+      "icon": "🔢",
+      "summary": "Sum and difference equations give x and y immediately; the question wants the product, so finish the multiplication.",
+      "keyFacts": [
+        "x+y=12, x−y=4",
+        "Add: 2x=16 → x=8",
+        "Then y = 12−8 = 4",
+        "xy = 8·4 = 32 (not 12 or 4)"
+      ],
+      "example": {
+        "problem": "x+y=12, x−y=4; xy?",
+        "steps": [
+          "x=8, y=4",
+          "xy = 32 → D"
+        ],
+        "answer": "D (32)"
+      },
+      "traps": [
+        "Answering 12 (that's x+y) instead of the product"
+      ],
+      "solveSteps": [
+        "1. Add/subtract for x and y",
+        "2. Compute the asked product"
+      ]
+    }
+  },
+  "220": {
+    "hint": "Add equations → 8x=32 → x=4 → y=2 → x+y=6.",
+    "theory": {
+      "title": "Systems — Elimination by Adding",
+      "icon": "🔢",
+      "summary": "Opposite y-coefficients (+2y, −2y) cancel on addition; solve x, back-substitute, then form x+y.",
+      "keyFacts": [
+        "3x+2y=16, 5x−2y=16",
+        "Add: 8x = 32 → x = 4",
+        "12 + 2y = 16 → y = 2",
+        "x+y = 6"
+      ],
+      "example": {
+        "problem": "3x+2y=16, 5x−2y=16; x+y?",
+        "steps": [
+          "Add → 8x=32 → x=4",
+          "y=2 → x+y=6 → B"
+        ],
+        "answer": "B (6)"
+      },
+      "traps": [
+        "Subtracting (keeps both y terms) instead of adding to cancel them"
+      ],
+      "solveSteps": [
+        "1. Add to cancel the opposite term",
+        "2. Solve x, back-substitute y",
+        "3. Form the asked combination"
+      ]
+    }
+  },
+  "221": {
+    "hint": "3x−5>7 → 3x>12 → x>4. Strict, no equality.",
+    "theory": {
+      "title": "Inequalities — Solve Like an Equation (Positive Divide)",
+      "icon": "🔢",
+      "summary": "Dividing by a positive number keeps the inequality direction. The result is strict (>) because the original was strict.",
+      "keyFacts": [
+        "3x − 5 > 7 → 3x > 12",
+        "Divide by +3 (direction unchanged): x > 4",
+        "Strict > → x = 4 is NOT included",
+        "Answer set: x > 4"
+      ],
+      "example": {
+        "problem": "3x − 5 > 7?",
+        "steps": [
+          "3x > 12",
+          "x > 4 → C"
+        ],
+        "answer": "C (x > 4)"
+      },
+      "traps": [
+        "Writing x ≥ 4 — the inequality is strict"
+      ],
+      "solveSteps": [
+        "1. Isolate the x-term",
+        "2. Divide by the positive coefficient (keep direction)",
+        "3. Keep strictness"
+      ]
+    }
+  },
+  "222": {
+    "hint": "−2x+5≥11 → −2x≥6 → divide by −2 FLIPS → x≤−3. Largest = −3.",
+    "theory": {
+      "title": "Inequalities — Flip When Dividing by a Negative",
+      "icon": "🔢",
+      "summary": "Dividing (or multiplying) both sides by a negative number reverses the inequality sign. The 'largest x' is the boundary.",
+      "keyFacts": [
+        "−2x + 5 ≥ 11 → −2x ≥ 6",
+        "Divide by −2 → sign flips: x ≤ −3",
+        "Largest value satisfying x ≤ −3 is −3",
+        "≤ keeps the endpoint −3 included"
+      ],
+      "example": {
+        "problem": "−2x+5 ≥ 11; largest x?",
+        "steps": [
+          "−2x ≥ 6",
+          "x ≤ −3 → largest = −3 → A"
+        ],
+        "answer": "A (−3)"
+      },
+      "traps": [
+        "Not flipping the sign → x ≥ −3 → wrongly picking a large positive answer"
+      ],
+      "solveSteps": [
+        "1. Isolate the −2x term",
+        "2. Divide by negative → FLIP sign",
+        "3. Read the extreme value"
+      ]
+    }
+  },
+  "223": {
+    "hint": "|x−5|<3 → 2<x<8. Integers 3,4,5,6,7 → 5 values (endpoints excluded).",
+    "theory": {
+      "title": "Absolute Value — Distance Band, Count Integers",
+      "icon": "🔢",
+      "summary": "|x−5|<3 means x is within 3 of 5: an open interval (2,8). Count integers strictly inside.",
+      "keyFacts": [
+        "|x−5|<3 ⇔ −3 < x−5 < 3 ⇔ 2 < x < 8",
+        "Strict < → 2 and 8 excluded",
+        "Integers: 3,4,5,6,7",
+        "Count = 5"
+      ],
+      "example": {
+        "problem": "Integer x with |x−5|<3?",
+        "steps": [
+          "2 < x < 8",
+          "{3,4,5,6,7} → 5 → C"
+        ],
+        "answer": "C (5)"
+      },
+      "traps": [
+        "Including 2 and 8 (would need ≤, not <) → wrongly counting 7"
+      ],
+      "solveSteps": [
+        "1. |x−c|<r → c−r < x < c+r",
+        "2. Exclude endpoints (strict)",
+        "3. Count integers inside"
+      ]
+    }
+  },
+  "224": {
+    "hint": "Product of roots = c/a = 8/1 = 8 (Vieta). No need to solve.",
+    "theory": {
+      "title": "Quadratics — Product of Roots (Vieta)",
+      "icon": "🔢",
+      "summary": "For ax²+bx+c=0, roots multiply to c/a. Read it off the constant term.",
+      "keyFacts": [
+        "x²−6x+8: a=1, c=8",
+        "Product = c/a = 8",
+        "Factor check: (x−2)(x−4) → 2·4 = 8 ✓",
+        "Sum would be −b/a = 6 (different question)"
+      ],
+      "example": {
+        "problem": "Product of roots of x²−6x+8=0?",
+        "steps": [
+          "Identify a=1, c=8",
+          "Product = c/a = 8/1 = 8 → D"
+        ],
+        "answer": "D (8)"
+      },
+      "traps": [
+        "Reporting the sum (6) or sign-flipping to −8"
+      ],
+      "solveSteps": [
+        "1. Identify a, c",
+        "2. Product = c/a"
+      ]
+    }
+  },
+  "225": {
+    "hint": "Sum of roots = −b/a = 7 → b = −7.",
+    "theory": {
+      "title": "Quadratics — Solve b From Root Sum",
+      "icon": "🔢",
+      "summary": "Sum of roots = −b/a. Given the sum, invert to find b.",
+      "keyFacts": [
+        "x²+bx+12: a=1, sum of roots = −b",
+        "Given sum = 7 → −b = 7",
+        "b = −7",
+        "(Product 12 is consistent: roots 3,4 → sum 7, product 12)"
+      ],
+      "example": {
+        "problem": "x²+bx+12=0, root sum 7; b?",
+        "steps": [
+          "−b/a = 7 → −b = 7",
+          "b = −7 → B"
+        ],
+        "answer": "B (−7)"
+      },
+      "traps": [
+        "Forgetting the minus sign → b = 7"
+      ],
+      "solveSteps": [
+        "1. Sum = −b/a",
+        "2. Solve for b (mind the sign)"
+      ]
+    }
+  },
+  "226": {
+    "hint": "3 consecutive sum 54 → middle = 18 → largest 19.",
+    "theory": {
+      "title": "Word Problems — Consecutive Integers Around the Mean",
+      "icon": "🔢",
+      "summary": "Three consecutive integers are symmetric around the middle one, so the middle = sum/3. Largest = middle + 1.",
+      "keyFacts": [
+        "n−1, n, n+1 sum to 3n",
+        "3n = 54 → n = 18 (the middle)",
+        "Largest = n+1 = 19",
+        "Smallest would be 17"
+      ],
+      "example": {
+        "problem": "3 consecutive ints sum 54; largest?",
+        "steps": [
+          "Middle = 54/3 = 18",
+          "Largest = 19 → C"
+        ],
+        "answer": "C (19)"
+      },
+      "traps": [
+        "Reporting the middle (18) instead of the largest"
+      ],
+      "solveSteps": [
+        "1. Middle = sum / count",
+        "2. Largest = middle + 1"
+      ]
+    }
+  },
+  "227": {
+    "hint": "x+1/x=10/3 → 3x²−10x+3=0 → (3x−1)(x−3) → x=3 (larger).",
+    "theory": {
+      "title": "Word Problems — Number Plus Its Reciprocal",
+      "icon": "🔢",
+      "summary": "Clear the reciprocal by multiplying through by x, forming a quadratic; both roots are reciprocals of each other.",
+      "keyFacts": [
+        "x + 1/x = 10/3 → multiply by 3x: 3x²+3 = 10x",
+        "3x² − 10x + 3 = 0 → (3x−1)(x−3)=0",
+        "Roots x = 1/3 or 3 (reciprocal pair)",
+        "Larger = 3"
+      ],
+      "example": {
+        "problem": "Number + reciprocal = 10/3; larger value?",
+        "steps": [
+          "3x²−10x+3=0",
+          "x = 1/3 or 3 → larger 3 → E"
+        ],
+        "answer": "E (3)"
+      },
+      "traps": [
+        "Stopping at x=1/3 (the smaller root) — question asks the larger"
+      ],
+      "solveSteps": [
+        "1. ×x to clear the reciprocal",
+        "2. Solve the quadratic",
+        "3. Pick the requested root"
+      ]
+    }
+  },
+  "228": {
+    "hint": "2n = 3n − 10 → n = 10.",
+    "theory": {
+      "title": "Word Problems — Translate the Sentence Literally",
+      "icon": "🔢",
+      "summary": "'Twice a number is 10 less than three times it' → 2n = 3n − 10. Solve.",
+      "keyFacts": [
+        "'twice' = 2n; 'three times' = 3n",
+        "'10 less than 3n' = 3n − 10",
+        "2n = 3n − 10 → n = 10",
+        "Check: 2·10=20, 3·10−10=20 ✓"
+      ],
+      "example": {
+        "problem": "2n is 10 less than 3n; n?",
+        "steps": [
+          "2n = 3n − 10",
+          "n = 10 → C"
+        ],
+        "answer": "C (10)"
+      },
+      "traps": [
+        "Writing '10 less than 3n' as 10 − 3n (reversed)"
+      ],
+      "solveSteps": [
+        "1. Translate each phrase to algebra",
+        "2. '10 less than X' = X − 10",
+        "3. Solve"
+      ]
+    }
+  },
+  "229": {
+    "hint": "f(4)=2·4²−3 = 2·16−3 = 29. Square before multiplying.",
+    "theory": {
+      "title": "Functions — Order of Operations in Evaluation",
+      "icon": "🔢",
+      "summary": "Substitute, then apply exponent before multiplication (PEMDAS): 2·4² = 2·16, not (2·4)².",
+      "keyFacts": [
+        "f(x) = 2x² − 3",
+        "4² = 16 first",
+        "2·16 = 32, then −3",
+        "f(4) = 29"
+      ],
+      "example": {
+        "problem": "f(x)=2x²−3; f(4)?",
+        "steps": [
+          "4² = 16",
+          "2·16−3 = 29 → C"
+        ],
+        "answer": "C (29)"
+      },
+      "traps": [
+        "Computing (2·4)² = 64 → squaring after multiplying"
+      ],
+      "solveSteps": [
+        "1. Substitute x",
+        "2. Exponent before multiply (PEMDAS)",
+        "3. Finish constants"
+      ]
+    }
+  },
+  "230": {
+    "hint": "Inside-out: g(3)=9, then f(9)=9+2=11.",
+    "theory": {
+      "title": "Functions — Composition Evaluated Inside-Out",
+      "icon": "🔢",
+      "summary": "f(g(3)) means apply g first, feed the result into f. Innermost function evaluates first.",
+      "keyFacts": [
+        "g(x)=x² → g(3)=9",
+        "f(x)=x+2 → f(9)=11",
+        "Order matters: f(g(3)) ≠ g(f(3))",
+        "g(f(3)) would be (3+2)²=25 (a decoy)"
+      ],
+      "example": {
+        "problem": "f(x)=x+2, g(x)=x²; f(g(3))?",
+        "steps": [
+          "g(3)=9",
+          "f(9)=11 → C"
+        ],
+        "answer": "C (11)"
+      },
+      "traps": [
+        "Doing f first: (3+2)² = 25 (wrong composition order)"
+      ],
+      "solveSteps": [
+        "1. Evaluate the inner function",
+        "2. Feed into the outer function"
+      ]
+    }
   }
 };
 
