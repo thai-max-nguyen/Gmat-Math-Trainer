@@ -9585,6 +9585,613 @@ const QUESTION_THEORIES = {
         "3. Two unknowns, one equation → E"
       ]
     }
+  },
+  "311": {
+    "hint": "n² odd → n odd. 3n odd → n odd (3 is odd). Each alone → D.",
+    "theory": {
+      "title": "DS — Parity Preserved Through Odd Operations",
+      "icon": "📊",
+      "summary": "Squaring keeps parity; multiplying by an odd number keeps parity. Each statement forces n odd independently.",
+      "keyFacts": [
+        "(1) n² odd ⇔ n odd (even² is even): sufficient",
+        "(2) 3n odd: 3 is odd, so 3n odd ⇔ n odd: sufficient",
+        "odd·odd = odd, odd·even = even",
+        "Each alone determines parity → D"
+      ],
+      "example": {
+        "problem": "Is n odd? (1) n² odd (2) 3n odd",
+        "steps": [
+          "(1) n² odd ⇒ n odd: SUFFICIENT",
+          "(2) 3n odd ⇒ n odd: SUFFICIENT",
+          "Each alone → D"
+        ],
+        "answer": "D"
+      },
+      "traps": [
+        "Thinking 3n odd could allow even n — 3·even is even, so no"
+      ],
+      "solveSteps": [
+        "1. Squaring & odd-multiplying preserve parity",
+        "2. Each statement → n odd",
+        "3. → D"
+      ]
+    }
+  },
+  "312": {
+    "hint": "|x| is magnitude. (1) x²=16 → |x|=4: sufficient. (2) sign only → insufficient. A.",
+    "theory": {
+      "title": "DS — Magnitude vs Sign",
+      "icon": "📊",
+      "summary": "|x| asks for magnitude only. x²=16 fixes |x|=4 regardless of sign; x<0 gives only the sign.",
+      "keyFacts": [
+        "(1) x²=16 → x=±4 → |x|=4 either way: sufficient",
+        "(2) x<0: |x| could be 1, 7, … → insufficient",
+        "|x| ignores sign, needs magnitude",
+        "One sufficient, one not → A"
+      ],
+      "example": {
+        "problem": "|x|? (1) x²=16 (2) x<0",
+        "steps": [
+          "(1) x=±4 → |x|=4: SUFFICIENT",
+          "(2) only sign, no size: insufficient",
+          "Only (1) → A"
+        ],
+        "answer": "A"
+      },
+      "traps": [
+        "Thinking |x| needs the sign resolved — magnitude is the same for ±4"
+      ],
+      "solveSteps": [
+        "1. |x| = magnitude",
+        "2. x²=k → |x|=√k (sign irrelevant)",
+        "3. → A"
+      ]
+    }
+  },
+  "313": {
+    "hint": "Slope needs TWO points. Each statement = one point. Together → 2. C.",
+    "theory": {
+      "title": "DS — Slope Requires Two Points",
+      "icon": "📊",
+      "summary": "A single point fixes nothing about direction. Two points give slope = Δy/Δx.",
+      "keyFacts": [
+        "(1) (2,3) alone: infinitely many lines → insufficient",
+        "(2) (4,7) alone: infinitely many lines → insufficient",
+        "Together: slope = (7−3)/(4−2) = 4/2 = 2",
+        "Two distinct points → unique slope"
+      ],
+      "example": {
+        "problem": "Slope of L? (1) through (2,3) (2) through (4,7)",
+        "steps": [
+          "Each point alone → infinitely many slopes",
+          "Together: (7−3)/(4−2) = 2 → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Assuming a point plus 'a line' gives slope — direction is free"
+      ],
+      "solveSteps": [
+        "1. Slope needs 2 points",
+        "2. Each statement supplies one",
+        "3. → C"
+      ]
+    }
+  },
+  "314": {
+    "hint": "Mean(x,y,z) needs x+y+z. (1) x+y, (2) z → together sum 18 → mean 6. C.",
+    "theory": {
+      "title": "DS — Mean Needs the Full Sum",
+      "icon": "📊",
+      "summary": "Average of three needs x+y+z. A partial sum plus the missing term together complete it.",
+      "keyFacts": [
+        "(1) x+y=10 alone: z unknown → insufficient",
+        "(2) z=8 alone: x+y unknown → insufficient",
+        "Together: sum = 10+8 = 18 → mean = 6",
+        "Need the total, not individual values"
+      ],
+      "example": {
+        "problem": "Mean of x,y,z? (1) x+y=10 (2) z=8",
+        "steps": [
+          "(1) missing z → insufficient",
+          "(2) missing x+y → insufficient",
+          "Together: 18/3 = 6 → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Thinking z alone or x+y alone is enough"
+      ],
+      "solveSteps": [
+        "1. Mean = (x+y+z)/3",
+        "2. Combine partial sum + missing term",
+        "3. → C"
+      ]
+    }
+  },
+  "315": {
+    "hint": "30 = lcm(5,6) = lcm(10,3). (1) and (2) each force multiple of 30 → D.",
+    "theory": {
+      "title": "DS — Multiple of 30 via Two Coprime-ish Pairs",
+      "icon": "📊",
+      "summary": "30 = 2·3·5. Multiple of 5 AND 6 → lcm 30. Multiple of 10 AND 3 → lcm 30. Each pair independently covers all prime factors.",
+      "keyFacts": [
+        "(1) 5|n and 6|n → lcm(5,6)=30 → 30|n: sufficient",
+        "(2) 10|n and 3|n → lcm(10,3)=30 → 30|n: sufficient",
+        "30 = 2·3·5; each pair supplies all three primes",
+        "Each alone → D"
+      ],
+      "example": {
+        "problem": "Is n a multiple of 30? (1) mult of 5 & 6 (2) mult of 10 & 3",
+        "steps": [
+          "(1) lcm(5,6)=30 → SUFFICIENT",
+          "(2) lcm(10,3)=30 → SUFFICIENT",
+          "Each alone → D"
+        ],
+        "answer": "D"
+      },
+      "traps": [
+        "Computing 5·6=30 by luck but 10·3=30 too — verify via lcm, not product"
+      ],
+      "solveSteps": [
+        "1. 30 = 2·3·5",
+        "2. Does each pair's lcm = 30?",
+        "3. Both yes → D"
+      ]
+    }
+  },
+  "316": {
+    "hint": "(a+b)²=a²+2ab+b². (1) a+b=10, (2) a²+b²=50 → ab=25. Need both → C.",
+    "theory": {
+      "title": "DS — Rectangle Area via the Square Identity",
+      "icon": "📊",
+      "summary": "Area = ab. From (a+b)² = a²+2ab+b², the perimeter gives a+b and the diagonal gives a²+b²; together they isolate ab.",
+      "keyFacts": [
+        "(1) perimeter 20 → a+b=10 alone: area varies (9·1 vs 5·5) → insufficient",
+        "(2) diagonal √50 → a²+b²=50 alone: area varies → insufficient",
+        "(a+b)² = a²+2ab+b² → 100 = 50 + 2ab → ab=25",
+        "Area = ab = 25"
+      ],
+      "example": {
+        "problem": "Rectangle area? (1) perimeter 20 (2) diagonal √50",
+        "steps": [
+          "Each alone: area not fixed → insufficient",
+          "100 = 50 + 2ab → ab = 25 → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Thinking perimeter alone (a+b) determines area"
+      ],
+      "solveSteps": [
+        "1. (a+b)² = a²+2ab+b²",
+        "2. Substitute both statements",
+        "3. Solve ab → C"
+      ]
+    }
+  },
+  "317": {
+    "hint": "(1) 0<x<1 → 1/x>1>x: always yes. (2) x>0 mixes yes/no. A.",
+    "theory": {
+      "title": "DS — 1/x vs x by Interval",
+      "icon": "📊",
+      "summary": "For 0<x<1, the reciprocal exceeds 1 and thus exceeds x. For x>1 it's the opposite, so 'x>0' alone is ambiguous.",
+      "keyFacts": [
+        "(1) 0<x<1 → 1/x > 1 > x → 1/x > x: always YES → sufficient",
+        "(2) x>0: x=0.5 → yes; x=2 → 1/2<2 no → insufficient",
+        "Reciprocal flips the comparison across x=1",
+        "One sufficient, one not → A"
+      ],
+      "example": {
+        "problem": "Is 1/x > x? (1) 0<x<1 (2) x>0",
+        "steps": [
+          "(1) e.g. x=0.5 → 2 > 0.5: always yes → SUFFICIENT",
+          "(2) x=2 → no; x=0.5 → yes → insufficient",
+          "Only (1) → A"
+        ],
+        "answer": "A"
+      },
+      "traps": [
+        "Assuming x>0 makes 1/x>x (fails for x>1)"
+      ],
+      "solveSteps": [
+        "1. Compare 1/x and x by interval around 1",
+        "2. Statement inside one interval → sufficient",
+        "3. → A"
+      ]
+    }
+  },
+  "318": {
+    "hint": "Both give original salt = 3 L → new = 3/15 = 20%. Each alone → D.",
+    "theory": {
+      "title": "DS — Dilution: Either Route to Solute Amount",
+      "icon": "📊",
+      "summary": "New concentration = salt / (10+5). Both statements independently give the salt amount (3 L), so each suffices.",
+      "keyFacts": [
+        "(1) x=30 → salt = 30% of 10 = 3 L: sufficient",
+        "(2) salt = 3 L directly: sufficient",
+        "New = 3 / (10+5) = 20% either way",
+        "Each alone → D"
+      ],
+      "example": {
+        "problem": "New % after +5 L water? (1) x=30 (2) salt = 3 L",
+        "steps": [
+          "(1) salt = 3 L → 3/15 = 20%: SUFFICIENT",
+          "(2) salt = 3 L → 20%: SUFFICIENT",
+          "Each alone → D"
+        ],
+        "answer": "D"
+      },
+      "traps": [
+        "Marking C — each statement independently pins the salt"
+      ],
+      "solveSteps": [
+        "1. New % = solute / new total",
+        "2. Each statement gives the solute",
+        "3. → D"
+      ]
+    }
+  },
+  "319": {
+    "hint": "(1) 4^x=2^(2x)=64=2^6 → x=3 → 2^x=8. (2) x=3 → 8. Each alone → D.",
+    "theory": {
+      "title": "DS — Same-Base Exponent Recovery",
+      "icon": "📊",
+      "summary": "4^x = 2^(2x); equate to 2^6 to get x. The explicit x=3 does it directly. Each statement yields 2^x.",
+      "keyFacts": [
+        "(1) 4^x = 2^(2x) = 64 = 2^6 → 2x=6 → x=3 → 2^x=8: sufficient",
+        "(2) x=3 → 2^3 = 8: sufficient",
+        "Rewrite to a common base to solve",
+        "Each alone → D"
+      ],
+      "example": {
+        "problem": "2^x? (1) 4^x=64 (2) x=3",
+        "steps": [
+          "(1) 2^(2x)=2^6 → x=3 → 8: SUFFICIENT",
+          "(2) 2^3=8: SUFFICIENT",
+          "Each alone → D"
+        ],
+        "answer": "D"
+      },
+      "traps": [
+        "Thinking (1) only gives 4^x, not 2^x — rewrite the base"
+      ],
+      "solveSteps": [
+        "1. Express on a common base",
+        "2. Solve the exponent",
+        "3. Each yields 2^x → D"
+      ]
+    }
+  },
+  "320": {
+    "hint": "(1) n=5k+7=5(k+1)+2 → rem 2. (2) n=10m+2 → rem 2. Each alone → D.",
+    "theory": {
+      "title": "DS — Remainder mod 5 From Either Form",
+      "icon": "📊",
+      "summary": "Reduce each description modulo 5. '7 more than a multiple of 5' and 'remainder 2 mod 10' both yield remainder 2 mod 5.",
+      "keyFacts": [
+        "(1) n = 5k+7 = 5(k+1)+2 → remainder 2: sufficient",
+        "(2) n = 10m+2 → 10m divisible by 5 → remainder 2: sufficient",
+        "mod 10 info refines mod 5 (10 is a multiple of 5)",
+        "Each alone → D"
+      ],
+      "example": {
+        "problem": "n mod 5? (1) n = mult of 5 + 7 (2) n mod 10 = 2",
+        "steps": [
+          "(1) 5(k+1)+2 → rem 2: SUFFICIENT",
+          "(2) 10m+2 → rem 2: SUFFICIENT",
+          "Each alone → D"
+        ],
+        "answer": "D"
+      },
+      "traps": [
+        "Reading '7 more' as remainder 7 (must reduce: 7 mod 5 = 2)"
+      ],
+      "solveSteps": [
+        "1. Write n in the stated form",
+        "2. Reduce mod 5",
+        "3. Each gives the remainder → D"
+      ]
+    }
+  },
+  "321": {
+    "hint": "(1) equilateral perim 18 → side 6 = AB: sufficient. (2) isosceles, no length. A.",
+    "theory": {
+      "title": "DS — A Length Needs a Scale, Not Just Shape",
+      "icon": "📊",
+      "summary": "Equilateral + perimeter gives an exact side. 'Angle A = angle C' only says the triangle is isosceles — no measurement.",
+      "keyFacts": [
+        "(1) equilateral, perimeter 18 → each side 18/3 = 6 → AB=6: sufficient",
+        "(2) A=C → sides opposite equal (AB=BC), but no length → insufficient",
+        "Angle equality gives shape, not size",
+        "One sufficient, one not → A"
+      ],
+      "example": {
+        "problem": "Length AB? (1) equilateral, perim 18 (2) ∠A=∠C",
+        "steps": [
+          "(1) side = 6 → AB=6: SUFFICIENT",
+          "(2) isosceles only, no length: insufficient",
+          "Only (1) → A"
+        ],
+        "answer": "A"
+      },
+      "traps": [
+        "Thinking angle equality yields a side length"
+      ],
+      "solveSteps": [
+        "1. A length needs a scale (perimeter/side)",
+        "2. Angle info alone = shape only",
+        "3. → A"
+      ]
+    }
+  },
+  "322": {
+    "hint": "Both give N=36=2²·3² → divisor count (2+1)(2+1)=9. Each alone → D.",
+    "theory": {
+      "title": "DS — Divisor Count From Prime Factorization",
+      "icon": "📊",
+      "summary": "Number of divisors = product of (exponent+1). N=36 and N=2²·3² are the same number, each fully determining the count.",
+      "keyFacts": [
+        "(1) N=36 → 2²·3² → (2+1)(2+1)=9: sufficient",
+        "(2) N=2²·3² = 36 → same → 9: sufficient",
+        "d(N) = ∏(eᵢ+1)",
+        "Each alone → D"
+      ],
+      "example": {
+        "problem": "Divisors of N? (1) N=36 (2) N=2²·3²",
+        "steps": [
+          "(1) factor 2²3² → 3·3 = 9: SUFFICIENT",
+          "(2) directly 9: SUFFICIENT",
+          "Each alone → D"
+        ],
+        "answer": "D"
+      },
+      "traps": [
+        "Listing divisors and miscounting; the formula (e+1)(f+1) is safer"
+      ],
+      "solveSteps": [
+        "1. Prime factorize",
+        "2. d = ∏(exponent+1)",
+        "3. Each statement → 9 → D"
+      ]
+    }
+  },
+  "323": {
+    "hint": "xy>0 means same sign. (1)&(2) both true with x=2,y=−1 → xy<0. E.",
+    "theory": {
+      "title": "DS — Sign of a Product Undetermined",
+      "icon": "📊",
+      "summary": "xy>0 means x and y share a sign. x−y>0 and x+y>0 don't pin signs — counterexamples exist even together.",
+      "keyFacts": [
+        "(1) x−y>0: x=2,y=1 (xy>0) vs x=2,y=−1 (xy<0) → insufficient",
+        "(2) x+y>0: similar mixed cases → insufficient",
+        "Together: x=2,y=1 → xy=2>0; x=3,y=−1 → both hold, xy=−3<0",
+        "Same statements, opposite xy signs → E"
+      ],
+      "example": {
+        "problem": "Is xy>0? (1) x−y>0 (2) x+y>0",
+        "steps": [
+          "x=2,y=1: both hold, xy=2>0",
+          "x=3,y=−1: both hold, xy=−3<0",
+          "Contradictory → E"
+        ],
+        "answer": "E"
+      },
+      "traps": [
+        "Assuming both inequalities force x,y positive"
+      ],
+      "solveSteps": [
+        "1. xy>0 ⇔ same sign",
+        "2. Seek counterexamples satisfying both",
+        "3. Found → E"
+      ]
+    }
+  },
+  "324": {
+    "hint": "(1) 12+5=17. (2) 20−3=17. Each alone → D.",
+    "theory": {
+      "title": "DS — Age From a Single Time-Anchor",
+      "icon": "📊",
+      "summary": "Each statement ties John's age to one known point in time; shifting it to 'now' gives a unique age.",
+      "keyFacts": [
+        "(1) 5 yr ago = 12 → now = 12+5 = 17: sufficient",
+        "(2) in 3 yr = 20 → now = 20−3 = 17: sufficient",
+        "One absolute age at a known offset → present age",
+        "Each alone → D"
+      ],
+      "example": {
+        "problem": "John now? (1) 5y ago 12 (2) in 3y 20",
+        "steps": [
+          "(1) 12+5 = 17: SUFFICIENT",
+          "(2) 20−3 = 17: SUFFICIENT",
+          "Each alone → D"
+        ],
+        "answer": "D"
+      },
+      "traps": [
+        "Marking C because both give 17 — each suffices alone"
+      ],
+      "solveSteps": [
+        "1. Shift the stated age to the present",
+        "2. Each statement → unique now → D"
+      ]
+    }
+  },
+  "325": {
+    "hint": "(1) area 16π → r=4 → C=8π. (2) r=4 → C=8π. Each alone → D.",
+    "theory": {
+      "title": "DS — Circumference From Area or Radius",
+      "icon": "📊",
+      "summary": "Circumference needs r. Area gives r via πr²; the radius is given directly. Each route works alone.",
+      "keyFacts": [
+        "(1) πr²=16π → r²=16 → r=4 → C=2π·4=8π: sufficient",
+        "(2) r=4 → C=8π: sufficient",
+        "Any single circle measure determines all others",
+        "Each alone → D"
+      ],
+      "example": {
+        "problem": "Circumference? (1) area 16π (2) radius 4",
+        "steps": [
+          "(1) r=4 → C=8π: SUFFICIENT",
+          "(2) r=4 → C=8π: SUFFICIENT",
+          "Each alone → D"
+        ],
+        "answer": "D"
+      },
+      "traps": [
+        "Taking r²=16 → r=16 (skipped the square root)"
+      ],
+      "solveSteps": [
+        "1. Need r for circumference",
+        "2. Area→r or r given directly",
+        "3. Each → D"
+      ]
+    }
+  },
+  "326": {
+    "hint": "LEVEL: 5 letters, L×2, E×2 → 5!/(2!2!) = 30.",
+    "theory": {
+      "title": "Counting — Permutations With Repeats",
+      "icon": "🔢",
+      "summary": "Arrangements of a word with repeated letters = n! divided by the factorial of each repeat count.",
+      "keyFacts": [
+        "LEVEL: L,E,V,E,L → 5 letters",
+        "L appears 2×, E appears 2×",
+        "Arrangements = 5!/(2!·2!) = 120/4",
+        "= 30"
+      ],
+      "example": {
+        "problem": "Distinct arrangements of 'LEVEL'?",
+        "steps": [
+          "5! = 120",
+          "÷ (2!·2!) = 120/4 = 30 → C"
+        ],
+        "answer": "C (30)"
+      },
+      "traps": [
+        "Using 5!=120 (ignores the repeated L's and E's)"
+      ],
+      "solveSteps": [
+        "1. n! for total letters",
+        "2. Divide by factorial of each repeat count"
+      ]
+    }
+  },
+  "327": {
+    "hint": "Pick per group: C(6,2)·C(5,2) = 15·10 = 150.",
+    "theory": {
+      "title": "Counting — Exactly k From Each Group",
+      "icon": "🔢",
+      "summary": "Choose the required count from each group independently and multiply.",
+      "keyFacts": [
+        "Men: C(6,2) = 15",
+        "Women: C(5,2) = 10",
+        "Total = 15 · 10 = 150",
+        "Groups chosen independently → multiply"
+      ],
+      "example": {
+        "problem": "4-committee, exactly 2M & 2W from 6M/5W?",
+        "steps": [
+          "C(6,2)=15, C(5,2)=10",
+          "15·10 = 150 → C"
+        ],
+        "answer": "C (150)"
+      },
+      "traps": [
+        "Adding (15+10) or using C(11,4) (ignores the split)"
+      ],
+      "solveSteps": [
+        "1. C(group, required) per group",
+        "2. Multiply"
+      ]
+    }
+  },
+  "328": {
+    "hint": "Glue the 2 → 4! arrangements ×2 internal order = 24·2 = 48.",
+    "theory": {
+      "title": "Counting — Two Items Must Be Adjacent",
+      "icon": "🔢",
+      "summary": "Treat the adjacent pair as one block (n−1 units → (n−1)! arrangements), then ×2 for the pair's internal order.",
+      "keyFacts": [
+        "5 books, 2 must be together → block of 1 + 3 others = 4 units",
+        "4! = 24 arrangements of the units",
+        "Block internal order ×2",
+        "24·2 = 48"
+      ],
+      "example": {
+        "problem": "5 books, 2 specific adjacent; arrangements?",
+        "steps": [
+          "Block → 4 units → 4! = 24",
+          "×2 internal → 48 → C"
+        ],
+        "answer": "C (48)"
+      },
+      "traps": [
+        "Forgetting ×2 (gives 24) — the pair has two internal orders"
+      ],
+      "solveSteps": [
+        "1. Glue the pair → (n−1)! ",
+        "2. ×2 for internal order"
+      ]
+    }
+  },
+  "329": {
+    "hint": "Without replacement: (13/52)·(12/51) = 1/4 · 12/51 = 1/17.",
+    "theory": {
+      "title": "Probability — Two Hearts, No Replacement",
+      "icon": "🎲",
+      "summary": "Multiply sequential probabilities; the deck shrinks after the first draw.",
+      "keyFacts": [
+        "P(1st heart) = 13/52 = 1/4",
+        "P(2nd heart | 1st) = 12/51",
+        "Product = (13·12)/(52·51) = 156/2652",
+        "Simplify → 1/17"
+      ],
+      "example": {
+        "problem": "Two cards, both hearts (no replacement)?",
+        "steps": [
+          "13/52 · 12/51",
+          "= 156/2652 = 1/17 → B"
+        ],
+        "answer": "B (1/17)"
+      },
+      "traps": [
+        "Using 13/52 twice (with-replacement) → 1/16, the decoy"
+      ],
+      "solveSteps": [
+        "1. P(first) then P(second | first)",
+        "2. Multiply and simplify"
+      ]
+    }
+  },
+  "330": {
+    "hint": "Binomial: C(4,2)/2⁴ = 6/16 = 3/8.",
+    "theory": {
+      "title": "Probability — Exactly k Heads in n Tosses",
+      "icon": "🎲",
+      "summary": "P(exactly k heads) = C(n,k) / 2ⁿ for a fair coin.",
+      "keyFacts": [
+        "Total outcomes = 2⁴ = 16",
+        "Ways for exactly 2 heads = C(4,2) = 6",
+        "P = 6/16",
+        "Simplify → 3/8"
+      ],
+      "example": {
+        "problem": "4 tosses, P(exactly 2 heads)?",
+        "steps": [
+          "C(4,2)=6, total 16",
+          "6/16 = 3/8 → C"
+        ],
+        "answer": "C (3/8)"
+      },
+      "traps": [
+        "Using 1/2·1/2=1/4 (ignores the number of head positions)"
+      ],
+      "solveSteps": [
+        "1. C(n,k) favorable",
+        "2. ÷ 2ⁿ, simplify"
+      ]
+    }
   }
 };
 
