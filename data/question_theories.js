@@ -7199,6 +7199,592 @@ const QUESTION_THEORIES = {
         "2. Feed into the outer function"
       ]
     }
+  },
+  "231": {
+    "hint": "Same base: add exponents on multiply, subtract on divide → 2+5−3 = 4.",
+    "theory": {
+      "title": "Exponents — Combine Like Bases",
+      "icon": "🔢",
+      "summary": "With one base: xᵃ·xᵇ = xᵃ⁺ᵇ and xᵃ/xᵇ = xᵃ⁻ᵇ. Just track the exponent arithmetic.",
+      "keyFacts": [
+        "x²·x⁵ = x⁷ (add)",
+        "x⁷ / x³ = x⁴ (subtract)",
+        "k = 2 + 5 − 3 = 4",
+        "Never multiply the exponents here"
+      ],
+      "example": {
+        "problem": "(x²·x⁵)/x³ = x^k; k?",
+        "steps": [
+          "Numerator → x⁷",
+          "÷x³ → x⁴ → k=4 → C"
+        ],
+        "answer": "C (4)"
+      },
+      "traps": [
+        "Multiplying exponents (2·5) instead of adding"
+      ],
+      "solveSteps": [
+        "1. Multiply → add exponents",
+        "2. Divide → subtract exponents",
+        "3. Read k"
+      ]
+    }
+  },
+  "232": {
+    "hint": "1/y = 1/2 − 1/6 = 1/3 → y = 3. Solve the reciprocal last.",
+    "theory": {
+      "title": "Equations — Solve for a Reciprocal Then Invert",
+      "icon": "🔢",
+      "summary": "Isolate 1/y first using a common denominator, then take the reciprocal to get y.",
+      "keyFacts": [
+        "1/6 + 1/y = 1/2",
+        "1/y = 1/2 − 1/6 = 3/6 − 1/6 = 2/6 = 1/3",
+        "y = reciprocal of 1/3 = 3",
+        "Common denominator 6 makes the subtraction clean"
+      ],
+      "example": {
+        "problem": "1/x+1/y=1/2, x=6; y?",
+        "steps": [
+          "1/y = 1/2 − 1/6 = 1/3",
+          "y = 3 → B"
+        ],
+        "answer": "B (3)"
+      },
+      "traps": [
+        "Forgetting to invert: leaving the answer as 1/3 instead of 3"
+      ],
+      "solveSteps": [
+        "1. Isolate 1/y",
+        "2. Subtract with a common denominator",
+        "3. Invert for y"
+      ]
+    }
+  },
+  "233": {
+    "hint": "Two equations: p+q=0.55, 2p+3q=1.40. Substitute → q=0.30.",
+    "theory": {
+      "title": "Systems — Two-Item Pricing",
+      "icon": "🔢",
+      "summary": "Set variables for each item, write both purchase equations, substitute to eliminate one.",
+      "keyFacts": [
+        "p + q = 0.55 → p = 0.55 − q",
+        "2p + 3q = 1.40",
+        "2(0.55−q) + 3q = 1.40 → 1.10 + q = 1.40",
+        "q = 0.30 (pen)"
+      ],
+      "example": {
+        "problem": "2 pencil+3 pen=$1.40, 1+1=$0.55; pen?",
+        "steps": [
+          "p = 0.55 − q",
+          "1.10 + q = 1.40 → q = 0.30 → C"
+        ],
+        "answer": "C ($0.30)"
+      },
+      "traps": [
+        "Solving for pencil and reporting it; the question asks the pen"
+      ],
+      "solveSteps": [
+        "1. Assign p, q; write both equations",
+        "2. Substitute one into the other",
+        "3. Answer the variable asked"
+      ]
+    }
+  },
+  "234": {
+    "hint": "x²=49 → x=±7 → 2 distinct real values.",
+    "theory": {
+      "title": "Quadratics — Square Roots Come in Pairs",
+      "icon": "🔢",
+      "summary": "x² = k (k>0) has TWO real solutions: +√k and −√k.",
+      "keyFacts": [
+        "x² = 49 → x = +7 or −7",
+        "Two distinct real values",
+        "Only x²=0 gives a single value (0)",
+        "x²=negative → 0 real values"
+      ],
+      "example": {
+        "problem": "x²=49; how many real x?",
+        "steps": [
+          "x = ±7",
+          "2 values → C"
+        ],
+        "answer": "C (2)"
+      },
+      "traps": [
+        "Answering 1 (taking only the positive root)"
+      ],
+      "solveSteps": [
+        "1. x² = k>0 → ±√k",
+        "2. Count both"
+      ]
+    }
+  },
+  "235": {
+    "hint": "Fix y, count x in (y, 9−y]: y=1→7, 2→5, 3→3, 4→1. Sum 16.",
+    "theory": {
+      "title": "Counting — Lattice Pairs Under Constraints",
+      "icon": "🔢",
+      "summary": "For each y, x must satisfy both x>y and x+y<10, giving x from y+1 to 9−y. Sum the counts.",
+      "keyFacts": [
+        "x range: y+1 ≤ x ≤ 9−y (positive integers)",
+        "y=1: x∈{2..8} → 7",
+        "y=2: 5; y=3: 3; y=4: 1; y=5 gives empty (6..4)",
+        "Total = 7+5+3+1 = 16"
+      ],
+      "example": {
+        "problem": "x,y>0, x+y<10, x>y; ordered pairs?",
+        "steps": [
+          "Per-y counts: 7,5,3,1",
+          "Sum = 16 → A"
+        ],
+        "answer": "A (16)"
+      },
+      "traps": [
+        "Allowing x=y (constraint is strict x>y) or x+y=10 (strict <10)"
+      ],
+      "solveSteps": [
+        "1. Express x-range in terms of y",
+        "2. Count integers per y",
+        "3. Sum until the range is empty"
+      ]
+    }
+  },
+  "236": {
+    "hint": "Right triangle area = ½·leg·leg = ½·5·12 = 30.",
+    "theory": {
+      "title": "Triangles — Legs Are the Base & Height",
+      "icon": "📐",
+      "summary": "In a right triangle the two legs are perpendicular, so they serve directly as base and height.",
+      "keyFacts": [
+        "Area = ½ · leg₁ · leg₂",
+        "½ · 5 · 12 = 30",
+        "Hypotenuse (13) is irrelevant to the area",
+        "5-12-13 is a Pythagorean triple (the 13 is a decoy)"
+      ],
+      "example": {
+        "problem": "Right triangle legs 5, 12; area?",
+        "steps": [
+          "½·5·12",
+          "= 30 → B"
+        ],
+        "answer": "B (30)"
+      },
+      "traps": [
+        "Using the hypotenuse as a side in the area formula"
+      ],
+      "solveSteps": [
+        "1. Identify the two legs",
+        "2. Area = ½·leg·leg"
+      ]
+    }
+  },
+  "237": {
+    "hint": "√(9²+12²)=√225=15. Recognize 3-4-5 ×3.",
+    "theory": {
+      "title": "Triangles — Pythagoras & Triple Recognition",
+      "icon": "📐",
+      "summary": "Hypotenuse = √(a²+b²). Spot scaled Pythagorean triples to skip the arithmetic.",
+      "keyFacts": [
+        "9² + 12² = 81 + 144 = 225",
+        "√225 = 15",
+        "9-12-15 = 3·(3-4-5)",
+        "Recognizing the triple gives 15 instantly"
+      ],
+      "example": {
+        "problem": "Legs 9,12; hypotenuse?",
+        "steps": [
+          "3-4-5 scaled by 3 → 9-12-15",
+          "Hypotenuse = 15 → C"
+        ],
+        "answer": "C (15)"
+      },
+      "traps": [
+        "Adding 9+12=21 or guessing 13 (that's 5-12-13, wrong legs)"
+      ],
+      "solveSteps": [
+        "1. c = √(a²+b²)",
+        "2. Check for a known triple multiple"
+      ]
+    }
+  },
+  "238": {
+    "hint": "Side = 18/3 = 6. Area = (√3/4)s² = (√3/4)·36 = 9√3.",
+    "theory": {
+      "title": "Triangles — Equilateral Area Formula",
+      "icon": "📐",
+      "summary": "Equilateral side = perimeter/3; area = (√3/4)·side².",
+      "keyFacts": [
+        "Side = 18/3 = 6",
+        "Area = (√3/4)·s²",
+        "= (√3/4)·36 = 9√3",
+        "Don't use ½·base·height without the √3 height"
+      ],
+      "example": {
+        "problem": "Equilateral perimeter 18; area?",
+        "steps": [
+          "Side = 6",
+          "(√3/4)·36 = 9√3 → B"
+        ],
+        "answer": "B (9√3)"
+      },
+      "traps": [
+        "Using ½·6·6 = 18 (ignores the 60° geometry / √3 factor)"
+      ],
+      "solveSteps": [
+        "1. Side = perimeter/3",
+        "2. Area = (√3/4)·side²"
+      ]
+    }
+  },
+  "239": {
+    "hint": "C = 2πr = 2π·7 = 14π.",
+    "theory": {
+      "title": "Circles — Circumference From Radius",
+      "icon": "📐",
+      "summary": "C = 2πr (or πd). Plug the radius directly.",
+      "keyFacts": [
+        "C = 2πr",
+        "2π·7 = 14π",
+        "Equivalent: πd = π·14 = 14π",
+        "Area would be πr² = 49π (different question)"
+      ],
+      "example": {
+        "problem": "Radius 7; circumference?",
+        "steps": [
+          "Apply C = 2πr with r=7",
+          "2π·7 = 14π → B"
+        ],
+        "answer": "B (14π)"
+      },
+      "traps": [
+        "Using πr² = 49π (that's area, not circumference)"
+      ],
+      "solveSteps": [
+        "1. C = 2πr",
+        "2. Substitute r"
+      ]
+    }
+  },
+  "240": {
+    "hint": "πr²=36π → r=6 → C=2πr=12π.",
+    "theory": {
+      "title": "Circles — Area → Radius → Circumference",
+      "icon": "📐",
+      "summary": "Back out the radius from the area, then compute circumference.",
+      "keyFacts": [
+        "πr² = 36π → r² = 36 → r = 6",
+        "C = 2πr = 12π",
+        "Two-step: area gives r, r gives C",
+        "r is the bridge between the two formulas"
+      ],
+      "example": {
+        "problem": "Area 36π; circumference?",
+        "steps": [
+          "r² = 36 → r = 6",
+          "C = 2π·6 = 12π → C"
+        ],
+        "answer": "C (12π)"
+      },
+      "traps": [
+        "Taking r=36 (skipped the square root)"
+      ],
+      "solveSteps": [
+        "1. r = √(Area/π)",
+        "2. C = 2πr"
+      ]
+    }
+  },
+  "241": {
+    "hint": "r=8 → total 64π → /8 slices = 8π.",
+    "theory": {
+      "title": "Circles — Equal Sectors",
+      "icon": "📐",
+      "summary": "Each of n equal slices is (1/n) of the full circle's area. Use radius = diameter/2.",
+      "keyFacts": [
+        "Diameter 16 → radius 8",
+        "Total area = π·8² = 64π",
+        "One of 8 slices = 64π / 8 = 8π",
+        "Diameter, not radius, is 16"
+      ],
+      "example": {
+        "problem": "Pizza diameter 16, 8 slices; one slice area?",
+        "steps": [
+          "r=8, total = 64π",
+          "64π/8 = 8π → B"
+        ],
+        "answer": "B (8π)"
+      },
+      "traps": [
+        "Using r=16 → 256π/8 = 32π (used diameter as radius)"
+      ],
+      "solveSteps": [
+        "1. r = d/2; total = πr²",
+        "2. Divide by number of slices"
+      ]
+    }
+  },
+  "242": {
+    "hint": "√(3²+4²)=√25=5. A 3-4-5.",
+    "theory": {
+      "title": "Coordinate — Distance Formula",
+      "icon": "📐",
+      "summary": "Distance = √[(Δx)² + (Δy)²]. Differences often form a Pythagorean triple.",
+      "keyFacts": [
+        "Δx = 4−1 = 3, Δy = 6−2 = 4",
+        "√(3²+4²) = √25 = 5",
+        "Classic 3-4-5",
+        "Sign of the differences doesn't matter (squared)"
+      ],
+      "example": {
+        "problem": "Distance (1,2)–(4,6)?",
+        "steps": [
+          "Δ = (3,4)",
+          "√25 = 5 → C"
+        ],
+        "answer": "C (5)"
+      },
+      "traps": [
+        "Adding differences 3+4=7 instead of the root of squares"
+      ],
+      "solveSteps": [
+        "1. Δx, Δy",
+        "2. √(Δx²+Δy²)"
+      ]
+    }
+  },
+  "243": {
+    "hint": "Slope = Δy/Δx = (11−3)/(4−0) = 2.",
+    "theory": {
+      "title": "Coordinate — Slope Between Two Points",
+      "icon": "📐",
+      "summary": "Slope = rise/run = (y₂−y₁)/(x₂−x₁). Keep the point order consistent in numerator and denominator.",
+      "keyFacts": [
+        "Δy = 11 − 3 = 8",
+        "Δx = 4 − 0 = 4",
+        "Slope = 8/4 = 2",
+        "Order must match top and bottom"
+      ],
+      "example": {
+        "problem": "Slope through (0,3),(4,11)?",
+        "steps": [
+          "Δy = 11−3 = 8, Δx = 4−0 = 4",
+          "8/4 = 2 → C"
+        ],
+        "answer": "C (2)"
+      },
+      "traps": [
+        "Inverting to run/rise (Δx/Δy) → 1/2"
+      ],
+      "solveSteps": [
+        "1. Δy/Δx with consistent order",
+        "2. Simplify"
+      ]
+    }
+  },
+  "244": {
+    "hint": "Plug the point: 13 = 3m+4 → m=3.",
+    "theory": {
+      "title": "Coordinate — Solve a Parameter From a Point",
+      "icon": "📐",
+      "summary": "If a point lies on the line, its coordinates satisfy the equation. Substitute and solve for the unknown.",
+      "keyFacts": [
+        "y = mx + 4; point (3,13)",
+        "13 = 3m + 4",
+        "3m = 9 → m = 3",
+        "The 4 is the fixed y-intercept"
+      ],
+      "example": {
+        "problem": "y=mx+4 through (3,13); m?",
+        "steps": [
+          "13 = 3m+4",
+          "m = 3 → C"
+        ],
+        "answer": "C (3)"
+      },
+      "traps": [
+        "Forgetting to subtract the intercept 4 before dividing"
+      ],
+      "solveSteps": [
+        "1. Substitute the point",
+        "2. Solve for the parameter"
+      ]
+    }
+  },
+  "245": {
+    "hint": "P = 2(L+W) = 2(10+6) = 32.",
+    "theory": {
+      "title": "Rectangles — Perimeter",
+      "icon": "📐",
+      "summary": "Perimeter = 2(length + width). Add first, then double.",
+      "keyFacts": [
+        "L=10, W=6",
+        "L+W = 16",
+        "P = 2·16 = 32",
+        "Area would be 60 (a decoy answer)"
+      ],
+      "example": {
+        "problem": "Rectangle 10×6; perimeter?",
+        "steps": [
+          "L+W = 10+6 = 16",
+          "P = 2·16 = 32 → C"
+        ],
+        "answer": "C (32)"
+      },
+      "traps": [
+        "Computing area 60 instead of perimeter"
+      ],
+      "solveSteps": [
+        "1. Sum length + width",
+        "2. ×2"
+      ]
+    }
+  },
+  "246": {
+    "hint": "w(w+4)=60 → w²+4w−60=0 → (w−6)(w+10) → w=6.",
+    "theory": {
+      "title": "Rectangles — Area Gives a Quadratic",
+      "icon": "📐",
+      "summary": "Express length in terms of width, set area equal, solve the quadratic, discard the negative root.",
+      "keyFacts": [
+        "L = w + 4; area w(w+4) = 60",
+        "w² + 4w − 60 = 0",
+        "(w−6)(w+10) = 0 → w = 6 or −10",
+        "Width must be positive → w = 6"
+      ],
+      "example": {
+        "problem": "Area 60, length = width+4; width?",
+        "steps": [
+          "w²+4w−60=0",
+          "w = 6 (reject −10) → C"
+        ],
+        "answer": "C (6)"
+      },
+      "traps": [
+        "Keeping the negative root −10 as a valid width"
+      ],
+      "solveSteps": [
+        "1. L in terms of W; area equation",
+        "2. Solve quadratic",
+        "3. Discard non-physical root"
+      ]
+    }
+  },
+  "247": {
+    "hint": "V = πr²h = π·9·10 = 90π.",
+    "theory": {
+      "title": "Solids — Cylinder Volume",
+      "icon": "📐",
+      "summary": "Cylinder volume = π r² h. Square the radius first, then multiply by height.",
+      "keyFacts": [
+        "r=3 → r² = 9",
+        "V = π·9·10 = 90π",
+        "Radius is squared, height is not",
+        "Using r=3 once (not squared) gives 30π (decoy)"
+      ],
+      "example": {
+        "problem": "Cylinder r=3, h=10; volume?",
+        "steps": [
+          "r²=9",
+          "π·9·10 = 90π → C"
+        ],
+        "answer": "C (90π)"
+      },
+      "traps": [
+        "Forgetting to square r → 30π"
+      ],
+      "solveSteps": [
+        "1. r²",
+        "2. ×h ×π"
+      ]
+    }
+  },
+  "248": {
+    "hint": "45-45-90: leg = hyp/√2 = 10/√2 = 5√2.",
+    "theory": {
+      "title": "Triangles — 45-45-90 Ratios",
+      "icon": "📐",
+      "summary": "In a 45-45-90 triangle the sides are leg : leg : leg√2. So leg = hypotenuse / √2.",
+      "keyFacts": [
+        "Ratio 1 : 1 : √2",
+        "Hypotenuse = leg·√2 = 10 → leg = 10/√2",
+        "Rationalize: 10/√2 = 5√2",
+        "Not 10/2 = 5 (that's dividing by 2, not √2)"
+      ],
+      "example": {
+        "problem": "Isosceles right triangle, hyp 10; leg?",
+        "steps": [
+          "leg = 10/√2",
+          "= 5√2 → B"
+        ],
+        "answer": "B (5√2)"
+      },
+      "traps": [
+        "Dividing the hypotenuse by 2 instead of √2 (gives 5)"
+      ],
+      "solveSteps": [
+        "1. Use ratio 1:1:√2",
+        "2. leg = hyp/√2, rationalize"
+      ]
+    }
+  },
+  "249": {
+    "hint": "(n−2)·180 = (6−2)·180 = 720°.",
+    "theory": {
+      "title": "Polygons — Interior Angle Sum",
+      "icon": "📐",
+      "summary": "Sum of interior angles of an n-gon = (n−2)·180°.",
+      "keyFacts": [
+        "Hexagon: n = 6",
+        "(6−2)·180 = 4·180",
+        "= 720°",
+        "Triangle (n=3) is the base case: 180°"
+      ],
+      "example": {
+        "problem": "Interior angle sum of a hexagon?",
+        "steps": [
+          "(6−2)·180",
+          "= 720° → C"
+        ],
+        "answer": "C (720°)"
+      },
+      "traps": [
+        "Using n·180 (forgets the −2) → 1080°"
+      ],
+      "solveSteps": [
+        "1. (n−2)·180",
+        "2. Evaluate"
+      ]
+    }
+  },
+  "250": {
+    "hint": "Sum=(8−2)·180=1080; each = 1080/8 = 135°.",
+    "theory": {
+      "title": "Polygons — Regular Interior Angle",
+      "icon": "📐",
+      "summary": "Each interior angle of a regular n-gon = (n−2)·180 / n. (Or 180 − exterior, exterior = 360/n.)",
+      "keyFacts": [
+        "Sum = (8−2)·180 = 1080°",
+        "Each = 1080 / 8 = 135°",
+        "Check: exterior = 360/8 = 45°, 180−45 = 135 ✓",
+        "108° is the pentagon value (a decoy)"
+      ],
+      "example": {
+        "problem": "Each interior angle of a regular octagon?",
+        "steps": [
+          "Sum 1080°, ÷8",
+          "= 135° → C"
+        ],
+        "answer": "C (135°)"
+      },
+      "traps": [
+        "Dividing 1080 by (n−2)=6 instead of n=8"
+      ],
+      "solveSteps": [
+        "1. Sum = (n−2)·180",
+        "2. Divide by n",
+        "3. Cross-check via 180 − 360/n"
+      ]
+    }
   }
 };
 
