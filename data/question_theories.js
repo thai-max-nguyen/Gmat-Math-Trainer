@@ -4154,6 +4154,626 @@ const QUESTION_THEORIES = {
         "3. Both → square → C"
       ]
     }
+  },
+  "131": {
+    "hint": "6 = 2·3. Need a factor of 2 AND a factor of 3. (1) gives 3 only, (2) gives 2 only → C.",
+    "theory": {
+      "title": "DS — Divisibility Needs ALL Prime Factors",
+      "icon": "📊",
+      "summary": "To prove xy divisible by 6 you must guarantee both prime factors 2 and 3. One statement supplies one prime; the other supplies the other.",
+      "keyFacts": [
+        "6 = 2 × 3 — both primes required",
+        "(1) 3|x guarantees the 3 but says nothing about a factor of 2",
+        "(2) y even guarantees the 2 but says nothing about a factor of 3",
+        "Together: 3 from x, 2 from y → 6 | xy"
+      ],
+      "example": {
+        "problem": "x,y positive ints, is 6|xy? (1) 3|x (2) y even",
+        "steps": [
+          "(1) x=3,y=1 → xy=3 not div by 6; x=3,y=2 → 6 yes: NOT sufficient",
+          "(2) x=1,y=2 → xy=2 no; x=3,y=2 → 6 yes: NOT sufficient",
+          "Together x has 3, y has 2 → product has 2·3 → ALWAYS divisible: C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Picking A because '3 is half of 6' — still missing the factor 2"
+      ],
+      "solveSteps": [
+        "1. Factor the divisor into primes (6 → 2,3)",
+        "2. Check which prime each statement guarantees",
+        "3. Sufficient only when all primes covered → AD/BCE → C"
+      ]
+    }
+  },
+  "132": {
+    "hint": "Two unknowns, one equation each → neither alone. System a+b=5, 2a+b=8 solves uniquely → C.",
+    "theory": {
+      "title": "DS — Linear System for an Expression",
+      "icon": "📊",
+      "summary": "A single linear equation in two unknowns is insufficient. Two independent equations pin both variables, so any expression of them is determined.",
+      "keyFacts": [
+        "(1) a+b=5 alone: infinitely many (a,b) → insufficient",
+        "(2) 2a+b=8 alone: infinitely many → insufficient",
+        "Two independent equations → unique a,b",
+        "Subtract: (2)−(1) → a=3, then b=2"
+      ],
+      "example": {
+        "problem": "Value of 3a+2b? (1) a+b=5 (2) 2a+b=8",
+        "steps": [
+          "(1)−(2): subtract to eliminate b → a=3",
+          "Back-sub a=3 into a+b=5 → b=2",
+          "3a+2b = 9+4 = 13 → both needed: C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Choosing E thinking the expression can't be isolated — solve the system first"
+      ],
+      "solveSteps": [
+        "1. Count unknowns vs independent equations per statement",
+        "2. One eq / two unknowns alone = insufficient",
+        "3. Two independent eqs → solve → C"
+      ]
+    }
+  },
+  "133": {
+    "hint": "Current = (downstream − upstream)/2. Formula needs BOTH speeds → C.",
+    "theory": {
+      "title": "DS — Stream-Speed Formula Needs Both Terms",
+      "icon": "📊",
+      "summary": "Upstream = boat−current, downstream = boat+current. Current = (S₂−S₁)/2 requires both the upstream and downstream speeds.",
+      "keyFacts": [
+        "Upstream S₁ = b − c, Downstream S₂ = b + c",
+        "Subtracting: S₂ − S₁ = 2c → c = (S₂−S₁)/2",
+        "(1) S₁=8 only: c unknown without S₂",
+        "(2) S₂=12 only: c unknown without S₁"
+      ],
+      "example": {
+        "problem": "Current speed? (1) S₁=8 (2) S₂=12",
+        "steps": [
+          "(1) alone: c = (S₂−8)/2, S₂ unknown → insufficient",
+          "(2) alone: c = (12−S₁)/2, S₁ unknown → insufficient",
+          "Together: c = (12−8)/2 = 2 mph → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Assuming boat's still-water speed is known — it isn't given"
+      ],
+      "solveSteps": [
+        "1. Write upstream/downstream as b−c, b+c",
+        "2. Identify which variables each statement fixes",
+        "3. Need both S₁,S₂ for c → C"
+      ]
+    }
+  },
+  "134": {
+    "hint": "Distance needs BOTH endpoints. One point alone fixes nothing → C.",
+    "theory": {
+      "title": "DS — Distance Requires Two Points",
+      "icon": "📊",
+      "summary": "The distance formula needs coordinates of both points. Knowing only one endpoint leaves the other free, so distance is undetermined.",
+      "keyFacts": [
+        "d = √((x₂−x₁)² + (y₂−y₁)²)",
+        "(1) P=(2,3) alone: Q anywhere → insufficient",
+        "(2) Q=(5,7) alone: P anywhere → insufficient",
+        "Both points → single value"
+      ],
+      "example": {
+        "problem": "Distance PQ? (1) P=(2,3) (2) Q=(5,7)",
+        "steps": [
+          "(1) alone: Q free → distance varies → insufficient",
+          "(2) alone: P free → insufficient",
+          "Together: √(3²+4²) = 5 → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Thinking one coordinate pair plus 'a line' is enough — no line given"
+      ],
+      "solveSteps": [
+        "1. Distance formula needs 4 coordinates",
+        "2. Each statement gives only 2",
+        "3. Both required → C"
+      ]
+    }
+  },
+  "135": {
+    "hint": "Probability needs a RATIO, not raw counts. Ratio 3:2 alone → P=3/5 → B.",
+    "theory": {
+      "title": "DS — Probability From Ratio, Not Count",
+      "icon": "📊",
+      "summary": "P(red) = red/total. A raw count of reds without the total is useless; a part-to-part ratio fixes the probability directly.",
+      "keyFacts": [
+        "(1) 6 red, total unknown → P could be anything → insufficient",
+        "(2) red:blue = 3:2 → P(red) = 3/(3+2) = 3/5",
+        "Ratio converts part:part → part/whole",
+        "Absolute counts need the total to form a probability"
+      ],
+      "example": {
+        "problem": "P(red)? (1) 6 red (2) red:blue = 3:2",
+        "steps": [
+          "(1) 6 red of 10 → 0.6, of 100 → 0.06: NOT sufficient",
+          "(2) 3:2 → red fraction = 3/5 regardless of size: SUFFICIENT",
+          "Only (2) → B"
+        ],
+        "answer": "B"
+      },
+      "traps": [
+        "Demanding exact counts when a ratio already determines probability"
+      ],
+      "solveSteps": [
+        "1. P = favorable/total",
+        "2. Count alone w/o total = insufficient",
+        "3. Ratio → fraction directly → B"
+      ]
+    }
+  },
+  "136": {
+    "hint": "Each is a linear equation in one unknown → each solves x=15 alone → D.",
+    "theory": {
+      "title": "DS — Each Statement Solves Alone",
+      "icon": "📊",
+      "summary": "Any single linear equation with one unknown yields a unique value. When both do so independently, the answer is D.",
+      "keyFacts": [
+        "(1) 0.5x = 7.5 → x = 15: sufficient",
+        "(2) x − 5 = 10 → x = 15: sufficient",
+        "Independent sufficiency on both → D",
+        "Equal answers is a coincidence — D depends on each being sufficient, not on matching"
+      ],
+      "example": {
+        "problem": "Value of x? (1) 0.5x=7.5 (2) x−5=10",
+        "steps": [
+          "(1) divide by 0.5 → x=15: SUFFICIENT",
+          "(2) add 5 → x=15: SUFFICIENT",
+          "Each alone works → D"
+        ],
+        "answer": "D"
+      },
+      "traps": [
+        "Marking C because both 'agree' — sufficiency is per-statement, don't combine"
+      ],
+      "solveSteps": [
+        "1. Solve (1) alone — unique?",
+        "2. Solve (2) alone — unique?",
+        "3. Both unique → D (never average them)"
+      ]
+    }
+  },
+  "137": {
+    "hint": "x²−y² = (x+y)(x−y). Need BOTH factors. (1) x−y, (2) x+y → C.",
+    "theory": {
+      "title": "DS — Factor the Target Expression",
+      "icon": "📊",
+      "summary": "Don't solve for x and y separately. Factor x²−y² into (x+y)(x−y); each statement supplies one factor, so together the product is fixed.",
+      "keyFacts": [
+        "x² − y² = (x+y)(x−y)",
+        "(1) x−y=4 alone: x+y unknown → insufficient",
+        "(2) x+y=10 alone: x−y unknown → insufficient",
+        "Product = 10 × 4 = 40 — no need for x,y individually"
+      ],
+      "example": {
+        "problem": "x²−y²? (1) x−y=4 (2) x+y=10",
+        "steps": [
+          "Recognize x²−y² = (x+y)(x−y)",
+          "(1) gives one factor, (2) the other — neither alone",
+          "Together: 10·4 = 40 → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Trying to solve for x and y individually and giving up → missing the factoring shortcut"
+      ],
+      "solveSteps": [
+        "1. Factor the asked expression first",
+        "2. Map each factor to a statement",
+        "3. All factors covered → C"
+      ]
+    }
+  },
+  "138": {
+    "hint": "V = l·w·h. (1) gives lw, (2) gives h → product fixed → C.",
+    "theory": {
+      "title": "DS — Volume From Grouped Dimensions",
+      "icon": "📊",
+      "summary": "Volume = length·width·height. You don't need each dimension separately — a product of two plus the third is enough.",
+      "keyFacts": [
+        "V = lwh",
+        "(1) lw=20 alone: h unknown → insufficient",
+        "(2) h=5 alone: lw unknown → insufficient",
+        "Together V = 20·5 = 100"
+      ],
+      "example": {
+        "problem": "Box volume? (1) l·w=20 (2) h=5",
+        "steps": [
+          "(1) alone: V = 20h, h free → insufficient",
+          "(2) alone: V = 5·lw, lw free → insufficient",
+          "Together: 20·5 = 100 → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Insisting each of l, w, h must be known individually"
+      ],
+      "solveSteps": [
+        "1. Write V = lwh",
+        "2. Group: do the statements jointly cover l·w·h?",
+        "3. Yes → C"
+      ]
+    }
+  },
+  "139": {
+    "hint": "Range and element count do NOT determine SD. Both fail, even together → E.",
+    "theory": {
+      "title": "DS — Spread ≠ Range or Size",
+      "icon": "📊",
+      "summary": "Standard deviation measures average distance from the mean. A larger range or a bigger sample says nothing definitive about SD.",
+      "keyFacts": [
+        "One extreme outlier can give big range but tiny SD for the rest",
+        "(1) range S > range T: SD could still be smaller → insufficient",
+        "(2) more elements: count is unrelated to spread → insufficient",
+        "Together still no link between range/size and SD → E"
+      ],
+      "example": {
+        "problem": "Is SD(S) > SD(T)? (1) range S > range T (2) |S| > |T|",
+        "steps": [
+          "S={0,0,0,10} big range, low SD; T={4,5,6} small range, comparable SD",
+          "Adding elements (2) doesn't constrain spread",
+          "No combination forces the inequality → E"
+        ],
+        "answer": "E"
+      },
+      "traps": [
+        "Treating range as a proxy for standard deviation"
+      ],
+      "solveSteps": [
+        "1. Recall SD depends on every value vs mean",
+        "2. Test counterexample for each statement",
+        "3. If counterexamples survive both → E"
+      ]
+    }
+  },
+  "140": {
+    "hint": "Only-math = math − both. Need both numbers; total class size NOT needed → C.",
+    "theory": {
+      "title": "DS — Set 'Only' Region",
+      "icon": "📊",
+      "summary": "'Only math' = (take math) − (take both). You need the math total and the overlap; the grand total is irrelevant here.",
+      "keyFacts": [
+        "Only-math = M − (M∩E)",
+        "(1) M=25 alone: overlap unknown → insufficient",
+        "(2) both=10 alone: M unknown → insufficient",
+        "Together: 25 − 10 = 15 — total students never needed"
+      ],
+      "example": {
+        "problem": "Students taking ONLY math? (1) 25 take math (2) 10 take both",
+        "steps": [
+          "(1) alone: only-math = 25 − both, both free → insufficient",
+          "(2) alone: only-math = M − 10, M free → insufficient",
+          "Together: 25 − 10 = 15 → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Thinking you need the total class size — the 'only' region doesn't use it"
+      ],
+      "solveSteps": [
+        "1. Write only-X = X − overlap",
+        "2. Check each statement supplies a needed term",
+        "3. Both terms present → C"
+      ]
+    }
+  },
+  "141": {
+    "hint": "f(x)=ax+b, two unknowns. (1) gives b, (2) gives a+b → solve a,b → C.",
+    "theory": {
+      "title": "DS — Determine a Linear Function",
+      "icon": "📊",
+      "summary": "A linear function ax+b has two parameters. Two independent point-values pin a and b, so f(5) becomes computable.",
+      "keyFacts": [
+        "(1) f(0)=3 → b=3 only (a free) → insufficient",
+        "(2) f(1)=5 → a+b=5 (one eq, two unknowns) → insufficient",
+        "Together: b=3, a+b=5 → a=2",
+        "f(5) = 2·5 + 3 = 13"
+      ],
+      "example": {
+        "problem": "f(x)=ax+b, f(5)? (1) f(0)=3 (2) f(1)=5",
+        "steps": [
+          "(1) → b=3, slope unknown → insufficient",
+          "(2) → a+b=5, can't isolate → insufficient",
+          "Together → a=2,b=3 → f(5)=13 → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Thinking one point determines a line — a slope is still missing"
+      ],
+      "solveSteps": [
+        "1. Count parameters (a,b → need 2 facts)",
+        "2. Each statement = one equation",
+        "3. Two independent → solve → C"
+      ]
+    }
+  },
+  "142": {
+    "hint": "x²>y² is sign-blind (counterexample). x−y>0 directly gives x>y → B.",
+    "theory": {
+      "title": "DS — Squares Lose Sign Information",
+      "icon": "📊",
+      "summary": "x²>y² only compares magnitudes, not order. x−y>0 is the literal definition of x>y, so it is decisive.",
+      "keyFacts": [
+        "(1) x=−5,y=2: x²=25>4 but x<y → not sufficient",
+        "(2) x−y>0 ⇔ x>y, always → sufficient",
+        "Squaring discards sign — never infer order from it",
+        "A direct subtraction inequality answers a 'greater than' question"
+      ],
+      "example": {
+        "problem": "Is x>y? (1) x²>y² (2) x−y>0",
+        "steps": [
+          "(1) try x=−5,y=2 → x²>y² yet x<y: NOT sufficient",
+          "(2) x−y>0 → add y → x>y: SUFFICIENT",
+          "Only (2) → B"
+        ],
+        "answer": "B"
+      },
+      "traps": [
+        "Assuming x²>y² ⇒ x>y — fails for negatives"
+      ],
+      "solveSteps": [
+        "1. For order questions, test negative counterexamples on squared facts",
+        "2. A direct difference inequality is decisive",
+        "3. One works alone → B"
+      ]
+    }
+  },
+  "143": {
+    "hint": "N²>0 only says N≠0 (±). N+|N|>0 is positive ONLY when N>0 → B.",
+    "theory": {
+      "title": "DS — N + |N| as a Sign Test",
+      "icon": "📊",
+      "summary": "N+|N| equals 2N for N>0 and 0 for N≤0. So 'N+|N|>0' is exactly the statement 'N is positive'.",
+      "keyFacts": [
+        "(1) N²>0 → N≠0, but N could be ±5 → insufficient",
+        "If N≤0: |N|=−N so N+|N|=0 (not >0)",
+        "If N>0: N+|N|=2N>0",
+        "(2) N+|N|>0 ⇔ N>0 → sufficient"
+      ],
+      "example": {
+        "problem": "Is integer N positive? (1) N²>0 (2) N+|N|>0",
+        "steps": [
+          "(1) N=−3 → N²=9>0 but negative: NOT sufficient",
+          "(2) value is 0 for any N≤0, positive only if N>0: SUFFICIENT",
+          "Only (2) → B"
+        ],
+        "answer": "B"
+      },
+      "traps": [
+        "Reading N²>0 as 'N>0' — it only rules out zero"
+      ],
+      "solveSteps": [
+        "1. Split |N| by sign cases",
+        "2. Evaluate the expression in each case",
+        "3. If only one sign yields the condition → sufficient → B"
+      ]
+    }
+  },
+  "144": {
+    "hint": "Interest needs rate AND principal (time given as 1yr). (1) rate, (2) principal → C.",
+    "theory": {
+      "title": "DS — Interest Needs Every Input",
+      "icon": "📊",
+      "summary": "Final amount = principal·(1+rate)^time. Missing any of principal, rate, or time makes it undetermined.",
+      "keyFacts": [
+        "A = P(1+r)^t — three inputs",
+        "(1) r=5% alone: P unknown → insufficient",
+        "(2) P=$1000 alone: r unknown → insufficient",
+        "Together (t=1): 1000·1.05 = $1050"
+      ],
+      "example": {
+        "problem": "Balance after 1 year? (1) earns 5% (2) $1000 deposited",
+        "steps": [
+          "(1) alone: A = P·1.05, P free → insufficient",
+          "(2) alone: A = 1000·(1+r), r free → insufficient",
+          "Together: 1000·1.05 = 1050 → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Assuming a 'standard' rate or principal not stated"
+      ],
+      "solveSteps": [
+        "1. List formula inputs (P, r, t)",
+        "2. Mark which statement supplies which",
+        "3. All present → C"
+      ]
+    }
+  },
+  "145": {
+    "hint": "BC longest ⇒ angle A largest; the largest angle of any triangle > 60° (avg). (1) alone → A.",
+    "theory": {
+      "title": "DS — Largest Side ⇒ Largest Angle ⇒ >60°",
+      "icon": "📊",
+      "summary": "The angle opposite the longest side is the triangle's largest angle, and the largest of three angles summing to 180° must exceed the 60° average.",
+      "keyFacts": [
+        "Longest side ⇔ largest opposite angle",
+        "Angles sum 180° → average 60° → the max angle > 60° (unless equilateral, then =60, but a strict longest side rules that out)",
+        "(1) BC longest → A is the largest → A > 60°: sufficient",
+        "(2) B=70° leaves A anywhere (e.g. A=50,C=60) → insufficient"
+      ],
+      "example": {
+        "problem": "Is angle A > 60°? (1) BC longest (2) B=70°",
+        "steps": [
+          "(1) A opposite BC = largest angle; max of three summing 180 must be >60 → SUFFICIENT",
+          "(2) B=70 → A could be 50 (C=60) or 80 → NOT sufficient",
+          "Only (1) → A"
+        ],
+        "answer": "A"
+      },
+      "traps": [
+        "Dismissing (1) as 'no numbers' — the inequality is forced geometrically"
+      ],
+      "solveSteps": [
+        "1. Map side order to angle order",
+        "2. Use angle-sum to bound the largest",
+        "3. Decisive geometric bound → A"
+      ]
+    }
+  },
+  "146": {
+    "hint": "x in terms of y (1) needs y; (2) gives y. Neither alone, together x=14 → C.",
+    "theory": {
+      "title": "DS — Substitution Chain",
+      "icon": "📊",
+      "summary": "One statement expresses x via y; the other fixes y. Only the combination produces a single x.",
+      "keyFacts": [
+        "(1) x=3y+2 alone: y free → x undetermined",
+        "(2) y=4 alone: nothing about x",
+        "Substitute: x = 3·4+2 = 14",
+        "Classic C — a relation plus the value it depends on"
+      ],
+      "example": {
+        "problem": "Value of x? (1) x=3y+2 (2) y=4",
+        "steps": [
+          "(1) alone: x varies with y → insufficient",
+          "(2) alone: x not mentioned → insufficient",
+          "Together: x = 3(4)+2 = 14 → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Calling (1) sufficient because it 'has x ='— it still hides y"
+      ],
+      "solveSteps": [
+        "1. Identify the dependency (x depends on y)",
+        "2. Check the other statement resolves that dependency",
+        "3. Chain them → C"
+      ]
+    }
+  },
+  "147": {
+    "hint": "Side OR diagonal each fixes a square fully → area 36 either way → D.",
+    "theory": {
+      "title": "DS — One Square Measure Fixes All",
+      "icon": "📊",
+      "summary": "A square has one degree of freedom. Side, diagonal, perimeter or area — any single one determines every other.",
+      "keyFacts": [
+        "(1) side=6 → area = 6² = 36: sufficient",
+        "(2) diagonal=6√2 → side = diag/√2 = 6 → area=36: sufficient",
+        "Square fully defined by any single linear measure",
+        "Each alone works → D"
+      ],
+      "example": {
+        "problem": "Area of square? (1) side=6 (2) diagonal=6√2",
+        "steps": [
+          "(1) area = 36 directly: SUFFICIENT",
+          "(2) side = 6√2/√2 = 6 → area 36: SUFFICIENT",
+          "Each alone → D"
+        ],
+        "answer": "D"
+      },
+      "traps": [
+        "Thinking the diagonal needs extra info — diag = side·√2 is fixed"
+      ],
+      "solveSteps": [
+        "1. Square = 1 free parameter",
+        "2. Each statement gives one measure → solves all",
+        "3. Both independently sufficient → D"
+      ]
+    }
+  },
+  "148": {
+    "hint": "Average needs the SUM. Extremes alone fail; total 400/5=80 → B.",
+    "theory": {
+      "title": "DS — Mean Requires the Total",
+      "icon": "📊",
+      "summary": "Average = sum ÷ count. Knowing only the min and max gives no sum; knowing the total directly gives the mean.",
+      "keyFacts": [
+        "(1) lowest 60, highest 100: middle three unknown → sum varies → insufficient",
+        "(2) total = 400, n=5 → mean = 80: sufficient",
+        "Mean depends on the sum, not on extreme values",
+        "Only (2) → B"
+      ],
+      "example": {
+        "problem": "Average of 5 scores? (1) min 60, max 100 (2) total 400",
+        "steps": [
+          "(1) sum could be 60+100+anything → NOT sufficient",
+          "(2) mean = 400/5 = 80 → SUFFICIENT",
+          "Only (2) → B"
+        ],
+        "answer": "B"
+      },
+      "traps": [
+        "Averaging min and max as if that were the mean"
+      ],
+      "solveSteps": [
+        "1. Mean = sum/count",
+        "2. Does the statement give the sum (or let you derive it)?",
+        "3. Only the total-giving one → B"
+      ]
+    }
+  },
+  "149": {
+    "hint": "Both restate parity: K+1 even ⇒ K odd; K+2 odd ⇒ K odd → each alone → D.",
+    "theory": {
+      "title": "DS — Parity Restated Two Ways",
+      "icon": "📊",
+      "summary": "Adding a constant shifts parity predictably. Each statement independently forces K to be odd.",
+      "keyFacts": [
+        "(1) K+1 even → K = even−1 = odd: sufficient",
+        "(2) K+2 odd → K = odd−2 = odd: sufficient",
+        "Both pin parity alone → D",
+        "Even ± odd = odd; even ± even = even"
+      ],
+      "example": {
+        "problem": "Is integer K odd? (1) K+1 even (2) K+2 odd",
+        "steps": [
+          "(1) even − 1 → odd: SUFFICIENT",
+          "(2) odd − 2 → odd: SUFFICIENT",
+          "Each alone → D"
+        ],
+        "answer": "D"
+      },
+      "traps": [
+        "Marking C — each parity statement is self-contained"
+      ],
+      "solveSteps": [
+        "1. Translate each statement to K's parity",
+        "2. Check sufficiency individually",
+        "3. Both decisive → D"
+      ]
+    }
+  },
+  "150": {
+    "hint": "5 distinct letters → 5! = 120, fully determined. Vowel info is a distractor → A.",
+    "theory": {
+      "title": "DS — Arrangements Need Only the Count",
+      "icon": "📊",
+      "summary": "Permutations of distinct letters depend solely on how many there are. Which letters are vowels is irrelevant noise.",
+      "keyFacts": [
+        "(1) 5 distinct letters → 5! = 120: sufficient",
+        "(2) 'two are vowels' gives no length → arrangements unknown: insufficient",
+        "Distinct-item arrangements = n!",
+        "Vowel/consonant label doesn't change the count"
+      ],
+      "example": {
+        "problem": "Ways to arrange the letters? (1) 5 distinct letters (2) 2 are vowels",
+        "steps": [
+          "(1) 5 distinct → 5! = 120: SUFFICIENT",
+          "(2) no total length → can't count: NOT sufficient",
+          "Only (1) → A"
+        ],
+        "answer": "A"
+      },
+      "traps": [
+        "Thinking the vowel detail must matter — it's an irrelevant-info trap"
+      ],
+      "solveSteps": [
+        "1. Arrangements of n distinct = n!",
+        "2. Need the count n only",
+        "3. Statement giving n → sufficient → A"
+      ]
+    }
   }
 };
 
