@@ -5396,6 +5396,623 @@ const QUESTION_THEORIES = {
         "3. Count primes under √limit"
       ]
     }
+  },
+  "171": {
+    "hint": "Split the number line at the kinks (x=−1, x=3). Solve each region; only the two outer regions reach 8.",
+    "theory": {
+      "title": "Absolute Value — Sum of Two Distances",
+      "icon": "📐",
+      "summary": "|x−3|+|x+1| is the total distance from x to 3 and to −1. The points 3 and −1 are 4 apart; between them the sum is constant (4), so a value of 8 occurs only outside.",
+      "keyFacts": [
+        "Critical points: x=3 and x=−1 (where each absolute value changes sign)",
+        "x ≥ 3: (x−3)+(x+1)=2x−2=8 → x=5",
+        "x ≤ −1: (3−x)+(−x−1)=2−2x=8 → x=−3",
+        "−1<x<3: sum = 4 (constant) ≠ 8 → no solution there"
+      ],
+      "example": {
+        "problem": "Integer x with |x−3|+|x+1|=8?",
+        "steps": [
+          "Right region → x=5 (valid, ≥3)",
+          "Left region → x=−3 (valid, ≤−1)",
+          "Middle gives 4, never 8 → exactly 2 solutions → C"
+        ],
+        "answer": "C (2)"
+      },
+      "traps": [
+        "Squaring the equation or dropping a region — misses one of the two roots"
+      ],
+      "solveSteps": [
+        "1. Find the kink points; split into 3 regions",
+        "2. Drop the bars with the right sign per region, solve",
+        "3. Keep only roots that lie in their region"
+      ]
+    }
+  },
+  "172": {
+    "hint": "Find both axis intercepts; triangle legs = |x-int| and |y-int|. Area = ½·3·3 = 4.5.",
+    "theory": {
+      "title": "Coordinate — Triangle From a Line and the Axes",
+      "icon": "📐",
+      "summary": "A line crossing both axes makes a right triangle with the origin. Its legs are the absolute values of the two intercepts.",
+      "keyFacts": [
+        "Through (0,3) and (−3,0): slope = (0−3)/(−3−0) = 1 → y = x+3",
+        "y-intercept = 3, x-intercept = −3",
+        "Legs = |3| and |−3| = 3 and 3",
+        "Area = ½ · |x-int| · |y-int| = ½·3·3 = 4.5"
+      ],
+      "example": {
+        "problem": "Line through (0,3),(−3,0); area with the axes?",
+        "steps": [
+          "Intercepts already given: 3 and −3",
+          "Right triangle legs 3 and 3",
+          "½·3·3 = 4.5 → B"
+        ],
+        "answer": "B (4.5)"
+      },
+      "traps": [
+        "Using signed intercepts (−3) in the area — take absolute values"
+      ],
+      "solveSteps": [
+        "1. Get both intercepts",
+        "2. Legs = absolute intercept values",
+        "3. Area = ½·leg·leg"
+      ]
+    }
+  },
+  "173": {
+    "hint": "Scaling all data by k: mean ×k, SD ×|k|. k=3 → both ×3.",
+    "theory": {
+      "title": "Statistics — Linear Transformation of a Data Set",
+      "icon": "📊",
+      "summary": "Multiplying every value by k multiplies the mean by k and the standard deviation by |k|. (Adding a constant shifts the mean but leaves SD unchanged.)",
+      "keyFacts": [
+        "Mean(kA) = k·Mean(A)",
+        "SD(kA) = |k|·SD(A) — spread scales linearly, not by k²",
+        "Variance scales by k², but SD is its square root → k",
+        "Mean(A)=3 → Mean(B)=9; SD scales by 3"
+      ],
+      "example": {
+        "problem": "B = 3·A elementwise; relation of mean & SD?",
+        "steps": [
+          "Mean triples: 3 → 9",
+          "SD multiplies by 3 (not 9, not unchanged)",
+          "→ C"
+        ],
+        "answer": "C (Mean ×3, SD ×3)"
+      },
+      "traps": [
+        "Scaling SD by k²=9 (that's variance, not SD)",
+        "Thinking SD is unchanged (true only for ADDING a constant)"
+      ],
+      "solveSteps": [
+        "1. Multiply → mean ×k",
+        "2. SD ×|k| (variance ×k²)",
+        "3. Match the option"
+      ]
+    }
+  },
+  "174": {
+    "hint": "Inclusion–exclusion: union = ΣS − Σpairs + triple. Note: these figures give union 205 > 200 — data is inconsistent.",
+    "theory": {
+      "title": "Sets — Triple Inclusion–Exclusion (and a Data Check)",
+      "icon": "📊",
+      "summary": "|A∪B∪C| = Σsingles − Σpairs + triple, then none = total − union. Always sanity-check: the union can't exceed the population.",
+      "keyFacts": [
+        "Union = 120+90+70 − (40+30+20) + 15 = 205",
+        "205 > 200 students → the given pairwise counts are internally inconsistent",
+        "Intended answer 15 holds only if the pairwise figures mean 'exactly two' (then union = 185, none = 15)",
+        "none = total − |A∪B∪C|"
+      ],
+      "example": {
+        "problem": "200 students; M120 S90 E70; pair 40/30/20; all 15. None?",
+        "steps": [
+          "Standard IE → union 205 (impossible: >200)",
+          "If pair counts = 'at least two': contradictory data",
+          "If pair counts = 'exactly two': union 185 → none = 200−185 = 15 → C (the intended answer)"
+        ],
+        "answer": "C (15) — valid only under the 'exactly two' reading; raw IE on the given numbers is inconsistent"
+      },
+      "traps": [
+        "Blindly applying IE without checking union ≤ population",
+        "Confusing 'at least two of' with 'exactly two of' overlap counts"
+      ],
+      "solveSteps": [
+        "1. Apply IE: ΣS − Σpairs + triple",
+        "2. Sanity check union ≤ total",
+        "3. none = total − union (resolve overlap convention if it fails)"
+      ]
+    }
+  },
+  "175": {
+    "hint": "|F∪S| = 45+38−12 = 71. Neither = 80 − 71 = 9.",
+    "theory": {
+      "title": "Sets — Two-Set Neither",
+      "icon": "📊",
+      "summary": "For two sets: union = |F| + |S| − |both|. 'Neither' is the total minus the union.",
+      "keyFacts": [
+        "|F∪S| = 45 + 38 − 12 = 71",
+        "Subtracting 'both' once removes the double-count",
+        "Neither = 80 − 71 = 9",
+        "Two-set IE has no +triple term"
+      ],
+      "example": {
+        "problem": "80 students; French 45, Spanish 38, both 12; neither?",
+        "steps": [
+          "Union = 45+38−12 = 71",
+          "Neither = 80 − 71 = 9 → B"
+        ],
+        "answer": "B (9)"
+      },
+      "traps": [
+        "Forgetting to subtract 'both' (gives 83 > 80, impossible)"
+      ],
+      "solveSteps": [
+        "1. Union = sum − both",
+        "2. Neither = total − union"
+      ]
+    }
+  },
+  "176": {
+    "hint": "Acid balance: 0.4x + 0.7·30 = 0.5(x+30). Solve x = 60.",
+    "theory": {
+      "title": "Mixtures — Conserve the Solute",
+      "icon": "⚗️",
+      "summary": "Total acid before = total acid after. Set acid contributed by each solution equal to acid in the final mix.",
+      "keyFacts": [
+        "Acid: 0.4x (from 40%) + 0.7(30) (from 70%) = 0.5(x+30) (final)",
+        "0.4x + 21 = 0.5x + 15",
+        "6 = 0.1x → x = 60",
+        "Check: (0.4·60+21)/(90) = 45/90 = 50% ✓"
+      ],
+      "example": {
+        "problem": "x L of 40% + 30 L of 70% → 50%. x?",
+        "steps": [
+          "0.4x + 21 = 0.5x + 15",
+          "21−15 = 0.1x → x = 60 → C"
+        ],
+        "answer": "C (60)"
+      },
+      "traps": [
+        "Averaging the percentages (40+70)/2 instead of weighting by volume"
+      ],
+      "solveSteps": [
+        "1. Acid_in = Acid_out equation",
+        "2. Expand and isolate x",
+        "3. Verify the final concentration"
+      ]
+    }
+  },
+  "177": {
+    "hint": "Compound yearly: 5000·1.08² = 5000·1.1664 = 5832.",
+    "theory": {
+      "title": "Compound Interest — Two Years Annual",
+      "icon": "💰",
+      "summary": "Compounded annually means each year's interest is on the new balance: A = P(1+r)ⁿ.",
+      "keyFacts": [
+        "Year 1: 5000 × 1.08 = 5400",
+        "Year 2: 5400 × 1.08 = 5832",
+        "Equivalent: 5000 × 1.08² = 5000 × 1.1664",
+        "Simple interest would give only 5800 (a decoy)"
+      ],
+      "example": {
+        "problem": "$5000 at 8% compounded annually, 2 years?",
+        "steps": [
+          "5000·1.08 = 5400",
+          "5400·1.08 = 5832 → B"
+        ],
+        "answer": "B ($5,832)"
+      },
+      "traps": [
+        "Using simple interest 5000+2·400 = 5800 (ignores compounding the 2nd year)"
+      ],
+      "solveSteps": [
+        "1. A = P(1+r)ⁿ",
+        "2. Apply rate year by year",
+        "3. Distinguish from simple interest"
+      ]
+    }
+  },
+  "178": {
+    "hint": "Make b common: a:b=3:4=15:20, b:c=5:6=20:24 → 15:20:24.",
+    "theory": {
+      "title": "Ratios — Chaining via the Common Term",
+      "icon": "🔢",
+      "summary": "To merge a:b and b:c, scale each ratio so the shared term b matches (use the LCM of the two b-values).",
+      "keyFacts": [
+        "b appears as 4 in a:b and as 5 in b:c → LCM(4,5)=20",
+        "a:b = 3:4 → ×5 → 15:20",
+        "b:c = 5:6 → ×4 → 20:24",
+        "Combined a:b:c = 15:20:24"
+      ],
+      "example": {
+        "problem": "a:b=3:4, b:c=5:6 → a:b:c?",
+        "steps": [
+          "Scale b to 20 in both",
+          "15:20 and 20:24",
+          "→ 15:20:24 → B"
+        ],
+        "answer": "B (15:20:24)"
+      },
+      "traps": [
+        "Just concatenating 3:4:6 or 3:5:6 without equalizing b"
+      ],
+      "solveSteps": [
+        "1. LCM of the two b values",
+        "2. Scale each ratio to that b",
+        "3. Read off a:b:c"
+      ]
+    }
+  },
+  "179": {
+    "hint": "M=3s and M+12=2(s+12). Solve: s=12, M=36.",
+    "theory": {
+      "title": "Age — Two Equations, Two Times",
+      "icon": "🔢",
+      "summary": "Translate 'now' and 'future' into separate equations; substitute and solve.",
+      "keyFacts": [
+        "Now: M = 3s",
+        "In 12 yrs: M+12 = 2(s+12)",
+        "Substitute: 3s+12 = 2s+24 → s = 12",
+        "M = 3·12 = 36"
+      ],
+      "example": {
+        "problem": "Maria 3× son; in 12 yrs twice his age. Maria now?",
+        "steps": [
+          "3s+12 = 2(s+12)",
+          "s = 12 → M = 36 → D"
+        ],
+        "answer": "D (36)"
+      },
+      "traps": [
+        "Adding 12 to only one person's age in the future equation"
+      ],
+      "solveSteps": [
+        "1. Write the 'now' relation",
+        "2. Add the time shift to BOTH ages for the future relation",
+        "3. Solve the system"
+      ]
+    }
+  },
+  "180": {
+    "hint": "Set CP=100. MP=140, SP=140·0.85=119 → profit 19%.",
+    "theory": {
+      "title": "Profit — Markup Then Discount",
+      "icon": "💰",
+      "summary": "Markup is on cost; discount is on the marked price. Use CP=100 to read profit% directly off the final selling price.",
+      "keyFacts": [
+        "CP = 100 → MP = 100·1.40 = 140",
+        "SP = MP·(1−0.15) = 140·0.85 = 119",
+        "Profit = 119 − 100 = 19 → 19%",
+        "Not 40−15=25%: discount and markup have different bases"
+      ],
+      "example": {
+        "problem": "40% markup, 15% discount; profit %?",
+        "steps": [
+          "CP 100 → MP 140",
+          "SP = 140·0.85 = 119",
+          "Profit 19% → D"
+        ],
+        "answer": "D (19%)"
+      },
+      "traps": [
+        "Subtracting percentages: 40% − 15% = 25% (different bases — wrong)"
+      ],
+      "solveSteps": [
+        "1. CP = 100",
+        "2. Apply markup to CP, then discount to MP",
+        "3. Profit% = SP − 100"
+      ]
+    }
+  },
+  "181": {
+    "hint": "Key identity: (x+y)²+(x−y)² = 2(x²+y²). Need BOTH 5|(x+y) and 5|(x−y) → C.",
+    "theory": {
+      "title": "DS — Build x²+y² From the Two Statements",
+      "icon": "📊",
+      "summary": "Neither divisibility alone forces 5 | x²+y². But (x+y)² + (x−y)² = 2(x²+y²); if 5 divides both x+y and x−y, it divides the left side, hence x²+y².",
+      "keyFacts": [
+        "(1) 5|(x+y): x=1,y=4 → x²+y²=17 (no); x=0,y=5 → 25 (yes) → insufficient",
+        "(2) 5|(x−y): similarly mixed → insufficient",
+        "Identity: (x+y)²+(x−y)² = 2(x²+y²)",
+        "5|(x+y) and 5|(x−y) → 5 | 2(x²+y²) → 5 | x²+y² (5∤2)"
+      ],
+      "example": {
+        "problem": "Integers x,y: is 5 | x²+y²? (1) 5|(x+y) (2) 5|(x−y)",
+        "steps": [
+          "Each alone: produce a yes-case and a no-case → insufficient",
+          "Together: 25|(x+y)² and 25|(x−y)² → 5 | their sum = 2(x²+y²)",
+          "Since gcd(2,5)=1 → 5 | x²+y² → definite YES → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Stopping after testing one pair and guessing E without the algebraic identity"
+      ],
+      "solveSteps": [
+        "1. Test each statement with examples → likely insufficient",
+        "2. Look for an identity combining x+y and x−y",
+        "3. Together force the divisibility → C"
+      ]
+    }
+  },
+  "182": {
+    "hint": "Both inequalities admit negative AND positive solutions; even intersected → still both signs → E.",
+    "theory": {
+      "title": "DS — Sign Undetermined by Power Inequalities",
+      "icon": "📊",
+      "summary": "a²>a and a³>a each carve out a set spanning both negative and positive values. Their intersection still contains both signs, so 'is a>0?' stays undecided.",
+      "keyFacts": [
+        "(1) a²>a → a<0 OR a>1 (e.g. a=−1 neg, a=2 pos) → insufficient",
+        "(2) a³>a → −1<a<0 OR a>1 (e.g. a=−0.5 neg, a=2 pos) → insufficient",
+        "Intersection: (−1<a<0) OR (a>1) — still both signs",
+        "No combination pins the sign → E"
+      ],
+      "example": {
+        "problem": "Is a>0? (1) a²>a (2) a³>a",
+        "steps": [
+          "(1) a=−1 and a=2 both satisfy → insufficient",
+          "(2) a=−0.5 and a=2 both satisfy → insufficient",
+          "Together a∈(−1,0)∪(1,∞): a=−0.5 (no), a=2 (yes) → E"
+        ],
+        "answer": "E"
+      },
+      "traps": [
+        "Assuming a²>a or a³>a implies a>1 — forgets the negative interval"
+      ],
+      "solveSteps": [
+        "1. Solve each inequality as a sign chart",
+        "2. Intersect the solution sets",
+        "3. If both signs survive → E"
+      ]
+    }
+  },
+  "183": {
+    "hint": "P(red) needs red AND total. One count alone gives no ratio. Together 5/9>0.5 → C.",
+    "theory": {
+      "title": "DS — Probability Threshold Needs Both Counts",
+      "icon": "📊",
+      "summary": "With only red and blue marbles, P(red) = red/(red+blue). A single colour count can't form the ratio; both are required.",
+      "keyFacts": [
+        "(1) 5 red, blue unknown → P could be >0.5 or <0.5 → insufficient",
+        "(2) 4 blue, red unknown → insufficient",
+        "Together: total = 5+4 = 9, P(red) = 5/9 ≈ 0.556 > 0.5 → definite YES",
+        "A yes/no probability DS still needs the full ratio"
+      ],
+      "example": {
+        "problem": "P(red) > 0.5? (1) 5 red (2) 4 blue",
+        "steps": [
+          "(1) alone: 5 red of 5 → 1.0; of 100 → 0.05 → insufficient",
+          "(2) alone: red unknown → insufficient",
+          "Together: 5/9 > 0.5 → YES → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Thinking 'more red than blue' is given by (1) alone — blue count is unknown"
+      ],
+      "solveSteps": [
+        "1. P(red) = red/(red+blue)",
+        "2. Need both colour counts",
+        "3. Compare the resulting ratio to 0.5 → C"
+      ]
+    }
+  },
+  "184": {
+    "hint": "Both circumference>10π and diameter>10 each force r>5 → area>25π. Each alone → D.",
+    "theory": {
+      "title": "DS — One Circle Measure Bounds the Area",
+      "icon": "📊",
+      "summary": "Area > 25π ⇔ r > 5. Any single measure that forces r > 5 (circumference or diameter) is sufficient on its own.",
+      "keyFacts": [
+        "Area > 25π ⇔ πr² > 25π ⇔ r > 5",
+        "(1) C > 10π → 2πr > 10π → r > 5 → area > 25π: sufficient",
+        "(2) d > 10 → r > 5 → area > 25π: sufficient",
+        "Each statement independently fixes the inequality → D"
+      ],
+      "example": {
+        "problem": "Area > 25π? (1) C > 10π (2) d > 10",
+        "steps": [
+          "Translate target: r > 5",
+          "(1) C>10π → r>5: SUFFICIENT",
+          "(2) d>10 → r>5: SUFFICIENT → D"
+        ],
+        "answer": "D"
+      },
+      "traps": [
+        "Marking C — the two statements are independent routes to the same r>5"
+      ],
+      "solveSteps": [
+        "1. Reduce the area question to a radius threshold",
+        "2. Test each statement against r>5",
+        "3. Both work alone → D"
+      ]
+    }
+  },
+  "185": {
+    "hint": "Mean(a,b,c) needs a+b+c. (1) has an extra b — can't isolate. (2) gives 3(a+b+c)=60 → B.",
+    "theory": {
+      "title": "DS — Mean Needs the Plain Sum",
+      "icon": "📊",
+      "summary": "Average of a,b,c = (a+b+c)/3. You need a+b+c exactly; a weighted combination like a+2b+c does not give it.",
+      "keyFacts": [
+        "(1) a+2b+c=24 → equals (a+b+c)+b; b unknown → can't extract a+b+c → insufficient",
+        "(2) 3a+3b+3c=60 → a+b+c=20 → mean=20/3: sufficient",
+        "Mean depends only on the unweighted sum",
+        "A scaled-but-uniform equation IS enough; an unevenly weighted one is not"
+      ],
+      "example": {
+        "problem": "Mean of a,b,c? (1) a+2b+c=24 (2) 3a+3b+3c=60",
+        "steps": [
+          "(1) a+b+c = 24 − b, b free → insufficient",
+          "(2) divide by 3 → a+b+c=20 → mean 20/3 → SUFFICIENT",
+          "Only (2) → B"
+        ],
+        "answer": "B"
+      },
+      "traps": [
+        "Treating (1)'s extra b as harmless — it blocks isolating the sum"
+      ],
+      "solveSteps": [
+        "1. Mean needs a+b+c (equal weights)",
+        "2. Check if a statement gives that exactly",
+        "3. Uniform-coefficient eq → sufficient → B"
+      ]
+    }
+  },
+  "186": {
+    "hint": "(1) n²−1=(n−1)(n+1) div by 8 → forces n odd. (2) n+1 div by 4 → n odd. Each alone → D.",
+    "theory": {
+      "title": "DS — Parity From Divisibility Structure",
+      "icon": "📊",
+      "summary": "Both statements independently force n to be odd — analyze the factor structure rather than testing endlessly.",
+      "keyFacts": [
+        "(1) n²−1=(n−1)(n+1). If n even → two odds, product never div by 8. If n odd → two consecutive evens, one div by 4 → product div by 8. So 8|(n²−1) ⇒ n odd: sufficient",
+        "(2) n+1 div by 4 → n = 4k−1 = odd: sufficient",
+        "Consecutive even numbers: exactly one is a multiple of 4",
+        "Each statement alone determines parity → D"
+      ],
+      "example": {
+        "problem": "Is n odd? (1) 8 | n²−1 (2) 4 | n+1",
+        "steps": [
+          "(1) only odd n makes (n−1)(n+1) divisible by 8 → SUFFICIENT",
+          "(2) n = 4k−1 is always odd → SUFFICIENT",
+          "Each alone → D"
+        ],
+        "answer": "D"
+      },
+      "traps": [
+        "Testing one value and assuming insufficiency without the factor argument"
+      ],
+      "solveSteps": [
+        "1. Factor n²−1 = (n−1)(n+1)",
+        "2. Reason by parity cases on each statement",
+        "3. Both pin odd → D"
+      ]
+    }
+  },
+  "187": {
+    "hint": "Two distinct roots ⇔ disc b²−4ac>0. (1) gives b²+24>0 always → sufficient alone → A.",
+    "theory": {
+      "title": "DS — Discriminant Sign Decides Distinct Roots",
+      "icon": "📊",
+      "summary": "A quadratic has two distinct real roots iff b²−4ac > 0. If a and c make −4ac always dominate, b is irrelevant.",
+      "keyFacts": [
+        "Distinct real roots ⇔ b² − 4ac > 0",
+        "(1) a=1, c=−6 → disc = b² − 4(1)(−6) = b² + 24 > 0 for ALL real b → always two roots: sufficient",
+        "(2) b=1 alone → disc = 1 − 4ac, sign depends on a,c → insufficient",
+        "Negative product ac makes −4ac positive, guaranteeing disc>0"
+      ],
+      "example": {
+        "problem": "Two distinct roots of ax²+bx+c? (1) a=1,c=−6 (2) b=1",
+        "steps": [
+          "(1) disc = b²+24 > 0 regardless of b → SUFFICIENT",
+          "(2) disc = 1−4ac, unknown sign → insufficient",
+          "Only (1) → A"
+        ],
+        "answer": "A"
+      },
+      "traps": [
+        "Thinking b must be known — when −4ac>0 the b² term only helps"
+      ],
+      "solveSteps": [
+        "1. Translate to disc = b²−4ac > 0",
+        "2. Plug each statement; is the sign forced?",
+        "3. (1) forces it alone → A"
+      ]
+    }
+  },
+  "188": {
+    "hint": "(1) 6-8-10 satisfies 6²+8²=10² → right. (2) angle B=90° → right. Each alone → D.",
+    "theory": {
+      "title": "DS — Right Triangle: Two Independent Proofs",
+      "icon": "📊",
+      "summary": "A triangle is right if its sides satisfy Pythagoras OR an angle is 90°. Each statement gives one of these independently.",
+      "keyFacts": [
+        "(1) 6,8,10: 6²+8² = 36+64 = 100 = 10² → Pythagorean → right: sufficient",
+        "(2) angle B = 90° → right by definition: sufficient",
+        "Side test and angle test are independent sufficiency routes",
+        "Each alone → D"
+      ],
+      "example": {
+        "problem": "Is ABC right? (1) sides 6,8,10 (2) angle B=90°",
+        "steps": [
+          "(1) 6²+8²=10² → right: SUFFICIENT",
+          "(2) a 90° angle → right: SUFFICIENT",
+          "Each alone → D"
+        ],
+        "answer": "D"
+      },
+      "traps": [
+        "Marking C — neither statement needs the other"
+      ],
+      "solveSteps": [
+        "1. Right ⇔ Pythagoras holds OR a 90° angle",
+        "2. Check each statement against one criterion",
+        "3. Both sufficient → D"
+      ]
+    }
+  },
+  "189": {
+    "hint": "Closing-speed problem: need BOTH speeds for combined rate. 300/(60+90)=2h → C.",
+    "theory": {
+      "title": "DS — Converging Bodies Need Combined Rate",
+      "icon": "📊",
+      "summary": "Two objects approaching each other close the gap at the SUM of their speeds. Time = distance / combined rate, so both speeds are required.",
+      "keyFacts": [
+        "Closing speed = speed_A + speed_B",
+        "(1) A=60 only: B unknown → combined rate unknown → insufficient",
+        "(2) B=90 only: A unknown → insufficient",
+        "Together: 300 / (60+90) = 2 h"
+      ],
+      "example": {
+        "problem": "Meet time on 300 km? (1) A=60 km/h (2) B=90 km/h",
+        "steps": [
+          "(1) alone: gap closes at 60+B, B free → insufficient",
+          "(2) alone: 60? unknown → insufficient",
+          "Together: 300/150 = 2 h → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Thinking one car's speed + the distance is enough — the other car also closes the gap"
+      ],
+      "solveSteps": [
+        "1. Converging → add speeds",
+        "2. Need both speeds for the sum",
+        "3. Time = distance / combined → C"
+      ]
+    }
+  },
+  "190": {
+    "hint": "|C∩T| = |C|+|T|−|C∪T|. Need both the singles and 'neither'. Together → 50 → C.",
+    "theory": {
+      "title": "DS — Overlap Needs Singles and the Union",
+      "icon": "📊",
+      "summary": "|C∩T| = |C| + |T| − |C∪T|. The union comes from 'neither' (union = total − neither). You need the individual counts AND neither.",
+      "keyFacts": [
+        "(1) |C|=70, |T|=50, but |C∪T| unknown → overlap unknown → insufficient",
+        "(2) neither=30 → |C∪T|=70, but |C|,|T| unknown → insufficient",
+        "Together: |C∩T| = 70 + 50 − 70 = 50",
+        "Overlap formula needs three of the four quantities"
+      ],
+      "example": {
+        "problem": "Both coffee & tea? (1) 70 coffee, 50 tea (2) 30 neither",
+        "steps": [
+          "(1) alone: no union → overlap free → insufficient",
+          "(2) alone: union=70 but singles unknown → insufficient",
+          "Together: 70+50−70 = 50 → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Trying to get overlap from the two single counts alone (need the union too)"
+      ],
+      "solveSteps": [
+        "1. |C∩T| = |C|+|T|−|C∪T|",
+        "2. Union = total − neither",
+        "3. Need singles AND neither → C"
+      ]
+    }
   }
 };
 
