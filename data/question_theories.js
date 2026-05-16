@@ -8370,6 +8370,625 @@ const QUESTION_THEORIES = {
         "2. Total distance / total time"
       ]
     }
+  },
+  "271": {
+    "hint": "(1) n>5 → positive: sufficient. (2) n>−5 allows 0/negatives → insufficient. A.",
+    "theory": {
+      "title": "DS — Positivity From an Inequality Shift",
+      "icon": "📊",
+      "summary": "A statement is sufficient for 'is n positive?' only if it forces n>0 with no exceptions. n−5>0 does; n+5>0 does not.",
+      "keyFacts": [
+        "(1) n−5>0 → n>5 → always positive: sufficient",
+        "(2) n+5>0 → n>−5 → n could be 0 or −3: insufficient",
+        "One sufficient, the other not → answer A",
+        "Test the boundary values to expose insufficiency"
+      ],
+      "example": {
+        "problem": "Is n positive? (1) n−5>0 (2) n+5>0",
+        "steps": [
+          "(1) n>5 → definitely positive: SUFFICIENT",
+          "(2) n=−2 satisfies n>−5 but isn't positive: NOT sufficient",
+          "Only (1) → A"
+        ],
+        "answer": "A"
+      },
+      "traps": [
+        "Treating n+5>0 as 'positive' — it only means n>−5"
+      ],
+      "solveSteps": [
+        "1. Solve each inequality for n",
+        "2. Does it force n>0 with no exception?",
+        "3. Map to AD/BCE → A"
+      ]
+    }
+  },
+  "272": {
+    "hint": "Each is a linear equation → x=5 alone. Each sufficient → D.",
+    "theory": {
+      "title": "DS — Two Independent One-Unknown Equations",
+      "icon": "📊",
+      "summary": "Any single linear equation in one unknown determines it. When both do so, the answer is D — regardless that they agree.",
+      "keyFacts": [
+        "(1) 2x=10 → x=5: sufficient",
+        "(2) x+3=8 → x=5: sufficient",
+        "Each alone yields a unique x → D",
+        "Matching values is coincidence, not the criterion"
+      ],
+      "example": {
+        "problem": "Value of x? (1) 2x=10 (2) x+3=8",
+        "steps": [
+          "(1) x=5: SUFFICIENT",
+          "(2) x=5: SUFFICIENT",
+          "Each alone → D"
+        ],
+        "answer": "D"
+      },
+      "traps": [
+        "Marking C because both give 5 — sufficiency is per-statement"
+      ],
+      "solveSteps": [
+        "1. Solve (1) alone",
+        "2. Solve (2) alone",
+        "3. Both unique → D"
+      ]
+    }
+  },
+  "273": {
+    "hint": "(1) 2x+2y=14 → x+y=7: sufficient. (2) only difference → insufficient. A.",
+    "theory": {
+      "title": "DS — Asked Sum From a Scaled Equation",
+      "icon": "📊",
+      "summary": "If a statement is just a multiple of x+y, it gives the sum directly. A difference equation alone cannot.",
+      "keyFacts": [
+        "(1) 2x+2y=14 → divide by 2 → x+y=7: sufficient",
+        "(2) x−y=1: gives the difference, not the sum → insufficient",
+        "Need x+y, not x and y individually",
+        "Uniform-coefficient equation → sum obtainable"
+      ],
+      "example": {
+        "problem": "x+y? (1) 2x+2y=14 (2) x−y=1",
+        "steps": [
+          "(1) → x+y=7: SUFFICIENT",
+          "(2) → only x−y, sum varies: NOT sufficient",
+          "Only (1) → A"
+        ],
+        "answer": "A"
+      },
+      "traps": [
+        "Thinking you must solve for x and y separately — the scaled sum suffices"
+      ],
+      "solveSteps": [
+        "1. Can the statement be reduced to x+y?",
+        "2. Difference-only is insufficient for the sum",
+        "3. → A"
+      ]
+    }
+  },
+  "274": {
+    "hint": "(1) 3x even → x even (3 odd). (2) x/2 integer → x even. Each alone → D.",
+    "theory": {
+      "title": "DS — Parity Through a Multiplier",
+      "icon": "📊",
+      "summary": "Multiplying by an odd number preserves parity, so 3x even forces x even. x/2 integer also forces x even. Each is independently sufficient.",
+      "keyFacts": [
+        "(1) 3 is odd → 3x even ⇔ x even: sufficient",
+        "(2) x/2 ∈ ℤ → x is a multiple of 2 → even: sufficient",
+        "odd × x has the same parity as x",
+        "Each alone determines parity → D"
+      ],
+      "example": {
+        "problem": "Is x even? (1) 3x even (2) x/2 integer",
+        "steps": [
+          "(1) 3·odd = odd, so 3x even ⇒ x even: SUFFICIENT",
+          "(2) x/2 integer ⇒ x even: SUFFICIENT",
+          "Each alone → D"
+        ],
+        "answer": "D"
+      },
+      "traps": [
+        "Thinking 3x even could come from odd x — 3·odd is odd, so no"
+      ],
+      "solveSteps": [
+        "1. odd·x keeps x's parity",
+        "2. Each statement → x even independently",
+        "3. → D"
+      ]
+    }
+  },
+  "275": {
+    "hint": "(1) x²>25 → x>5 OR x<−5. (2) x>0. Together → x>5. C.",
+    "theory": {
+      "title": "DS — Combine a Magnitude and a Sign",
+      "icon": "📊",
+      "summary": "x²>25 gives |x|>5 (both tails). x>0 removes the negative tail. Only together do they force x>5.",
+      "keyFacts": [
+        "(1) x²>25 → x>5 or x<−5: insufficient (x=−6 → no)",
+        "(2) x>0: x could be 1 → insufficient",
+        "Together: x>0 kills x<−5, leaving x>5 → definite YES",
+        "Squared inequality = two-sided"
+      ],
+      "example": {
+        "problem": "Is x>5? (1) x²>25 (2) x>0",
+        "steps": [
+          "(1) x=−6 works for x²>25 but x<5 → insufficient",
+          "(2) x=1 → not >5 → insufficient",
+          "Together x>0 and |x|>5 → x>5 → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Reading x²>25 as x>5 only (ignores the negative branch)"
+      ],
+      "solveSteps": [
+        "1. x²>k² → |x|>k (two tails)",
+        "2. Use the sign statement to cut one tail",
+        "3. → C"
+      ]
+    }
+  },
+  "276": {
+    "hint": "(1) one angle ≠ A. (2) equilateral → A=60: sufficient. B.",
+    "theory": {
+      "title": "DS — Specific Shape Pins the Angle",
+      "icon": "📊",
+      "summary": "Knowing another angle alone can't fix angle A (third angle free). 'Equilateral' forces every angle to 60°.",
+      "keyFacts": [
+        "(1) B=60° → A+C=120°, A unconstrained: insufficient",
+        "(2) equilateral → all angles 60° → A=60°: sufficient",
+        "A triangle needs two angles (or a shape rule) to fix the third",
+        "Equilateral is a complete specification"
+      ],
+      "example": {
+        "problem": "Angle A? (1) B=60° (2) equilateral",
+        "steps": [
+          "(1) A could be 50,70,… → insufficient",
+          "(2) equilateral → A=60: SUFFICIENT",
+          "Only (2) → B"
+        ],
+        "answer": "B"
+      },
+      "traps": [
+        "Assuming B=60° implies an equilateral/60-60-60 triangle"
+      ],
+      "solveSteps": [
+        "1. One angle leaves the other two free",
+        "2. A shape rule may fix all angles",
+        "3. → B"
+      ]
+    }
+  },
+  "277": {
+    "hint": "(1) perimeter alone → many L,W. (2) one side alone. Together → area 32. C.",
+    "theory": {
+      "title": "DS — Rectangle Area Needs Both Dimensions",
+      "icon": "📊",
+      "summary": "Perimeter fixes L+W but not the product; one side fixes nothing about the other. Together they pin both, so area follows.",
+      "keyFacts": [
+        "(1) P=24 → L+W=12, but area 11·1 vs 6·6 differ: insufficient",
+        "(2) L=4 alone: W free → insufficient",
+        "Together: W = 12−4 = 8 → area = 4·8 = 32",
+        "Area needs both L and W, not just their sum"
+      ],
+      "example": {
+        "problem": "Rectangle area? (1) perimeter 24 (2) length 4",
+        "steps": [
+          "(1) area varies for L+W=12 → insufficient",
+          "(2) one side only → insufficient",
+          "Together: W=8 → area 32 → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Thinking perimeter alone determines area"
+      ],
+      "solveSteps": [
+        "1. Perimeter → L+W only",
+        "2. Add one side → solve the other",
+        "3. Area = L·W → C"
+      ]
+    }
+  },
+  "278": {
+    "hint": "Each gives unit price $4 (20/5 = 40/10). Each sufficient → D.",
+    "theory": {
+      "title": "DS — Unit Rate From Any Bulk Quote",
+      "icon": "📊",
+      "summary": "Any total-cost-for-a-quantity pair yields the unit price by division. Each statement does so independently.",
+      "keyFacts": [
+        "(1) $20 / 5 = $4 per widget: sufficient",
+        "(2) $40 / 10 = $4 per widget: sufficient",
+        "Unit price = total / quantity",
+        "Each alone → D"
+      ],
+      "example": {
+        "problem": "Price per widget? (1) 5 for $20 (2) 10 for $40",
+        "steps": [
+          "(1) 20/5 = 4: SUFFICIENT",
+          "(2) 40/10 = 4: SUFFICIENT",
+          "Each alone → D"
+        ],
+        "answer": "D"
+      },
+      "traps": [
+        "Marking C because the prices are consistent — each already suffices"
+      ],
+      "solveSteps": [
+        "1. Unit = total / quantity per statement",
+        "2. Each gives a value → D"
+      ]
+    }
+  },
+  "279": {
+    "hint": "6 = 2·3. (1) gives 2, (2) gives 3 — need both → C.",
+    "theory": {
+      "title": "DS — Divisible by 6 = Need 2 AND 3",
+      "icon": "📊",
+      "summary": "n divisible by 6 ⇔ divisible by 2 and by 3. One prime alone is insufficient; both together guarantee it.",
+      "keyFacts": [
+        "(1) 2|n: n=2 → not div 6; n=6 → yes → insufficient",
+        "(2) 3|n: n=3 → no; n=6 → yes → insufficient",
+        "Together: divisible by both 2 and 3 → by 6",
+        "2 and 3 are coprime → product rule applies"
+      ],
+      "example": {
+        "problem": "Is n divisible by 6? (1) 2|n (2) 3|n",
+        "steps": [
+          "(1) counterexample n=2 → insufficient",
+          "(2) counterexample n=3 → insufficient",
+          "Together → divisible by 6 → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Thinking one of 2 or 3 is 'most of 6' — both prime factors are required"
+      ],
+      "solveSteps": [
+        "1. 6 = 2·3",
+        "2. Each statement supplies one prime",
+        "3. Both → C"
+      ]
+    }
+  },
+  "280": {
+    "hint": "Identity (x+y)² = x²+2xy+y². (1)&(2) → 25 = 13+2xy → xy=6. C.",
+    "theory": {
+      "title": "DS — Solve xy via the Square-of-Sum Identity",
+      "icon": "📊",
+      "summary": "xy can't come from the sum or the sum-of-squares alone, but (x+y)² = x²+2xy+y² links them, isolating xy when both are known.",
+      "keyFacts": [
+        "(1) x+y=5 alone: xy ranges (e.g. 4·1 vs 2.5²) → insufficient",
+        "(2) x²+y²=13 alone: xy not fixed → insufficient",
+        "(x+y)² = x²+2xy+y² → 25 = 13 + 2xy",
+        "xy = (25−13)/2 = 6"
+      ],
+      "example": {
+        "problem": "xy? (1) x+y=5 (2) x²+y²=13",
+        "steps": [
+          "Each alone leaves xy free → insufficient",
+          "(x+y)²=25 → 25 = 13 + 2xy",
+          "xy = 6 → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Trying to solve for x and y separately instead of using the identity"
+      ],
+      "solveSteps": [
+        "1. Recall (x+y)² = x²+2xy+y²",
+        "2. Substitute both statements",
+        "3. Isolate xy → C"
+      ]
+    }
+  },
+  "281": {
+    "hint": "(1) one equation, two unknowns. (2) Mary only. Together → John=15. C.",
+    "theory": {
+      "title": "DS — Age Relation Plus an Anchor",
+      "icon": "📊",
+      "summary": "A past-age relation has two unknowns; the other statement anchors one of them. Only together is John's age determined.",
+      "keyFacts": [
+        "(1) J−5 = 2(M−5): one equation, J and M unknown → insufficient",
+        "(2) M=10 alone: nothing about J → insufficient",
+        "Together: J−5 = 2(10−5)=10 → J=15",
+        "Need the relation AND a value to anchor it"
+      ],
+      "example": {
+        "problem": "John's age? (1) 5y ago J=2·M (2) Mary now 10",
+        "steps": [
+          "(1) two unknowns → insufficient",
+          "(2) J unmentioned → insufficient",
+          "Together: J = 2·5 + 5 = 15 → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Forgetting to shift Mary back 5 years too in statement (1)"
+      ],
+      "solveSteps": [
+        "1. Relation = 1 equation, 2 unknowns",
+        "2. Other statement anchors one",
+        "3. Solve → C"
+      ]
+    }
+  },
+  "282": {
+    "hint": "d = s·t. (1) speed only, (2) time only. Need both → C.",
+    "theory": {
+      "title": "DS — Distance Needs Speed AND Time",
+      "icon": "📊",
+      "summary": "d = s·t. One factor alone leaves d undetermined; both together fix it.",
+      "keyFacts": [
+        "(1) s=60 alone: t free → d unknown",
+        "(2) t=2 alone: s free → d unknown",
+        "Together: d = 60·2 = 120",
+        "Product needs both factors"
+      ],
+      "example": {
+        "problem": "Distance d? (1) s=60 (2) t=2 h",
+        "steps": [
+          "(1) d=60t, t free → insufficient",
+          "(2) d=2s, s free → insufficient",
+          "Together: 120 → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Assuming a 'standard' trip time or speed not given"
+      ],
+      "solveSteps": [
+        "1. d = s·t",
+        "2. Need both factors",
+        "3. → C"
+      ]
+    }
+  },
+  "283": {
+    "hint": "(1) sum/4 = mean directly: sufficient. (2) missing 4th number → insufficient. A.",
+    "theory": {
+      "title": "DS — Mean Needs Only the Sum",
+      "icon": "📊",
+      "summary": "Mean = sum / count. The sum alone is enough; three of four values is not (the fourth is free).",
+      "keyFacts": [
+        "(1) sum=20, n=4 → mean = 5: sufficient",
+        "(2) three values 3,5,7 → 4th unknown → mean varies: insufficient",
+        "Mean depends on the total, not individual values",
+        "One sufficient, one not → A"
+      ],
+      "example": {
+        "problem": "Mean of 4 numbers? (1) sum=20 (2) three are 3,5,7",
+        "steps": [
+          "(1) 20/4 = 5: SUFFICIENT",
+          "(2) 4th number free → mean varies → insufficient",
+          "Only (1) → A"
+        ],
+        "answer": "A"
+      },
+      "traps": [
+        "Thinking partial values help — without the 4th, the sum is unknown"
+      ],
+      "solveSteps": [
+        "1. Mean = sum/count",
+        "2. Sum given → sufficient; partial values → not",
+        "3. → A"
+      ]
+    }
+  },
+  "284": {
+    "hint": "Diameter OR circumference each gives r=5 → area 25π. Each alone → D.",
+    "theory": {
+      "title": "DS — Any One Circle Measure Fixes Area",
+      "icon": "📊",
+      "summary": "A circle has one free parameter. Diameter or circumference each determines r, hence the area.",
+      "keyFacts": [
+        "(1) d=10 → r=5 → area = 25π: sufficient",
+        "(2) C=10π → 2πr=10π → r=5 → area=25π: sufficient",
+        "Each single measure → r → area",
+        "Each alone → D"
+      ],
+      "example": {
+        "problem": "Area of circle? (1) diameter 10 (2) circumference 10π",
+        "steps": [
+          "(1) r=5 → 25π: SUFFICIENT",
+          "(2) r=5 → 25π: SUFFICIENT",
+          "Each alone → D"
+        ],
+        "answer": "D"
+      },
+      "traps": [
+        "Marking C because both give the same area — each suffices alone"
+      ],
+      "solveSteps": [
+        "1. Circle = 1 parameter",
+        "2. Each statement → r",
+        "3. → D"
+      ]
+    }
+  },
+  "285": {
+    "hint": "(1) x²=9 → x=±3. (2) x>0. Together → x=3. C.",
+    "theory": {
+      "title": "DS — Square Root Sign Ambiguity",
+      "icon": "📊",
+      "summary": "x²=9 gives x=3 or −3. 'Is x=3?' stays undecided until the sign is fixed.",
+      "keyFacts": [
+        "(1) x²=9 → x ∈ {3,−3} → can't confirm x=3 → insufficient",
+        "(2) x>0 alone: magnitude unknown → insufficient",
+        "Together: positive root of x²=9 is 3 → YES",
+        "Definite-value DS needs magnitude + sign"
+      ],
+      "example": {
+        "problem": "Is x=3? (1) x²=9 (2) x>0",
+        "steps": [
+          "(1) x=3 or −3 → answer ambiguous → insufficient",
+          "(2) positive, value unknown → insufficient",
+          "Together → x=3 → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Reading x²=9 as x=3 only (drops −3)"
+      ],
+      "solveSteps": [
+        "1. x²=k → ±√k",
+        "2. Sign statement kills one root",
+        "3. → C"
+      ]
+    }
+  },
+  "286": {
+    "hint": "(1) 3a=4b → a/b=4/3: sufficient. (2) difference → ratio not fixed. A.",
+    "theory": {
+      "title": "DS — Ratio From a Proportion, Not a Difference",
+      "icon": "📊",
+      "summary": "A proportional relation (3a=4b) fixes a/b. A difference (a−b=5) does not — many ratios satisfy it.",
+      "keyFacts": [
+        "(1) 3a=4b → a/b = 4/3: sufficient",
+        "(2) a−b=5: a=6,b=1 → 6; a=10,b=5 → 2 → ratio varies → insufficient",
+        "Ratios come from multiplicative relations",
+        "One sufficient, one not → A"
+      ],
+      "example": {
+        "problem": "a/b? (1) 3a=4b (2) a−b=5",
+        "steps": [
+          "(1) a/b = 4/3: SUFFICIENT",
+          "(2) different (a,b) give different ratios → insufficient",
+          "Only (1) → A"
+        ],
+        "answer": "A"
+      },
+      "traps": [
+        "Thinking a−b=5 pins the ratio — it doesn't"
+      ],
+      "solveSteps": [
+        "1. Ratio needs a multiplicative link",
+        "2. Difference alone is insufficient",
+        "3. → A"
+      ]
+    }
+  },
+  "287": {
+    "hint": "Count + mean give no individual values → median unknown even together. E.",
+    "theory": {
+      "title": "DS — Mean and Size Don't Give the Median",
+      "icon": "📊",
+      "summary": "Median depends on the actual ordered values. Knowing how many elements and their average says nothing about the middle one.",
+      "keyFacts": [
+        "(1) |S|=5: position of median known, value not → insufficient",
+        "(2) mean=7: many sets average 7 with different medians → insufficient",
+        "Together: {7,7,7,7,7}→med 7 vs {1,2,7,12,13}→med 7? (mean 7, med 7) vs {1,1,1,1,31}→med 1 → median varies",
+        "Mean ≠ median in general"
+      ],
+      "example": {
+        "problem": "Median of S? (1) 5 elements (2) mean 7",
+        "steps": [
+          "{5,6,7,8,9} mean 7 → median 7",
+          "{1,1,1,1,31} mean 7 → median 1",
+          "Median differs with same mean & size → E"
+        ],
+        "answer": "E"
+      },
+      "traps": [
+        "Assuming mean determines or equals the median"
+      ],
+      "solveSteps": [
+        "1. Median needs ordered values",
+        "2. Build two sets, same mean & size, different medians",
+        "3. → E"
+      ]
+    }
+  },
+  "288": {
+    "hint": "(1) 5-12-13: 25+144=169 → right. (2) 90° angle → right. Each alone → D.",
+    "theory": {
+      "title": "DS — Right Triangle: Sides or Angle",
+      "icon": "📊",
+      "summary": "Right triangle if Pythagoras holds OR an angle is 90°. Each statement independently certifies one.",
+      "keyFacts": [
+        "(1) 5²+12² = 25+144 = 169 = 13² → right: sufficient",
+        "(2) largest angle 90° → right by definition: sufficient",
+        "5-12-13 is a Pythagorean triple",
+        "Each alone → D"
+      ],
+      "example": {
+        "problem": "Right triangle? (1) sides 5,12,13 (2) largest angle 90°",
+        "steps": [
+          "(1) 5²+12²=13² → right: SUFFICIENT",
+          "(2) 90° angle → right: SUFFICIENT",
+          "Each alone → D"
+        ],
+        "answer": "D"
+      },
+      "traps": [
+        "Marking C — the side test and angle test are each complete"
+      ],
+      "solveSteps": [
+        "1. Right ⇔ a²+b²=c² OR a 90° angle",
+        "2. Each statement meets one criterion",
+        "3. → D"
+      ]
+    }
+  },
+  "289": {
+    "hint": "(1) 0.75·CP=60 → CP=80: sufficient. (2) $20 off, no %/final → insufficient. A.",
+    "theory": {
+      "title": "DS — Original Price From a Percent Discount",
+      "icon": "📊",
+      "summary": "A percent discount plus the discounted price gives the original (CP = price / (1−rate)). A raw discount amount alone does not.",
+      "keyFacts": [
+        "(1) 25% off, final $60 → 0.75·CP = 60 → CP = 80: sufficient",
+        "(2) discount $20: original could be $100 (20%) or $40 (50%) → insufficient",
+        "Need rate AND a price point to back out CP",
+        "One sufficient, one not → A"
+      ],
+      "example": {
+        "problem": "Original price? (1) 25% off → $60 (2) discount is $20",
+        "steps": [
+          "(1) CP = 60/0.75 = 80: SUFFICIENT",
+          "(2) $20 off → CP ambiguous: insufficient",
+          "Only (1) → A"
+        ],
+        "answer": "A"
+      },
+      "traps": [
+        "Thinking a dollar discount alone pins the original price"
+      ],
+      "solveSteps": [
+        "1. CP = discounted / (1 − rate)",
+        "2. Raw $ discount alone is insufficient",
+        "3. → A"
+      ]
+    }
+  },
+  "290": {
+    "hint": "x−y>0? (1) x>0 only. (2) y<0 only. Together: pos − neg > 0 → C.",
+    "theory": {
+      "title": "DS — Sign of a Difference",
+      "icon": "📊",
+      "summary": "x−y>0 needs both a lower bound on x and an upper bound on y. x>0 alone or y<0 alone leaves the other free.",
+      "keyFacts": [
+        "(1) x>0: if y=5, x−y could be negative → insufficient",
+        "(2) y<0: if x=−10, x−y could be negative → insufficient",
+        "Together: x>0 and y<0 → x−y = positive − negative = positive",
+        "Subtracting a negative adds → strictly positive"
+      ],
+      "example": {
+        "problem": "Is x−y>0? (1) x>0 (2) y<0",
+        "steps": [
+          "(1) x=1,y=5 → x−y<0 → insufficient",
+          "(2) x=−9,y=−1 → x−y<0 → insufficient",
+          "Together: x>0, −y>0 → x−y>0 → C"
+        ],
+        "answer": "C"
+      },
+      "traps": [
+        "Assuming x>0 alone makes x−y positive (y could exceed x)"
+      ],
+      "solveSteps": [
+        "1. x−y>0 ⇔ x>y",
+        "2. Need x bounded below AND y bounded above",
+        "3. Together → C"
+      ]
+    }
   }
 };
 
