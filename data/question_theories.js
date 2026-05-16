@@ -1764,7 +1764,8 @@ const QUESTION_THEORIES = {
       "example": {
         "problem": "Angles 50° and 70°, find third.",
         "steps": [
-          "180 − 50 − 70 = 60°"
+          "Sum the known angles: 50 + 70 = 120°",
+          "Third = 180 − 120 = 60°"
         ],
         "answer": "60°"
       },
