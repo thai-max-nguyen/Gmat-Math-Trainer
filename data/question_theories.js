@@ -2248,6 +2248,635 @@ const QUESTION_THEORIES = {
         "3. Simplify"
       ]
     }
+  },
+  "61": {
+    "hint": "Sphere V = (4/3)πr³. r=3 → (4/3)π·27 = 36π. Cube the radius, not square.",
+    "theory": {
+      "title": "Sphere Volume",
+      "icon": "⚪",
+      "summary": "Volume of a sphere is (4/3)πr³ — radius is CUBED. Keep it distinct from surface area 4πr².",
+      "keyFacts": [
+        "V = (4/3)πr³",
+        "Surface area = 4πr²",
+        "r=3 → 27 → (4/3)·27·π = 36π",
+        "Volume scales with r³ (double r → 8× volume)"
+      ],
+      "example": {
+        "problem": "Sphere radius 3, volume?",
+        "steps": [
+          "r³ = 27",
+          "(4/3)·27 = 36",
+          "V = 36π"
+        ],
+        "answer": "36π"
+      },
+      "traps": [
+        "Squaring r (using r²) instead of cubing",
+        "Dropping the 4/3 factor"
+      ],
+      "solveSteps": [
+        "1. Cube the radius",
+        "2. Multiply by 4/3",
+        "3. Attach π"
+      ]
+    }
+  },
+  "62": {
+    "hint": "Interior angle sum = (n−2)·180. Octagon n=8 → 6·180 = 1080°.",
+    "theory": {
+      "title": "Polygon Interior-Angle Sum",
+      "icon": "⬡",
+      "summary": "Any n-gon's interior angles sum to (n−2)·180° — split it into n−2 triangles.",
+      "keyFacts": [
+        "Sum = (n − 2) · 180°",
+        "Octagon n=8 → 6·180 = 1080°",
+        "Each angle of a REGULAR n-gon = (n−2)·180/n",
+        "Exterior angles always sum to 360°"
+      ],
+      "example": {
+        "problem": "Sum of interior angles of an octagon.",
+        "steps": [
+          "n = 8",
+          "(8 − 2)·180 = 6·180",
+          "= 1080°"
+        ],
+        "answer": "1080°"
+      },
+      "traps": [
+        "Using n·180 (forgot the −2)",
+        "Confusing with the 360° exterior sum"
+      ],
+      "solveSteps": [
+        "1. Count sides n",
+        "2. (n−2)·180",
+        "3. Compute"
+      ]
+    }
+  },
+  "73": {
+    "hint": "Compound: multiply by (1+r) each year. 1000·1.1·1.1 = 1000·1.21 = 1210 (not 1200).",
+    "theory": {
+      "title": "Compound Interest",
+      "icon": "💰",
+      "summary": "Each period multiplies by (1+r). After t periods: A = P(1+r)ᵗ. The extra over simple interest is interest-on-interest.",
+      "keyFacts": [
+        "A = P(1 + r)ᵗ",
+        "1000·1.1² = 1000·1.21 = 1210",
+        "Simple would give 1200 — the extra $10 is interest on year-1 interest",
+        "Compounded annually → exponent = number of years"
+      ],
+      "example": {
+        "problem": "$1000, 10%/yr compounded annually, 2 years.",
+        "steps": [
+          "Year 1: 1000·1.1 = 1100",
+          "Year 2: 1100·1.1 = 1210"
+        ],
+        "answer": "$1210"
+      },
+      "traps": [
+        "Using simple interest → $1200",
+        "1000·1.2 (adding the two years' rates)"
+      ],
+      "solveSteps": [
+        "1. A = P(1+r)ᵗ",
+        "2. Raise (1+r) to the period count",
+        "3. Multiply by principal"
+      ]
+    }
+  },
+  "74": {
+    "hint": "Simple interest I = P·r·t = 5000·0.06·3 = 900. Linear, no compounding.",
+    "theory": {
+      "title": "Simple Interest",
+      "icon": "💵",
+      "summary": "Simple interest is flat: I = P·r·t. It does NOT compound — same interest each period.",
+      "keyFacts": [
+        "I = P · r · t",
+        "5000 · 0.06 · 3 = 900",
+        "Total owed = P + I",
+        "No interest-on-interest (unlike compound)"
+      ],
+      "example": {
+        "problem": "$5000 at 6%/yr simple, 3 years interest?",
+        "steps": [
+          "P·r = 5000·0.06 = 300/yr",
+          "× 3 years = 900"
+        ],
+        "answer": "$900"
+      },
+      "traps": [
+        "Compounding it (gives ~955)",
+        "Forgetting to multiply by t"
+      ],
+      "solveSteps": [
+        "1. I = P·r·t",
+        "2. Convert rate to decimal",
+        "3. Multiply all three"
+      ]
+    }
+  },
+  "75": {
+    "hint": "At-least-one = 30+25−15 = 40 (subtract the overlap once). Neither = 60−40 = 20.",
+    "theory": {
+      "title": "Two-Set Inclusion-Exclusion",
+      "icon": "⚭",
+      "summary": "|A∪B| = |A| + |B| − |A∩B|. 'Neither' = total − |A∪B|.",
+      "keyFacts": [
+        "|A∪B| = |A|+|B|−|A∩B|",
+        "Subtract the 'both' once (it was counted twice)",
+        "Neither = Total − |A∪B|",
+        "30+25−15 = 40; 60−40 = 20"
+      ],
+      "example": {
+        "problem": "60 students; 30 Fr, 25 Sp, 15 both. Neither?",
+        "steps": [
+          "At least one = 30+25−15 = 40",
+          "Neither = 60 − 40 = 20"
+        ],
+        "answer": "20"
+      },
+      "traps": [
+        "Not subtracting the overlap (30+25=55)",
+        "Answering 'at least one' (40) not 'neither'"
+      ],
+      "solveSteps": [
+        "1. |A∪B| = |A|+|B|−|both|",
+        "2. Neither = total − |A∪B|",
+        "3. Answer the asked region"
+      ]
+    }
+  },
+  "76": {
+    "hint": "Three-set: +singles −pairs +triple. 70+50+35 −30−20−15 +10 = 100.",
+    "theory": {
+      "title": "Three-Set Inclusion-Exclusion",
+      "icon": "⚭",
+      "summary": "|A∪B∪C| = Σsingles − Σpairs + triple. Alternating signs prevent double/triple counting.",
+      "keyFacts": [
+        "|A∪B∪C| = |A|+|B|+|C| − |AB|−|AC|−|BC| + |ABC|",
+        "Add singles, subtract each pair, add back the triple",
+        "70+50+35 − 30−20−15 + 10 = 100",
+        "Pair counts include the triple region"
+      ],
+      "example": {
+        "problem": "70 A, 50 B, 35 C; pairs 30/20/15; all 10. ≥1?",
+        "steps": [
+          "Singles: 70+50+35 = 155",
+          "− pairs: −30−20−15 = −65 → 90",
+          "+ triple: +10 = 100"
+        ],
+        "answer": "100"
+      },
+      "traps": [
+        "Wrong sign on the triple term",
+        "Forgetting pair counts already include all-three"
+      ],
+      "solveSteps": [
+        "1. Sum singles",
+        "2. Subtract all pairwise intersections",
+        "3. Add back the triple"
+      ]
+    }
+  },
+  "77": {
+    "hint": "Profit% = profit / COST × 100 = (100−80)/80 = 25%. Base is cost, not sale price.",
+    "theory": {
+      "title": "Profit Percent (on Cost)",
+      "icon": "🏷",
+      "summary": "Profit% = (Selling − Cost)/Cost × 100. The denominator is COST unless told otherwise.",
+      "keyFacts": [
+        "Profit = SP − CP",
+        "Profit% = Profit / CP × 100",
+        "(100−80)/80 = 20/80 = 25%",
+        "Margin% (on SP) would be 20/100 = 20% — different"
+      ],
+      "example": {
+        "problem": "Buy $80, sell $100. Profit %?",
+        "steps": [
+          "Profit = 100 − 80 = 20",
+          "20 / 80 = 0.25 = 25%"
+        ],
+        "answer": "25%"
+      },
+      "traps": [
+        "Dividing by 100 (selling price) → 20%",
+        "Using SP−CP only, no percent"
+      ],
+      "solveSteps": [
+        "1. Profit = SP − CP",
+        "2. Divide by CP",
+        "3. ×100"
+      ]
+    }
+  },
+  "78": {
+    "hint": "Mean = sum / count = 60 / 5 = 12.",
+    "theory": {
+      "title": "Arithmetic Mean",
+      "icon": "x̄",
+      "summary": "Mean = (sum of all values) / (number of values). Add carefully, divide by the count.",
+      "keyFacts": [
+        "Mean = Σx / n",
+        "5+8+12+15+20 = 60",
+        "60 / 5 = 12",
+        "Mean need not be one of the data values"
+      ],
+      "example": {
+        "problem": "Mean of 5, 8, 12, 15, 20.",
+        "steps": [
+          "Sum = 60",
+          "60 / 5 = 12"
+        ],
+        "answer": "12"
+      },
+      "traps": [
+        "Dividing by wrong count",
+        "Addition slip"
+      ],
+      "solveSteps": [
+        "1. Sum all values",
+        "2. Count them",
+        "3. Divide"
+      ]
+    }
+  },
+  "79": {
+    "hint": "Total = mean·n = 6·22 = 132. 6th = total − sum-of-other-5 = 132 − 110 = 22.",
+    "theory": {
+      "title": "Missing Value from a Mean",
+      "icon": "x̄",
+      "summary": "Mean·count = total. Subtract the known partial sum to recover the missing value.",
+      "keyFacts": [
+        "Total = mean × n",
+        "Missing = Total − (sum of the rest)",
+        "6·22 = 132; 132 − 110 = 22",
+        "Works for any one unknown in a mean"
+      ],
+      "example": {
+        "problem": "Mean of 6 nums = 22; 5 sum to 110. 6th?",
+        "steps": [
+          "Total = 6·22 = 132",
+          "6th = 132 − 110 = 22"
+        ],
+        "answer": "22"
+      },
+      "traps": [
+        "Using n=5 instead of 6 for the total",
+        "Subtracting in the wrong direction"
+      ],
+      "solveSteps": [
+        "1. Total = mean·n",
+        "2. Subtract the known sum",
+        "3. Remainder = missing value"
+      ]
+    }
+  },
+  "80": {
+    "hint": "SORT first, then take the middle. 3,4,7,9,12 → median 7.",
+    "theory": {
+      "title": "Median",
+      "icon": "↕",
+      "summary": "Median = middle value of the SORTED list. Odd n → the middle one; even n → average of the two middle.",
+      "keyFacts": [
+        "Must sort before reading the middle",
+        "Odd count → single middle value",
+        "Even count → mean of the two central values",
+        "Sorted 3,4,7,9,12 → middle = 7"
+      ],
+      "example": {
+        "problem": "Median of 3, 7, 9, 4, 12",
+        "steps": [
+          "Sort: 3,4,7,9,12",
+          "Middle (3rd of 5) = 7"
+        ],
+        "answer": "7"
+      },
+      "traps": [
+        "Taking the middle of the UNSORTED list (9)",
+        "Confusing median with mean"
+      ],
+      "solveSteps": [
+        "1. Sort ascending",
+        "2. Locate the middle position",
+        "3. Read (or average two middles)"
+      ]
+    }
+  },
+  "81": {
+    "hint": "Range = max − min = 9 − 1 = 8.",
+    "theory": {
+      "title": "Range",
+      "icon": "↔",
+      "summary": "Range is simply the largest value minus the smallest. No sorting of the middle needed.",
+      "keyFacts": [
+        "Range = max − min",
+        "Only the two extremes matter",
+        "9 − 1 = 8",
+        "Range ≥ 0 always"
+      ],
+      "example": {
+        "problem": "Range of 4, 9, 1, 7, 6",
+        "steps": [
+          "Max = 9, Min = 1",
+          "9 − 1 = 8"
+        ],
+        "answer": "8"
+      },
+      "traps": [
+        "Counting number of elements",
+        "Min − max (negative)"
+      ],
+      "solveSteps": [
+        "1. Find max",
+        "2. Find min",
+        "3. Subtract"
+      ]
+    }
+  },
+  "82": {
+    "hint": "SD measures spread around the mean. {1,3,5,7,9} is the most spread → greatest SD.",
+    "theory": {
+      "title": "Comparing Standard Deviations by Inspection",
+      "icon": "σ",
+      "summary": "SD quantifies how far values sit from the mean. More spread = larger SD; identical values = SD 0. Often comparable without computing.",
+      "keyFacts": [
+        "SD = 0 when all values equal",
+        "Wider spread around the mean → larger SD",
+        "{1,3,5,7,9} spans 8 with gaps of 2 — most spread",
+        "Tight clusters (e.g. {4,5,5,5,6}) → small SD"
+      ],
+      "example": {
+        "problem": "Greatest SD among the listed sets?",
+        "steps": [
+          "{5,5,5,5,5} → SD 0",
+          "Clustered sets → small SD",
+          "{1,3,5,7,9} most dispersed → largest"
+        ],
+        "answer": "{1,3,5,7,9}"
+      },
+      "traps": [
+        "Picking the set with the largest mean (irrelevant)",
+        "Assuming more elements → more SD"
+      ],
+      "solveSteps": [
+        "1. Eyeball spread around each mean",
+        "2. Zero spread → SD 0",
+        "3. Widest dispersion → greatest SD"
+      ]
+    }
+  },
+  "83": {
+    "hint": "Old total 5·12=60. New total 7·14=98. Two new sum = 98 − 60 = 38.",
+    "theory": {
+      "title": "Effect of Adding Values on the Mean",
+      "icon": "x̄",
+      "summary": "Convert each mean to a total (mean×count). The added values' sum = new total − old total.",
+      "keyFacts": [
+        "Total = mean × count",
+        "Old: 5·12 = 60; New: 7·14 = 98",
+        "Added sum = 98 − 60 = 38",
+        "Count grows by the number added (5→7)"
+      ],
+      "example": {
+        "problem": "Mean 12 (n=5) → mean 14 (n=7). Sum of 2 new?",
+        "steps": [
+          "Old total = 60",
+          "New total = 7·14 = 98",
+          "New two = 38"
+        ],
+        "answer": "38"
+      },
+      "traps": [
+        "Using n=5 for the new total",
+        "Multiplying the mean change by something"
+      ],
+      "solveSteps": [
+        "1. Old total = old mean·old n",
+        "2. New total = new mean·new n",
+        "3. Difference = sum of added values"
+      ]
+    }
+  },
+  "84": {
+    "hint": "Weighted mean = Σ(value·weight)/Σweight = (240+120)/5 = 72. Not (80+60)/2.",
+    "theory": {
+      "title": "Weighted Average",
+      "icon": "⚖",
+      "summary": "Each value contributes in proportion to its weight: Σ(vᵢwᵢ)/Σwᵢ. Pulls toward the heavier-weighted value.",
+      "keyFacts": [
+        "Weighted mean = Σ(v·w) / Σw",
+        "(80·3 + 60·2)/(3+2) = 360/5 = 72",
+        "Result leans toward the larger weight (80, weight 3)",
+        "Equal weights → ordinary average"
+      ],
+      "example": {
+        "problem": "80 (w3) and 60 (w2) weighted average.",
+        "steps": [
+          "80·3 + 60·2 = 240 + 120 = 360",
+          "÷ (3+2) = 360/5 = 72"
+        ],
+        "answer": "72"
+      },
+      "traps": [
+        "Plain average (80+60)/2 = 70",
+        "Dividing by 2 instead of total weight 5"
+      ],
+      "solveSteps": [
+        "1. Multiply each value by its weight",
+        "2. Sum those products",
+        "3. Divide by total weight"
+      ]
+    }
+  },
+  "85": {
+    "hint": "3 sum = 240. 4 sum = 4·82 = 328. 4th = 328 − 240 = 88.",
+    "theory": {
+      "title": "New Data Point Shifting a Mean",
+      "icon": "x̄",
+      "summary": "The new score must supply the old total PLUS the lift across all items. Use totals, not the mean change alone.",
+      "keyFacts": [
+        "Old total = 3·80 = 240",
+        "New total = 4·82 = 328",
+        "4th = 328 − 240 = 88",
+        "Score = new total − old total"
+      ],
+      "example": {
+        "problem": "3 tests mean 80 → 4 tests mean 82. 4th?",
+        "steps": [
+          "Old total = 240",
+          "New total = 328",
+          "4th = 88"
+        ],
+        "answer": "88"
+      },
+      "traps": [
+        "Answering 82 (the new mean)",
+        "Adding only the 2-point rise once"
+      ],
+      "solveSteps": [
+        "1. Old total = old mean·n",
+        "2. New total = new mean·(n+1)",
+        "3. New score = difference"
+      ]
+    }
+  },
+  "86": {
+    "hint": "Adding a constant to every value shifts the mean but NOT the spread → SD unchanged.",
+    "theory": {
+      "title": "Translation Invariance of Standard Deviation",
+      "icon": "σ",
+      "summary": "Adding/subtracting the same constant to every data point moves the whole set; distances from the mean are unchanged, so SD is unchanged.",
+      "keyFacts": [
+        "Add c to all → mean shifts by c, SD unchanged",
+        "SD depends only on deviations from the mean",
+        "Shifting preserves every deviation",
+        "Contrast: multiplying scales SD (see scaling rule)"
+      ],
+      "example": {
+        "problem": "Add 5 to every element. New SD vs old?",
+        "steps": [
+          "Each value +5 → mean +5",
+          "value − mean unchanged",
+          "SD identical"
+        ],
+        "answer": "Same"
+      },
+      "traps": [
+        "Thinking SD also rises by 5",
+        "Confusing shift with scaling"
+      ],
+      "solveSteps": [
+        "1. Note it's an additive shift",
+        "2. Deviations from mean unchanged",
+        "3. SD unchanged"
+      ]
+    }
+  },
+  "87": {
+    "hint": "Multiplying every value by k scales SD by |k|. ×3 → SD ×3.",
+    "theory": {
+      "title": "Scaling Rule for Standard Deviation",
+      "icon": "σ",
+      "summary": "Multiplying every data point by k multiplies the SD by |k| (and variance by k²). Contrast with additive shifts, which leave SD alone.",
+      "keyFacts": [
+        "Multiply all by k → SD ×|k|",
+        "Variance ×k²",
+        "×3 → SD ×3",
+        "Adding a constant: SD unchanged (different rule)"
+      ],
+      "example": {
+        "problem": "Every element ×3. New SD?",
+        "steps": [
+          "Deviations all scale by 3",
+          "SD = 3 × old SD"
+        ],
+        "answer": "Old SD × 3"
+      },
+      "traps": [
+        "Using ×9 (that's the variance factor)",
+        "Treating it like an additive shift (no change)"
+      ],
+      "solveSteps": [
+        "1. Identify multiplicative scaling by k",
+        "2. SD × |k|",
+        "3. (variance × k²)"
+      ]
+    }
+  },
+  "88": {
+    "hint": "Arrange n distinct in a line = n!. 4! = 24.",
+    "theory": {
+      "title": "Permutations — Arranging in a Line",
+      "icon": "🔢",
+      "summary": "n distinct objects in order = n! (n choices, then n−1, …). Order matters.",
+      "keyFacts": [
+        "Arrangements of n distinct = n!",
+        "4! = 4·3·2·1 = 24",
+        "Order matters → permutation, not combination",
+        "0! = 1"
+      ],
+      "example": {
+        "problem": "Arrange 4 people in a line.",
+        "steps": [
+          "4 choices for 1st, 3, 2, 1",
+          "4! = 24"
+        ],
+        "answer": "24"
+      },
+      "traps": [
+        "Using 4² or 4·4",
+        "Treating as a combination (order ignored)"
+      ],
+      "solveSteps": [
+        "1. Distinct items, order matters",
+        "2. Compute n!",
+        "3. Done"
+      ]
+    }
+  },
+  "89": {
+    "hint": "Choose (order irrelevant) → C(8,3) = 8·7·6 / 3! = 56.",
+    "theory": {
+      "title": "Combinations — Choosing a Group",
+      "icon": "🔢",
+      "summary": "Selecting r from n where order does NOT matter: C(n,r) = n! / (r!(n−r)!). Divide out the r! orderings.",
+      "keyFacts": [
+        "C(n,r) = n!/(r!(n−r)!)",
+        "C(8,3) = 8·7·6 / 3! = 336/6 = 56",
+        "Order irrelevant → combination",
+        "C(n,r) = C(n,n−r)"
+      ],
+      "example": {
+        "problem": "Choose 3 students from 8.",
+        "steps": [
+          "8·7·6 = 336 (ordered)",
+          "÷ 3! = 6",
+          "= 56"
+        ],
+        "answer": "56"
+      },
+      "traps": [
+        "Using permutation 8·7·6 = 336 (order counted)",
+        "Dividing by wrong factorial"
+      ],
+      "solveSteps": [
+        "1. Order matters? No → combination",
+        "2. n·(n−1)…(r terms) / r!",
+        "3. Simplify"
+      ]
+    }
+  },
+  "90": {
+    "hint": "Repeated letters: divide n! by the factorial of each repeat. BOOK = 4!/2! = 12.",
+    "theory": {
+      "title": "Permutations with Repeated Letters",
+      "icon": "🔠",
+      "summary": "Arrangements of a word with repeats = n! / (product of each repeated letter's factorial). Identical letters aren't distinguishable.",
+      "keyFacts": [
+        "Distinct arrangements = n! / (r₁!·r₂!…)",
+        "BOOK: 4 letters, O repeats twice → 4!/2!",
+        "4!/2! = 24/2 = 12",
+        "No repeats → just n!"
+      ],
+      "example": {
+        "problem": "Distinct 4-letter arrangements of BOOK.",
+        "steps": [
+          "4! = 24 if all distinct",
+          "O twice → ÷2!",
+          "24/2 = 12"
+        ],
+        "answer": "12"
+      },
+      "traps": [
+        "Using 4! = 24 (ignores the repeated O)",
+        "Dividing by 2 instead of 2! (same here, but matters for 3+ repeats)"
+      ],
+      "solveSteps": [
+        "1. n! for all letters",
+        "2. Divide by factorial of each repeat count",
+        "3. Simplify"
+      ]
+    }
   }
 };
 
