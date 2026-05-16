@@ -989,6 +989,640 @@ const QUESTION_THEORIES = {
         "3. Profit% = selling − 100"
       ]
     }
+  },
+  "21": {
+    "hint": "Isolate x in two moves: subtract the constant, then divide by the coefficient.",
+    "theory": {
+      "title": "Solving a One-Variable Linear Equation",
+      "icon": "🟰",
+      "summary": "Undo operations in reverse order: strip the added/subtracted constant first, then divide off the coefficient.",
+      "keyFacts": [
+        "ax + b = c → ax = c − b → x = (c − b)/a",
+        "Do the same operation to BOTH sides",
+        "Undo addition before multiplication (reverse PEMDAS)",
+        "Check by substituting back"
+      ],
+      "example": {
+        "problem": "3x + 7 = 22",
+        "steps": [
+          "3x = 22 − 7 = 15",
+          "x = 15 / 3 = 5"
+        ],
+        "answer": "x = 5"
+      },
+      "traps": [
+        "Dividing before subtracting the constant",
+        "Only operating on one side"
+      ],
+      "solveSteps": [
+        "1. Move constant to the other side",
+        "2. Divide by the coefficient",
+        "3. Substitute back to verify"
+      ]
+    }
+  },
+  "22": {
+    "hint": "Distribute first, gather x on one side, constants on the other. Watch signs when moving 4x.",
+    "theory": {
+      "title": "Linear Equation with Variables on Both Sides",
+      "icon": "⚖",
+      "summary": "Expand brackets, then collect all x-terms on one side and numbers on the other. Sign care is everything.",
+      "keyFacts": [
+        "Distribute: 2(x − 3) = 2x − 6",
+        "Subtract the smaller x-term from both sides",
+        "A negative coefficient flips sign on divide",
+        "2x − 6 = 4x + 2 → −8 = 2x"
+      ],
+      "example": {
+        "problem": "2(x − 3) = 4x + 2",
+        "steps": [
+          "2x − 6 = 4x + 2",
+          "−6 − 2 = 4x − 2x",
+          "−8 = 2x → x = −4"
+        ],
+        "answer": "x = −4"
+      },
+      "traps": [
+        "Forgetting to distribute the 2 to BOTH terms",
+        "Sign error moving 4x or the constants"
+      ],
+      "solveSteps": [
+        "1. Distribute all brackets",
+        "2. Collect x one side, constants the other",
+        "3. Divide; recheck signs"
+      ]
+    }
+  },
+  "23": {
+    "hint": "Add the two equations to kill y, get x. Back-substitute for y, then multiply.",
+    "theory": {
+      "title": "2×2 System — Elimination",
+      "icon": "➕",
+      "summary": "When one variable has opposite coefficients, adding the equations eliminates it instantly.",
+      "keyFacts": [
+        "x + y = S and x − y = D → add → 2x = S + D",
+        "Then y = S − x (back-substitute)",
+        "Add to cancel opposite signs; subtract to cancel equal signs",
+        "Answer the asked quantity (xy), not just x"
+      ],
+      "example": {
+        "problem": "x + y = 10, x − y = 4. Find xy.",
+        "steps": [
+          "Add: 2x = 14 → x = 7",
+          "y = 10 − 7 = 3",
+          "xy = 21"
+        ],
+        "answer": "21"
+      },
+      "traps": [
+        "Stopping at x = 7 and not finding xy",
+        "Subtracting when you should add (or vice versa)"
+      ],
+      "solveSteps": [
+        "1. Add/subtract to eliminate a variable",
+        "2. Solve for the first variable",
+        "3. Back-substitute, then form the requested expression"
+      ]
+    }
+  },
+  "24": {
+    "hint": "Factor: find two numbers multiplying to +6, adding to −5 → −2 and −3. Roots flip sign.",
+    "theory": {
+      "title": "Solving a Quadratic by Factoring",
+      "icon": "✖",
+      "summary": "x² + bx + c = 0 factors as (x − r)(x − s) where r·s = c and r + s = −b. Roots are r and s.",
+      "keyFacts": [
+        "Need product = c, sum = b (the middle coefficient)",
+        "x² − 5x + 6 → factors (x−2)(x−3)",
+        "Root has OPPOSITE sign to the number in the bracket",
+        "Set each factor = 0"
+      ],
+      "example": {
+        "problem": "x² − 5x + 6 = 0",
+        "steps": [
+          "Product 6, sum −5 → −2, −3",
+          "(x − 2)(x − 3) = 0",
+          "x = 2 or x = 3"
+        ],
+        "answer": "x = 2, 3"
+      },
+      "traps": [
+        "Reporting roots as −2, −3 (sign flips from the bracket)",
+        "Mixing up which is product vs sum"
+      ],
+      "solveSteps": [
+        "1. Find two numbers: product c, sum b",
+        "2. Write (x + p)(x + q) = 0",
+        "3. Roots = negatives of p, q"
+      ]
+    }
+  },
+  "25": {
+    "hint": "Product = −16, sum = −6 → −8 and +2 → factors (x−8)(x+2). Positive root = 8.",
+    "theory": {
+      "title": "Quadratic with a Negative Constant",
+      "icon": "✖",
+      "summary": "Negative c means the two factors have OPPOSITE signs; the larger-magnitude one carries the sign of b.",
+      "keyFacts": [
+        "c < 0 → roots have opposite signs",
+        "x² − 6x − 16: product −16, sum −6 → −8, +2",
+        "(x − 8)(x + 2) = 0 → x = 8 or −2",
+        "Read which root is asked (positive)"
+      ],
+      "example": {
+        "problem": "x² − 6x − 16 = 0, positive root?",
+        "steps": [
+          "Need product −16, sum −6",
+          "−8 and +2 work",
+          "Roots 8, −2 → positive = 8"
+        ],
+        "answer": "8"
+      },
+      "traps": [
+        "Same-sign factor pair (won't give product −16)",
+        "Answering −2 when positive root requested"
+      ],
+      "solveSteps": [
+        "1. Product = c (negative), sum = b",
+        "2. One factor +, one −",
+        "3. Pick the requested root"
+      ]
+    }
+  },
+  "26": {
+    "hint": "Same base, multiplied → ADD exponents. 2³·2⁴ = 2⁷. Base stays 2.",
+    "theory": {
+      "title": "Exponent Rule — Product, Same Base",
+      "icon": "^",
+      "summary": "Multiplying powers of the same base adds exponents; the base never changes.",
+      "keyFacts": [
+        "aᵐ · aⁿ = a^(m+n)",
+        "Base stays the same — 2³·2⁴ = 2⁷, not 4⁷",
+        "Division subtracts: aᵐ/aⁿ = a^(m−n)",
+        "Power of a power multiplies: (aᵐ)ⁿ = a^(mn)"
+      ],
+      "example": {
+        "problem": "2³ · 2⁴",
+        "steps": [
+          "Same base 2 → add exponents",
+          "2^(3+4) = 2⁷"
+        ],
+        "answer": "2⁷"
+      },
+      "traps": [
+        "Changing the base to 4 (4⁷)",
+        "Multiplying the exponents (2¹²)"
+      ],
+      "solveSteps": [
+        "1. Confirm bases are equal",
+        "2. Add exponents for a product",
+        "3. Keep the original base"
+      ]
+    }
+  },
+  "27": {
+    "hint": "Write 81 as a power of 3 (3⁴). Equal bases → set exponents equal: x+1 = 4.",
+    "theory": {
+      "title": "Exponential Equation — Match the Base",
+      "icon": "^",
+      "summary": "Rewrite both sides as the same base, then equate exponents.",
+      "keyFacts": [
+        "81 = 3⁴; 27 = 3³; 243 = 3⁵",
+        "a^f = a^g → f = g (a ≠ 0,1)",
+        "3^(x+1) = 3⁴ → x + 1 = 4",
+        "Always express the constant as a power of the base"
+      ],
+      "example": {
+        "problem": "3^(x+1) = 81",
+        "steps": [
+          "81 = 3⁴",
+          "x + 1 = 4",
+          "x = 3"
+        ],
+        "answer": "x = 3"
+      },
+      "traps": [
+        "Solving 3·(x+1) = 81 (it's an exponent, not a factor)",
+        "Forgetting the +1 in the exponent"
+      ],
+      "solveSteps": [
+        "1. Express RHS as a power of the base",
+        "2. Set exponents equal",
+        "3. Solve the resulting linear equation"
+      ]
+    }
+  },
+  "28": {
+    "hint": "Find x from 2^x = 32 (=2⁵), then 2^(x−2) = 2³. Or just divide by 2² = 4.",
+    "theory": {
+      "title": "Reindexing a Known Power",
+      "icon": "^",
+      "summary": "Once you know 2^x, any 2^(x±k) is the known value times/over 2^k — no need to find x explicitly.",
+      "keyFacts": [
+        "2^x = 32 = 2⁵ → x = 5",
+        "2^(x−2) = 2^x / 2² = 32/4 = 8",
+        "Subtracting 2 from the exponent divides by 2² = 4",
+        "Shortcut avoids solving for x at all"
+      ],
+      "example": {
+        "problem": "2^x = 32. Find 2^(x−2).",
+        "steps": [
+          "2^x = 2⁵ → x = 5",
+          "2^(5−2) = 2³ = 8",
+          "(or 32 / 4 = 8)"
+        ],
+        "answer": "8"
+      },
+      "traps": [
+        "Subtracting 2 from the value (32 − 2)",
+        "Dividing by 2 instead of 2² "
+      ],
+      "solveSteps": [
+        "1. Express the given as a power",
+        "2. Adjust the exponent by the shift",
+        "3. Or scale the known value by 2^shift"
+      ]
+    }
+  },
+  "29": {
+    "hint": "2¹⁰ + 2¹⁰ = 2·2¹⁰ = 2¹¹ (NOT 4²⁰). Then 2¹¹/2¹¹ = 1.",
+    "theory": {
+      "title": "Sum of Equal Powers — Factor, Don't Multiply Bases",
+      "icon": "Σ",
+      "summary": "aⁿ + aⁿ = 2·aⁿ (a sum, factor out), not a²ⁿ. This collapses many GMAT exponent traps.",
+      "keyFacts": [
+        "2¹⁰ + 2¹⁰ = 2 · 2¹⁰ = 2¹¹",
+        "x + x = 2x — same idea with x = 2¹⁰",
+        "NOT 2¹⁰ · 2¹⁰ = 2²⁰ (that's a product, not a sum)",
+        "k copies of aⁿ = k·aⁿ"
+      ],
+      "example": {
+        "problem": "(2¹⁰ + 2¹⁰) / 2¹¹",
+        "steps": [
+          "2¹⁰ + 2¹⁰ = 2 · 2¹⁰ = 2¹¹",
+          "2¹¹ / 2¹¹ = 1"
+        ],
+        "answer": "1"
+      },
+      "traps": [
+        "Treating the sum as a product (2²⁰)",
+        "Adding exponents on a sum"
+      ],
+      "solveSteps": [
+        "1. Factor the repeated power: k·aⁿ",
+        "2. Combine into a single power",
+        "3. Apply the division rule"
+      ]
+    }
+  },
+  "30": {
+    "hint": "Solve like an equation: 3x − 5 > 7 → 3x > 12 → x > 4. (No flip — divided by +3.)",
+    "theory": {
+      "title": "Solving a Linear Inequality",
+      "icon": "≷",
+      "summary": "Solve exactly like an equation, with ONE extra rule: multiplying or dividing by a negative flips the inequality sign.",
+      "keyFacts": [
+        "Add/subtract: sign unchanged",
+        "Multiply/divide by POSITIVE: sign unchanged",
+        "Multiply/divide by NEGATIVE: flip the sign",
+        "3x − 5 > 7 → 3x > 12 → x > 4"
+      ],
+      "example": {
+        "problem": "3x − 5 > 7",
+        "steps": [
+          "3x > 12",
+          "Divide by +3 (no flip)",
+          "x > 4"
+        ],
+        "answer": "x > 4"
+      },
+      "traps": [
+        "Flipping the sign when dividing by a POSITIVE",
+        "Using ≥ when the original is strict >"
+      ],
+      "solveSteps": [
+        "1. Isolate the variable term",
+        "2. Divide by the coefficient",
+        "3. Flip the sign ONLY if that coefficient is negative"
+      ]
+    }
+  },
+  "31": {
+    "hint": "Add the extremes: min+min and max+max. −2+1 = −1, 5+6 = 11. Bounds stay strict.",
+    "theory": {
+      "title": "Adding Two Ranges (Interval Arithmetic)",
+      "icon": "↔",
+      "summary": "The sum of two intervals runs from (min+min) to (max+max). Strict bounds stay strict.",
+      "keyFacts": [
+        "If a<x<b and c<y<d → (a+c) < x+y < (b+d)",
+        "Add lows together, highs together",
+        "Strict < stays strict in the sum",
+        "For x − y instead: low = a − d, high = b − c"
+      ],
+      "example": {
+        "problem": "−2 < x < 5, 1 < y < 6. Range of x+y?",
+        "steps": [
+          "Min = −2 + 1 = −1",
+          "Max = 5 + 6 = 11",
+          "−1 < x+y < 11"
+        ],
+        "answer": "−1 < x+y < 11"
+      },
+      "traps": [
+        "Subtracting the bounds when adding the variables",
+        "For x−y, pairing min with min (must cross: a−d, b−c)"
+      ],
+      "solveSteps": [
+        "1. Identify each variable's bounds",
+        "2. Sum: low+low, high+high (subtract: cross the bounds)",
+        "3. Keep strictness"
+      ]
+    }
+  },
+  "32": {
+    "hint": "|x−3|<4 → −4 < x−3 < 4 → −1 < x < 7. Count INTEGERS strictly inside: 0..6.",
+    "theory": {
+      "title": "Absolute Value Inequality — Unfold the Band",
+      "icon": "│ │",
+      "summary": "|expr| < k means −k < expr < k. Solve the double inequality, then count integers strictly inside.",
+      "keyFacts": [
+        "|A| < k ⟺ −k < A < k (k > 0)",
+        "|A| > k ⟺ A < −k OR A > k",
+        "Strict < excludes the endpoints",
+        "−1 < x < 7 → integers 0,1,2,3,4,5,6"
+      ],
+      "example": {
+        "problem": "Integer solutions of |x − 3| < 4",
+        "steps": [
+          "−4 < x − 3 < 4",
+          "−1 < x < 7",
+          "Integers: 0..6 → 7 values"
+        ],
+        "answer": "7"
+      },
+      "traps": [
+        "Including endpoints −1 and 7 (strict inequality)",
+        "Off-by-one in the integer count"
+      ],
+      "solveSteps": [
+        "1. Rewrite as −k < A < k",
+        "2. Solve the compound inequality",
+        "3. Count integers strictly between"
+      ]
+    }
+  },
+  "33": {
+    "hint": "Notice x²+8x = (x+4)² − 16. Since |x+4|=3, (x+4)²=9 → 9 − 16 = −7 (both roots).",
+    "theory": {
+      "title": "Use the Squared Form, Not the Roots",
+      "icon": "│ │",
+      "summary": "When asked for x²+8x and given |x+4|=3, complete the square: x²+8x = (x+4)²−16. (x+4)² = 3² regardless of which root.",
+      "keyFacts": [
+        "x² + 8x = (x + 4)² − 16",
+        "|x+4| = 3 → (x+4)² = 9",
+        "So x²+8x = 9 − 16 = −7 for BOTH roots",
+        "Completing the square dodges casework"
+      ],
+      "example": {
+        "problem": "|x+4| = 3. Find x² + 8x.",
+        "steps": [
+          "x²+8x = (x+4)² − 16",
+          "(x+4)² = 3² = 9",
+          "9 − 16 = −7"
+        ],
+        "answer": "−7"
+      },
+      "traps": [
+        "Solving both roots and arithmetic-erroring one",
+        "Forgetting the −16 from completing the square"
+      ],
+      "solveSteps": [
+        "1. Complete the square on the target expression",
+        "2. Substitute (x+4)² = k²",
+        "3. Evaluate — same for both roots"
+      ]
+    }
+  },
+  "34": {
+    "hint": "Square x + 1/x. (x+1/x)² = x² + 2 + 1/x². So x²+1/x² = 4² − 2 = 14.",
+    "theory": {
+      "title": "Symmetric Identity x² + 1/x²",
+      "icon": "🪞",
+      "summary": "Squaring x + 1/x produces the cross term 2. Subtract it to isolate x² + 1/x².",
+      "keyFacts": [
+        "(x + 1/x)² = x² + 2 + 1/x²",
+        "x² + 1/x² = (x + 1/x)² − 2",
+        "(x − 1/x)² = x² − 2 + 1/x²",
+        "Given sum 4 → 16 − 2 = 14"
+      ],
+      "example": {
+        "problem": "x + 1/x = 4. Find x² + 1/x².",
+        "steps": [
+          "Square: 16 = x² + 2 + 1/x²",
+          "x² + 1/x² = 16 − 2 = 14"
+        ],
+        "answer": "14"
+      },
+      "traps": [
+        "Forgetting the middle term is 2 (from 2·x·1/x)",
+        "Adding 2 instead of subtracting"
+      ],
+      "solveSteps": [
+        "1. Square the given sum",
+        "2. Expand: middle term = 2",
+        "3. Subtract 2"
+      ]
+    }
+  },
+  "35": {
+    "hint": "a²−b² = (a+b)(a−b). You know a−b=5 and a²−b²=35 → a+b = 35/5 = 7.",
+    "theory": {
+      "title": "Difference of Squares Factoring",
+      "icon": "△",
+      "summary": "a² − b² always factors as (a+b)(a−b). Given one factor and the product, divide for the other.",
+      "keyFacts": [
+        "a² − b² = (a + b)(a − b)",
+        "Given (a−b) and (a²−b²): a+b = (a²−b²)/(a−b)",
+        "35 / 5 = 7",
+        "No need to find a and b individually"
+      ],
+      "example": {
+        "problem": "a − b = 5, a² − b² = 35. Find a + b.",
+        "steps": [
+          "35 = (a+b)(a−b) = (a+b)·5",
+          "a + b = 7"
+        ],
+        "answer": "7"
+      },
+      "traps": [
+        "Solving for a and b separately (slower, error-prone)",
+        "Factoring a²−b² as (a−b)² "
+      ],
+      "solveSteps": [
+        "1. Recognize a²−b² = (a+b)(a−b)",
+        "2. Divide the product by the known factor",
+        "3. Read off the other factor"
+      ]
+    }
+  },
+  "36": {
+    "hint": "Substitute x = −2 carefully. (−2)² = 4 (positive). f(−2) = 2·4 − 3 = 5.",
+    "theory": {
+      "title": "Function Evaluation — Substitute & Sign Care",
+      "icon": "ƒ",
+      "summary": "Replace every x with the input value, in brackets. A squared negative becomes positive.",
+      "keyFacts": [
+        "(−2)² = 4, NOT −4",
+        "Substitute the whole value in parentheses",
+        "Follow order of operations after substitution",
+        "f(x)=2x²−3 → f(−2)=2(4)−3=5"
+      ],
+      "example": {
+        "problem": "f(x) = 2x² − 3. Find f(−2).",
+        "steps": [
+          "(−2)² = 4",
+          "2·4 = 8",
+          "8 − 3 = 5"
+        ],
+        "answer": "5"
+      },
+      "traps": [
+        "−2² treated as −4 (forgot the square applies to −2)",
+        "Multiplying then squaring (order error)"
+      ],
+      "solveSteps": [
+        "1. Put the input in parentheses for every x",
+        "2. Apply exponents first",
+        "3. Finish the arithmetic"
+      ]
+    }
+  },
+  "37": {
+    "hint": "Convert 5 miles → quarter-miles: 5 ÷ 0.25 = 20 units. Cost = base + 20·0.40.",
+    "theory": {
+      "title": "Linear Cost Model (Base + Per-Unit)",
+      "icon": "🚕",
+      "summary": "Cost = fixed base + (rate × number of units). Convert the quantity into the unit the rate uses FIRST.",
+      "keyFacts": [
+        "Cost = base + rate · units",
+        "Match units: $0.40 per quarter-mile → count quarter-miles",
+        "5 miles = 5 / 0.25 = 20 quarter-miles",
+        "2.50 + 20·0.40 = 10.50"
+      ],
+      "example": {
+        "problem": "$2.50 base + $0.40 per ¼ mile. 5-mile ride?",
+        "steps": [
+          "5 mi = 20 quarter-miles",
+          "20 × 0.40 = 8.00",
+          "2.50 + 8.00 = 10.50"
+        ],
+        "answer": "$10.50"
+      },
+      "traps": [
+        "Using 5 (miles) instead of 20 (quarter-miles)",
+        "Forgetting the fixed base fare"
+      ],
+      "solveSteps": [
+        "1. Convert quantity to the rate's unit",
+        "2. Multiply by the per-unit rate",
+        "3. Add the fixed base"
+      ]
+    }
+  },
+  "38": {
+    "hint": "Consecutive even integers: n and n+2. n + (n+2) = 78 → n = 38, larger = 40.",
+    "theory": {
+      "title": "Consecutive-Integer Word Equations",
+      "icon": "🔢",
+      "summary": "Name the first integer n; consecutive evens/odds differ by 2. Translate the sentence, solve, then answer the specific one asked.",
+      "keyFacts": [
+        "Consecutive even: n, n+2 (also works for consecutive odd)",
+        "Consecutive integers: n, n+1",
+        "Sum of two: 2n + 2 = total",
+        "Larger = n + 2"
+      ],
+      "example": {
+        "problem": "Two consecutive even integers sum to 78. Larger?",
+        "steps": [
+          "n + (n+2) = 78",
+          "2n + 2 = 78 → n = 38",
+          "Larger = 40"
+        ],
+        "answer": "40"
+      },
+      "traps": [
+        "Answering n (38) instead of the larger (40)",
+        "Using n+1 for consecutive EVEN integers"
+      ],
+      "solveSteps": [
+        "1. Let n = first integer",
+        "2. Express the others (n+2, …) and the equation",
+        "3. Solve, then pick the requested integer"
+      ]
+    }
+  },
+  "39": {
+    "hint": "(x+y)² = x²+y² + 2xy. Plug in 25 + 2·12 = 49. Don't solve for x,y.",
+    "theory": {
+      "title": "Expanding (x + y)² with Known Pieces",
+      "icon": "△",
+      "summary": "(x+y)² = x² + y² + 2xy. If you know x²+y² and xy, just substitute — never solve the system.",
+      "keyFacts": [
+        "(x + y)² = x² + 2xy + y²",
+        "(x − y)² = x² − 2xy + y²",
+        "Given x²+y²=25, xy=12 → 25 + 24 = 49",
+        "Sum of squares + twice product"
+      ],
+      "example": {
+        "problem": "x²+y²=25, xy=12. Find (x+y)².",
+        "steps": [
+          "(x+y)² = (x²+y²) + 2xy",
+          "= 25 + 2·12",
+          "= 49"
+        ],
+        "answer": "49"
+      },
+      "traps": [
+        "Forgetting the 2 on the cross term",
+        "Trying to solve for x and y separately"
+      ],
+      "solveSteps": [
+        "1. Write the identity (x+y)² = x²+y²+2xy",
+        "2. Substitute the known values",
+        "3. Compute"
+      ]
+    }
+  },
+  "40": {
+    "hint": "Composition works inside-out: compute g(2) FIRST, then feed it to f.",
+    "theory": {
+      "title": "Function Composition f(g(x)) — Inside Out",
+      "icon": "ƒ∘",
+      "summary": "Evaluate the inner function first, then substitute that result into the outer function. Order matters.",
+      "keyFacts": [
+        "f(g(x)) → do g first, then f",
+        "g(2) = 2·2 − 3 = 1",
+        "f(1) = 1² + 1 = 2",
+        "f(g(x)) ≠ g(f(x)) in general"
+      ],
+      "example": {
+        "problem": "f(x)=x²+1, g(x)=2x−3. Find f(g(2)).",
+        "steps": [
+          "g(2) = 4 − 3 = 1",
+          "f(1) = 1 + 1 = 2"
+        ],
+        "answer": "2"
+      },
+      "traps": [
+        "Doing f first then g (wrong order)",
+        "Composing the formulas but mis-substituting"
+      ],
+      "solveSteps": [
+        "1. Evaluate the inner function at the input",
+        "2. Feed that output into the outer function",
+        "3. Simplify"
+      ]
+    }
   }
 };
 
