@@ -6013,6 +6013,600 @@ const QUESTION_THEORIES = {
         "3. Need singles AND neither → C"
       ]
     }
+  },
+  "191": {
+    "hint": "Powers of 2 mod 7 cycle with period 3 (2,4,1). 100 mod 3 = 1 → answer = 2.",
+    "theory": {
+      "title": "Remainders — Cyclic Powers (mod 7)",
+      "icon": "🔢",
+      "summary": "Remainders of bⁿ repeat in a fixed cycle. Find the cycle length, reduce the exponent mod that length, read off the matching remainder.",
+      "keyFacts": [
+        "2¹≡2, 2²≡4, 2³≡8≡1 (mod 7) → cycle length 3",
+        "Exponent 100 mod 3 = 1 (100 = 3·33 + 1)",
+        "2^100 ≡ 2^1 ≡ 2 (mod 7)",
+        "When remainder hits 1, the cycle restarts"
+      ],
+      "example": {
+        "problem": "Remainder of 2^100 ÷ 7?",
+        "steps": [
+          "Cycle: 2,4,1 (period 3)",
+          "100 mod 3 = 1 → use the 1st in the cycle",
+          "→ 2 → B"
+        ],
+        "answer": "B (2)"
+      },
+      "traps": [
+        "Using 100 mod 3 = 1 but indexing from 2⁰ instead of 2¹ — anchor the cycle to 2¹"
+      ],
+      "solveSteps": [
+        "1. List bⁿ mod m until it returns to 1",
+        "2. Reduce the exponent mod the cycle length",
+        "3. Map to the corresponding term"
+      ]
+    }
+  },
+  "192": {
+    "hint": "Legendre: ⌊20/2⌋+⌊20/4⌋+⌊20/8⌋+⌊20/16⌋ = 10+5+2+1 = 18.",
+    "theory": {
+      "title": "Factorials — Power of a Prime in n! (Legendre)",
+      "icon": "🔢",
+      "summary": "The exponent of prime p in n! is the sum of ⌊n/p⌋ + ⌊n/p²⌋ + ⌊n/p³⌋ + … — each term counts multiples that contribute another factor of p.",
+      "keyFacts": [
+        "⌊20/2⌋ = 10 (multiples of 2)",
+        "⌊20/4⌋ = 5 (extra factor from multiples of 4)",
+        "⌊20/8⌋ = 2, ⌊20/16⌋ = 1; ⌊20/32⌋ = 0 stop",
+        "Total = 10+5+2+1 = 18"
+      ],
+      "example": {
+        "problem": "Greatest n with 2ⁿ | 20!?",
+        "steps": [
+          "Sum floor(20/2^k): 10,5,2,1",
+          "= 18 → C"
+        ],
+        "answer": "C (18)"
+      },
+      "traps": [
+        "Only counting ⌊20/2⌋=10 — misses extra 2s from 4, 8, 16"
+      ],
+      "solveSteps": [
+        "1. Add ⌊n/p⌋, ⌊n/p²⌋, … until the term is 0",
+        "2. Sum the floors",
+        "3. That sum is the max exponent"
+      ]
+    }
+  },
+  "193": {
+    "hint": "LCM × GCF = product of the two numbers. Other = 120·8 / 24 = 40.",
+    "theory": {
+      "title": "LCM/GCF — Product Identity",
+      "icon": "🔢",
+      "summary": "For any two positive integers, LCM × GCF = their product. Solve for the unknown number directly.",
+      "keyFacts": [
+        "LCM(a,b) × GCF(a,b) = a × b",
+        "120 × 8 = 24 × x → 960 = 24x",
+        "x = 960 / 24 = 40",
+        "Check: GCF(24,40)=8, LCM(24,40)=120 ✓"
+      ],
+      "example": {
+        "problem": "LCM 120, GCF 8, one number 24. Other?",
+        "steps": [
+          "120·8 = 24·x → 960 = 24x",
+          "x = 40 → D"
+        ],
+        "answer": "D (40)"
+      },
+      "traps": [
+        "Adding or dividing LCM and GCF instead of using the product identity"
+      ],
+      "solveSteps": [
+        "1. LCM·GCF = a·b",
+        "2. Solve x = LCM·GCF / known",
+        "3. Verify GCF and LCM of the pair"
+      ]
+    }
+  },
+  "194": {
+    "hint": "Symmetric system — ADD the equations: 3x+3y=27 → x+y=9. Don't solve for x,y separately.",
+    "theory": {
+      "title": "Systems — Combine for the Asked Expression",
+      "icon": "🔢",
+      "summary": "When the question asks for x+y (not x and y), add or subtract the equations to land on that combination directly.",
+      "keyFacts": [
+        "2x+y=13 and x+2y=14",
+        "Add: 3x+3y = 27 → x+y = 9",
+        "No need to solve x=4, y=5 individually",
+        "Symmetric coefficient pattern → sum trick"
+      ],
+      "example": {
+        "problem": "2x+y=13, x+2y=14; x+y?",
+        "steps": [
+          "Add both equations → 3(x+y)=27",
+          "x+y = 9 → C"
+        ],
+        "answer": "C (9)"
+      },
+      "traps": [
+        "Fully solving the system (slower, more error-prone) when adding gives it instantly"
+      ],
+      "solveSteps": [
+        "1. Look at what's asked (x+y)",
+        "2. Add/subtract equations to form it",
+        "3. Divide out the common factor"
+      ]
+    }
+  },
+  "195": {
+    "hint": "Factor: (x−2)(x−3)=0 → roots 2,3. x>2 → x=3. x²−4 = 5.",
+    "theory": {
+      "title": "Quadratics — Pick the Root From a Constraint",
+      "icon": "🔢",
+      "summary": "Factor to get both roots, then use the side condition (x>2) to choose the valid one before evaluating the target expression.",
+      "keyFacts": [
+        "x²−5x+6 = (x−2)(x−3) → x ∈ {2,3}",
+        "Constraint x>2 → x=3 (reject x=2)",
+        "x²−4 = 3²−4 = 5",
+        "The constraint exists precisely to disambiguate"
+      ],
+      "example": {
+        "problem": "x²−5x+6=0, x>2; find x²−4",
+        "steps": [
+          "Roots 2 and 3; x>2 → x=3",
+          "x²−4 = 9−4 = 5 → C"
+        ],
+        "answer": "C (5)"
+      },
+      "traps": [
+        "Using x=2 (violates x>2) → gives 0, a wrong path"
+      ],
+      "solveSteps": [
+        "1. Factor for the roots",
+        "2. Apply the inequality to select one",
+        "3. Substitute into the asked expression"
+      ]
+    }
+  },
+  "196": {
+    "hint": "Sum of roots = −b/a = 7 (no need to factor). Both roots wanted, not one.",
+    "theory": {
+      "title": "Quadratics — Sum of Roots Shortcut",
+      "icon": "🔢",
+      "summary": "For ax²+bx+c=0, the roots sum to −b/a and multiply to c/a (Vieta). 'Sum of all possible values of x' = −b/a.",
+      "keyFacts": [
+        "x²−7x+10=0 → a=1, b=−7",
+        "Sum of roots = −b/a = 7",
+        "Factor check: (x−2)(x−5) → 2+5 = 7 ✓",
+        "Question wants the SUM, not a single root"
+      ],
+      "example": {
+        "problem": "Sum of all x with x²−7x+10=0?",
+        "steps": [
+          "−b/a = −(−7)/1 = 7",
+          "Confirms 2+5 = 7 → C"
+        ],
+        "answer": "C (7)"
+      },
+      "traps": [
+        "Reporting one root (2 or 5) instead of their sum"
+      ],
+      "solveSteps": [
+        "1. Identify a, b",
+        "2. Sum of roots = −b/a",
+        "3. (Optional) factor to confirm"
+      ]
+    }
+  },
+  "197": {
+    "hint": "Inscribed → circle diameter = square side = 6 → r=3. Area = 36 − 9π.",
+    "theory": {
+      "title": "Geometry — Square Minus Inscribed Circle",
+      "icon": "📐",
+      "summary": "A circle inscribed in a square touches all four sides, so its diameter equals the side. Subtract the circle's area from the square's.",
+      "keyFacts": [
+        "Inscribed circle: diameter = side = 6 → r = 3",
+        "Square area = 6² = 36",
+        "Circle area = π·3² = 9π",
+        "Leftover = 36 − 9π"
+      ],
+      "example": {
+        "problem": "Square side 6, inscribed circle; area outside circle?",
+        "steps": [
+          "r = 6/2 = 3",
+          "36 − π(3²) = 36 − 9π → B"
+        ],
+        "answer": "B (36 − 9π)"
+      },
+      "traps": [
+        "Setting radius = 6 (that's the diameter) → 36 − 36π, impossible (negative)"
+      ],
+      "solveSteps": [
+        "1. Inscribed → diameter = side",
+        "2. r = side/2; circle area = πr²",
+        "3. Square area − circle area"
+      ]
+    }
+  },
+  "198": {
+    "hint": "6s²=96 → s=4 → volume s³=64.",
+    "theory": {
+      "title": "Geometry — Cube From Surface Area",
+      "icon": "📐",
+      "summary": "A cube has 6 equal faces: SA = 6s². Solve for the edge, then cube it for volume.",
+      "keyFacts": [
+        "SA = 6s² = 96 → s² = 16 → s = 4",
+        "Volume = s³ = 4³ = 64",
+        "6 faces, not 4 — divide SA by 6",
+        "Edge links area (s²) and volume (s³)"
+      ],
+      "example": {
+        "problem": "Cube SA 96 cm²; volume?",
+        "steps": [
+          "s² = 96/6 = 16 → s = 4",
+          "V = 4³ = 64 → C"
+        ],
+        "answer": "C (64 cm³)"
+      },
+      "traps": [
+        "Dividing SA by 4 instead of 6 (cube has 6 faces)"
+      ],
+      "solveSteps": [
+        "1. s² = SA/6",
+        "2. s = √(s²)",
+        "3. V = s³"
+      ]
+    }
+  },
+  "199": {
+    "hint": "Opposite directions → speeds ADD. 105 / (15+20) = 3 h.",
+    "theory": {
+      "title": "Rate — Separating in Opposite Directions",
+      "icon": "🚗",
+      "summary": "Two bodies moving apart open the gap at the SUM of their speeds. Time = separation / combined speed.",
+      "keyFacts": [
+        "Combined separation rate = 15 + 20 = 35 km/h",
+        "Gap grows linearly at 35 km/h",
+        "Time = 105 / 35 = 3 h",
+        "Same 'add the speeds' rule as converging — opposite sign of motion, same math"
+      ],
+      "example": {
+        "problem": "15 & 20 km/h opposite; 105 km apart after?",
+        "steps": [
+          "Rate apart = 35 km/h",
+          "105/35 = 3 → B"
+        ],
+        "answer": "B (3)"
+      },
+      "traps": [
+        "Using the speed difference (5 km/h) — that's for same-direction chasing"
+      ],
+      "solveSteps": [
+        "1. Opposite/converging → add speeds",
+        "2. Time = distance / combined rate"
+      ]
+    }
+  },
+  "200": {
+    "hint": "Weighted mean: (30·75 + 20·85)/50 = 3950/50 = 79, NOT 80.",
+    "theory": {
+      "title": "Statistics — Weighted Average",
+      "icon": "📊",
+      "summary": "Combine group averages by their sizes, not by a plain average. Total points ÷ total people.",
+      "keyFacts": [
+        "Group 1: 30·75 = 2250 points",
+        "Group 2: 20·85 = 1700 points",
+        "Combined = (2250+1700)/50 = 3950/50 = 79%",
+        "Plain (75+85)/2 = 80 is WRONG (ignores group sizes)"
+      ],
+      "example": {
+        "problem": "30 students @75%, 20 @85%; combined?",
+        "steps": [
+          "Total = 2250+1700 = 3950",
+          "3950/50 = 79% → B"
+        ],
+        "answer": "B (79%)"
+      },
+      "traps": [
+        "Averaging 75 and 85 to 80 — the larger group pulls the mean toward 75"
+      ],
+      "solveSteps": [
+        "1. Σ(size · mean) for each group",
+        "2. Divide by total size"
+      ]
+    }
+  },
+  "201": {
+    "hint": "3:5 with cats=24 → scale ×8 → dogs = 5·8 = 40.",
+    "theory": {
+      "title": "Ratios — Scale Factor From a Known Part",
+      "icon": "🔢",
+      "summary": "Find the multiplier that turns the ratio's cat-term into the actual cat count, then apply it to the dog-term.",
+      "keyFacts": [
+        "cats:dogs = 3:5",
+        "24 cats → scale = 24/3 = 8",
+        "dogs = 5 × 8 = 40",
+        "Same multiplier applies to every part"
+      ],
+      "example": {
+        "problem": "3:5 cats:dogs, 24 cats; dogs?",
+        "steps": [
+          "Multiplier = 24/3 = 8",
+          "Dogs = 5·8 = 40 → C"
+        ],
+        "answer": "C (40)"
+      },
+      "traps": [
+        "Computing 24·3/5 (inverts the ratio) → 14.4, nonsense"
+      ],
+      "solveSteps": [
+        "1. Scale = known / its ratio part",
+        "2. Multiply the other part by the scale"
+      ]
+    }
+  },
+  "202": {
+    "hint": "Parts = 7+3 = 10. Flour = 7/10 · 30 = 21.",
+    "theory": {
+      "title": "Ratios — Share of a Total",
+      "icon": "🔢",
+      "summary": "Add the ratio parts to get the whole, then take the asked component's fraction of the total quantity.",
+      "keyFacts": [
+        "Total parts = 7 + 3 = 10",
+        "Flour fraction = 7/10",
+        "Flour = (7/10)·30 = 21 cups",
+        "Sugar would be (3/10)·30 = 9 (checks: 21+9=30)"
+      ],
+      "example": {
+        "problem": "Flour:sugar 7:3, total 30 cups; flour?",
+        "steps": [
+          "Parts total 10",
+          "7/10 · 30 = 21 → C"
+        ],
+        "answer": "C (21)"
+      },
+      "traps": [
+        "Using 7/3 of something instead of 7/10 of the total"
+      ],
+      "solveSteps": [
+        "1. Sum the parts",
+        "2. Component/total-parts × quantity"
+      ]
+    }
+  },
+  "203": {
+    "hint": "Parts = 3+5 = 8; each part = 40/8 = 5; blue = 5·5 = 25.",
+    "theory": {
+      "title": "Ratios — Value Per Part",
+      "icon": "🔢",
+      "summary": "Total ÷ sum-of-parts gives the value of one part; multiply by the asked component's part count.",
+      "keyFacts": [
+        "red:blue = 3:5 → 8 parts",
+        "Per part = 40/8 = 5 marbles",
+        "Blue = 5 parts × 5 = 25",
+        "Red = 3·5 = 15 (15+25=40 ✓)"
+      ],
+      "example": {
+        "problem": "3:5 red:blue, 40 total; blue?",
+        "steps": [
+          "8 parts, each = 5",
+          "Blue = 5·5 = 25 → D"
+        ],
+        "answer": "D (25)"
+      },
+      "traps": [
+        "Taking 5/3 ·something or using 3 parts for blue"
+      ],
+      "solveSteps": [
+        "1. Per part = total / Σparts",
+        "2. Component count × per-part"
+      ]
+    }
+  },
+  "204": {
+    "hint": "Common denominator 6: 5/6 − 2/6 = 3/6 = 1/2.",
+    "theory": {
+      "title": "Fractions — Subtraction via Common Denominator",
+      "icon": "🔢",
+      "summary": "Convert to a common denominator, subtract numerators, simplify.",
+      "keyFacts": [
+        "LCD(6,3) = 6",
+        "1/3 = 2/6",
+        "5/6 − 2/6 = 3/6",
+        "Simplify 3/6 = 1/2"
+      ],
+      "example": {
+        "problem": "5/6 − 1/3?",
+        "steps": [
+          "1/3 → 2/6",
+          "5/6 − 2/6 = 3/6 = 1/2 → C"
+        ],
+        "answer": "C (1/2)"
+      },
+      "traps": [
+        "Subtracting denominators too (5/6−1/3 ≠ 4/3)"
+      ],
+      "solveSteps": [
+        "1. LCD",
+        "2. Rewrite both fractions",
+        "3. Subtract numerators, simplify"
+      ]
+    }
+  },
+  "205": {
+    "hint": "'What fraction of A is B' = B ÷ A = (1/2)÷(3/4) = 2/3.",
+    "theory": {
+      "title": "Fractions — 'What Fraction Of' = Divide",
+      "icon": "🔢",
+      "summary": "'What fraction of A is B' means B/A — divide the part by the whole (multiply by the reciprocal).",
+      "keyFacts": [
+        "Setup: answer = B ÷ A = (1/2) ÷ (3/4)",
+        "Divide → multiply by reciprocal: (1/2)·(4/3)",
+        "= 4/6 = 2/3",
+        "Order matters: it's B/A, not A/B"
+      ],
+      "example": {
+        "problem": "What fraction of 3/4 is 1/2?",
+        "steps": [
+          "(1/2) ÷ (3/4) = (1/2)(4/3)",
+          "= 2/3 → B"
+        ],
+        "answer": "B (2/3)"
+      },
+      "traps": [
+        "Computing (3/4)÷(1/2)=3/2 by reversing the order"
+      ],
+      "solveSteps": [
+        "1. 'fraction of A is B' → B/A",
+        "2. Divide = ×reciprocal",
+        "3. Simplify"
+      ]
+    }
+  },
+  "206": {
+    "hint": "Remaining 1/3 = 8 gal → full = 8·3 = 24.",
+    "theory": {
+      "title": "Fractions — Back Out the Whole From a Part",
+      "icon": "🔢",
+      "summary": "If 2/3 is filled, the missing 1/3 equals the stated top-up. Whole = top-up ÷ (missing fraction).",
+      "keyFacts": [
+        "Filled = 2/3 → empty = 1/3",
+        "Empty portion = 8 gallons = 1/3 of capacity",
+        "Capacity = 8 ÷ (1/3) = 24",
+        "Check: 2/3·24 = 16 filled, +8 = 24 ✓"
+      ],
+      "example": {
+        "problem": "2/3 full, 8 gal more fills it; capacity?",
+        "steps": [
+          "1/3 = 8",
+          "Full = 8·3 = 24 → D"
+        ],
+        "answer": "D (24)"
+      },
+      "traps": [
+        "Treating 8 as 2/3 of the tank → 12, the wrong direction"
+      ],
+      "solveSteps": [
+        "1. Missing fraction = 1 − filled",
+        "2. Whole = amount / missing fraction"
+      ]
+    }
+  },
+  "207": {
+    "hint": "0.15 × 240 = 36.",
+    "theory": {
+      "title": "Percents — Percent Of a Number",
+      "icon": "🔢",
+      "summary": "'p% of N' = (p/100)·N. Convert to a decimal and multiply.",
+      "keyFacts": [
+        "15% = 0.15",
+        "0.15 × 240 = 36",
+        "Sanity: 10% = 24, 5% = 12, sum = 36",
+        "Percent → divide by 100 before multiplying"
+      ],
+      "example": {
+        "problem": "15% of 240?",
+        "steps": [
+          "10% = 24, 5% = 12",
+          "24 + 12 = 36 → D"
+        ],
+        "answer": "D (36)"
+      },
+      "traps": [
+        "Multiplying by 15 (not 0.15) → 3600"
+      ],
+      "solveSteps": [
+        "1. p/100",
+        "2. × N",
+        "3. Sanity-check with 10%/5% blocks"
+      ]
+    }
+  },
+  "208": {
+    "hint": "Discount% = drop / ORIGINAL = 20/80 = 25%.",
+    "theory": {
+      "title": "Percents — Discount Off the Original",
+      "icon": "🔢",
+      "summary": "Percent discount is the price drop divided by the ORIGINAL price (not the sale price).",
+      "keyFacts": [
+        "Drop = 80 − 60 = 20",
+        "Discount% = 20 / 80 = 0.25 = 25%",
+        "Base is the original 80, not the sale 60",
+        "20/60 = 33% would answer a different question (markup)"
+      ],
+      "example": {
+        "problem": "$80 → $60; percent discount?",
+        "steps": [
+          "Drop = 20",
+          "20/80 = 25% → C"
+        ],
+        "answer": "C (25%)"
+      },
+      "traps": [
+        "Dividing the drop by the sale price (20/60 ≈ 33%)"
+      ],
+      "solveSteps": [
+        "1. Drop = original − new",
+        "2. ÷ original",
+        "3. ×100"
+      ]
+    }
+  },
+  "209": {
+    "hint": "Successive discounts MULTIPLY: 0.75 × 0.80 = 0.60 → 60%.",
+    "theory": {
+      "title": "Percents — Successive Discounts",
+      "icon": "🔢",
+      "summary": "Chained discounts multiply the surviving fractions; they do NOT add. Each discount acts on the already-reduced price.",
+      "keyFacts": [
+        "25% off → ×0.75 remains",
+        "20% off → ×0.80 remains",
+        "Final = 0.75 × 0.80 = 0.60 → 60% of original",
+        "Adding 25+20=45 (→55%) is wrong"
+      ],
+      "example": {
+        "problem": "25% then 20% off; final % of original?",
+        "steps": [
+          "0.75 · 0.80 = 0.60",
+          "→ 60% → B"
+        ],
+        "answer": "B (60%)"
+      },
+      "traps": [
+        "Adding the discounts to 45% (gives 55% remaining) — they compound, not add"
+      ],
+      "solveSteps": [
+        "1. Each discount → (1 − rate) factor",
+        "2. Multiply the factors",
+        "3. Result = % of original"
+      ]
+    }
+  },
+  "210": {
+    "hint": "1–49: mult2=24, mult3=16, mult6=8. Either=32. Neither=49−32=17.",
+    "theory": {
+      "title": "Counting — Not Divisible by 2 or 3 (Inclusion–Exclusion)",
+      "icon": "🔢",
+      "summary": "Count multiples of 2 and 3, subtract the overlap (multiples of 6), subtract from the total.",
+      "keyFacts": [
+        "Integers 1–49: total 49",
+        "⌊49/2⌋=24, ⌊49/3⌋=16, ⌊49/6⌋=8",
+        "Divisible by 2 OR 3 = 24+16−8 = 32",
+        "Neither = 49 − 32 = 17"
+      ],
+      "example": {
+        "problem": "Positive ints < 50 not divisible by 2 or 3?",
+        "steps": [
+          "div2=24, div3=16, div6=8",
+          "either = 32; 49−32 = 17 → D"
+        ],
+        "answer": "D (17)"
+      },
+      "traps": [
+        "Forgetting to subtract multiples of 6 (double-counted) → 49−40=9"
+      ],
+      "solveSteps": [
+        "1. ⌊N/2⌋ + ⌊N/3⌋ − ⌊N/6⌋",
+        "2. Total − that"
+      ]
+    }
   }
 };
 
