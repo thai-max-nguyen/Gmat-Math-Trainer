@@ -1623,6 +1623,630 @@ const QUESTION_THEORIES = {
         "3. Simplify"
       ]
     }
+  },
+  "41": {
+    "hint": "|2x−5|≤4 → −4 ≤ 2x−5 ≤ 4 → 0.5 ≤ x ≤ 4.5. Count integers in [0.5,4.5]: 1,2,3,4.",
+    "theory": {
+      "title": "Counting Integers in an Absolute-Value Band",
+      "icon": "│ │",
+      "summary": "|A| ≤ k unfolds to −k ≤ A ≤ k. Solve for x, then count integers inside the (possibly non-integer) bounds.",
+      "keyFacts": [
+        "|A| ≤ k ⟺ −k ≤ A ≤ k (≤ keeps endpoints)",
+        "0.5 ≤ x ≤ 4.5 → integers 1,2,3,4",
+        "Non-integer bounds: round inward",
+        "Count = floor(hi) − ceil(lo) + 1"
+      ],
+      "example": {
+        "problem": "Integer x with |2x − 5| ≤ 4",
+        "steps": [
+          "−4 ≤ 2x − 5 ≤ 4",
+          "1 ≤ 2x ≤ 9 → 0.5 ≤ x ≤ 4.5",
+          "Integers 1,2,3,4 → 4"
+        ],
+        "answer": "4"
+      },
+      "traps": [
+        "Counting 0 or 5 (outside 0.5–4.5)",
+        "Off-by-one with non-integer endpoints"
+      ],
+      "solveSteps": [
+        "1. Unfold |A| ≤ k to −k ≤ A ≤ k",
+        "2. Solve for x",
+        "3. Count integers strictly within the bounds"
+      ]
+    }
+  },
+  "42": {
+    "hint": "Subtract the fixed daily fee first ($80−$30=$50), THEN divide by per-mile rate.",
+    "theory": {
+      "title": "Linear Cost Model — Solve for Quantity",
+      "icon": "🚗",
+      "summary": "Bill = fixed + rate·units. To find units: peel off the fixed part, then divide by the rate.",
+      "keyFacts": [
+        "Total = base + rate · units",
+        "units = (Total − base) / rate",
+        "$80 − $30 = $50 variable; 50 / 0.20 = 250",
+        "Dividing $0.20 → ×5 per dollar"
+      ],
+      "example": {
+        "problem": "$30/day + $0.20/mi, bill $80 (1 day). Miles?",
+        "steps": [
+          "Variable = 80 − 30 = 50",
+          "Miles = 50 / 0.20 = 250"
+        ],
+        "answer": "250"
+      },
+      "traps": [
+        "Dividing 80 by 0.20 (forgot the base fee)",
+        "Multiplying by 0.20 instead of dividing"
+      ],
+      "solveSteps": [
+        "1. Subtract the fixed component",
+        "2. Divide remainder by the per-unit rate",
+        "3. Units = result"
+      ]
+    }
+  },
+  "43": {
+    "hint": "Pythagoras: hyp = √(3²+4²) = 5. (Recognize the 3-4-5 triple instantly.)",
+    "theory": {
+      "title": "Pythagorean Theorem & Common Triples",
+      "icon": "📐",
+      "summary": "In a right triangle, leg² + leg² = hyp². Memorize 3-4-5, 5-12-13, 8-15-17 to skip the arithmetic.",
+      "keyFacts": [
+        "a² + b² = c² (c = hypotenuse, opposite right angle)",
+        "Triples: 3-4-5, 5-12-13, 8-15-17 (and multiples)",
+        "√(9+16) = √25 = 5",
+        "Hypotenuse is always the LONGEST side"
+      ],
+      "example": {
+        "problem": "Legs 3 and 4, find hypotenuse.",
+        "steps": [
+          "3² + 4² = 9 + 16 = 25",
+          "√25 = 5"
+        ],
+        "answer": "5"
+      },
+      "traps": [
+        "Adding 3+4 = 7",
+        "Treating a leg as the hypotenuse"
+      ],
+      "solveSteps": [
+        "1. Identify legs vs hypotenuse",
+        "2. a²+b²=c² (or recall the triple)",
+        "3. Square-root for c"
+      ]
+    }
+  },
+  "44": {
+    "hint": "30-60-90 sides are x : x√3 : 2x. Side opp 60° = x√3 = 6√3 → x=6 → hyp = 2x = 12.",
+    "theory": {
+      "title": "30–60–90 Special Right Triangle",
+      "icon": "📐",
+      "summary": "Fixed side ratio 1 : √3 : 2 for angles 30° : 60° : 90°. Match the given side to its ratio slot, find x, scale.",
+      "keyFacts": [
+        "Opposite 30° : 60° : 90° = x : x√3 : 2x",
+        "Shortest side faces 30°; hyp faces 90°",
+        "Side opp 60° = x√3 = 6√3 → x = 6",
+        "Hypotenuse = 2x = 12"
+      ],
+      "example": {
+        "problem": "30-60-90, side opp 60° = 6√3. Hypotenuse?",
+        "steps": [
+          "x√3 = 6√3 → x = 6",
+          "Hyp = 2x = 12"
+        ],
+        "answer": "12"
+      },
+      "traps": [
+        "Mismatching which side faces which angle",
+        "Using 45-45-90 ratio (1:1:√2) by mistake"
+      ],
+      "solveSteps": [
+        "1. Write the 1:√3:2 template",
+        "2. Match given side to its slot, solve for x",
+        "3. Scale to the requested side"
+      ]
+    }
+  },
+  "45": {
+    "hint": "Triangle angles sum to 180°. Third = 180 − 50 − 70.",
+    "theory": {
+      "title": "Triangle Angle Sum",
+      "icon": "△",
+      "summary": "The three interior angles of any triangle add to exactly 180°. Subtract the two known from 180.",
+      "keyFacts": [
+        "Interior angles sum to 180°",
+        "Third = 180 − (sum of other two)",
+        "Exterior angle = sum of two remote interiors",
+        "Quadrilateral sum = 360°"
+      ],
+      "example": {
+        "problem": "Angles 50° and 70°, find third.",
+        "steps": [
+          "180 − 50 − 70 = 60°"
+        ],
+        "answer": "60°"
+      },
+      "traps": [
+        "Using 360° (that's a quadrilateral)",
+        "Arithmetic slip on the subtraction"
+      ],
+      "solveSteps": [
+        "1. Sum the known angles",
+        "2. Subtract from 180°",
+        "3. That is the third angle"
+      ]
+    }
+  },
+  "46": {
+    "hint": "Isosceles right (45-45-90): hyp = leg·√2. Leg = 10/√2 = 5√2. Area = ½ leg².",
+    "theory": {
+      "title": "45–45–90 Triangle & Its Area",
+      "icon": "📐",
+      "summary": "Isosceles right triangle: legs equal, hyp = leg·√2. From the hypotenuse, back out the leg, then area = ½ leg².",
+      "keyFacts": [
+        "45-45-90 ratio: 1 : 1 : √2",
+        "leg = hyp / √2",
+        "Area = ½ · leg · leg (the two legs are the base & height)",
+        "hyp 10 → leg 5√2 → area ½·50 = 25"
+      ],
+      "example": {
+        "problem": "Isosceles right triangle, hyp = 10. Area?",
+        "steps": [
+          "leg = 10/√2 = 5√2",
+          "Area = ½(5√2)(5√2) = ½·50 = 25"
+        ],
+        "answer": "25"
+      },
+      "traps": [
+        "Using the hypotenuse as base × height",
+        "Forgetting leg = hyp/√2 (rationalize)"
+      ],
+      "solveSteps": [
+        "1. leg = hyp / √2",
+        "2. Area = ½ · leg²",
+        "3. Simplify"
+      ]
+    }
+  },
+  "47": {
+    "hint": "Equilateral height = (s√3)/2. s=6 → 3√3.",
+    "theory": {
+      "title": "Equilateral Triangle Height",
+      "icon": "△",
+      "summary": "The altitude splits an equilateral triangle into two 30-60-90s; height = (side·√3)/2.",
+      "keyFacts": [
+        "Height h = (s√3)/2",
+        "Area = (√3/4)s²",
+        "Altitude bisects the base and apex angle",
+        "s=6 → h = 3√3"
+      ],
+      "example": {
+        "problem": "Equilateral side 6, height?",
+        "steps": [
+          "h = (6√3)/2",
+          "= 3√3"
+        ],
+        "answer": "3√3"
+      },
+      "traps": [
+        "Using s/2 (that's half the base, not the height)",
+        "Confusing height formula with area formula"
+      ],
+      "solveSteps": [
+        "1. Apply h = (s√3)/2",
+        "2. Substitute the side",
+        "3. Simplify the radical"
+      ]
+    }
+  },
+  "48": {
+    "hint": "Equilateral area = (√3/4)·s². s=8 → (√3/4)·64 = 16√3.",
+    "theory": {
+      "title": "Equilateral Triangle Area",
+      "icon": "△",
+      "summary": "Area of an equilateral triangle is (√3/4) times the side squared — a formula worth memorizing cold.",
+      "keyFacts": [
+        "Area = (√3/4) s²",
+        "s = 8 → (√3/4)(64) = 16√3",
+        "Derives from ½·base·height with h=(s√3)/2",
+        "Scales with s² (double side → 4× area)"
+      ],
+      "example": {
+        "problem": "Equilateral side 8, area?",
+        "steps": [
+          "(√3/4)·8²",
+          "(√3/4)·64 = 16√3"
+        ],
+        "answer": "16√3"
+      },
+      "traps": [
+        "Using ½·s·s (only valid for right isosceles)",
+        "Forgetting to square the side"
+      ],
+      "solveSteps": [
+        "1. Area = (√3/4)s²",
+        "2. Square the side",
+        "3. Multiply by √3/4"
+      ]
+    }
+  },
+  "49": {
+    "hint": "Area = πr². r=7 → 49π. (Don't use 2πr — that's circumference.)",
+    "theory": {
+      "title": "Circle Area",
+      "icon": "⚪",
+      "summary": "Area = πr². Keep it distinct from circumference 2πr — mixing them is the classic circle trap.",
+      "keyFacts": [
+        "Area = πr²",
+        "Circumference = 2πr",
+        "r = 7 → area 49π",
+        "Area scales with r² (double r → 4× area)"
+      ],
+      "example": {
+        "problem": "Radius 7, area?",
+        "steps": [
+          "A = π·7²",
+          "= 49π"
+        ],
+        "answer": "49π"
+      },
+      "traps": [
+        "Computing 2π·7 = 14π (circumference)",
+        "Using diameter 14 as r"
+      ],
+      "solveSteps": [
+        "1. Identify r (not diameter)",
+        "2. Square it",
+        "3. Multiply by π"
+      ]
+    }
+  },
+  "50": {
+    "hint": "Circumference 12π → 2πr=12π → r=6 → Area = π·36 = 36π.",
+    "theory": {
+      "title": "Circle — Circumference to Area",
+      "icon": "⚪",
+      "summary": "Use circumference to recover r (divide by 2π), then plug r into πr².",
+      "keyFacts": [
+        "C = 2πr → r = C/(2π)",
+        "Then A = πr²",
+        "C = 12π → r = 6 → A = 36π",
+        "Never jump straight from C to A"
+      ],
+      "example": {
+        "problem": "Circumference 12π, area?",
+        "steps": [
+          "2πr = 12π → r = 6",
+          "A = π·36 = 36π"
+        ],
+        "answer": "36π"
+      },
+      "traps": [
+        "Treating 12π as the radius or area",
+        "Forgetting to square r after finding it"
+      ],
+      "solveSteps": [
+        "1. r = C / (2π)",
+        "2. A = πr²",
+        "3. Simplify"
+      ]
+    }
+  },
+  "51": {
+    "hint": "60° = 1/6 of the circle. Arc 5π is 1/6 of circumference → C=30π → r=15 → A=225π.",
+    "theory": {
+      "title": "Arc Length → Radius → Area",
+      "icon": "⚪",
+      "summary": "An arc is the central-angle fraction of the full circumference. Recover the whole circle from the fraction, then find r and area.",
+      "keyFacts": [
+        "Arc = (θ/360) · 2πr",
+        "60° = 1/6 of 360° → arc = (1/6)·C",
+        "5π = C/6 → C = 30π → r = 15",
+        "A = πr² = 225π"
+      ],
+      "example": {
+        "problem": "60° arc length 5π. Circle area?",
+        "steps": [
+          "5π = (1/6)·C → C = 30π",
+          "r = 15",
+          "A = π·225 = 225π"
+        ],
+        "answer": "225π"
+      },
+      "traps": [
+        "Treating 5π as the full circumference",
+        "Using 60 instead of 60/360 fraction"
+      ],
+      "solveSteps": [
+        "1. Convert angle to a fraction of 360°",
+        "2. Arc = fraction · C → solve C, then r",
+        "3. A = πr²"
+      ]
+    }
+  },
+  "52": {
+    "hint": "Distance = √[(Δx)²+(Δy)²] = √(3²+4²) = 5.",
+    "theory": {
+      "title": "Distance Formula (Coordinate Plane)",
+      "icon": "📍",
+      "summary": "Distance between two points is the Pythagorean theorem on the coordinate differences.",
+      "keyFacts": [
+        "d = √[(x₂−x₁)² + (y₂−y₁)²]",
+        "Δx=3, Δy=4 → √25 = 5 (3-4-5 again)",
+        "Order of subtraction doesn't matter (squared)",
+        "It's just Pythagoras on Δx, Δy"
+      ],
+      "example": {
+        "problem": "Distance (1,2) to (4,6)",
+        "steps": [
+          "Δx = 3, Δy = 4",
+          "√(9+16) = √25 = 5"
+        ],
+        "answer": "5"
+      },
+      "traps": [
+        "Adding Δx+Δy instead of the root of squares",
+        "Sign error before squaring (harmless but messy)"
+      ],
+      "solveSteps": [
+        "1. Compute Δx and Δy",
+        "2. Square, add",
+        "3. Square-root"
+      ]
+    }
+  },
+  "53": {
+    "hint": "Slope = rise/run = (9−3)/(5−2) = 6/3 = 2. Keep point order consistent.",
+    "theory": {
+      "title": "Slope Between Two Points",
+      "icon": "📈",
+      "summary": "Slope = change in y over change in x. Subtract coordinates in the SAME order top and bottom.",
+      "keyFacts": [
+        "m = (y₂−y₁)/(x₂−x₁)",
+        "Consistent order both numerator & denominator",
+        "(9−3)/(5−2) = 6/3 = 2",
+        "Positive slope rises left→right"
+      ],
+      "example": {
+        "problem": "Slope through (2,3) and (5,9)",
+        "steps": [
+          "Δy = 9−3 = 6",
+          "Δx = 5−2 = 3",
+          "m = 6/3 = 2"
+        ],
+        "answer": "2"
+      },
+      "traps": [
+        "Flipping to run/rise (Δx/Δy)",
+        "Mixing point order between num and denom"
+      ],
+      "solveSteps": [
+        "1. Pick (x₁,y₁) and (x₂,y₂)",
+        "2. m = Δy/Δx (same order)",
+        "3. Simplify"
+      ]
+    }
+  },
+  "54": {
+    "hint": "Reflect across x-axis → replace y with −y: −y = 2x+3 → y = −2x−3.",
+    "theory": {
+      "title": "Reflecting a Line Across the x-Axis",
+      "icon": "🪞",
+      "summary": "x-axis reflection sends (x,y)→(x,−y). Substitute −y for y in the equation, then re-solve for y.",
+      "keyFacts": [
+        "x-axis: y → −y (x unchanged)",
+        "y-axis: x → −x",
+        "−y = 2x+3 → y = −2x−3",
+        "Both slope and intercept negate here"
+      ],
+      "example": {
+        "problem": "Reflect y=2x+3 across x-axis.",
+        "steps": [
+          "Replace y with −y: −y = 2x+3",
+          "Multiply by −1: y = −2x−3"
+        ],
+        "answer": "y = −2x − 3"
+      },
+      "traps": [
+        "Only negating slope OR intercept, not both",
+        "Confusing with y-axis reflection (x→−x)"
+      ],
+      "solveSteps": [
+        "1. Substitute −y for y",
+        "2. Solve back for y",
+        "3. Read new slope/intercept"
+      ]
+    }
+  },
+  "55": {
+    "hint": "Set the two expressions equal: 2x+3 = −x+6 → x=1, then y=5.",
+    "theory": {
+      "title": "Intersection of Two Lines",
+      "icon": "✕",
+      "summary": "At the intersection both equations share x and y. Set the y-expressions equal, solve for x, back-substitute for y.",
+      "keyFacts": [
+        "Set y₁ = y₂ and solve for x",
+        "Substitute x into either line for y",
+        "2x+3 = −x+6 → 3x = 3 → x = 1",
+        "y = 2(1)+3 = 5 → (1,5)"
+      ],
+      "example": {
+        "problem": "y=2x+3 and y=−x+6 meet where?",
+        "steps": [
+          "2x+3 = −x+6",
+          "3x = 3 → x = 1",
+          "y = 5 → (1,5)"
+        ],
+        "answer": "(1, 5)"
+      },
+      "traps": [
+        "Reporting only x, not the (x,y) point",
+        "Substituting into the wrong equation and slipping"
+      ],
+      "solveSteps": [
+        "1. Equate the two y-expressions",
+        "2. Solve for x",
+        "3. Back-substitute for y; give the point"
+      ]
+    }
+  },
+  "56": {
+    "hint": "Radius = distance from center (3,4) to the point it passes through (0,0) = 5.",
+    "theory": {
+      "title": "Radius as a Distance",
+      "icon": "⚪",
+      "summary": "A circle's radius equals the distance from its center to ANY point on it — here, the origin.",
+      "keyFacts": [
+        "r = distance(center, point on circle)",
+        "Use the distance formula",
+        "(3,4) to (0,0): √(9+16) = 5",
+        "3-4-5 triple again"
+      ],
+      "example": {
+        "problem": "Center (3,4), passes through origin. r?",
+        "steps": [
+          "d = √[(3−0)²+(4−0)²]",
+          "= √25 = 5"
+        ],
+        "answer": "5"
+      },
+      "traps": [
+        "Adding coordinates (3+4)",
+        "Using only one coordinate as r"
+      ],
+      "solveSteps": [
+        "1. Identify center and a known point",
+        "2. Distance formula between them",
+        "3. That distance = r"
+      ]
+    }
+  },
+  "57": {
+    "hint": "Rectangle diagonal = √(l²+w²) = √(144+25) = 13.",
+    "theory": {
+      "title": "Rectangle Diagonal (Pythagoras)",
+      "icon": "▭",
+      "summary": "The diagonal splits a rectangle into two right triangles with legs = length and width.",
+      "keyFacts": [
+        "Diagonal = √(l² + w²)",
+        "12,5 → √169 = 13 (5-12-13 triple)",
+        "Diagonal > either side",
+        "Same idea as the distance formula"
+      ],
+      "example": {
+        "problem": "Rectangle 12 × 5, diagonal?",
+        "steps": [
+          "√(12² + 5²)",
+          "√(144+25) = √169 = 13"
+        ],
+        "answer": "13"
+      },
+      "traps": [
+        "Adding 12+5 = 17",
+        "Using area (60) as a length"
+      ],
+      "solveSteps": [
+        "1. Legs = length and width",
+        "2. Diagonal = √(l²+w²)",
+        "3. Recognize the triple if present"
+      ]
+    }
+  },
+  "58": {
+    "hint": "Area 64 → side 8 → square diagonal = side·√2 = 8√2.",
+    "theory": {
+      "title": "Square Diagonal from Area",
+      "icon": "⬛",
+      "summary": "Side = √area; the diagonal of a square is side·√2 (it's the hypotenuse of a 45-45-90).",
+      "keyFacts": [
+        "side = √area",
+        "diagonal = side·√2",
+        "area 64 → side 8 → diagonal 8√2",
+        "diagonal² = 2·area"
+      ],
+      "example": {
+        "problem": "Square area 64, diagonal?",
+        "steps": [
+          "side = √64 = 8",
+          "diagonal = 8√2"
+        ],
+        "answer": "8√2"
+      },
+      "traps": [
+        "Reporting side (8) as the diagonal",
+        "Using ·2 instead of ·√2"
+      ],
+      "solveSteps": [
+        "1. side = √area",
+        "2. diagonal = side·√2",
+        "3. Simplify"
+      ]
+    }
+  },
+  "59": {
+    "hint": "Cube surface area = 6s². 6s²=96 → s²=16 → s=4 → V = s³ = 64.",
+    "theory": {
+      "title": "Cube — Surface Area to Volume",
+      "icon": "🧊",
+      "summary": "A cube has 6 equal faces (SA = 6s²) and volume s³. Back out the side from SA, then cube it.",
+      "keyFacts": [
+        "SA = 6s²; V = s³",
+        "6s² = 96 → s² = 16 → s = 4",
+        "V = 4³ = 64",
+        "Don't confuse 6s² with s² or 4s²"
+      ],
+      "example": {
+        "problem": "Cube SA = 96, volume?",
+        "steps": [
+          "6s² = 96 → s² = 16",
+          "s = 4 → V = 64"
+        ],
+        "answer": "64"
+      },
+      "traps": [
+        "Using SA = s² (one face only)",
+        "Stopping at s or s² instead of s³"
+      ],
+      "solveSteps": [
+        "1. SA = 6s² → solve s",
+        "2. V = s³",
+        "3. Compute"
+      ]
+    }
+  },
+  "60": {
+    "hint": "Cylinder V = πr²h. V₁=π·9·10=90π, V₂=π·36·5=180π → 1:2. r is squared.",
+    "theory": {
+      "title": "Cylinder Volume Ratio",
+      "icon": "🛢",
+      "summary": "V = πr²h. When comparing two cylinders, the radius enters SQUARED — doubling r quadruples that factor.",
+      "keyFacts": [
+        "V = πr²h",
+        "V₁ = π·3²·10 = 90π",
+        "V₂ = π·6²·5 = 180π",
+        "Ratio 90:180 = 1:2 (π cancels)"
+      ],
+      "example": {
+        "problem": "r=3,h=10 vs r=6,h=5. V₁:V₂?",
+        "steps": [
+          "V₁ = π·9·10 = 90π",
+          "V₂ = π·36·5 = 180π",
+          "1 : 2"
+        ],
+        "answer": "1:2"
+      },
+      "traps": [
+        "Using r linearly instead of r²",
+        "Forgetting π cancels in a ratio"
+      ],
+      "solveSteps": [
+        "1. V = πr²h for each",
+        "2. Form the ratio (π cancels)",
+        "3. Simplify"
+      ]
+    }
   }
 };
 
