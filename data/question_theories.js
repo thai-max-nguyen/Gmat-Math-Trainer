@@ -10781,6 +10781,589 @@ const QUESTION_THEORIES = {
         "2. √(Δx²+Δy²)"
       ]
     }
+  },
+  "351": {
+    "hint": "Subtract the equations: (3x+2y)−(2x+3y) = x−y = 17−13 = 4.",
+    "theory": {
+      "title": "Systems — Subtract for x−y Directly",
+      "icon": "🔢",
+      "summary": "When asked for x−y from a symmetric pair, subtract the equations — the answer pops out without solving for x and y.",
+      "keyFacts": [
+        "(3x+2y) − (2x+3y) = x − y",
+        "RHS: 17 − 13 = 4",
+        "So x − y = 4",
+        "Symmetric coefficient swap → difference trick"
+      ],
+      "example": {
+        "problem": "3x+2y=17, 2x+3y=13; x−y?",
+        "steps": [
+          "Subtract equations → x−y on left",
+          "17−13 = 4 → D"
+        ],
+        "answer": "D (4)"
+      },
+      "traps": [
+        "Fully solving the system instead of subtracting"
+      ],
+      "solveSteps": [
+        "1. See what's asked (x−y)",
+        "2. Subtract equations to form it"
+      ]
+    }
+  },
+  "352": {
+    "hint": "Median = 3rd of 5. Already-sorted form requires x ≥ 11. Smallest = 11.",
+    "theory": {
+      "title": "Statistics — Median Position Constraint",
+      "icon": "📊",
+      "summary": "With the set written in increasing order {3,7,11,x,17}, the 3rd value (11) is the median only if x sits at or after position 4 — i.e. x ≥ 11.",
+      "keyFacts": [
+        "5 numbers → median is the 3rd sorted value",
+        "Listed increasing: 3,7,11,x,17 → 11 is 3rd if x ≥ 11",
+        "x < 11 would push 11 out of the middle slot",
+        "Smallest integer x = 11"
+      ],
+      "example": {
+        "problem": "Median of {3,7,11,x,17}=11; smallest x?",
+        "steps": [
+          "x must be ≥ 11 to keep 11 in position 3",
+          "Smallest integer = 11 → C"
+        ],
+        "answer": "C (11)"
+      },
+      "traps": [
+        "Picking x=7 or 8 — that reorders the set and changes the median"
+      ],
+      "solveSteps": [
+        "1. Median = middle position",
+        "2. Constrain x so the median value stays put",
+        "3. Take the boundary"
+      ]
+    }
+  },
+  "353": {
+    "hint": "Removed = old sum − new sum = 7·12 − 6·11 = 84−66 = 18.",
+    "theory": {
+      "title": "Statistics — Removed Value via Sums",
+      "icon": "📊",
+      "summary": "Convert both means to totals; the removed number is the difference of the two sums.",
+      "keyFacts": [
+        "Old sum = 7·12 = 84",
+        "New sum = 6·11 = 66",
+        "Removed = 84 − 66 = 18",
+        "Mean change × count tells you nothing without converting to sums"
+      ],
+      "example": {
+        "problem": "7 nums mean 12; remove one → 6 nums mean 11. Removed?",
+        "steps": [
+          "84 − 66",
+          "= 18 → D"
+        ],
+        "answer": "D (18)"
+      },
+      "traps": [
+        "Subtracting means (12−11=1) instead of sums"
+      ],
+      "solveSteps": [
+        "1. Each mean × its count = sum",
+        "2. Removed = old sum − new sum"
+      ]
+    }
+  },
+  "354": {
+    "hint": "Lead at 1PM = 60 mi. Close at 75−60=15 mph → 4 h → 5 PM.",
+    "theory": {
+      "title": "Rate — Catch-Up With Clock Time",
+      "icon": "🚆",
+      "summary": "Head-start distance ÷ speed difference = catch-up duration; add to the chaser's start time.",
+      "keyFacts": [
+        "Train 1 runs noon→1PM alone: 60·1 = 60 mi lead",
+        "Closing rate = 75 − 60 = 15 mph",
+        "Catch-up time = 60/15 = 4 h after 1 PM",
+        "1 PM + 4 h = 5 PM"
+      ],
+      "example": {
+        "problem": "60 mph at noon, 75 mph at 1 PM; catch-up time?",
+        "steps": [
+          "Lead = 60 mi; close at 15 mph → 4 h",
+          "1 PM + 4 h = 5 PM → C"
+        ],
+        "answer": "C (5:00 PM)"
+      },
+      "traps": [
+        "Measuring catch-up time from noon instead of 1 PM"
+      ],
+      "solveSteps": [
+        "1. Head-start distance at chaser's start",
+        "2. ÷ speed difference",
+        "3. Add to chaser's departure time"
+      ]
+    }
+  },
+  "355": {
+    "hint": "1/6+1/8 = 7/24 → time = 24/7 h.",
+    "theory": {
+      "title": "Work — Combined Pipes",
+      "icon": "🛠️",
+      "summary": "Add the per-hour rates; the fill time is the reciprocal of the combined rate.",
+      "keyFacts": [
+        "Rates 1/6 and 1/8",
+        "LCD 24: 4/24 + 3/24 = 7/24",
+        "Time = 1/(7/24) = 24/7 h",
+        "Combined time < the faster pipe alone"
+      ],
+      "example": {
+        "problem": "A 6h, B 8h, both open; time?",
+        "steps": [
+          "1/6+1/8 = 7/24",
+          "→ 24/7 h → A"
+        ],
+        "answer": "A (24/7 hr)"
+      },
+      "traps": [
+        "Averaging the times (7 h) instead of summing rates"
+      ],
+      "solveSteps": [
+        "1. Sum rates over a common denominator",
+        "2. Invert"
+      ]
+    }
+  },
+  "356": {
+    "hint": "x = 60/0.4 = 150 → 25% of 150 = 37.5.",
+    "theory": {
+      "title": "Percents — Find the Whole, Then Re-percent",
+      "icon": "🔢",
+      "summary": "Back out x from the first percent fact, then apply the second percent.",
+      "keyFacts": [
+        "0.40·x = 60 → x = 150",
+        "25% of 150 = 0.25·150",
+        "= 37.5",
+        "Shortcut: 25/40 of 60 = 37.5 (same ratio)"
+      ],
+      "example": {
+        "problem": "40% of x = 60; 25% of x?",
+        "steps": [
+          "x = 150",
+          "0.25·150 = 37.5 → D"
+        ],
+        "answer": "D (37.5)"
+      },
+      "traps": [
+        "Computing 25% of 60 instead of 25% of x"
+      ],
+      "solveSteps": [
+        "1. Solve for x from the given percent",
+        "2. Apply the asked percent to x"
+      ]
+    }
+  },
+  "357": {
+    "hint": "a:c = (a/b)(b/c) = (3/5)(4/7) = 12/35.",
+    "theory": {
+      "title": "Ratios — Chain a:b and b:c",
+      "icon": "🔢",
+      "summary": "a/c = (a/b)·(b/c). Multiply the two ratios directly.",
+      "keyFacts": [
+        "a/b = 3/5, b/c = 4/7",
+        "a/c = (3/5)(4/7) = 12/35",
+        "No need to equalize b for a:c only",
+        "12 and 35 are coprime → already reduced"
+      ],
+      "example": {
+        "problem": "a:b=3:5, b:c=4:7; a:c?",
+        "steps": [
+          "(3/5)·(4/7)",
+          "= 12/35 → B"
+        ],
+        "answer": "B (12:35)"
+      },
+      "traps": [
+        "Concatenating to 3:7 (ignores the b link)"
+      ],
+      "solveSteps": [
+        "1. a/c = (a/b)(b/c)",
+        "2. Multiply the fractions"
+      ]
+    }
+  },
+  "358": {
+    "hint": "1/2+1/3 = 5/6; ÷(1/4) = ×4 → 20/6 = 10/3.",
+    "theory": {
+      "title": "Fractions — Sum Then Divide",
+      "icon": "🔢",
+      "summary": "Add inside the parentheses first, then dividing by a fraction = multiplying by its reciprocal.",
+      "keyFacts": [
+        "1/2 + 1/3 = 3/6+2/6 = 5/6",
+        "÷ (1/4) = × 4",
+        "(5/6)·4 = 20/6",
+        "Simplify → 10/3"
+      ],
+      "example": {
+        "problem": "(1/2+1/3) ÷ (1/4)?",
+        "steps": [
+          "Sum = 5/6",
+          "×4 = 10/3 → C"
+        ],
+        "answer": "C (10/3)"
+      },
+      "traps": [
+        "Dividing by 4 instead of multiplying (÷ a fraction flips it)"
+      ],
+      "solveSteps": [
+        "1. Resolve the parenthesis",
+        "2. ÷fraction = ×reciprocal",
+        "3. Simplify"
+      ]
+    }
+  },
+  "359": {
+    "hint": "5x−3=2x+12 → 3x=15 → x=5.",
+    "theory": {
+      "title": "Linear — Collect Variables One Side",
+      "icon": "🔢",
+      "summary": "Move all x to one side, constants to the other, then divide.",
+      "keyFacts": [
+        "5x − 2x = 12 + 3",
+        "3x = 15",
+        "x = 5",
+        "Check: 25−3 = 22 = 10+12 ✓"
+      ],
+      "example": {
+        "problem": "5x−3 = 2x+12; x?",
+        "steps": [
+          "3x = 15",
+          "x = 5 → C"
+        ],
+        "answer": "C (5)"
+      },
+      "traps": [
+        "Sign error moving 2x or −3 across"
+      ],
+      "solveSteps": [
+        "1. Variables left, constants right",
+        "2. Divide by the coefficient"
+      ]
+    }
+  },
+  "360": {
+    "hint": "2x−8 = 3x+1 → −9 = x.",
+    "theory": {
+      "title": "Linear — Distribute Then Solve (Negative Result)",
+      "icon": "🔢",
+      "summary": "Expand the bracket, collect x, expect a negative solution here.",
+      "keyFacts": [
+        "2(x−4) = 2x − 8",
+        "2x − 8 = 3x + 1",
+        "−8 − 1 = 3x − 2x → −9 = x",
+        "Negative answers are valid"
+      ],
+      "example": {
+        "problem": "2(x−4) = 3x+1; x?",
+        "steps": [
+          "2x−8 = 3x+1",
+          "x = −9 → A"
+        ],
+        "answer": "A (−9)"
+      },
+      "traps": [
+        "Forgetting to distribute the 2 to the −4"
+      ],
+      "solveSteps": [
+        "1. Distribute",
+        "2. Collect x, solve (sign-aware)"
+      ]
+    }
+  },
+  "361": {
+    "hint": "x²−7x+12 = (x−3)(x−4) → roots 3, 4.",
+    "theory": {
+      "title": "Quadratics — Factor by Sum/Product",
+      "icon": "🔢",
+      "summary": "Find two numbers multiplying to 12 and summing to 7: 3 and 4.",
+      "keyFacts": [
+        "Need product 12, sum 7",
+        "3·4 = 12, 3+4 = 7",
+        "(x−3)(x−4)=0 → x = 3 or 4",
+        "Signs both negative inside → positive roots"
+      ],
+      "example": {
+        "problem": "Roots of x²−7x+12=0?",
+        "steps": [
+          "3 and 4 (product 12, sum 7)",
+          "x = 3, 4 → C"
+        ],
+        "answer": "C (3, 4)"
+      },
+      "traps": [
+        "Picking 2,6 (sum 8) or sign-flipped −3,−4"
+      ],
+      "solveSteps": [
+        "1. Two numbers: product c, sum −b",
+        "2. Roots are those numbers"
+      ]
+    }
+  },
+  "362": {
+    "hint": "⌊100/7⌋ = 14.",
+    "theory": {
+      "title": "Number Theory — Count Multiples in a Range",
+      "icon": "🔢",
+      "summary": "Multiples of k up to N = ⌊N/k⌋ (when counting from 1).",
+      "keyFacts": [
+        "⌊100/7⌋ = 14 (7·14=98 ≤ 100)",
+        "7·15 = 105 > 100 → not counted",
+        "Count from 1 → simple floor",
+        "Largest multiple ≤ 100 is 98"
+      ],
+      "example": {
+        "problem": "Multiples of 7 in 1..100?",
+        "steps": [
+          "⌊100/7⌋",
+          "= 14 → C"
+        ],
+        "answer": "C (14)"
+      },
+      "traps": [
+        "Rounding 100/7≈14.3 up to 15"
+      ],
+      "solveSteps": [
+        "1. ⌊N/k⌋",
+        "2. Verify k·count ≤ N"
+      ]
+    }
+  },
+  "363": {
+    "hint": "3n=96 → n=32 → largest = 33.",
+    "theory": {
+      "title": "Number Theory — Consecutive Integers Sum",
+      "icon": "🔢",
+      "summary": "Three consecutive integers sum to 3·(middle). Middle = sum/3; largest = middle+1.",
+      "keyFacts": [
+        "(n−1)+n+(n+1) = 3n = 96",
+        "n = 32 (middle)",
+        "Largest = 33",
+        "Smallest = 31"
+      ],
+      "example": {
+        "problem": "3 consecutive ints sum 96; largest?",
+        "steps": [
+          "Middle 96/3 = 32",
+          "Largest = 33 → C"
+        ],
+        "answer": "C (33)"
+      },
+      "traps": [
+        "Reporting the middle 32"
+      ],
+      "solveSteps": [
+        "1. Middle = sum/3",
+        "2. Largest = middle+1"
+      ]
+    }
+  },
+  "364": {
+    "hint": "P=36, L=12 → L+W=18 → W=6 → area 72.",
+    "theory": {
+      "title": "Geometry — Rectangle Area From Perimeter & Side",
+      "icon": "📐",
+      "summary": "Perimeter gives L+W; subtract the known length to get width, then multiply.",
+      "keyFacts": [
+        "P = 2(L+W) = 36 → L+W = 18",
+        "L = 12 → W = 6",
+        "Area = 12·6 = 72",
+        "Half the perimeter = L+W"
+      ],
+      "example": {
+        "problem": "L=12, perimeter 36; area?",
+        "steps": [
+          "L+W = 18 → W = 6",
+          "12·6 = 72 → C"
+        ],
+        "answer": "C (72)"
+      },
+      "traps": [
+        "Using full perimeter 36 as L+W (it's half)"
+      ],
+      "solveSteps": [
+        "1. L+W = P/2",
+        "2. W = (P/2) − L",
+        "3. Area = L·W"
+      ]
+    }
+  },
+  "365": {
+    "hint": "5-12-13 right triangle → area = ½·5·12 = 30.",
+    "theory": {
+      "title": "Geometry — Recognize the Right Triangle",
+      "icon": "📐",
+      "summary": "5-12-13 satisfies 5²+12²=13², so it's right; the legs are base and height.",
+      "keyFacts": [
+        "5²+12² = 25+144 = 169 = 13²",
+        "Right angle between the legs 5 and 12",
+        "Area = ½·5·12 = 30",
+        "13 is the hypotenuse (not a height)"
+      ],
+      "example": {
+        "problem": "Triangle 5,12,13; area?",
+        "steps": [
+          "Pythagorean triple → right",
+          "½·5·12 = 30 → B"
+        ],
+        "answer": "B (30)"
+      },
+      "traps": [
+        "Using Heron's or treating 13 as a height"
+      ],
+      "solveSteps": [
+        "1. Check a²+b²=c² → right",
+        "2. Area = ½·leg·leg"
+      ]
+    }
+  },
+  "366": {
+    "hint": "πr²=49π → r=7 → C=2π·7=14π.",
+    "theory": {
+      "title": "Geometry — Area → Radius → Circumference",
+      "icon": "📐",
+      "summary": "Solve r from the area, then circumference = 2πr.",
+      "keyFacts": [
+        "r² = 49 → r = 7",
+        "C = 2π·7 = 14π",
+        "r bridges area and circumference",
+        "Don't confuse with area 14π"
+      ],
+      "example": {
+        "problem": "Area 49π; circumference?",
+        "steps": [
+          "r = 7",
+          "C = 14π → B"
+        ],
+        "answer": "B (14π)"
+      },
+      "traps": [
+        "Taking r=49 (skipped the square root)"
+      ],
+      "solveSteps": [
+        "1. r = √(Area/π)",
+        "2. C = 2πr"
+      ]
+    }
+  },
+  "367": {
+    "hint": "Sum = mean × count = 14·5 = 70.",
+    "theory": {
+      "title": "Statistics — Sum From Mean",
+      "icon": "📊",
+      "summary": "Sum = mean × number of values.",
+      "keyFacts": [
+        "Mean = 14, count = 5",
+        "Sum = 14·5",
+        "= 70",
+        "Inverse of mean = sum/count"
+      ],
+      "example": {
+        "problem": "Mean of 5 numbers is 14; sum?",
+        "steps": [
+          "14·5",
+          "= 70 → C"
+        ],
+        "answer": "C (70)"
+      },
+      "traps": [
+        "Dividing instead of multiplying"
+      ],
+      "solveSteps": [
+        "1. Sum = mean·count"
+      ]
+    }
+  },
+  "368": {
+    "hint": "Even count (6): median = avg of 3rd & 4th = (7+11)/2 = 9.",
+    "theory": {
+      "title": "Statistics — Median, Even Count",
+      "icon": "📊",
+      "summary": "Sorted set of 6 → median = mean of positions 3 and 4.",
+      "keyFacts": [
+        "Already sorted: 2,5,7,11,13,16",
+        "Middle positions: 3rd=7, 4th=11",
+        "Median = (7+11)/2 = 9",
+        "Not a member of the set"
+      ],
+      "example": {
+        "problem": "Median of {2,5,7,11,13,16}?",
+        "steps": [
+          "Middle two: 7, 11",
+          "(7+11)/2 = 9 → C"
+        ],
+        "answer": "C (9)"
+      },
+      "traps": [
+        "Picking a single middle element (7 or 11)"
+      ],
+      "solveSteps": [
+        "1. Sort, find n",
+        "2. Even → average the two middles"
+      ]
+    }
+  },
+  "369": {
+    "hint": "Face cards = 12 (J,Q,K × 4 suits). 12/52 = 3/13.",
+    "theory": {
+      "title": "Probability — Face Cards in a Deck",
+      "icon": "🎲",
+      "summary": "12 face cards (Jack, Queen, King in each of 4 suits) out of 52.",
+      "keyFacts": [
+        "3 face ranks × 4 suits = 12",
+        "P = 12/52",
+        "Simplify: 12/52 = 3/13",
+        "Aces are NOT face cards"
+      ],
+      "example": {
+        "problem": "P(face card) from 52?",
+        "steps": [
+          "12 face cards",
+          "12/52 = 3/13 → A"
+        ],
+        "answer": "A (3/13)"
+      },
+      "traps": [
+        "Counting aces as face cards (would give 16)"
+      ],
+      "solveSteps": [
+        "1. Count favorable (12)",
+        "2. ÷52, simplify"
+      ]
+    }
+  },
+  "370": {
+    "hint": "C(8,2) = 8·7/2 = 28.",
+    "theory": {
+      "title": "Counting — Unordered Pair Selection",
+      "icon": "🔢",
+      "summary": "Picking 2 from 8 (order irrelevant) = C(8,2) = 8·7/2.",
+      "keyFacts": [
+        "C(8,2) = 8!/(2!·6!)",
+        "= (8·7)/2",
+        "= 28",
+        "Order doesn't matter → combination"
+      ],
+      "example": {
+        "problem": "Ways to pick 2 from 8?",
+        "steps": [
+          "8·7/2",
+          "= 28 → C"
+        ],
+        "answer": "C (28)"
+      },
+      "traps": [
+        "Using 8·7=56 (that's ordered, P(8,2))"
+      ],
+      "solveSteps": [
+        "1. Unordered selection → C(n,k)",
+        "2. C(n,2) = n(n−1)/2"
+      ]
+    }
   }
 };
 
