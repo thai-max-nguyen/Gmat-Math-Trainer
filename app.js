@@ -1835,6 +1835,12 @@
     // 1. Use explicit per-question hint if author provided one
     if (q.hint && q.hint.trim()) return q.hint.trim();
 
+    // 1b. Per-question hint table (data/question_theories.js)
+    if (typeof window !== 'undefined' && window.QUESTION_THEORIES && q.id != null) {
+      const entry = window.QUESTION_THEORIES[q.id];
+      if (entry && entry.hint && entry.hint.trim()) return entry.hint.trim();
+    }
+
     // 2. Extract a strategic nudge from the explanation (without revealing the answer)
     const expl = (q.explanation || '').trim();
     if (expl) {

@@ -2447,13 +2447,20 @@ function getTheory(topic, subtopic) {
   return GMAT_THEORIES['default'];
 }
 
-// Per-question theory resolver. Merges q.theory over topic theory key-by-key,
+// Per-question theory resolver. Merges override over topic theory key-by-key,
 // so a question can override summary/keyFacts/example/traps/solveSteps independently.
-// Schema for q.theory: { title?, icon?, summary?, keyFacts?[], example?{problem,steps,answer}, traps?[], solveSteps?[] }
+// Override sources (first wins):
+//   1. q.theory  — inline on the question object (legacy / hand-authored)
+//   2. window.QUESTION_THEORIES[q.id].theory  — central per-question table
+// Schema: { title?, icon?, summary?, keyFacts?[], example?{problem,steps,answer}, traps?[], solveSteps?[] }
 function resolveTheory(q) {
   const base = (q && getTheory(q.topic, q.subtopic)) || GMAT_THEORIES['default'];
-  if (!q || !q.theory) return base;
-  return Object.assign({}, base, q.theory);
+  if (!q) return base;
+  const fromQ = q.theory;
+  const table = (typeof window !== 'undefined' && window.QUESTION_THEORIES) ? window.QUESTION_THEORIES : null;
+  const fromTable = (table && q.id != null && table[q.id]) ? table[q.id].theory : null;
+  const override = fromQ || fromTable || null;
+  return override ? Object.assign({}, base, override) : base;
 }
 
 if (typeof window !== 'undefined') {
