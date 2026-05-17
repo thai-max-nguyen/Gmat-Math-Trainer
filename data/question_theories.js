@@ -11274,7 +11274,8 @@ const QUESTION_THEORIES = {
         "Dividing instead of multiplying"
       ],
       "solveSteps": [
-        "1. Sum = mean·count"
+        "1. Recall mean = sum/count",
+        "2. Rearrange → sum = mean·count"
       ]
     }
   },
