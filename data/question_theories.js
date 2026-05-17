@@ -11365,6 +11365,587 @@ const QUESTION_THEORIES = {
         "2. C(n,2) = n(n−1)/2"
       ]
     }
+  },
+  "371": {
+    "hint": "3x−5<13 → 3x<18 → x<6. Strict → largest integer = 5.",
+    "theory": {
+      "title": "Inequalities — Largest Integer Under a Strict Bound",
+      "icon": "🔢",
+      "summary": "Solve normally; a strict < means the bound itself is excluded, so the largest integer is one below it.",
+      "keyFacts": [
+        "3x − 5 < 13 → 3x < 18 → x < 6",
+        "Strict < 6 → x = 6 NOT allowed",
+        "Largest integer satisfying x<6 is 5",
+        "Divide by +3 keeps direction"
+      ],
+      "example": {
+        "problem": "3x−5<13; largest integer x?",
+        "steps": [
+          "3x < 18 → x < 6",
+          "Strict → largest integer = 5 → B"
+        ],
+        "answer": "B (5)"
+      },
+      "traps": [
+        "Answering 6 (would need ≤, but it's strict <)"
+      ],
+      "solveSteps": [
+        "1. Isolate x",
+        "2. Strict bound → take next integer below"
+      ]
+    }
+  },
+  "372": {
+    "hint": "|x−4|=3 → x−4=±3 → x=7 or 1.",
+    "theory": {
+      "title": "Absolute Value — Two-Case Equation",
+      "icon": "🔢",
+      "summary": "|A|=k splits into A=k and A=−k. Solve both.",
+      "keyFacts": [
+        "x−4 = 3 → x = 7",
+        "x−4 = −3 → x = 1",
+        "Two solutions: 1 and 7",
+        "Both are 3 units from 4 on the number line"
+      ],
+      "example": {
+        "problem": "|x−4|=3; x?",
+        "steps": [
+          "x−4 = ±3",
+          "x = 7 or 1 → A"
+        ],
+        "answer": "A (1 or 7)"
+      },
+      "traps": [
+        "Giving only x=7 (dropping the negative case)"
+      ],
+      "solveSteps": [
+        "1. Split into A=k and A=−k",
+        "2. Solve each branch"
+      ]
+    }
+  },
+  "373": {
+    "hint": "(2³)²=2⁶; 2⁶·2⁻⁴ = 2² = 4.",
+    "theory": {
+      "title": "Exponents — Power of a Power, Then Add",
+      "icon": "🔢",
+      "summary": "(aᵐ)ⁿ = aᵐⁿ; multiplying same bases adds exponents.",
+      "keyFacts": [
+        "(2³)² = 2^(3·2) = 2⁶",
+        "2⁶ · 2⁻⁴ = 2^(6−4) = 2²",
+        "= 4",
+        "Power-of-power multiplies; product adds"
+      ],
+      "example": {
+        "problem": "(2³)²·2⁻⁴?",
+        "steps": [
+          "2⁶ · 2⁻⁴",
+          "= 2² = 4 → C"
+        ],
+        "answer": "C (4)"
+      },
+      "traps": [
+        "Adding 3+2 for the power-of-power (should multiply → 6)"
+      ],
+      "solveSteps": [
+        "1. (aᵐ)ⁿ → aᵐⁿ",
+        "2. Same base product → add exponents"
+      ]
+    }
+  },
+  "374": {
+    "hint": "√72 = √(36·2) = 6√2. Pull the largest perfect square.",
+    "theory": {
+      "title": "Roots — Simplify a Radical",
+      "icon": "🔢",
+      "summary": "Factor out the largest perfect square, take its root outside.",
+      "keyFacts": [
+        "72 = 36 · 2 (36 is the largest perfect-square factor)",
+        "√72 = √36 · √2",
+        "= 6√2",
+        "Not 8√2 (that's √128)"
+      ],
+      "example": {
+        "problem": "Simplify √72.",
+        "steps": [
+          "72 = 36·2",
+          "√36·√2 = 6√2 → A"
+        ],
+        "answer": "A (6√2)"
+      },
+      "traps": [
+        "Using 9·8 → 3√8 (not fully simplified)"
+      ],
+      "solveSteps": [
+        "1. Largest perfect-square factor",
+        "2. Root it out front"
+      ]
+    }
+  },
+  "375": {
+    "hint": "Midpoint = ((2+8)/2,(−3+5)/2) = (5,1).",
+    "theory": {
+      "title": "Coordinate — Midpoint Formula",
+      "icon": "📐",
+      "summary": "Midpoint = average of the x's and average of the y's.",
+      "keyFacts": [
+        "x: (2+8)/2 = 5",
+        "y: (−3+5)/2 = 1",
+        "Midpoint = (5, 1)",
+        "Mind the negative in the y-average"
+      ],
+      "example": {
+        "problem": "Midpoint of (2,−3) and (8,5)?",
+        "steps": [
+          "x = 5",
+          "y = 1 → (5,1) → A"
+        ],
+        "answer": "A ((5, 1))"
+      },
+      "traps": [
+        "Subtracting instead of averaging (that's the distance/slope path)"
+      ],
+      "solveSteps": [
+        "1. Average the x-coordinates",
+        "2. Average the y-coordinates"
+      ]
+    }
+  },
+  "376": {
+    "hint": "Slope = (11−2)/(4−1) = 9/3 = 3.",
+    "theory": {
+      "title": "Coordinate — Slope From Two Points",
+      "icon": "📐",
+      "summary": "Slope = Δy/Δx with consistent order.",
+      "keyFacts": [
+        "Δy = 11 − 2 = 9",
+        "Δx = 4 − 1 = 3",
+        "Slope = 9/3 = 3",
+        "Same order top and bottom"
+      ],
+      "example": {
+        "problem": "Slope through (1,2),(4,11)?",
+        "steps": [
+          "Δy/Δx = 9/3",
+          "= 3 → C"
+        ],
+        "answer": "C (3)"
+      },
+      "traps": [
+        "Inverting to 3/9 = 1/3"
+      ],
+      "solveSteps": [
+        "1. Δy and Δx in matching order",
+        "2. Divide"
+      ]
+    }
+  },
+  "377": {
+    "hint": "Rate = 180/3 = 60 mph; 60·5 = 300.",
+    "theory": {
+      "title": "Rate — Constant Speed Extrapolation",
+      "icon": "🚗",
+      "summary": "Find the rate from the given trip, then distance = rate × new time.",
+      "keyFacts": [
+        "Rate = 180/3 = 60 mph",
+        "Distance in 5 h = 60·5",
+        "= 300 mi",
+        "Same rate assumed"
+      ],
+      "example": {
+        "problem": "180 mi in 3 h; distance in 5 h?",
+        "steps": [
+          "Rate = 60 mph",
+          "60·5 = 300 → C"
+        ],
+        "answer": "C (300)"
+      },
+      "traps": [
+        "Adding 180 + something instead of rescaling by rate"
+      ],
+      "solveSteps": [
+        "1. Rate = distance/time",
+        "2. New distance = rate·new time"
+      ]
+    }
+  },
+  "378": {
+    "hint": "0.75·P = 90 → P = 120 (divide, don't add 25%).",
+    "theory": {
+      "title": "Percents — Reverse a Discount",
+      "icon": "💰",
+      "summary": "Sale price = (1−rate)·original. Divide the sale price by (1−rate) to recover the original.",
+      "keyFacts": [
+        "25% off → pay 75% → 0.75·P = 90",
+        "P = 90 / 0.75 = 120",
+        "Divide by 0.75, not ×1.25",
+        "Check: 25% of 120 = 30, 120−30 = 90 ✓"
+      ],
+      "example": {
+        "problem": "25% off → $90; original?",
+        "steps": [
+          "0.75·P = 90",
+          "P = 120 → C"
+        ],
+        "answer": "C ($120)"
+      },
+      "traps": [
+        "Adding 25% of 90 = 112.50 (wrong base)"
+      ],
+      "solveSteps": [
+        "1. Sale = (1−rate)·orig",
+        "2. orig = sale/(1−rate)"
+      ]
+    }
+  },
+  "379": {
+    "hint": "I = P·r·t = 1000·0.05·3 = 150.",
+    "theory": {
+      "title": "Interest — Simple Interest Formula",
+      "icon": "💰",
+      "summary": "Simple interest = principal × rate × time, on the original principal only.",
+      "keyFacts": [
+        "P=1000, r=0.05, t=3",
+        "I = 1000·0.05·3",
+        "= 150",
+        "Simple ≠ compound (no interest on interest)"
+      ],
+      "example": {
+        "problem": "$1000 at 5% simple, 3 yr interest?",
+        "steps": [
+          "1000·0.05 = 50/yr",
+          "·3 = 150 → C"
+        ],
+        "answer": "C ($150)"
+      },
+      "traps": [
+        "Compounding → ~157.63 (the decoy D)"
+      ],
+      "solveSteps": [
+        "1. I = P·r·t",
+        "2. Distinguish from compound"
+      ]
+    }
+  },
+  "380": {
+    "hint": "Salt = 4 L fixed; 4/(8+w)=0.4 → w=2.",
+    "theory": {
+      "title": "Mixtures — Dilute to a Target %",
+      "icon": "⚗️",
+      "summary": "Salt stays constant; set salt/(original+water) = target and solve for water.",
+      "keyFacts": [
+        "Salt = 50% of 8 = 4 L (constant)",
+        "4 / (8+w) = 0.40",
+        "8+w = 10 → w = 2",
+        "Only water is added"
+      ],
+      "example": {
+        "problem": "8 L of 50% salt → 40%; water to add?",
+        "steps": [
+          "Salt = 4 L",
+          "4/(8+w)=0.4 → w=2 → C"
+        ],
+        "answer": "C (2)"
+      },
+      "traps": [
+        "Changing the salt amount — only volume grows"
+      ],
+      "solveSteps": [
+        "1. Solute = const",
+        "2. solute/(orig+w)=target → solve w"
+      ]
+    }
+  },
+  "381": {
+    "hint": "Converging → add speeds: 12+18=30. t = 90/30 = 3.",
+    "theory": {
+      "title": "Rate — Converging From Opposite Ends",
+      "icon": "🚴",
+      "summary": "Two bodies moving toward each other close the gap at the SUM of speeds.",
+      "keyFacts": [
+        "Closing rate = 12 + 18 = 30 mph",
+        "Gap = 90 mi",
+        "t = 90 / 30 = 3 h",
+        "Add speeds (not subtract) when converging"
+      ],
+      "example": {
+        "problem": "90 mi apart, 12 & 18 mph toward each other; meet time?",
+        "steps": [
+          "Combined = 30 mph",
+          "90/30 = 3 → C"
+        ],
+        "answer": "C (3)"
+      },
+      "traps": [
+        "Using the speed difference (6 mph) — that's chasing"
+      ],
+      "solveSteps": [
+        "1. Converging → add speeds",
+        "2. t = distance / combined rate"
+      ]
+    }
+  },
+  "382": {
+    "hint": "A does 4/10 in 4 days; remaining 3/5 ÷ (1/10+1/15=1/6) = 3.6 days.",
+    "theory": {
+      "title": "Work — Head Start Then Combined",
+      "icon": "🛠️",
+      "summary": "Compute the solo portion done, then the remainder at the combined rate.",
+      "keyFacts": [
+        "A rate 1/10; 4 days → 4/10 = 2/5 done",
+        "Remaining = 3/5",
+        "Combined = 1/10 + 1/15 = 1/6 per day",
+        "t = (3/5)/(1/6) = 18/5 = 3.6 days"
+      ],
+      "example": {
+        "problem": "A(10d) solo 4d, then A+B(15d) together; more days?",
+        "steps": [
+          "Done 2/5, left 3/5",
+          "(3/5)/(1/6) = 3.6 → C"
+        ],
+        "answer": "C (3.6)"
+      },
+      "traps": [
+        "Forgetting the 4-day head start when computing the remainder"
+      ],
+      "solveSteps": [
+        "1. Solo work done",
+        "2. Remainder ÷ combined rate"
+      ]
+    }
+  },
+  "383": {
+    "hint": "0.8x + 0.3·20 = 0.5(x+20) → 0.3x=4 → x=40/3≈13.33.",
+    "theory": {
+      "title": "Mixtures — Solve the Unknown Volume",
+      "icon": "⚗️",
+      "summary": "Acid in = acid out. Set up the balance and solve the linear equation.",
+      "keyFacts": [
+        "0.8x + 0.3(20) = 0.5(x+20)",
+        "0.8x + 6 = 0.5x + 10",
+        "0.3x = 4 → x = 40/3 ≈ 13.33",
+        "Final concentration is between the two inputs"
+      ],
+      "example": {
+        "problem": "x L of 80% + 20 L of 30% → 50%; x?",
+        "steps": [
+          "0.8x+6 = 0.5x+10",
+          "0.3x=4 → 13.33 → C"
+        ],
+        "answer": "C (13.33)"
+      },
+      "traps": [
+        "Averaging 80 & 30 to 55 instead of volume-weighting"
+      ],
+      "solveSteps": [
+        "1. Acid_in = acid_out",
+        "2. Solve for x"
+      ]
+    }
+  },
+  "384": {
+    "hint": "Down=20/2=10, Up=20/4=5. Current=(10−5)/2=2.5.",
+    "theory": {
+      "title": "Rate — Current From Down/Up Times",
+      "icon": "🚤",
+      "summary": "Down = boat+current, up = boat−current. Current = (down−up)/2.",
+      "keyFacts": [
+        "Down speed = 20/2 = 10 km/h",
+        "Up speed = 20/4 = 5 km/h",
+        "Current = (10−5)/2 = 2.5",
+        "Boat = (10+5)/2 = 7.5"
+      ],
+      "example": {
+        "problem": "20 km down 2h, up 4h; current?",
+        "steps": [
+          "Down 10, up 5",
+          "(10−5)/2 = 2.5 → B"
+        ],
+        "answer": "B (2.5 km/h)"
+      },
+      "traps": [
+        "Reporting 10−5=5 (forgot to halve)"
+      ],
+      "solveSteps": [
+        "1. Down & up speeds = dist/time",
+        "2. current = (down−up)/2"
+      ]
+    }
+  },
+  "385": {
+    "hint": "S=2T−3 (3y ago); S+T=36 (in 7y) → T=13, S=23.",
+    "theory": {
+      "title": "Ages — Past Ratio + Future Sum",
+      "icon": "👥",
+      "summary": "Two equations: a past ratio (shift both back) and a future sum (shift both forward). Solve the system.",
+      "keyFacts": [
+        "3 yr ago: S−3 = 2(T−3) → S = 2T−3",
+        "In 7 yr: (S+7)+(T+7)=50 → S+T = 36",
+        "Sub: (2T−3)+T = 36 → T=13",
+        "S = 2·13−3 = 23"
+      ],
+      "example": {
+        "problem": "3y ago Sara=2·Tom; in 7y sum=50; Sara now?",
+        "steps": [
+          "S=2T−3 and S+T=36",
+          "T=13 → S=23 → D"
+        ],
+        "answer": "D (23)"
+      },
+      "traps": [
+        "Adding 7 to only one age in the future-sum equation"
+      ],
+      "solveSteps": [
+        "1. Shift ages for each time clause",
+        "2. Solve the 2-equation system"
+      ]
+    }
+  },
+  "386": {
+    "hint": "F=4S; F+20=2(S+20) → 2S=20 → S=10, F=40.",
+    "theory": {
+      "title": "Ages — Now Ratio + Future Ratio",
+      "icon": "👥",
+      "summary": "Write the current multiple and the future multiple (add the years to both), solve.",
+      "keyFacts": [
+        "Now: F = 4S",
+        "In 20 yr: F+20 = 2(S+20)",
+        "4S+20 = 2S+40 → 2S=20 → S=10",
+        "F = 4·10 = 40"
+      ],
+      "example": {
+        "problem": "Father 4× son; in 20y twice; father now?",
+        "steps": [
+          "4S+20 = 2(S+20)",
+          "S=10 → F=40 → C"
+        ],
+        "answer": "C (40)"
+      },
+      "traps": [
+        "Adding 20 to only the father"
+      ],
+      "solveSteps": [
+        "1. Now ratio equation",
+        "2. Future ratio with +years on both",
+        "3. Solve"
+      ]
+    }
+  },
+  "387": {
+    "hint": "1.6·0.75 = 1.20 → 20% profit.",
+    "theory": {
+      "title": "Percents — Markup Then Discount Compose",
+      "icon": "💰",
+      "summary": "Multiply the factors: markup ×1.6, discount ×0.75. Final/cost − 1 = profit rate.",
+      "keyFacts": [
+        "Marked = 1.60·C",
+        "After 25% off: ·0.75 → 1.6·0.75·C = 1.20·C",
+        "Profit = 1.20 − 1 = 0.20 → 20%",
+        "Different bases — don't do 60−25"
+      ],
+      "example": {
+        "problem": "60% markup, 25% discount; profit %?",
+        "steps": [
+          "1.6·0.75 = 1.20",
+          "→ 20% → B"
+        ],
+        "answer": "B (20%)"
+      },
+      "traps": [
+        "60% − 25% = 35% (mismatched bases)"
+      ],
+      "solveSteps": [
+        "1. Compose factors (1+m)(1−d)",
+        "2. Subtract 1 for profit rate"
+      ]
+    }
+  },
+  "388": {
+    "hint": "Doubles: P = P·r·8 → r = 1/8 = 12.5%.",
+    "theory": {
+      "title": "Interest — Rate to Double (Simple)",
+      "icon": "💰",
+      "summary": "To double, the interest equals the principal: P = P·r·t → r = 1/t.",
+      "keyFacts": [
+        "2P = P + P·r·8 → interest = P",
+        "P = P·r·8 → r = 1/8",
+        "r = 0.125 = 12.5%",
+        "Simple interest (linear), not the rule of 72"
+      ],
+      "example": {
+        "problem": "Doubles in 8 yr simple; rate?",
+        "steps": [
+          "Interest must equal P",
+          "r = 1/8 = 12.5% → C"
+        ],
+        "answer": "C (12.5%)"
+      },
+      "traps": [
+        "Using rule of 72 (≈9%) — that's for compound"
+      ],
+      "solveSteps": [
+        "1. Doubling → interest = P",
+        "2. r = 1/t"
+      ]
+    }
+  },
+  "389": {
+    "hint": "t = 2.5/6 h × 60 = 25 min.",
+    "theory": {
+      "title": "Rate — Time in Minutes",
+      "icon": "🏃",
+      "summary": "Time = distance/speed in hours, then ×60 for minutes.",
+      "keyFacts": [
+        "t = 2.5 / 6 h",
+        "= 5/12 h",
+        "×60 = 25 min",
+        "Convert hours → minutes at the end"
+      ],
+      "example": {
+        "problem": "6 mph, 2.5 mi; minutes?",
+        "steps": [
+          "2.5/6 = 5/12 h",
+          "×60 = 25 min → C"
+        ],
+        "answer": "C (25)"
+      },
+      "traps": [
+        "Leaving the answer in hours (5/12 ≈ 0.42)"
+      ],
+      "solveSteps": [
+        "1. t = d/s (hours)",
+        "2. ×60 → minutes"
+      ]
+    }
+  },
+  "390": {
+    "hint": "7 min 30 s = 7.5 min. 24·7.5 = 180.",
+    "theory": {
+      "title": "Rate — Convert Mixed Time First",
+      "icon": "🖨️",
+      "summary": "Convert 30 s to 0.5 min, then output = rate × total minutes.",
+      "keyFacts": [
+        "30 s = 0.5 min → total 7.5 min",
+        "24 pages/min · 7.5",
+        "= 180 pages",
+        "Convert seconds before multiplying"
+      ],
+      "example": {
+        "problem": "24 ppm for 7 min 30 s; pages?",
+        "steps": [
+          "7.5 min",
+          "24·7.5 = 180 → C"
+        ],
+        "answer": "C (180)"
+      },
+      "traps": [
+        "Using 7 min (→168) or treating 30 as 0.3 min"
+      ],
+      "solveSteps": [
+        "1. Convert seconds to a minute fraction",
+        "2. rate × total minutes"
+      ]
+    }
   }
 };
 
