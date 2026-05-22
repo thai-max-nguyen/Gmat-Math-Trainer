@@ -8,11 +8,15 @@ const ROOT = path.resolve(__dirname, '..', '..');
 const QTFILE = path.join(ROOT, 'data', 'question_theories.js');
 const OK_DIR = '/tmp/gmat_theories/ok';
 
-// 1. Load existing QUESTION_THEORIES from the current file (so we preserve 63-72)
-const cur = fs.readFileSync(QTFILE, 'utf8');
-const mObj = cur.match(/const QUESTION_THEORIES = (\{[\s\S]*?\});/);
-if (!mObj) { console.error('cannot find QUESTION_THEORIES literal'); process.exit(1); }
-const existing = JSON.parse(mObj[1]);
+// 1. Load existing QUESTION_THEORIES by executing the module (robust vs. regex —
+//    the data legitimately contains `});` substrings that broke a lazy match).
+const existing = (() => {
+  const src = fs.readFileSync(QTFILE, 'utf8');
+  const Module = require('module');
+  const m = new Module(QTFILE);
+  m._compile(`${src}\nmodule.exports = { QUESTION_THEORIES };`, QTFILE);
+  return { ...m.exports.QUESTION_THEORIES };
+})();
 console.error(`existing entries: ${Object.keys(existing).length}`);
 
 // 2. Load all ok files
