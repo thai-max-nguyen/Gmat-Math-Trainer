@@ -16208,6 +16208,4008 @@ const QUESTION_THEORIES = {
       ]
     }
   },
+  "503": {
+    "hint": "Causal argument from correlation → strongest support eliminates the obvious alternative cause. Ask: could a pre-existing difference explain the gap?",
+    "theory": {
+      "title": "CR Strengthen — Ruling Out Alternative Causes",
+      "icon": "🔗",
+      "summary": "Causal arguments infer X causes Y from correlation data. The best strengthener closes the most plausible rival explanation, showing the data isn't just selection bias.",
+      "keyFacts": [
+        "Strengthen = make conclusion MORE likely true, given the premises",
+        "Causal argument's chief vulnerability: correlation may reflect a pre-existing difference, not the cause",
+        "Eliminating the alternative cause is the strongest strengthen move",
+        "'Controlled for confounders' = both groups were similar BEFORE the treatment",
+        "Weakeners introduce new alternative explanations; strengtheners remove them",
+        "Irrelevant facts (UI quality, company metrics) never affect argument validity"
+      ],
+      "example": {
+        "problem": "Teams using Tool X finished 20% faster. Company concludes: Tool X causes faster completion. What strengthens this?",
+        "steps": [
+          "Identify conclusion: Tool X → faster completion (causal)",
+          "Identify gap: maybe faster teams simply chose the tool (selection bias)",
+          "Strengthener must close that gap",
+          "'Both groups had similar size and experience' → rules out selection bias",
+          "Now the 20% gap is more plausibly explained by the tool itself"
+        ],
+        "answer": "The answer that confirms adopters and non-adopters were comparable before the tool — removing selection bias as a rival explanation."
+      },
+      "traps": [
+        "Picking an answer about the tool's features (UI, design) — irrelevant to whether it caused the outcome",
+        "Ignoring selection bias: if top teams self-select into the tool, faster completion has nothing to do with the tool",
+        "'Some teams used it occasionally' (C) actually weakens — suggests inconsistent adoption muddies the causal story",
+        "Company values or metrics (E) don't affect whether the causal link is valid"
+      ],
+      "solveSteps": [
+        "1. Identify: is this a causal argument from correlation?",
+        "2. Find the gap: what alternative explanation undermines the cause?",
+        "3. Pick the answer that eliminates that alternative (makes rival explanation impossible)",
+        "4. Eliminate: feature descriptions, company values, and partial-use data — all irrelevant or weakening",
+        "5. Confirm: does your choice make the conclusion MORE likely true?"
+      ]
+    }
+  },
+  "504": {
+    "hint": "Argument leaps from correlation to causation — look for the answer that eliminates self-selection or reverse causation as alternative explanations.",
+    "theory": {
+      "title": "CR Strengthen — Closing the Causal Gap",
+      "icon": "🔗",
+      "summary": "Correlation alone doesn't prove causation. A strengthen answer must rule out confounds, reverse causation, or coincidence — not just pile on more correlation.",
+      "keyFacts": [
+        "Causal argument = needs to show A causes B, not just A and B co-occur",
+        "Biggest threats: self-selection (productive people choose breakfast), reverse causation (productivity drives habits)",
+        "Randomized controlled trial (RCT) is the gold-standard fix: random assignment eliminates self-selection",
+        "Strengthen = close the gap between evidence and conclusion; don't restate the evidence",
+        "Irrelevant facts (sales data, lunch habits) neither strengthen nor weaken — eliminate fast",
+        "Harder-to-measure outcomes don't weaken a study that already measured them"
+      ],
+      "example": {
+        "problem": "Breakfast-eaters are more productive. Therefore breakfast causes productivity. Which fact most strengthens this?",
+        "steps": [
+          "Identify the causal claim: breakfast → productivity",
+          "Identify the gap: observed correlation could be self-selection (productive people happen to eat breakfast)",
+          "Need: evidence that removes alternative explanations",
+          "RCT with random assignment: removes self-selection by design — groups only differ in breakfast",
+          "Conclusion: productivity rose in the assigned-breakfast group → causal link supported"
+        ],
+        "answer": "A — the RCT with random assignment eliminates self-selection, the main threat to the causal claim"
+      },
+      "traps": [
+        "Picking answers that merely restate or extend the correlation (still no causation)",
+        "Sugar content, lunch habits, cereal sales — all irrelevant to the causal mechanism",
+        "'Hard to measure' weakens, not strengthens — avoid",
+        "Confusing 'more evidence of correlation' with 'evidence of causation'"
+      ],
+      "solveSteps": [
+        "1. Identify the argument structure: evidence → causal conclusion",
+        "2. Name the gap: correlation ≠ causation; what alternative explains the data?",
+        "3. Ask: which answer blocks that alternative (self-selection, reverse causation, coincidence)?",
+        "4. RCT / random assignment = instant red flag for 'closes causal gap'",
+        "5. Eliminate irrelevant or off-topic facts quickly — GMAT CR rewards precision"
+      ]
+    }
+  },
+  "505": {
+    "hint": "Causal claim needs isolation — look for evidence that rules out confounding factors and ties the outcome specifically to the program.",
+    "theory": {
+      "title": "Causal CR — Strengthen via Isolation",
+      "icon": "🔬",
+      "summary": "A causal conclusion is only as strong as its isolation from alternative explanations. The best strengthener shows the cause, not background noise, drove the effect.",
+      "keyFacts": [
+        "Causal claim structure: X happened → Y happened → X caused Y",
+        "Strengthen a causal claim by: ruling out alternatives, providing a control group, or showing correlation tracks causation",
+        "Control group comparison ('members vs non-members same period') is the gold-standard strengthener",
+        "Temporal coincidence alone is weak — many things change at once",
+        "Irrelevant true facts (revenue importance, industry norms, future plans) add zero causal support",
+        "Watch for choices that introduce confounders instead of removing them"
+      ],
+      "example": {
+        "problem": "Retailer launches loyalty program; repeat purchases rise 15% next quarter. Retailer claims the program caused the rise. Which choice strengthens this?",
+        "steps": [
+          "Identify the causal claim: loyalty program → more repeat purchases",
+          "Ask: what could weaken it? Store remodels, seasonal trends, economic uptick — all alternative causes",
+          "A control group (members vs non-members, same quarter) holds all background factors constant",
+          "If members outperform non-members in the same period, background factors are neutralized",
+          "This is the only choice that isolates the program's effect"
+        ],
+        "answer": "A — members outperforming non-members in the same period controls for confounders and directly supports the causal link"
+      },
+      "traps": [
+        "'Repeat purchases drive revenue' — true but irrelevant; supports caring about the metric, not the causal claim",
+        "'Other retailers use loyalty programs' — common ≠ effective; no causal link established",
+        "'Store remodels happened' — actually a weakener (alternative cause), not a strengthener",
+        "Future expansion plans say nothing about whether the program worked"
+      ],
+      "solveSteps": [
+        "1. Identify the causal claim: what is said to cause what?",
+        "2. Spot the gap: what alternative explanations exist?",
+        "3. Look for a choice that rules out alternatives or provides a comparison group",
+        "4. Eliminate choices that are true but don't touch the causal link",
+        "5. The winner isolates the program's effect from background factors"
+      ]
+    }
+  },
+  "506": {
+    "hint": "Argument jumps from correlation to causation. What evidence would close that gap and rule out 'smarter kids just choose strategy games'?",
+    "theory": {
+      "title": "Correlation → Causation — Strengthening Causal Arguments",
+      "icon": "🔗",
+      "summary": "Observational data shows correlation, not causation. To strengthen a causal claim, supply evidence that eliminates reverse causation and confounding variables — ideally a controlled experiment.",
+      "keyFacts": [
+        "Correlation ≠ causation: a third factor (confounder) may cause both observed variables",
+        "Reverse causation: maybe logical thinkers are *drawn* to strategy games, not made logical by them",
+        "Strongest strengthen = controlled experiment where only the proposed cause is manipulated",
+        "Randomized assignment neutralizes self-selection bias — the biggest threat to observational studies",
+        "Weakeners often introduce alternative causes (confounders); strengtheners eliminate them",
+        "Pre/post design with control group is near-definitive causal evidence"
+      ],
+      "example": {
+        "problem": "Teens who play strategy games score higher on logic tests than non-gamers. Therefore strategy games improve logic. Which strengthens?",
+        "steps": [
+          "Identify the causal claim: games → better logic",
+          "Identify the gap: maybe smarter/richer kids self-select into gaming",
+          "Ask: what evidence closes the gap?",
+          "A controlled study where non-gamers are assigned to play and scores rise = eliminates self-selection",
+          "That directly shows games caused the improvement, not pre-existing traits"
+        ],
+        "answer": "Controlled experiment showing non-gamers improve after playing — causal link established, self-selection removed"
+      },
+      "traps": [
+        "Popularity or demographics of gamers is irrelevant to causation",
+        "A confounder (e.g., income, prior ability) actually WEAKENS by offering an alternative cause",
+        "Irrelevant details about the games' content or test usage do nothing to the argument",
+        "Strengthen ≠ 'sounds related' — must directly address the causal gap"
+      ],
+      "solveSteps": [
+        "1. Identify claim type: causal (X causes Y)",
+        "2. Find the logical gap: correlation alone, self-selection possible?",
+        "3. Ask: does this choice eliminate an alternative explanation or add direct causal evidence?",
+        "4. Eliminate choices that are irrelevant or introduce alternative causes (those weaken)",
+        "5. Select the choice that most directly supports X→Y under controlled conditions"
+      ]
+    }
+  },
+  "507": {
+    "hint": "The comparison only proves causation if both groups faced equal flu exposure. Which choice removes an alternative explanation for the rate gap?",
+    "theory": {
+      "title": "CR Strengthen — Eliminating Confounders",
+      "icon": "🔍",
+      "summary": "Strengthen questions ask: what closes the gap between evidence and conclusion? For causal/comparison arguments, the biggest gap is a confounding variable — another explanation that fits the same data.",
+      "keyFacts": [
+        "Argument structure: Evidence → [GAP/ASSUMPTION] → Conclusion",
+        "Strengthener = closes the gap, supports a hidden assumption, or kills an alternative explanation",
+        "Causal argument weakness: correlation ≠ causation — confounders may explain the data differently",
+        "Eliminating a confounder is the strongest move for comparison studies",
+        "Topic-adjacent facts (cost, dosage, official endorsements) cannot strengthen an efficacy claim",
+        "Test each choice: 'Does this make the conclusion MORE likely to be true?'"
+      ],
+      "example": {
+        "problem": "Vaccinated group: 1% flu rate. Unvaccinated: 8% flu rate. Conclusion: the vaccine is effective. What strengthens this?",
+        "steps": [
+          "Identify conclusion: vaccine CAUSED the lower flu rate",
+          "Identify the gap: maybe vaccinated people simply avoided exposure — selection bias",
+          "A strengthener must close that gap, not just sound positive about vaccines",
+          "Equal flu exposure in both groups → difference in infection must be due to the vaccine itself",
+          "Cost, side effects, dosage form are irrelevant to whether the vaccine caused fewer infections"
+        ],
+        "answer": "Equal flu-exposure rates in both groups — eliminates the main alternative explanation and directly supports the causal claim"
+      },
+      "traps": [
+        "Picking answers that sound vaccine-positive but don't address the comparison gap",
+        "Confusing 'related to topic' with 'actually strengthens the logic'",
+        "Assuming cost or dosage convenience implies biological efficacy",
+        "Forgetting that official recommendations are opinions, not evidence of causation"
+      ],
+      "solveSteps": [
+        "1. Pinpoint the conclusion — what is the author claiming?",
+        "2. Identify the gap: what must be assumed for evidence to prove the conclusion?",
+        "3. For comparison studies: ask 'what confounding variable could explain this data instead?'",
+        "4. Correct answer eliminates that confounder OR directly supports the mechanism",
+        "5. Eliminate choices that address a different gap or are merely topic-adjacent"
+      ]
+    }
+  },
+  "508": {
+    "hint": "Causal conclusion needs elimination of alternatives. Which choice rules out other explanations and shows the change caused the effect?",
+    "theory": {
+      "title": "Strengthening Causal Arguments — Controlled Comparison",
+      "icon": "🔬",
+      "summary": "A causal conclusion (X caused Y) is weak when alternative causes exist. Strengthen it by showing: same effect follows X elsewhere, AND the effect is absent where X is absent.",
+      "keyFacts": [
+        "Causal arg structure: Event X happened → Result Y happened → X caused Y",
+        "Core flaw: correlation ≠ causation; other factors could explain Y",
+        "Strongest strengthen: controlled comparison (same Y with X, no Y without X)",
+        "Second-best strengthen: eliminates a specific alternative cause",
+        "Irrelevant: facts about X unrelated to its effect on Y (cost, durability)",
+        "New alternative cause in an answer choice WEAKENS, never strengthens"
+      ],
+      "example": {
+        "problem": "School switched to LED lights; scores rose 8%. Principal claims LEDs cause better performance. What strengthens this?",
+        "steps": [
+          "Identify the causal claim: LED switch → score increase",
+          "Spot the gap: could be a confound (new principal, curriculum change, etc.)",
+          "Best strengthen: show the pattern holds across schools — ones that switched improved, ones that didn't stayed flat",
+          "This rules out school-specific factors and anchors the cause to the LED switch",
+          "Eliminate wrong choices: energy savings and bulb life are irrelevant to academic performance"
+        ],
+        "answer": "Controlled comparison across multiple schools — same effect where X present, no effect where X absent"
+      },
+      "traps": [
+        "Choosing a choice that sounds positive about LEDs but doesn't connect to academic performance (energy, longevity)",
+        "Missing that a new principal (D) introduces an ALTERNATIVE cause — this weakens",
+        "Ignoring that score fluctuation (E) weakens by suggesting the change is noise",
+        "Confusing 'strengthens the subject' with 'strengthens the argument'"
+      ],
+      "solveSteps": [
+        "1. Identify the causal claim: what is said to cause what?",
+        "2. Spot the logical gap: what alternative explanations exist?",
+        "3. Look for a choice that eliminates alternatives OR shows cause-effect pattern holds elsewhere",
+        "4. Eliminate: irrelevant facts about X, new alternative causes, general noise facts",
+        "5. Pick the choice that makes the original cause the most likely explanation"
+      ]
+    }
+  },
+  "509": {
+    "hint": "Argument leaps from correlation to cause. Strengthen = close that gap. What eliminates the rival explanation that calmer people simply choose yoga?",
+    "theory": {
+      "title": "CR Strengthen — Closing the Causal Gap",
+      "icon": "🔗",
+      "summary": "A Strengthen question asks: what new fact makes the conclusion MORE likely true? First find the argument's logical gap; the right answer bridges it.",
+      "keyFacts": [
+        "Strengthen ≠ prove. It just tips the scale toward the conclusion.",
+        "Correlation → causation arguments are vulnerable to reverse causation and confounders.",
+        "Reverse causation trap: maybe X causes Y is backwards — Y causes X.",
+        "Confounder trap: a third factor Z causes both X and Y, so X↔Y is spurious.",
+        "Randomized controlled trial (RCT) is the gold standard: random assignment eliminates selection bias and confounders.",
+        "Irrelevant true facts (history, credentials, unrelated stats) do NOT strengthen."
+      ],
+      "example": {
+        "problem": "Gym: yoga attendees have lower stress → yoga reduces stress. What strengthens this?",
+        "steps": [
+          "Identify conclusion: yoga CAUSES stress reduction",
+          "Identify gap: maybe low-stress people self-select into yoga (selection bias)",
+          "To strengthen, need evidence that yoga itself causes the drop, not selection",
+          "An RCT randomly assigns yoga vs. no-yoga → selection bias eliminated",
+          "Lower stress in yoga group under RCT = causal evidence"
+        ],
+        "answer": "The RCT answer — random assignment rules out self-selection, directly supporting the causal claim."
+      },
+      "traps": [
+        "'Yoga practiced for thousands of years' — historical fact, irrelevant to causation",
+        "'Trained instructors' — quality claim, doesn't address whether yoga causes anything",
+        "'Stress causes illness' — consequence of stress, not about yoga's effect",
+        "Any answer that is merely descriptive or off-topic earns no strengthening credit"
+      ],
+      "solveSteps": [
+        "1. Locate the conclusion (the 'therefore' claim)",
+        "2. Find the logical gap or flaw — usually correlation/causation, missing data, or scope shift",
+        "3. Ask: which answer, if TRUE, makes that gap smaller?",
+        "4. Eliminate: history, credentials, tangential facts, consequences of unrelated things",
+        "5. Pick the answer that directly addresses the gap identified in step 2"
+      ]
+    }
+  },
+  "510": {
+    "hint": "Ask which choice closes the gap between correlation and causation — ruling out alternative explanations is the strongest move.",
+    "theory": {
+      "title": "Strengthen — Ruling Out Confounders",
+      "icon": "🔬",
+      "summary": "Correlation studies invite the 'third-variable' attack: maybe healthier people drink green tea. The strongest strengthener eliminates that escape route, leaving the target cause as the best remaining explanation.",
+      "keyFacts": [
+        "Strengthen = make the conclusion MORE likely to be true, not prove it",
+        "Causal arguments are vulnerable to confounders — third variables that explain both sides",
+        "Best strengtheners eliminate alternative explanations or supply a mechanism",
+        "Controlling for lifestyle/demographics is the gold standard for observational-study defense",
+        "Irrelevant descriptive facts (popularity, related substances, disease prevalence) don't affect the causal chain",
+        "One strong confounder-killer > five tangential true facts"
+      ],
+      "example": {
+        "problem": "A study shows green-tea drinkers have 25% fewer heart-disease cases. Which finding best supports that green tea causes the difference?",
+        "steps": [
+          "Conclusion: daily green tea → reduced heart-disease risk",
+          "Vulnerability: maybe green-tea drinkers are healthier in other ways (diet, exercise, income)",
+          "Test each choice: does it close that gap or is it background noise?",
+          "Controlling for diet, exercise, smoking, income directly eliminates lifestyle as the driver",
+          "Gap narrowed → green tea is the best remaining explanation → conclusion strengthened"
+        ],
+        "answer": "Controlling for major confounders — when known lifestyle differences can't explain the gap, the tea itself is more likely the cause"
+      },
+      "traps": [
+        "Descriptive facts ('contains caffeine', 'widely consumed') don't address causality at all",
+        "Mixed results for a related product (black tea) neither help nor hurt green tea's case",
+        "Disease prevalence is background context — irrelevant to whether tea caused the observed difference",
+        "Don't confuse 'true' with 'relevant' — every wrong choice here is true but doesn't touch the argument"
+      ],
+      "solveSteps": [
+        "1. Identify: conclusion, evidence, and the gap between them",
+        "2. Ask: what's the weakest link? (confounders? reverse causation? sample bias?)",
+        "3. For each choice: does it close that vulnerability or is it tangential?",
+        "4. Eliminate choices that are descriptive, irrelevant, or address a different argument",
+        "5. Pick the choice that most directly shores up the weakest link"
+      ]
+    }
+  },
+  "511": {
+    "hint": "Find what seals the CAUSAL link. A control comparison — same period, no ban, no drop — rules out rival explanations and locks in the ban as the cause.",
+    "theory": {
+      "title": "CR Strengthen — Control-Group Evidence",
+      "icon": "🔬",
+      "summary": "Causal arguments are vulnerable to alternative explanations. The strongest strengthener eliminates rival causes — often by showing the effect disappears when the cause is absent.",
+      "keyFacts": [
+        "Strengthen = add a fact that makes the conclusion MORE likely true",
+        "Causal argument gap: correlation ≠ causation — something else may explain the change",
+        "Control-group evidence (same time, no intervention, no change) is the gold-standard strengthener",
+        "Pre-existing trend, outside event, or confound can all weaken causal claims — evidence ruling these out strengthens",
+        "Strengthen ≠ prove; it just tips the scale toward the conclusion",
+        "Irrelevant details (scope, prior behavior, infrastructure) neither strengthen nor weaken"
+      ],
+      "example": {
+        "problem": "City bans plastic bags; landfill plastic drops 12%. Mayor claims ban caused it. Which fact most strengthens?",
+        "steps": [
+          "Identify the conclusion: ban → 12% drop",
+          "Identify the gap: maybe plastic dropped everywhere (seasonal trend, recycling program, etc.)",
+          "Ask: what evidence would close that gap?",
+          "A control group with no ban AND no drop shows the ban is what made the difference",
+          "This rules out the rival 'it would have dropped anyway' explanation"
+        ],
+        "answer": "Neighboring cities without the ban saw no reduction — this is the control group that isolates the ban as the cause."
+      },
+      "traps": [
+        "Early adopters (B) actually weakens — the change may predate the ban",
+        "High prior usage (D) is background context, not causal evidence",
+        "Scope detail (E) doesn't address whether the ban caused the measured drop",
+        "Strengthen ≠ the most dramatic-sounding fact — look for what closes the logical gap"
+      ],
+      "solveSteps": [
+        "1. Identify conclusion and its ONE key logical gap",
+        "2. Ask: what rival explanation makes the conclusion less likely?",
+        "3. Find the choice that eliminates that rival explanation",
+        "4. Prefer control-group or before/after comparisons for causal claims",
+        "5. Eliminate choices that are irrelevant, out of scope, or accidentally weaken"
+      ]
+    }
+  },
+  "512": {
+    "hint": "Find what would make fiber MORE likely the cause. Eliminate answers that are background noise — only one answer rules out alternative explanations.",
+    "theory": {
+      "title": "CR Strengthen — Ruling Out Confounders",
+      "icon": "🔬",
+      "summary": "Comparative studies are threatened by confounders: other variables that could explain the difference. Eliminating key confounders makes the causal link more credible.",
+      "keyFacts": [
+        "Strengthen = raise probability that conclusion is true",
+        "Population comparison → biggest vulnerability = confounders (lurking variables)",
+        "Ruling out a confounder = 'it's not X causing the difference, so it's more likely Y'",
+        "Irrelevant facts (background, definitions, unrelated stats) = wrong answer traps",
+        "Scope check: answer must directly affect the specific causal claim, not just relate to the topic"
+      ],
+      "example": {
+        "problem": "Nutritionist: high-fiber diet → lower colon cancer, based on two-population study. What strengthens this?",
+        "steps": [
+          "Identify conclusion: fiber reduces colon cancer risk",
+          "Identify premise: two populations differ in fiber intake and cancer rate",
+          "Spot vulnerability: maybe the populations differ in OTHER ways (meat, smoking, exercise)",
+          "Find the answer that blocks that attack",
+          "Answer A controls for red meat, smoking, activity — eliminates those as explanations"
+        ],
+        "answer": "A — rules out the main confounders, leaving fiber as the most plausible explanation for the cancer-rate difference"
+      },
+      "traps": [
+        "Topically related ≠ strengthening (B: 'fruits & vegetables' — doesn't isolate fiber's role)",
+        "Background stats (C: cancer more common over 50) don't affect the fiber-cancer causal link",
+        "Definitions (D: 'fiber is a nutrient') add zero logical support",
+        "Cultural variation (E) is a premise restatement, not evidence the link is causal"
+      ],
+      "solveSteps": [
+        "1. Identify the conclusion and its key causal claim",
+        "2. Identify the argument's logical gap or vulnerability (for comparative studies: confounders)",
+        "3. Ask: which answer closes that gap or blocks an attack?",
+        "4. Eliminate answers that are merely on-topic but logically inert",
+        "5. Confirm chosen answer actually raises probability the conclusion is true"
+      ]
+    }
+  },
+  "513": {
+    "hint": "Strengthen causal claims by ruling out alternative explanations or showing a control group with no change. Which choice isolates the camera as the cause?",
+    "theory": {
+      "title": "Strengthen — Causal Arguments & Control Groups",
+      "icon": "🔬",
+      "summary": "To strengthen a causal conclusion, eliminate rival explanations or supply a control group showing the effect only occurs with the cause present.",
+      "keyFacts": [
+        "Causal argument structure: X happened, then Y happened → X caused Y",
+        "Strengthen = make the conclusion more likely to be true",
+        "Best strengthener for causation: control group shows Y did NOT occur without X",
+        "Also strengthens: ruling out a confounding variable that could explain Y",
+        "Weakeners: evidence that something else caused Y, or Y was already trending"
+      ],
+      "example": {
+        "problem": "Mall installed cameras → 50% drop in break-ins. What strengthens that cameras caused the drop?",
+        "steps": [
+          "Identify the causal claim: cameras → fewer break-ins",
+          "Ask: what could undermine it? (citywide crime drop, other mall changes, coincidence)",
+          "A control group — similar malls with no cameras showing NO drop — eliminates the 'would have dropped anyway' rival",
+          "Choice A provides exactly that control group",
+          "Choices C–E either weaken, are irrelevant, or don't address the causal mechanism"
+        ],
+        "answer": "A — comparable malls without cameras saw no change, isolating cameras as the cause"
+      },
+      "traps": [
+        "Camera quality (high-def) is irrelevant to whether cameras caused the drop",
+        "Citywide falling crime actually weakens by offering an alternative cause",
+        "Correlation alone (cameras installed + break-ins fell) never proves causation without controlling for alternatives",
+        "Extra mall changes (more janitors) raise new confounders, they don't strengthen"
+      ],
+      "solveSteps": [
+        "1. Identify the causal claim: what caused what?",
+        "2. Find the gap: what alternative explanation could explain the effect without the alleged cause?",
+        "3. A strengthener closes that gap — shows the effect follows the cause and not the rival",
+        "4. Control group logic: same effect with cause, no effect without cause = strong causal support",
+        "5. Eliminate choices that are irrelevant, weaken, or introduce new confounders"
+      ]
+    }
+  },
+  "514": {
+    "hint": "Look for the answer that closes the most plausible gap between correlation and causation — think dose-response or controlled confounders, not background facts.",
+    "theory": {
+      "title": "Causal Arguments — Strengthening the Link",
+      "icon": "🔬",
+      "summary": "Correlation alone doesn't prove causation. A Strengthen answer must close an alternative explanation or add direct evidence that X produces the effect — not just that both appear together.",
+      "keyFacts": [
+        "Dose-response: more exposure → more effect is strong causal evidence",
+        "Controlling for confounders eliminates rival explanations (age, smoking, other chemicals)",
+        "Dose-response + confounder control together = near-definitive causal support",
+        "Eliminate alternative cause: 'the only difference between groups is X' strengthens",
+        "Background facts (factory hours, wages, researcher credentials) are off-scope — they don't address causation",
+        "Weaken: if other factors could explain the difference, the causal link weakens"
+      ],
+      "example": {
+        "problem": "Workers exposed to chemical X have higher cancer rates. Which finding most strengthens the claim that X causes cancer?",
+        "steps": [
+          "Identify the gap: higher rates could be coincidental or caused by age/smoking/other chemicals",
+          "A dose-response relationship means more X → more cancer, reducing chance it's random",
+          "'After controlling for age, smoking, other chemicals' eliminates the main rival causes",
+          "Together these two elements (dose-response + controlled confounders) provide causal evidence",
+          "Other choices (factory hours, wages, researcher history) don't address the causal mechanism"
+        ],
+        "answer": "A — dose-response after controlling for confounders closes both the randomness gap and the alternative-cause gap simultaneously"
+      },
+      "traps": [
+        "Choosing 'chemical X is used elsewhere' — scope expansion, not causal evidence",
+        "Choosing researcher credentials — source credibility ≠ argument validity",
+        "Forgetting to check: does the choice address WHY X causes cancer, or just describe the situation?",
+        "A strengthen answer doesn't have to prove causation — it just has to make it more likely"
+      ],
+      "solveSteps": [
+        "1. Identify the conclusion (X causes Y) and the logical gap (correlation ≠ causation)",
+        "2. List rival explanations: confounders, coincidence, reverse causation",
+        "3. Ask: which choice eliminates a rival OR adds direct mechanistic/dose evidence?",
+        "4. Reject choices that are off-scope (facts about the setting, not the causal chain)",
+        "5. Pick the choice that most directly closes the correlation-to-causation gap"
+      ]
+    }
+  },
+  "515": {
+    "hint": "Find the choice that closes off alternate explanations for the 10% gain — look for evidence that non-program runners improved far less.",
+    "theory": {
+      "title": "CR Strengthen — Causal Arguments & Control Groups",
+      "icon": "🔬",
+      "summary": "Causal arguments are strengthened by ruling out rival causes. A control group showing smaller improvement is the gold-standard evidence that the intervention — not outside factors — drove the result.",
+      "keyFacts": [
+        "Strengthen = add a fact that makes the conclusion MORE likely true",
+        "Causal arguments are vulnerable to alternative explanations (confounds)",
+        "Control group evidence: if untreated group improves far less, the treatment gets credit",
+        "Correlation ≠ causation — you must rule out: natural growth, motivation bias, seasonal effects",
+        "Irrelevant details (credentials, training frequency) neither strengthen nor weaken",
+        "Wrong-answer traps: descriptive facts about the group, weakeners dressed as neutral"
+      ],
+      "example": {
+        "problem": "Coach claims her program causes speed improvement (10% avg). Which fact best supports that claim?",
+        "steps": [
+          "Identify the argument: program → improvement",
+          "Spot the vulnerability: maybe runners improve naturally over a season regardless",
+          "Ask: which choice eliminates that alternative?",
+          "Choice A: similar runners WITHOUT program improved only 1% — isolates program as cause",
+          "Other choices don't address the comparison needed to support causation"
+        ],
+        "answer": "A — the control group comparison rules out natural seasonal improvement as the explanation"
+      },
+      "traps": [
+        "Credentials or background (degree in sports science) support authority, not causal logic",
+        "Training frequency (5 days/week) describes the program but doesn't prove it caused gains",
+        "Motivation differences could actually weaken the argument by introducing another variable",
+        "Weather variation is irrelevant noise — doesn't address whether the program works"
+      ],
+      "solveSteps": [
+        "1. Identify the conclusion (X causes Y)",
+        "2. Find the logical gap — what alternative explanation could undermine it?",
+        "3. Pick the answer that blocks that alternative or adds direct support for causation",
+        "4. Eliminate descriptive, irrelevant, or weakening choices",
+        "5. Confirm: does the correct choice make the conclusion more likely true?"
+      ]
+    }
+  },
+  "516": {
+    "hint": "Correlation ≠ causation. Look for an answer that flips the causal arrow or explains the correlation another way — without adding info that helps the argument.",
+    "theory": {
+      "title": "Weaken — Reverse Causation Attack",
+      "icon": "↩",
+      "summary": "An argument from correlation assumes X causes Y. The sharpest weakener often flips the arrow: Y (or a precursor to Y) actually causes X, making the observed pattern misleading.",
+      "keyFacts": [
+        "Weaken questions ask: which answer makes the conclusion LESS likely to be true?",
+        "Causal arguments are vulnerable to: reverse causation, common cause, confounding variable, or sampling bias",
+        "Reverse causation: the effect actually drives the cause (pre-disease state lowers coffee intake → sick people appear in 'low coffee' group)",
+        "Scope matters: weakener must attack the specific causal link claimed, not just add tangential facts",
+        "Correct weakener doesn't need to destroy the argument — just dent it",
+        "Wrong answers often add true-sounding but irrelevant facts about the topic"
+      ],
+      "example": {
+        "problem": "People who drink ≥3 cups coffee/day have 30% lower Parkinson's rate. Therefore coffee reduces Parkinson's risk. Which weakens?",
+        "steps": [
+          "Identify the causal claim: coffee intake → lower Parkinson's risk",
+          "Identify the evidence: correlation between high coffee consumption and lower disease rate",
+          "Ask: is there another explanation for this correlation?",
+          "Reverse causation option: Parkinson's predisposition causes people to stop drinking coffee BEFORE symptoms appear",
+          "If so, low-coffee group is artificially loaded with pre-Parkinson's people — correlation explained without coffee being protective",
+          "Conclusion undermined: we can't infer coffee is the cause"
+        ],
+        "answer": "Reverse causation — pre-disease state removes coffee preference, producing the correlation without coffee being protective"
+      },
+      "traps": [
+        "'Coffee contains brain-affecting compounds' is consistent with the argument, not a weakener",
+        "'Parkinson's is more common in older adults' is irrelevant to the causal link",
+        "'Some patients still drink coffee' doesn't address population-level correlation",
+        "Partial weakeners that introduce noise (e.g. water intake) without explaining the correlation away are too weak"
+      ],
+      "solveSteps": [
+        "1. Identify the causal claim: X causes Y",
+        "2. Map the evidence: correlation between X and Y",
+        "3. Ask: does any answer explain the correlation WITHOUT X causing Y?",
+        "4. Priority order: reverse causation > common cause > confound > sampling bias",
+        "5. Eliminate answers that are irrelevant, out of scope, or accidentally strengthen the argument"
+      ]
+    }
+  },
+  "517": {
+    "hint": "Ask: does the correlation prove causation, or could breakfast-eaters already differ from skippers in ways that explain the score gap?",
+    "theory": {
+      "title": "Weaken — Alternative Cause / Confounding Variable",
+      "icon": "🔀",
+      "summary": "A causal conclusion is vulnerable when the two groups differ in ways unrelated to the proposed cause. Introducing a lurking third factor that explains the correlation severs the causal link.",
+      "keyFacts": [
+        "Causal argument structure: observed correlation X→Y ⟹ X CAUSES Y",
+        "Strongest weakener: a third factor Z that independently explains why X and Y co-occur (confound)",
+        "Selection bias: if the two groups differ systematically before the treatment, the comparison is invalid",
+        "Irrelevant weakeners: logistics, funding, menu variety — none touch the causal mechanism",
+        "Partial-overlap facts ('some do X already') weaken only if they fully account for the gap",
+        "Always ask: does this choice make the conclusion LESS likely to be the right explanation?"
+      ],
+      "example": {
+        "problem": "Students attending optional study hall score higher than those who skip it. Principal concludes study hall raises scores. What weakens this?",
+        "steps": [
+          "Identify conclusion: study hall → higher scores (causal claim)",
+          "Identify evidence: study-hall attendees score higher (correlation only)",
+          "Ask: could self-selection explain the gap?",
+          "Confound: students who attend study hall also have parents who enforce homework and hire tutors",
+          "Pre-existing academic support — not study hall — may fully explain the score difference"
+        ],
+        "answer": "The alternative cause (parental academic investment) explains the correlation without study hall causing anything — causal link severed."
+      },
+      "traps": [
+        "Logistical or funding facts (cafeteria options, district budget) don't touch who-causes-what — eliminate fast",
+        "'Some students already do X' only weakens if it accounts for the entire gap, not a partial overlap",
+        "Timing facts (tests in the morning) might seem suggestive but don't explain WHY one group outscores the other",
+        "Confusing 'weakens the evidence' with 'weakens the conclusion' — target the causal inference, not the data"
+      ],
+      "solveSteps": [
+        "1. Label the argument: evidence = correlation, conclusion = causal claim",
+        "2. Ask: do the two groups differ in OTHER ways that could independently cause the outcome?",
+        "3. Eliminate choices about program logistics, funding, or content — they leave causation intact",
+        "4. Select the choice that provides an alternative explanation making the proposed cause unnecessary",
+        "5. Confirm: if true, does the conclusion become much less likely to be correct?"
+      ]
+    }
+  },
+  "518": {
+    "hint": "Spot the causal leap: A happened, then B happened → A caused B. Look for an answer that offers another explanation for B, breaking that link.",
+    "theory": {
+      "title": "Causal Reasoning — Alternative Cause Weakener",
+      "icon": "🔗",
+      "summary": "Correlation ≠ causation. A conclusion that X caused Y can be weakened by showing another factor Z also changed at the same time and could explain Y instead.",
+      "keyFacts": [
+        "Causal argument structure: 'A happened → B followed → A caused B'",
+        "Weakest point: other things may have changed alongside A",
+        "Best weakener: introduces a plausible alternative cause for B",
+        "Second-best weakener: shows the correlation is coincidental or reversed",
+        "'Sales fluctuate' (E) is generic — doesn't explain THIS specific 25% rise",
+        "The stronger the alternative cause, the stronger the weakener"
+      ],
+      "example": {
+        "problem": "Sales rose 25% after a logo change. Team concludes logo caused the rise. Which fact most weakens this?",
+        "steps": [
+          "Identify the causal claim: logo change → sales increase",
+          "Ask: what else could explain the sales rise?",
+          "A rival factor (doubled ad budget + popular promotion) was introduced simultaneously",
+          "This alternative fully accounts for the increase without needing the logo",
+          "Conclusion's link broken — logo change may be coincidental"
+        ],
+        "answer": "The answer is the option citing doubled advertising and a new promotion — those changes alone could drive a 25% rise, making the logo irrelevant as a cause."
+      },
+      "traps": [
+        "'Some customers prefer old logo' (C) — affects future sales maybe, doesn't explain the past rise",
+        "'Sales fluctuate' (E) — too vague; doesn't explain why THIS quarter rose specifically",
+        "Confusing weakener with a destroyer — you only need to make the conclusion LESS likely, not impossible",
+        "Picking an answer that attacks the logo quality rather than the causal chain"
+      ],
+      "solveSteps": [
+        "1. Identify the conclusion: X caused Y",
+        "2. Identify what changed (X) and what resulted (Y)",
+        "3. Scan for an answer introducing a simultaneous alternative cause of Y",
+        "4. Prefer the answer that most directly provides an independent explanation for Y",
+        "5. Eliminate answers that are irrelevant to the causal link or too vague to matter"
+      ]
+    }
+  },
+  "519": {
+    "hint": "Look for an alternative explanation that breaks the cause→effect link. Ask: could the correlation exist even if dogs don't extend life?",
+    "theory": {
+      "title": "CR Weaken — Alternative Explanation & Selection Bias",
+      "icon": "🔄",
+      "summary": "Correlation does not imply causation. A weaken answer often shows a third factor or reverse-causation that explains the data without accepting the conclusion.",
+      "keyFacts": [
+        "Weaken = find a fact that makes the conclusion LESS likely to be true",
+        "Most powerful weakener: alternative explanation that still accounts for all evidence",
+        "Selection bias: the groups being compared differ in a key pre-existing way",
+        "Reverse causation: the 'effect' actually causes the 'cause'",
+        "Scope: weakener must attack the specific conclusion, not peripheral facts",
+        "Degree: you only need to weaken — not destroy — the argument"
+      ],
+      "example": {
+        "problem": "Dog owners live longer → magazine concludes owning a dog extends life. What weakens this?",
+        "steps": [
+          "Identify conclusion: dog ownership CAUSES longer life",
+          "Identify premise: dog owners live longer (correlation)",
+          "Ask: what else could explain the correlation?",
+          "Key gap: maybe only already-healthy people can own dogs",
+          "If healthy people self-select into dog ownership, the correlation exists without causation",
+          "Choice A supplies exactly this: healthier people choose dogs → undermines causal link"
+        ],
+        "answer": "A — Selection effect: healthier people self-select into dog ownership, so the longer life precedes (and explains) dog ownership rather than resulting from it."
+      },
+      "traps": [
+        "Choices about dogs (vet care, breeds, indoors) are irrelevant to the longevity causal claim",
+        "Avoid choices that attack a side fact rather than the conclusion",
+        "A weakener doesn't need to prove the conclusion is false — just less certain",
+        "Don't confuse 'weakens the argument' with 'weakens the premise'"
+      ],
+      "solveSteps": [
+        "1. Identify the conclusion (causal claim) and the supporting correlation",
+        "2. Spot the logical gap: correlation ≠ causation",
+        "3. Look for an answer that provides an alternative explanation OR shows a pre-existing difference between groups",
+        "4. Test each choice: does this make the conclusion less likely? Eliminate irrelevant facts",
+        "5. Pick the choice that most directly attacks the causal mechanism"
+      ]
+    }
+  },
+  "520": {
+    "hint": "Find the gap between evidence and conclusion. Look for an answer that offers an alternative explanation for the same result — don't reveal which letter does this.",
+    "theory": {
+      "title": "CR Weaken — Alternative Cause Attack",
+      "icon": "⚔",
+      "summary": "A cause-and-effect conclusion is weakened by any alternative explanation that could produce the same effect. The argument ignores other possible causes.",
+      "keyFacts": [
+        "Weaken target: the LINK between evidence and conclusion, not the facts themselves",
+        "Most powerful weaken for causal claims: introduce a rival cause that explains the same outcome",
+        "Alternative cause need not be more likely — plausible is enough to weaken",
+        "Correlation ≠ causation: two events coinciding doesn't mean one caused the other",
+        "Simultaneous changes are classic alternative-cause traps on GMAT",
+        "Irrelevant answers: things that don't affect the causal link (complaints, traffic volume, unchanged rules)"
+      ],
+      "example": {
+        "problem": "City installs speed cameras; accidents drop 40%; city claims cameras caused the drop. What weakens this?",
+        "steps": [
+          "Identify the causal claim: cameras → fewer accidents",
+          "Ask: what else happened around the same time that could reduce accidents?",
+          "An answer naming a simultaneous road improvement (e.g. resurfacing) gives a rival cause",
+          "The rival cause breaks the exclusive link — cameras may not deserve credit",
+          "Answers about driver complaints or traffic volume don't touch the causal chain"
+        ],
+        "answer": "The road resurfacing answer — it provides an alternative explanation that equally accounts for the drop, severing the cameras-caused-it logic."
+      },
+      "traps": [
+        "Picking answers that seem relevant but don't offer a rival cause (traffic volume, visible cameras, unchanged speed limits)",
+        "Confusing 'weakens the conclusion' with 'disproves the evidence' — evidence stays true",
+        "Thinking 'cameras are visible' strengthens or weakens — it's neutral noise",
+        "Missing simultaneous events as the classic alternative-cause signal"
+      ],
+      "solveSteps": [
+        "1. Identify: what is the causal conclusion? (X caused Y)",
+        "2. Find the evidence gap: the argument assumes X is the ONLY explanation for Y",
+        "3. Scan choices for a rival cause that could independently produce Y",
+        "4. Eliminate choices that are irrelevant to the causal link (complaints, volume, unrelated facts)",
+        "5. Pick the answer that most directly offers an alternative explanation for the observed effect"
+      ]
+    }
+  },
+  "521": {
+    "hint": "Find the gap between correlation and causation. Does the evidence actually prove the app CAUSES higher scores, or could something else explain the pattern?",
+    "theory": {
+      "title": "Weaken — Causal vs. Correlation / Self-Selection Bias",
+      "icon": "🔗",
+      "summary": "A causal conclusion drawn from correlation is vulnerable whenever an alternative explanation fits the same data. The key attack: maybe the effect existed BEFORE the cause.",
+      "keyFacts": [
+        "Correlation ≠ causation — the GMAT's most common CR trap",
+        "Self-selection bias: if people with trait X choose option Y, Y gets false credit for X",
+        "Weaken = find a fact that makes the conclusion LESS likely, not impossible",
+        "Best weakener offers an alternative cause that fully explains the observed data",
+        "Reverse causation: effect precedes cause (high scorers sought app, not app made them high)",
+        "Scope: cost, market size, app features don't touch causal link — eliminate these fast"
+      ],
+      "example": {
+        "problem": "Users of Brand Z sunscreen report fewer sunburns. Brand Z claims its sunscreen prevents sunburns. Which weakens?",
+        "steps": [
+          "Identify conclusion: Brand Z CAUSES fewer sunburns",
+          "Identify evidence: users have fewer sunburns (correlation only)",
+          "Ask: could the sample be different from non-users in a relevant way?",
+          "Weakener: Brand Z users tend to stay indoors more anyway",
+          "Alternative cause explains same data without crediting the product"
+        ],
+        "answer": "The weakener showing users already avoid sun exposure — product gets false credit"
+      },
+      "traps": [
+        "Choosing answers about cost or competition — irrelevant to causal claim",
+        "Picking an answer that weakens the study's design but doesn't touch causation",
+        "Confusing 'weakens conclusion' with 'weakens evidence' — target the CONCLUSION",
+        "Thinking a weakener must disprove — it only needs to reduce confidence"
+      ],
+      "solveSteps": [
+        "1. Identify: Conclusion = X causes Y; Evidence = X correlates with Y",
+        "2. Ask: Is the sample pre-selected in a way that explains Y without X?",
+        "3. Ask: Could Y precede X? (reverse causation)",
+        "4. Eliminate answers that don't touch the causal link (cost, size, features)",
+        "5. Pick answer that provides the most plausible alternative explanation"
+      ]
+    }
+  },
+  "522": {
+    "hint": "Look for an alternative cause that could explain the same drop in injuries — without the robots getting credit. Never weaken by attacking the evidence itself.",
+    "theory": {
+      "title": "Weaken — Alternative Cause (Confound)",
+      "icon": "🔀",
+      "summary": "A causal conclusion is weak when another factor could explain the same effect. If X and Y both changed at the same time, you can't credit X alone.",
+      "keyFacts": [
+        "Causal argument structure: 'A happened → B happened → A caused B'",
+        "Weaken by: supplying an alternative cause that also explains B",
+        "Correlation ≠ causation — two simultaneous changes both 'explain' the outcome",
+        "Strongest weakener introduces a plausible rival explanation, not just a doubt",
+        "Attacks conclusion, not premise — do NOT weaken by saying the data is wrong",
+        "Scope: weakener must address the same time period and same population"
+      ],
+      "example": {
+        "problem": "After installing robots, injuries fell 60%. Management says robots made it safer. What weakens this?",
+        "steps": [
+          "Identify the conclusion: robots caused the safety improvement",
+          "Identify the evidence: injury rate dropped after robot installation",
+          "Ask: what else changed at the same time that could cause fewer injuries?",
+          "If mandatory safety training AND equipment replacement also happened simultaneously, those could explain the drop",
+          "Management cannot isolate robot effect — conclusion is undermined"
+        ],
+        "answer": "The factory also implemented safety training and replaced old equipment in the same period — robots may not be the cause."
+      },
+      "traps": [
+        "Choosing an answer that merely limits robot scope (e.g., 'only part of factory') — this weakens but doesn't give a rival cause",
+        "Bonus incentives (workers avoiding accidents for bonuses) is a partial weakener but less direct than a structural intervention",
+        "Attacking worker feelings or task type — irrelevant to the safety outcome",
+        "Confusing 'weakens evidence' with 'weakens conclusion' — target the causal link, not the injury statistic itself"
+      ],
+      "solveSteps": [
+        "1. Identify conclusion (causal claim: X caused Y)",
+        "2. Identify the evidence gap: correlation shown, not causation",
+        "3. Find answer that provides alternative explanation for the same outcome",
+        "4. Verify: does this alternative plausibly explain the full effect in the same timeframe?",
+        "5. Eliminate answers that are off-scope, too narrow, or attack premises instead of the causal link"
+      ]
+    }
+  },
+  "523": {
+    "hint": "Find an alternative explanation that breaks the causal chain: the program improved scores, but is meditation the actual cause?",
+    "theory": {
+      "title": "CR Weaken — Alternative Cause / Confound",
+      "icon": "🔬",
+      "summary": "Causal arguments assume X caused Y. The fastest weakener introduces a confound: another factor present alongside X that could produce Y instead.",
+      "keyFacts": [
+        "Weaken = find the answer that makes the conclusion LESS likely, not impossible",
+        "Causal claim structure: Treatment → Outcome. Attack by showing a lurking variable caused the outcome",
+        "Control-group logic: if a group without the treatment improves equally, the treatment is not the cause",
+        "Hawthorne / attention effect: mere observation or attention from researchers can change behavior and outcomes",
+        "Volunteers self-select — but that only questions generalizability, not whether meditation caused their improvement",
+        "Scope: the claim is that meditation reduces anxiety, not that the program has no other components"
+      ],
+      "example": {
+        "problem": "Participants in a 12-week meditation program reported less anxiety. Does this prove meditation reduces anxiety?",
+        "steps": [
+          "Identify the causal claim: meditation → lower anxiety",
+          "Identify the evidence gap: no comparison group, so can't isolate cause",
+          "A control group receives attention but no meditation; their anxiety drops equally",
+          "Equal drop without meditation means attention/placebo effect explains the result",
+          "Meditation's unique causal role is destroyed"
+        ],
+        "answer": "The claim is weakened — meditation is not shown to be the cause"
+      },
+      "traps": [
+        "'Volunteers participated' attacks representativeness, not causation — doesn't weaken the causal claim",
+        "'Program was difficult' or 'included audio' tweaks program details but leaves the causal claim intact",
+        "'Practiced for thousands of years' is irrelevant to whether it caused THIS outcome",
+        "Confusing weakening the ARGUMENT with weakening the EVIDENCE — focus on the logical link"
+      ],
+      "solveSteps": [
+        "1. Identify the conclusion (causal claim: X causes Y)",
+        "2. Identify the evidence and its gap (no control group, before/after only)",
+        "3. Look for an answer that offers an alternative cause for Y that doesn't require X",
+        "4. Check: does the answer break the X→Y link, or just add noise?",
+        "5. Eliminate answers that attack scope/generalizability rather than causation"
+      ]
+    }
+  },
+  "524": {
+    "hint": "Find the gap between correlation and causation. A strong weakener shows a third variable explains BOTH sides of the data — no need for the claimed cause.",
+    "theory": {
+      "title": "Weaken — Alternative Cause / Confounder",
+      "icon": "✂",
+      "summary": "Correlation never proves causation. A 'confounder' is a hidden third variable that independently drives both the observed cause and the observed effect, making the causal arrow disappear.",
+      "keyFacts": [
+        "Argument structure: correlation observed → causal conclusion drawn",
+        "Strongest weakener: show a third variable explains the correlation without the claimed mechanism",
+        "Confounder test: does it explain BOTH sides? (more X AND less Y) without invoking X→Y?",
+        "Other weakener types: reverse causation, sampling flaw, scope shift",
+        "Irrelevant facts (cost, popularity) cannot weaken a causal argument",
+        "Correct weakener leaves conclusion possible but less likely — it does NOT disprove"
+      ],
+      "example": {
+        "problem": "Cities with more parks have lower crime. Paper concludes parks reduce crime. What most weakens this?",
+        "steps": [
+          "Identify conclusion: parks → lower crime (causal)",
+          "Identify premise: correlation between parks and low crime",
+          "Look for: what else could cause BOTH more parks AND lower crime?",
+          "Wealth fits: rich cities can afford parks AND have lower crime for unrelated reasons",
+          "This severs the parks→crime link — the correlation is explained without causation"
+        ],
+        "answer": "A — wealthy cities independently drive both more parks and lower crime, so the correlation proves nothing about causation"
+      },
+      "traps": [
+        "Picking facts about parks that are true but irrelevant (sports fields, cost) — irrelevance never weakens",
+        "Confusing 'weakens the argument' with 'proves conclusion false'",
+        "Overlooking that wealth must explain BOTH sides to work as a confounder, not just one",
+        "Reverse causation answer: low crime → park investment (also valid weakener type, but not available here)"
+      ],
+      "solveSteps": [
+        "1. Identify conclusion (causal claim) and premise (correlation)",
+        "2. Ask: what ASSUMPTION bridges correlation to causation? (no third variable exists)",
+        "3. Attack that assumption — find the answer that introduces an alternative explanation",
+        "4. Check confounder quality: does it explain BOTH the high-X side AND the low-Y side?",
+        "5. Eliminate irrelevant facts (cost, popularity, process details) — they cannot touch causation"
+      ]
+    }
+  },
+  "525": {
+    "hint": "Spot the gap between 'drink caused the result' and 'something else caused the result.' Which choice introduces an alternate cause?",
+    "theory": {
+      "title": "CR Weaken — Alternate Cause & Study Confounds",
+      "icon": "🔬",
+      "summary": "To weaken a causal claim, show another factor could explain the result. Study arguments are especially vulnerable to confounds like expectation effects and poor experimental controls.",
+      "keyFacts": [
+        "Weaken = find a fact that makes the conclusion LESS likely true, not impossible",
+        "Causal arguments: introduce an alternate cause → strong weakener",
+        "Blinding matters: if subjects know what they received, expectation can drive results (placebo effect)",
+        "Distinguish correlation from causation — same data, different explanation",
+        "Strong weakener attacks the causal link, not just pokes at details",
+        "Scope trap: facts about study size or common methods rarely affect the specific causal inference"
+      ],
+      "example": {
+        "problem": "Athletes drinking an energy drink lasted 10% longer on a treadmill than those drinking water. Study concludes the drink boosts performance. Which fact most weakens this?",
+        "steps": [
+          "Identify the claim: the drink itself caused better performance",
+          "Identify the gap: is there evidence it wasn't something else?",
+          "Look for alternate causes: expectation, motivation, placebo",
+          "A choice showing athletes knew which drink they got + could identify it by taste introduces a psychological confound",
+          "If belief in the drink (not the drink's chemistry) drove performance, the causal inference collapses",
+          "No blinding = confounded study = weak causal evidence"
+        ],
+        "answer": "The option revealing athletes could identify the energy drink — expectation/placebo effect becomes an alternate cause, undermining 'drink caused the gain'"
+      },
+      "traps": [
+        "'Contains caffeine' sounds relevant but doesn't weaken — it could actually support the causal claim",
+        "Study size (30 athletes) is a scope quibble, not an alternate cause",
+        "Athlete variation in baseline endurance is pre-existing noise, not a confound in the treatment itself",
+        "Treadmill tests being common is irrelevant to the causal inference"
+      ],
+      "solveSteps": [
+        "1. Restate the core argument: X caused Y in this study",
+        "2. Find the crucial assumption (here: the drink, not expectation, drove performance)",
+        "3. For each choice ask: does this give a DIFFERENT explanation for Y?",
+        "4. Prefer choices that introduce a plausible alternate cause over those that just criticize methodology tangentially",
+        "5. Eliminate choices that are irrelevant to the causal link or that actually support the conclusion"
+      ]
+    }
+  },
+  "526": {
+    "hint": "Find what breaks the causal chain. Look for an alternative explanation that accounts for the data without needing the professor's mechanism.",
+    "theory": {
+      "title": "CR Weaken — Alternative Cause / Self-Selection",
+      "icon": "🔍",
+      "summary": "Correlation ≠ causation. If another factor explains the same data, the proposed cause is unproven. Self-selection is the classic alternative cause on GMAT.",
+      "keyFacts": [
+        "Weaken = find a fact that makes the conclusion LESS likely, not impossible",
+        "Causal argument structure: A → B. Weakeners either sever the link or introduce a rival cause",
+        "Self-selection bias: the groups differ BEFORE the treatment, so treatment may not cause the outcome",
+        "A good weakener accepts the data but explains it differently — the correlation survives, the cause does not",
+        "Out-of-scope trap: answer must attack the CONCLUSION, not just add unrelated facts",
+        "Strongest weakener redirects causality without contradicting stated evidence"
+      ],
+      "example": {
+        "problem": "Front-row students score higher. Professor concludes that sitting in front causes better grades via improved attention. What weakens this?",
+        "steps": [
+          "Identify the conclusion: front-row seating causes higher grades",
+          "Identify the evidence: front-row students score higher (correlation)",
+          "Spot the gap: correlation ≠ causation — maybe a third variable explains both",
+          "Test each choice: does it provide an alternative explanation that makes seating irrelevant?",
+          "Self-selection (motivated students CHOOSE the front) explains the score gap without needing the attention mechanism"
+        ],
+        "answer": "A — self-selection breaks the causal link; motivation predicts both seat choice and grades, making seating a bystander, not a cause"
+      },
+      "traps": [
+        "Choosing an answer that is merely irrelevant (front row has 10 seats) — must attack causation",
+        "Choosing an answer that strengthens or is neutral (middle-row average) — confirms nothing about causation",
+        "Confusing weakening the evidence with weakening the conclusion — aim at the conclusion",
+        "Assuming 'weaken' means 'disprove'; it only needs to make the conclusion less likely"
+      ],
+      "solveSteps": [
+        "1. Identify CONCLUSION and EVIDENCE — keep them separate",
+        "2. Find the logical GAP: what must be assumed for evidence → conclusion?",
+        "3. Ask: does each answer attack that gap or sever the causal chain?",
+        "4. Prefer answers that offer an ALTERNATIVE CAUSE explaining the same data",
+        "5. Eliminate answers that are irrelevant, out-of-scope, or attack only the evidence"
+      ]
+    }
+  },
+  "527": {
+    "hint": "Find the gap between evidence and conclusion. Something that explains the same data WITHOUT the cause the argument assumes — an alternative explanation — is your target.",
+    "theory": {
+      "title": "CR Weaken — Self-Selection Bias",
+      "icon": "🔍",
+      "summary": "A weaken answer provides an alternative explanation for the evidence, making the causal conclusion unjustified. Self-selection is the classic alternative: if the effect predicts who joins, the cause is reversed.",
+      "keyFacts": [
+        "Weaken = undermine the LINK between evidence and conclusion, not disprove the conclusion outright",
+        "Causal arguments assume: A → B. Weaken by showing B → A (reverse causation) or C → B (third variable)",
+        "Self-selection bias: participants chose themselves — the group was already different BEFORE the intervention",
+        "Correlation ≠ causation: both variables may share a hidden common cause",
+        "Correct weakener lowers probability the conclusion follows; it need not prove conclusion false",
+        "Irrelevant choices: training length, industry norms, or cost don't touch the causal claim"
+      ],
+      "example": {
+        "problem": "Company: employees who completed optional training stayed longer → training reduces turnover. What weakens this?",
+        "steps": [
+          "Identify conclusion: training CAUSES longer tenure",
+          "Identify evidence: completers stayed longer (correlation)",
+          "Spot the gap: were completers and non-completers comparable BEFORE training?",
+          "Look for alternative explanation: completers may have already intended to stay",
+          "Choice A: planned long-stayers self-selected into training → retention explains training participation, not vice versa",
+          "Causal arrow flipped → conclusion unjustified"
+        ],
+        "answer": "A — self-selection means committed employees enrolled, so training did not create retention; pre-existing intent did"
+      },
+      "traps": [
+        "Choosing an answer that attacks a side detail (training length, format preference) instead of the causal link",
+        "Confusing 'weaken' with 'disprove' — only need to reduce likelihood, not eliminate",
+        "Picking an answer that strengthens or is neutral (e.g., 'turnover is costly' supports the company's motivation but doesn't touch causation)",
+        "Forgetting that optional / voluntary programs are self-selection red flags by design"
+      ],
+      "solveSteps": [
+        "1. Locate conclusion and the evidence used to support it",
+        "2. Identify the assumed causal link (X causes Y)",
+        "3. Ask: is there an alternative explanation for the same evidence?",
+        "4. Check each choice: does it break the link, or just add irrelevant context?",
+        "5. Pick the choice that most plausibly explains the evidence WITHOUT needing the conclusion to be true"
+      ]
+    }
+  },
+  "528": {
+    "hint": "Correlation study → causal conclusion. Ask: could causation run the other way? Find the choice that breaks the arrow without revealing the answer letter.",
+    "theory": {
+      "title": "Causal Reasoning — Reverse Causality",
+      "icon": "↔",
+      "summary": "Correlation shows two things move together; it proves nothing about direction. If the 'effect' actually causes the 'cause', the conclusion collapses.",
+      "keyFacts": [
+        "Correlation ≠ causation — co-movement alone never establishes a causal arrow",
+        "Reverse causality: B → A is just as consistent with observed data as A → B",
+        "Alternative cause: hidden third factor C drives both A and B independently",
+        "To weaken a causal claim: introduce reverse causality, alternative cause, or confound",
+        "Irrelevant facts (measurement units, reporting frequency, citizen attitudes) cannot weaken a causal argument",
+        "Correct weakener must attack the specific causal mechanism in the conclusion"
+      ],
+      "example": {
+        "problem": "Countries spending more on education have higher GDP per capita. Author concludes: education spending drives economic growth. What weakens this?",
+        "steps": [
+          "Conclusion: education spending → GDP growth (A causes B)",
+          "Premise: correlation only — no temporal or mechanistic evidence given",
+          "Test reverse arrow: could high GDP → more education spending? Yes — rich countries have budget surplus",
+          "If wealth enables spending (not vice versa), correlation survives but causal conclusion fails",
+          "Choices about reporting schedules, units, or citizen opinions don't touch causation at all"
+        ],
+        "answer": "Reverse causality — wealth funds education spending; the correlation is real but the arrow is backward"
+      },
+      "traps": [
+        "Choices about measurement units or reporting frequency are irrelevant red herrings — they don't attack causation",
+        "Weakening ≠ disproving — the weakener just needs to make the conclusion less certain",
+        "Don't confuse 'some counterexample exists' with 'causal direction is wrong'",
+        "A weakener must connect directly to the causal mechanism, not merely introduce doubt about peripheral facts"
+      ],
+      "solveSteps": [
+        "1. Identify the causal conclusion: X causes Y",
+        "2. Identify what the premise actually shows: correlation, not causation",
+        "3. Ask: could Y cause X instead? (reverse causality) — or could Z cause both? (third factor)",
+        "4. Find the choice that introduces one of those alternatives using the actual variables in the argument",
+        "5. Eliminate choices that are logically disconnected from the causal claim (units, schedules, opinions)"
+      ]
+    }
+  },
+  "529": {
+    "hint": "Argument compares raw illness counts. Ask: does the comparison account for HOW MANY people drink each? A rate ≠ a count.",
+    "theory": {
+      "title": "Weaken — Base-Rate / Confounding Variable",
+      "icon": "📊",
+      "summary": "Raw totals mislead when populations differ. More illnesses from group X may just mean more people in group X, not a higher rate. Good weakeners expose this hidden assumption.",
+      "keyFacts": [
+        "Weaken = find the argument's core assumption, then attack it",
+        "Base-rate trap: comparing counts is invalid when population sizes differ",
+        "The real metric is risk per person (rate), not total incidents",
+        "A good weakener introduces an alternate explanation for the evidence",
+        "Stronger weakener = directly attacks the link between evidence and conclusion",
+        "Check: does the weakener apply to the argument's logic, or just a side detail?"
+      ],
+      "example": {
+        "problem": "City A has 500 car accidents/year; City B has 200. Is City A more dangerous to drive in?",
+        "steps": [
+          "Argument assumes equal populations — but City A has 2M residents, City B has 400K",
+          "Rate A: 500/2,000,000 = 0.025%",
+          "Rate B: 200/400,000 = 0.05%",
+          "City B is actually twice as dangerous per driver",
+          "Raw count hid the true rate"
+        ],
+        "answer": "City B is more dangerous — the raw count ignored population size, making the comparison invalid."
+      },
+      "traps": [
+        "Accepting raw count comparisons as meaningful when group sizes differ",
+        "Picking a choice that's interesting but attacks a side issue, not the core assumption",
+        "Confusing 'weakens slightly' with 'most weakens' — pick the direct assumption attack",
+        "Answer choices about taste, cost, or preference are irrelevant to a safety argument"
+      ],
+      "solveSteps": [
+        "1. Identify conclusion and the evidence used to support it",
+        "2. State the assumption bridging evidence → conclusion (here: counts are comparable)",
+        "3. Ask: what would make the evidence misleading or the link break?",
+        "4. Pick the choice that directly attacks that assumption",
+        "5. Verify: does it actually weaken, or just add unrelated info?"
+      ]
+    }
+  },
+  "530": {
+    "hint": "Spot the causal leap: stat shows correlation, conclusion claims causation. Look for an alternative explanation that breaks the link — without naming the answer letter.",
+    "theory": {
+      "title": "CR Weaken — Confounding Variable Attack",
+      "icon": "🔀",
+      "summary": "A weaken answer doesn't disprove the conclusion — it provides an alternative explanation that makes the conclusion less likely to be the right one. Classic attack: a third factor (confounder) explains the data, so the causal claim collapses.",
+      "keyFacts": [
+        "Weaken = reduce conclusion's probability, NOT prove it false",
+        "Causal conclusions are vulnerable to alternative explanations (confounders)",
+        "Confounder pattern: X correlates with Y, but Z causes both — X→Y link is spurious",
+        "Scope: answer must attack the argument's logic, not peripheral details",
+        "Irrelevant facts (cost, fuel, convenience) don't touch the safety logic",
+        "Strongest weakener identifies WHY the stat could be true even if conclusion is false"
+      ],
+      "example": {
+        "problem": "Company: SUV drivers have fewer fatal accidents per mile than compact drivers → SUVs are safer. What weakens this?",
+        "steps": [
+          "Identify conclusion: SUVs are safer (the vehicle causes the difference)",
+          "Identify evidence: fatal accident rate per mile is lower for SUV drivers",
+          "Find the gap: lower rate attributed to the car, not to driver traits",
+          "Ask: could driver traits explain the rate difference instead?",
+          "Confounding variable — older, more experienced drivers self-select SUVs — breaks the causal link",
+          "If driver skill explains the stat, vehicle design is irrelevant to the conclusion"
+        ],
+        "answer": "The confounder answer — if SUV drivers are inherently safer drivers regardless of vehicle, the lower accident rate says nothing about the car itself"
+      },
+      "traps": [
+        "Cost, fuel economy, parking ease — irrelevant to safety causation, classic GMAT distractors",
+        "Seller of both cars: interesting but doesn't explain the accident-rate gap",
+        "Confusing 'weakens the evidence' with 'weakens the conclusion' — only the latter matters",
+        "Don't pick an answer that slightly touches the topic; pick the one that dismantles the causal mechanism"
+      ],
+      "solveSteps": [
+        "1. Identify conclusion (causal claim) and the evidence supporting it",
+        "2. Map the gap: what must be true for evidence → conclusion to hold?",
+        "3. Ask: what alternative explanation would make the evidence true but conclusion false?",
+        "4. Eliminate answers that don't touch the causal chain (cost, convenience, fuel = traps)",
+        "5. Pick the answer that introduces a confounder or breaks the assumed mechanism"
+      ]
+    }
+  },
+  "531": {
+    "hint": "Look for an alternative explanation that breaks the causal link — something that made red teams win for a reason unrelated to color.",
+    "theory": {
+      "title": "Weaken — Alternative Cause (Confounder)",
+      "icon": "🔀",
+      "summary": "An argument that infers causation from correlation is smashed by any fact showing a third variable explains the pattern. Correlation ≠ causation.",
+      "keyFacts": [
+        "Argument structure: Evidence → Causal conclusion. Weaken = attack the causal link.",
+        "Alternative cause: X correlates with Y, but Z (hidden variable) causes both",
+        "Confounders explain away the correlation without touching the evidence",
+        "Best weakener removes the NEED to invoke the proposed cause",
+        "Correlation survives even after weakening — only the causal interpretation dies",
+        "Irrelevant facts (popularity, availability) never weaken causal claims"
+      ],
+      "example": {
+        "problem": "Teams wearing red won more matches over 10 years. Therefore, red enhances performance. What weakens this?",
+        "steps": [
+          "Identify conclusion: red color → better performance",
+          "Identify evidence: red teams won more",
+          "Ask: is there another reason red teams might win more?",
+          "If strongest teams CHOSE red, then winning rate tracks strength, not color",
+          "Color becomes a badge of strong teams, not a cause of wins"
+        ],
+        "answer": "The historically strongest teams chose red — team quality explains wins, making color causally irrelevant."
+      },
+      "traps": [
+        "Picking choices that are 'out of scope' — red is popular, dye is available, jerseys exist: none affect the causal claim",
+        "Confusing 'hurts the evidence' with 'hurts the conclusion' — a weakener targets the LINK, not the data",
+        "Overlooking that correlation in the evidence can remain true even when causation is false",
+        "Partial weakeners that only raise doubt about one team or one year are weaker than a systemic confounder"
+      ],
+      "solveSteps": [
+        "1. Identify: what is the CAUSE claimed? What is the EFFECT?",
+        "2. Ask: could something ELSE explain why the correlated groups differ?",
+        "3. A confounding variable (hidden Z) that predicts both group membership and outcome = strong weakener",
+        "4. Eliminate choices that are irrelevant to the causal mechanism (popularity, availability, aesthetics)",
+        "5. Pick the choice that gives the most direct alternative explanation for the entire pattern"
+      ]
+    }
+  },
+  "532": {
+    "hint": "Spot the causal leap: growth AFTER cut ≠ growth BECAUSE OF cut. Look for an answer that offers an alternative explanation or removes the cut's credit.",
+    "theory": {
+      "title": "Weaken — Alternative Explanation / Pre-existing Trend",
+      "icon": "⚔",
+      "summary": "An argument claiming X caused Y is undermined when Y was already happening before X. If the trend predates the cause, the cause gets no credit.",
+      "keyFacts": [
+        "Causal argument structure: Event X happened → Y followed → therefore X caused Y",
+        "Classic weakener: show Y was occurring before X (pre-existing trend)",
+        "Classic weakener: show a third factor Z actually caused Y",
+        "Classic weakener: sever the link — X and Y co-occurred but are independent",
+        "Weaken ≠ destroy; one strong alternative explanation is enough",
+        "Scope: weaken the ARGUMENT, not the conclusion in isolation"
+      ],
+      "example": {
+        "problem": "Pundit claims a tax cut caused 3% GDP growth because GDP grew 3% the year after the cut. Which fact most weakens this?",
+        "steps": [
+          "Identify conclusion: tax cut caused the growth",
+          "Identify premise: GDP grew 3% after the cut",
+          "Find the gap: 'after' does not prove 'because of'",
+          "Pre-existing 3% annual trend means growth was on track regardless",
+          "Tax cut gets no causal credit — weakener is strong"
+        ],
+        "answer": "GDP had been growing at 3% per year before the cut — the tax cut is unnecessary to explain the observed growth"
+      },
+      "traps": [
+        "Choosing answers that are irrelevant (economists support cuts, GDP measured quarterly) — irrelevance ≠ weakener",
+        "Choosing an answer that slightly hurts the argument (revenues fell) but doesn't attack the causal link",
+        "Confusing weaken with strengthen — tax revenues falling is a side-effect, not a causal rebuttal",
+        "Missing that pre-existing trend is the textbook 'alternative explanation' move"
+      ],
+      "solveSteps": [
+        "1. Identify: conclusion, evidence, and the causal/logical gap between them",
+        "2. Pre-phrase a weakener before reading choices: what would make the evidence NOT support the conclusion?",
+        "3. Look for: alternative cause, pre-existing trend, confounding variable, or correlation-only evidence",
+        "4. Eliminate irrelevant choices (don't attack the gap) and strengtheners",
+        "5. Pick the choice that most directly severs the cause-effect link"
+      ]
+    }
+  },
+  "533": {
+    "hint": "Find what breaks the link between 'higher ratings' and 'better experience.' Look for an alternative reason ratings differ that has nothing to do with actual quality.",
+    "theory": {
+      "title": "Weaken — Alternative Explanation Attack",
+      "icon": "⚡",
+      "summary": "A conclusion weakens when a rival cause explains the evidence just as well. If higher ratings stem from buyer psychology rather than product quality, the causal link collapses.",
+      "keyFacts": [
+        "Weaken = reduce probability the conclusion follows from the evidence",
+        "Most powerful weakener: provides an ALTERNATIVE EXPLANATION for the evidence",
+        "Argument structure: Evidence → [hidden assumption] → Conclusion — attack the assumption",
+        "Cognitive bias (price justification) is a classic confound: people rate expensive things higher to feel smart, not because quality differs",
+        "Irrelevant facts (company has many destinations, group size) don't touch the rating-quality link",
+        "Volume facts ('most buy standard') affect neither the rating nor the quality inference"
+      ],
+      "example": {
+        "problem": "Hotel A costs 3× more than Hotel B. Guests rate Hotel A higher. Manager concludes Hotel A delivers a better stay. What weakens this?",
+        "steps": [
+          "Identify conclusion: Hotel A actually delivers better experience",
+          "Identify evidence: Hotel A gets higher ratings",
+          "Spot hidden assumption: ratings accurately reflect experience quality, not other factors",
+          "Find alternative: guests who paid more subconsciously inflate ratings to avoid feeling ripped off",
+          "This alternative explains the SAME evidence WITHOUT Hotel A being better → conclusion weakens"
+        ],
+        "answer": "'Guests who spend more tend to rate accommodation higher to justify the cost' — severs the rating-to-quality link"
+      },
+      "traps": [
+        "Choices that are true but irrelevant (group size, number of destinations) — they don't touch WHY ratings differ",
+        "A choice that slightly hurts the conclusion vs. one that fully explains away the evidence — pick the stronger cut",
+        "Strengtheners disguised as weakeners: 'premium includes guided tours' EXPLAINS why it might be better — opposite of weakening",
+        "Scope: the conclusion is about EXPERIENCE quality, not price or popularity"
+      ],
+      "solveSteps": [
+        "1. Locate the conclusion (what is being claimed?) and the evidence (what supports it?)",
+        "2. Identify the GAP / assumption bridging evidence to conclusion",
+        "3. For each choice ask: does this give an alternative explanation for the evidence, or attack a key assumption?",
+        "4. Prefer the choice that most directly breaks the evidence → conclusion link",
+        "5. Eliminate irrelevant facts, true-but-harmless details, and anything that SUPPORTS the conclusion"
+      ]
+    }
+  },
+  "534": {
+    "hint": "Correlation ≠ causation. Ask: could a hidden third factor explain BOTH the location AND the higher asthma rate?",
+    "theory": {
+      "title": "Weaken — Alternative Cause / Confounding Variable",
+      "icon": "🔀",
+      "summary": "A causal conclusion is undermined when a third factor (confounder) can independently explain the observed correlation. The cause claimed may be incidental, not causal.",
+      "keyFacts": [
+        "Causal argument structure: observed correlation → author concludes X causes Y",
+        "Strongest weakener: an alternative cause that explains Y without needing X",
+        "Confounder = variable correlated with both X and Y, creating fake causation",
+        "Weakener does NOT disprove; it just breaks the assumption that X is the cause",
+        "Irrelevant weakeners: facts about X or Y that don't touch the causal link",
+        "Scope: weakener must affect the SAME population and SAME outcome"
+      ],
+      "example": {
+        "problem": "People near busy roads have higher asthma rates; researcher concludes traffic pollution causes asthma. What most weakens this?",
+        "steps": [
+          "Identify the causal claim: traffic pollution → asthma",
+          "Identify the evidence: geographic correlation (proximity to road)",
+          "Look for: could something other than pollution explain higher asthma near roads?",
+          "A confounder: lower-income people live near roads AND have higher asthma from other factors",
+          "If true, the asthma rate gap is explained by income/other exposures — pollution link becomes coincidental",
+          "The causal arrow from traffic to asthma is broken"
+        ],
+        "answer": "A — income and pre-existing environmental exposures independently explain higher asthma rates near roads, making traffic pollution unnecessary as the cause"
+      },
+      "traps": [
+        "Choices about cars having better exhaust (B) are too weak — doesn't explain why current rates differ",
+        "Choices that merely describe the disease (C) or geography (D) don't touch causation",
+        "Choices about treatment (E) are irrelevant to what causes asthma",
+        "Don't confuse 'weakens' with 'disproves' — a good weakener just raises doubt"
+      ],
+      "solveSteps": [
+        "1. Identify structure: evidence (correlation) → conclusion (causation)",
+        "2. Find the causal gap: what assumption links correlation to cause?",
+        "3. Scan for: alternative cause, reversed causation, or sampling flaw",
+        "4. Best weakener explains the same data WITHOUT the claimed cause",
+        "5. Eliminate: choices that are off-scope, too narrow, or strengthen instead"
+      ]
+    }
+  },
+  "535": {
+    "hint": "Find the hidden assumption linking the evidence to the conclusion. Ask: are the two groups truly comparable, or does something else explain the difference?",
+    "theory": {
+      "title": "CR Weaken — Confounding Variable in Comparisons",
+      "icon": "⚖",
+      "summary": "Comparative arguments assume the groups differ ONLY in the factor studied. Introduce a hidden variable that explains the result another way and the causal link collapses.",
+      "keyFacts": [
+        "Conclusion = claim author is trying to prove; evidence = support given",
+        "Assumption = unstated premise the argument REQUIRES to be true",
+        "Weaken = show the assumption is false, or evidence→conclusion link breaks",
+        "Confounding variable: a third factor explains the data without supporting the conclusion",
+        "Biased sample: compared groups differ in a relevant way → comparison is apples-to-oranges",
+        "Out-of-scope answers (true but irrelevant to the gap) cannot weaken"
+      ],
+      "example": {
+        "problem": "CEO: WFH employees complete more tasks/day → remote work boosts productivity. What weakens this?",
+        "steps": [
+          "Conclusion: remote work boosts productivity",
+          "Evidence: WFH workers complete more tasks/day",
+          "Assumption: task completion rate fairly reflects productivity; groups are comparable",
+          "Confounding variable check: do remote and office workers handle the SAME tasks?",
+          "Answer A reveals remote workers do SIMPLER tasks → more completions ≠ higher productivity",
+          "The causal link (more tasks → more productive) breaks; the comparison is unfair"
+        ],
+        "answer": "A — remote workers handle simpler tasks, so higher task count reflects task type, not productivity gain"
+      },
+      "traps": [
+        "Answers that are true but off-topic (commute savings, many companies offer remote) don't touch the core assumption",
+        "'Productivity' in the conclusion ≠ 'tasks completed' — the argument assumes they're equivalent; good weakeners exploit this",
+        "Strengtheners masquerade: commute time saved could even support the CEO; don't confuse direction",
+        "Scope creep: 'some employees enjoy socializing' is too weak/peripheral to matter"
+      ],
+      "solveSteps": [
+        "1. Bracket the conclusion (what the author claims) and the evidence (why they believe it)",
+        "2. State the assumption explicitly: 'This works only if ___'",
+        "3. Ask: does this answer choice make that assumption FALSE or less likely?",
+        "4. Check for confounding variable — does it offer an alternative explanation for the evidence?",
+        "5. Eliminate: out-of-scope, irrelevant facts, or answers that strengthen instead of weaken"
+      ]
+    }
+  },
+  "536": {
+    "hint": "Find the unstated link between evidence and conclusion. Apply the negation test: negate each choice — whichever kills the argument is the assumption.",
+    "theory": {
+      "title": "CR Assumption — Causal Gap & Negation Test",
+      "icon": "🔗",
+      "summary": "An assumption is an unstated premise the argument REQUIRES. The gap here is causal: correlation (puzzles added → subs rose) doesn't prove causation. The argument assumes nothing else drove the change.",
+      "keyFacts": [
+        "Assumption = necessary but unstated premise; argument collapses without it",
+        "Negation test: negate the choice — if conclusion falls apart, it's the assumption",
+        "Causal arguments assume NO alternative cause explains the effect",
+        "'Plan to do X to get Y' assumes X actually caused the prior Y",
+        "Strengthen/Weaken ≠ Assumption — assumption is required, not just helpful",
+        "Extreme scope (always, every, all) usually signals wrong answer on Assumption"
+      ],
+      "example": {
+        "problem": "Puzzles added → subs up 8% → publisher plans more puzzles to boost subs further. Which assumption does the plan depend on?",
+        "steps": [
+          "Identify conclusion: add more puzzles → further subscription boost",
+          "Identify evidence: puzzles added + subs rose 8%",
+          "Spot the gap: what if subs rose for a different reason?",
+          "Apply negation test to A: 'Puzzles did NOT cause the increase' → plan has no basis → argument destroyed",
+          "Negation test on B: 'Puzzles won't always be popular' → plan could still work short-term → not required",
+          "A is the necessary bridge: puzzles = actual cause"
+        ],
+        "answer": "A — negating A (puzzles didn't cause the gain) directly destroys the plan's rationale; no other choice is required for the argument to hold"
+      },
+      "traps": [
+        "'Always remain popular' (B) is too extreme — assumption need only hold long enough for the plan",
+        "'Most readers complete it' (C) is irrelevant — completion rate ≠ subscription driver",
+        "'Other papers don't publish' (D) is out of scope — monopoly not needed for puzzles to cause subs",
+        "Confusing strengthen with assume — a strengthener helps, an assumption is required"
+      ],
+      "solveSteps": [
+        "1. Identify: evidence → conclusion, then name the logical gap",
+        "2. For causal plans: gap is always 'did X actually cause Y?'",
+        "3. Apply negation test to each choice — negate and ask 'does the conclusion collapse?'",
+        "4. Eliminate extremes (always/never/all) — assumptions are usually narrow and factual",
+        "5. Pick the choice whose negation kills the argument dead"
+      ]
+    }
+  },
+  "537": {
+    "hint": "Find the unstated bridge the argument REQUIRES. Negate each choice — if the argument collapses, that's the assumption. Never reveal the letter.",
+    "theory": {
+      "title": "CR Assumption — The Negation Test",
+      "icon": "🔗",
+      "summary": "An assumption is the missing link the argument silently depends on. Negating a necessary assumption must destroy the conclusion — that's the test.",
+      "keyFacts": [
+        "Assumption = unstated premise REQUIRED for conclusion to hold",
+        "Negation Test: negate choice → if argument falls apart, it's the assumption",
+        "'Helpful but not required' ≠ assumption — eliminate those",
+        "Look for the gap between evidence and conclusion — assumption bridges it",
+        "Sufficient assumption fully proves conclusion; necessary assumption merely enables it",
+        "On GMAT, necessary assumption is most common — use negation test"
+      ],
+      "example": {
+        "problem": "Lowering bus fare will increase ridership, the mayor claims. What must be true for this to work?",
+        "steps": [
+          "Identify conclusion: lower fare → more riders",
+          "Identify evidence given: fare will be reduced",
+          "Spot the GAP: nothing says non-riders care about price",
+          "Ask: what must be true to bridge 'lower fare' to 'more riders'?",
+          "Negate candidate: 'No significant new riders would board at lower fare' → conclusion fails instantly",
+          "That negation destroys the plan, so the bridging claim is the assumption"
+        ],
+        "answer": "A — 'A significant number of non-riders would board at lower fare.' Negating this makes the mayor's prediction impossible to achieve."
+      },
+      "traps": [
+        "Confusing 'nice to have' (empty seats, city budget) with 'logically required'",
+        "The city affording the fare is a precondition for the policy, not the logical link that makes the prediction true",
+        "Assuming background facts (driver pay, payment method) that are irrelevant to the causal chain",
+        "Forgetting to negate — picking the answer that sounds plausible instead of testing it"
+      ],
+      "solveSteps": [
+        "1. Label: conclusion vs. evidence. Find the logical GAP between them.",
+        "2. For each choice, apply Negation Test: insert 'NOT' and ask if the conclusion still holds.",
+        "3. If negation destroys the argument → necessary assumption → pick it.",
+        "4. If negation merely weakens or is irrelevant → eliminate.",
+        "5. Check: does the correct choice directly bridge the evidence-to-conclusion gap?"
+      ]
+    }
+  },
+  "538": {
+    "hint": "Find the unstated link between evidence and conclusion. Ask: what MUST be true for this argument to hold? Apply negation test — negate each choice, pick the one that kills the conclusion.",
+    "theory": {
+      "title": "CR Assumption — Causation Gap",
+      "icon": "🔗",
+      "summary": "An assumption is an unstated premise the argument REQUIRES. The classic gap: evidence shows correlation or outcome, conclusion claims a specific cause — the assumption bridges them.",
+      "keyFacts": [
+        "Assumption = required unstated premise; conclusion collapses when it is negated",
+        "Causation gap: 'X happened after Y' does NOT prove Y caused X",
+        "Negation test: negate the choice → if argument falls apart, it is the assumption",
+        "Out-of-scope facts (diet composition, member count) cannot be assumptions the argument needs",
+        "Correct assumption fills the logical hole between evidence and conclusion — no more, no less",
+        "CR Assumption ≠ strengthener; it is what must already be true, not what would help"
+      ],
+      "example": {
+        "problem": "A program says members lost 10 lbs in 3 months and concludes its diet is effective. What does this argument assume?",
+        "steps": [
+          "Identify conclusion: the DIET caused weight loss",
+          "Identify evidence: members lost 10 lbs during 3 months",
+          "Spot the gap: maybe members also started exercising, quit alcohol, reduced stress",
+          "Negate choice A: 'weight loss was NOT caused by the diet' → conclusion immediately collapses",
+          "Negate other choices: program continues after 3 months? member count? fat content? → conclusion survives",
+          "Choice A is the required bridge"
+        ],
+        "answer": "A — negating it destroys the causal claim; all other negations leave the conclusion intact"
+      },
+      "traps": [
+        "Picking a choice that strengthens but is not required (e.g., 'most members continue the diet')",
+        "Confusing assumption with evidence already stated",
+        "Selecting plausible-sounding facts unrelated to the argument's logical gap (diet fat content, member count)",
+        "Forgetting to apply the negation test — rely on feel rather than proof"
+      ],
+      "solveSteps": [
+        "1. Label conclusion and evidence in one sentence each",
+        "2. Identify the logical gap — what leap does the argument make?",
+        "3. Predict the assumption type (causation, representativeness, definitional)",
+        "4. Apply negation test to top candidates — negate and ask 'does the conclusion collapse?'",
+        "5. Pick the choice whose negation directly destroys the conclusion"
+      ]
+    }
+  },
+  "539": {
+    "hint": "Find the unstated premise the argument CANNOT survive without. Negate each choice — whichever one destroys the conclusion IS the assumption.",
+    "theory": {
+      "title": "CR Assumption — Negation Test",
+      "icon": "🔗",
+      "summary": "Every argument has a gap between evidence and conclusion. The assumption is the unstated bridge. Negate it: if the argument collapses, you found it.",
+      "keyFacts": [
+        "Assumption = unstated premise argument REQUIRES to be valid",
+        "Negation test: negate the choice → if conclusion breaks → that IS the assumption",
+        "Wrong choices are often: out-of-scope facts, irrelevant attributes, or restatements of the conclusion",
+        "Necessary ≠ Sufficient: assumption must be necessary, but correct choice need not guarantee the conclusion alone",
+        "Beware choices that strengthen but aren't required — must be NECESSARY, not just helpful",
+        "Scope: assumption must bridge the SPECIFIC gap in evidence→conclusion"
+      ],
+      "example": {
+        "problem": "Cost-savings argument for tablets assumes no offsetting hidden costs will erase the savings.",
+        "steps": [
+          "Conclusion: tablets save money",
+          "Evidence: reusable hardware + cheaper digital content",
+          "Gap: what could kill the savings? Hidden costs",
+          "Negate choice A: 'repair/replacement costs DO offset savings' → savings claim collapses",
+          "Negate choice B: 'students dislike tablets' → cost argument unaffected",
+          "Choice A negation destroys conclusion; choice B negation does not"
+        ],
+        "answer": "A — only A, when negated, directly breaks the cost-savings conclusion"
+      },
+      "traps": [
+        "Choosing facts that are plausible or nice-to-have but not logically required",
+        "Out-of-scope attributes (internet connectivity, teacher preference) don't bridge cost gap",
+        "A choice that merely strengthens the argument is not necessarily an assumption",
+        "Don't pick the conclusion restated as a premise"
+      ],
+      "solveSteps": [
+        "1. Identify: conclusion vs. evidence — what is the claim, what supports it?",
+        "2. Spot the gap: what must be true (unstated) to connect evidence to conclusion?",
+        "3. Apply negation test to each choice: negate it → does the conclusion break?",
+        "4. The choice whose negation kills the conclusion = the assumption",
+        "5. Eliminate: out-of-scope, irrelevant attributes, restatements"
+      ]
+    }
+  },
+  "540": {
+    "hint": "Find the unstated link between 'books distributed' and 'reading rates rise.' Use the negation test: which choice, if false, kills the argument?",
+    "theory": {
+      "title": "CR Assumption — The Negation Test",
+      "icon": "🔗",
+      "summary": "An assumption is an unstated premise the argument cannot survive without. Negate each choice: if negating it destroys the conclusion, that's the assumption.",
+      "keyFacts": [
+        "Assumption = required unstated premise bridging evidence → conclusion",
+        "Negation test: negate the choice → if argument collapses, it IS the assumption",
+        "Find the GAP: what must be true for evidence to support conclusion?",
+        "Correct assumption is necessary — not sufficient; it doesn't guarantee conclusion alone",
+        "Out-of-scope choices survive negation without hurting the argument — eliminate them",
+        "Assumptions are never stated in stimulus — if said outright, it's a premise, not assumption"
+      ],
+      "example": {
+        "problem": "A nonprofit distributes free books to reduce illiteracy. Director claims: more books at home → higher reading rates among children. What does the argument assume?",
+        "steps": [
+          "Identify evidence: free books distributed to homes",
+          "Identify conclusion: reading rates among children will rise",
+          "Spot the gap: books present ≠ books read — what bridges them?",
+          "The missing link: children must actually READ (or be read to from) the books",
+          "Negation test: 'Children will NOT read the books' → conclusion collapses ✓"
+        ],
+        "answer": "A — 'children will actually read the books' is the unstated bridge; negate it and the director's entire logic fails"
+      },
+      "traps": [
+        "Plausible irrelevant facts (public library, color printing) don't negate the core evidence→conclusion link",
+        "'Some parents already read' is background noise — not a required logical link",
+        "Fundraising concerns address feasibility, not the logical gap inside the argument",
+        "Choosing what strengthens vs. what is strictly required — negation test separates these"
+      ],
+      "solveSteps": [
+        "1. Identify evidence (what is given) and conclusion (what is claimed)",
+        "2. Spot the GAP: what must be true but is never stated in the stimulus?",
+        "3. Apply negation test to each choice — negated choice kills conclusion = your answer",
+        "4. Eliminate out-of-scope choices that survive negation unharmed",
+        "5. Confirm: correct choice is NECESSARY (not just helpful) for argument to hold"
+      ]
+    }
+  },
+  "541": {
+    "hint": "Negate each choice: if the argument collapses, that's the assumption. Ask: what must be true for BOTH conclusions (cost down AND productivity stable) to hold?",
+    "theory": {
+      "title": "CR Assumptions — Negation Test",
+      "icon": "🔗",
+      "summary": "An assumption is an unstated premise the argument REQUIRES. Negate it — if the conclusion breaks, you found the assumption.",
+      "keyFacts": [
+        "Assumption = gap between stated evidence and conclusion",
+        "Negation test: negate choice → if argument falls apart, it IS the assumption",
+        "Strong assumption: argument is IMPOSSIBLE without it",
+        "Weak/irrelevant choice: negation leaves argument intact",
+        "Multi-conclusion arguments need an assumption supporting ALL conclusions",
+        "Scope creep traps: choices that sound related but address a different gap"
+      ],
+      "example": {
+        "problem": "CEO: cutting middle managers will reduce costs AND not hurt productivity. Which assumption does this depend on?",
+        "steps": [
+          "Identify both conclusions: costs fall + productivity holds",
+          "Find the gap: what happens to the work middle managers currently do?",
+          "Negate A: 'Work is NOT eliminated or absorbed' → someone drops the ball → productivity suffers → conclusion fails",
+          "Negation destroys the argument → A is the assumption",
+          "Negate B (salary comparison): argument still stands without it → not the assumption"
+        ],
+        "answer": "A — negating it directly breaks the productivity conclusion; no other choice bridges that gap"
+      },
+      "traps": [
+        "Attractive but out-of-scope: B (salary) supports cost-cutting but ignores productivity",
+        "C and D address irrelevant issues (HR strength, priority ranking) — negating neither kills the argument",
+        "Confusing 'strengthener' with 'assumption' — assumptions are REQUIRED, not merely helpful",
+        "Forgetting to check all conclusions — an assumption must support every claim made"
+      ],
+      "solveSteps": [
+        "1. Identify every conclusion in the argument (may be more than one)",
+        "2. Spot the gap: what unstated fact must be true for evidence → conclusion?",
+        "3. Apply negation test to top candidates: negate and ask 'does the argument collapse?'",
+        "4. Eliminate choices whose negation leaves the argument standing",
+        "5. Watch scope: assumption must directly bridge the stated evidence to ALL conclusions"
+      ]
+    }
+  },
+  "542": {
+    "hint": "Find the unstated bridge between evidence and conclusion. Negate each choice — the one that kills the argument is the necessary assumption.",
+    "theory": {
+      "title": "CR Assumption — Necessary Condition & Negation Test",
+      "icon": "🔗",
+      "summary": "Every argument silently assumes its evidence is sufficient to reach its conclusion. The necessary assumption is the hidden premise without which the logic collapses.",
+      "keyFacts": [
+        "Assumption = unstated premise the argument MUST rely on to be valid",
+        "Negation Test: negate a choice → if argument falls apart, that choice IS the assumption",
+        "Scope match: assumption must bridge the exact gap between evidence and conclusion",
+        "Watch for unstated scope — evidence covers X, conclusion claims Y → assumption links X to Y",
+        "Assumption answers are often 'nothing else interferes' or 'no alternative explanation undermines'",
+        "Wrong choices are often true but irrelevant — they don't plug the logical gap"
+      ],
+      "example": {
+        "problem": "Scientist: Kepler-22b is in its star's habitable zone, so liquid water can exist → therefore it might harbor life. What must the argument assume?",
+        "steps": [
+          "Map the argument: Evidence = habitable zone (liquid water possible); Conclusion = life might exist",
+          "Spot the gap: habitable zone ≠ life-supporting by itself — other conditions could block life",
+          "Negation Test on A: 'Other conditions WOULD preclude life' → argument collapses; being in habitable zone means nothing",
+          "Negation Test on B/C/D/E: negating these doesn't touch the evidence-conclusion link",
+          "A is the bridge the scientist silently relies on"
+        ],
+        "answer": "A — negating it (atmosphere/chemistry DO preclude life) destroys the argument; all other negations leave the logic intact"
+      },
+      "traps": [
+        "Choosing an answer that strengthens rather than completes the logic — strengtheners are not assumptions",
+        "Picking a true but out-of-scope fact (e.g. 'astronomy advanced') that doesn't bridge evidence to conclusion",
+        "Confusing sufficient assumption (guarantees conclusion) with necessary assumption (required but may not guarantee)",
+        "Forgetting to apply the Negation Test — intuition alone often picks a strengthener instead"
+      ],
+      "solveSteps": [
+        "1. Identify evidence and conclusion precisely",
+        "2. Name the logical gap: what must be true for E → C to work?",
+        "3. Apply Negation Test to each candidate: negate it → does the argument collapse?",
+        "4. Eliminate choices whose negations leave the argument intact",
+        "5. Confirm: the remaining choice, when negated, makes the conclusion unsupportable"
+      ]
+    }
+  },
+  "543": {
+    "hint": "Find the unstated bridge between 'city has coffee drinkers' and 'our stores will be profitable.' What must be true for that leap to hold?",
+    "theory": {
+      "title": "CR Assumption — Bridging the Premise–Conclusion Gap",
+      "icon": "🔗",
+      "summary": "Every GMAT argument has a gap between its evidence and conclusion. The assumption is the unstated claim that fills that gap — if it's false, the argument collapses.",
+      "keyFacts": [
+        "Assumption = unstated premise the argument REQUIRES to be valid",
+        "Find the gap: ask 'why does the evidence guarantee the conclusion?'",
+        "Negate Test: negate the answer choice — if the argument falls apart, it's the assumption",
+        "Correct answer is necessary, not merely helpful or possible",
+        "Watch for scope shifts: evidence about X, conclusion about Y — assumption links them",
+        "Wrong answers often address different gaps or are true but irrelevant"
+      ],
+      "example": {
+        "problem": "A gym opens downtown. Owner says it will succeed because the neighborhood has health-conscious residents. The plan assumes what?",
+        "steps": [
+          "Premise: neighborhood has health-conscious residents",
+          "Conclusion: gym will succeed (be profitable)",
+          "Gap: having health-conscious people ≠ they will choose THIS gym",
+          "Assumption must bridge: enough residents will actually join this gym (not existing gyms, home workouts, etc.)",
+          "Negate test: 'Residents will NOT choose this gym over alternatives' → gym fails → argument collapses ✓"
+        ],
+        "answer": "That a sufficient number of health-conscious residents will choose this gym over available alternatives"
+      },
+      "traps": [
+        "Choosing a choice that is true or plausible but doesn't close the specific evidence→conclusion gap",
+        "Picking a choice about the company's general capabilities (experience, size) when the gap is about customer choice",
+        "Confusing Strengthen (adds support) with Assumption (must be true) — assumptions are necessary, not just helpful",
+        "Missing the scope shift: argument jumps from 'drinkers exist' to 'drinkers choose US'"
+      ],
+      "solveSteps": [
+        "1. Identify: Premises (stated evidence) and Conclusion (the claim being made)",
+        "2. Spot the gap: what must be true that the author didn't say?",
+        "3. Predict the assumption before reading choices",
+        "4. Negate each candidate: does negation kill the argument? Yes → assumption found",
+        "5. Eliminate: choices that are merely helpful, out of scope, or about unrelated topics"
+      ]
+    }
+  },
+  "544": {
+    "hint": "Negate each choice: which one, if false, makes 'workers earn more → less poverty' collapse? Find the hidden link the argument cannot survive without.",
+    "theory": {
+      "title": "CR Assumption — The Negation Test",
+      "icon": "🔗",
+      "summary": "An assumption is the unstated premise the argument must take for granted. Negate it and the conclusion falls apart. No negation → not the assumption.",
+      "keyFacts": [
+        "Assumption bridges a logical gap between premise and conclusion",
+        "Negation test: if choice is FALSE and conclusion dies → that is the assumption",
+        "Correct assumption is necessary but NOT sufficient — it won't alone prove the conclusion",
+        "Avoid choices that merely strengthen (nice-to-have) vs. ones that are required",
+        "Out-of-scope choices (time, voter opinion, inflation) cannot bridge premise→conclusion gap",
+        "Pattern: 'A causes B' arguments assume no third force blocks A from producing B"
+      ],
+      "example": {
+        "problem": "Senator: raising minimum wage reduces poverty because workers earn more. What must the argument assume?",
+        "steps": [
+          "Premise: minimum wage ↑ → workers earn more",
+          "Conclusion: poverty decreases",
+          "Gap: does 'earning more per hour' automatically mean 'taking home more money overall'?",
+          "Negate choice A: 'Employers DO cut hours/jobs enough to erase the gain' → workers net same or less → poverty unchanged → conclusion destroyed ✓",
+          "Negate choice B: 'Most low-wage workers do NOT live in poverty' → wage hike helps them, just not as poor people → conclusion weakened but not killed ✗",
+          "A is necessary; B is merely helpful"
+        ],
+        "answer": "A — its negation (employers offset the raise) directly destroys the causal chain premise→conclusion"
+      },
+      "traps": [
+        "Picking a 'strengthener' that makes the argument better but isn't required — fails negation test",
+        "Choosing a historically relevant fact (wage last raised a decade ago) that has no logical role in the gap",
+        "Conflating 'earn more per hour' with 'take home more total income' — that gap IS the assumption",
+        "Scope creep: voter support and inflation are real-world concerns, not logical links in this argument"
+      ],
+      "solveSteps": [
+        "1. ID premise and conclusion; label the logical gap between them",
+        "2. Ask: what must be true for premise to guarantee conclusion?",
+        "3. Apply negation test to each choice — negate it and check if conclusion survives",
+        "4. Eliminate choices whose negation leaves conclusion intact (strengtheners, irrelevant facts)",
+        "5. Pick the choice whose negation kills the conclusion — that is the assumption"
+      ]
+    }
+  },
+  "545": {
+    "hint": "Find the unstated bridge: what must be true for trial results to support THIS farmer's plan? Negate each choice — the one that kills the plan is the assumption.",
+    "theory": {
+      "title": "CR Assumption — Bridging Evidence to Conclusion",
+      "icon": "🔗",
+      "summary": "An assumption is the unstated premise the argument REQUIRES. Without it, the conclusion doesn't follow from the evidence. Use the Negate Test: if negating a choice destroys the argument, that choice is the assumption.",
+      "keyFacts": [
+        "Assumption = necessary unstated premise (argument breaks without it)",
+        "Negate Test: negate each choice → if argument collapses, that's the assumption",
+        "Evidence → [GAP = assumption] → Conclusion",
+        "Assumptions bridge a logical gap — they don't repeat evidence or restate the conclusion",
+        "Scope shift clue: if evidence talks about 'trials' but conclusion talks about 'this farm', the bridge must connect those two scopes",
+        "Irrelevant choices (packaging, unrelated facts) survive negation without hurting the argument"
+      ],
+      "example": {
+        "problem": "A farmer plans to use Fertilizer X based on trial results showing yield gains. The plan assumes which of the following?",
+        "steps": [
+          "Identify evidence: fertilizer increased yields in trials",
+          "Identify conclusion/plan: this farmer's yield will increase",
+          "Spot the gap: trials ≠ this farm — transfer of results requires similar conditions",
+          "Apply Negate Test to the bridge choice: 'trials were NOT conducted under similar conditions' → yield gain may NOT transfer → plan collapses",
+          "Negate Test to irrelevant choice: 'fertilizer NOT widely sold' → plan can still work if conditions match → argument survives",
+          "Choice that fails negation = assumption"
+        ],
+        "answer": "A — negating it (trial conditions very different from this farm) directly undermines the plan's logic"
+      },
+      "traps": [
+        "Choices about irrelevant facts (bag size, how common trials are) survive negation — eliminate them fast",
+        "Restating the conclusion or evidence is NOT an assumption",
+        "'Could be true' ≠ assumption; assumption must be NECESSARY, not merely possible",
+        "Attractive scope: 'corn is only crop' sounds relevant but negating it doesn't stop the fertilizer from working on corn"
+      ],
+      "solveSteps": [
+        "1. Label: find Evidence and Conclusion (plan/prediction)",
+        "2. Spot the logical gap — what scope shift exists between them?",
+        "3. For each choice, apply Negate Test: does negating it destroy the argument?",
+        "4. Eliminate choices whose negation leaves the argument intact",
+        "5. Confirm: chosen assumption is unstated, necessary, and bridges the gap"
+      ]
+    }
+  },
+  "546": {
+    "hint": "Negate each choice — whichever one KILLS the conclusion is the assumption. Preference ≠ profitable demand; spot the gap.",
+    "theory": {
+      "title": "CR Assumption — Bridging the Logic Gap",
+      "icon": "🔗",
+      "summary": "An assumption is the unstated premise that MUST be true for the argument to hold. The negation test: if negating a choice destroys the conclusion, it is the assumption.",
+      "keyFacts": [
+        "Assumption = unstated bridge between evidence and conclusion",
+        "Negation test: negate the choice → does conclusion collapse? Yes → assumption found",
+        "Evidence can sound compelling but still leave a hidden gap (e.g., 'preference' ≠ 'enough revenue')",
+        "Correct answer is almost never explicitly stated in the passage — it fills a gap",
+        "Wrong choices often inject new information the argument never needs",
+        "Necessity: assumption must be true for conclusion to stand, not just helpful"
+      ],
+      "example": {
+        "problem": "Airline adds direct route expecting profit because surveys show travelers prefer direct flights. Which assumption does the plan depend on?",
+        "steps": [
+          "Identify conclusion: adding route will increase profits",
+          "Identify evidence: surveys show traveler preference for direct flights",
+          "Spot the gap: preference → profit? Only if enough people actually pay",
+          "Negate choice A: 'Not enough paying travelers to be profitable' → route loses money → plan fails ✓",
+          "Negate choice B: 'No international airports' → irrelevant to whether demand meets profit threshold",
+          "Choice A is the bridge — without it the argument collapses"
+        ],
+        "answer": "A — negating it (too few paying customers) directly kills the profit conclusion; all other negations leave the argument intact"
+      },
+      "traps": [
+        "Choosing answers that are plausible facts but not required by the argument (B, C, D)",
+        "Confusing 'preference for direct flights' with 'sufficient profitable demand' — the gap the question tests",
+        "Picking E (survey reliability) — surveys are cited as evidence, but the argument does not require them to be perfectly reliable, only directionally useful",
+        "Selecting answers that strengthen the argument rather than underpin it"
+      ],
+      "solveSteps": [
+        "1. Identify conclusion (the claim being argued for)",
+        "2. Identify evidence (what supports it)",
+        "3. Articulate the gap — what must be true but is never said?",
+        "4. Apply negation test to each choice — which negation destroys the conclusion?",
+        "5. Eliminate choices that add new info, are irrelevant, or weaken rather than undergird"
+      ]
+    }
+  },
+  "547": {
+    "hint": "Find the unstated bridge the argument NEEDS. Try negation: if the assumption is false, does the conclusion collapse? The correct choice does exactly that.",
+    "theory": {
+      "title": "Causal Assumption — Ruling Out Alternate Causes",
+      "icon": "🔗",
+      "summary": "When an argument concludes X caused Y based on correlation, it silently assumes no other factor caused Y. Negating that assumption destroys the conclusion.",
+      "keyFacts": [
+        "Assumption = unstated premise the argument REQUIRES to be true",
+        "Negate the answer choice — if the conclusion collapses, it's the assumption",
+        "Causal arguments always assume: no confounding variable explains the effect",
+        "Correlation ≠ causation; the gap between them IS the assumption",
+        "Strengthen ≠ Assumption: an assumption is necessary, not merely helpful",
+        "Scope: assumption must match conclusion's exact claim — not broader, not narrower"
+      ],
+      "example": {
+        "problem": "Sales rose after a new ad campaign launched. Manager concludes the campaign drove the increase. What assumption underlies this?",
+        "steps": [
+          "Conclusion: campaign caused sales rise",
+          "Evidence: sales rose during campaign period",
+          "Gap: maybe economy improved, competitor closed, or season changed",
+          "Assumption needed: no other factor primarily caused the rise",
+          "Negate it: 'Another factor DID primarily cause the rise' → conclusion falls apart",
+          "That collapse confirms it is the assumption"
+        ],
+        "answer": "No major external factor was primarily responsible for the sales increase"
+      },
+      "traps": [
+        "Choosing an answer that strengthens but isn't strictly necessary — ask 'does negating it kill the conclusion?'",
+        "Picking a statement about background facts (how long reign lasted, document access) — irrelevant to causal gap",
+        "Confusing sufficient assumption (guarantees conclusion) with necessary assumption (required but not sufficient)",
+        "Answer scope too broad or too narrow — must match the conclusion's exact causal claim"
+      ],
+      "solveSteps": [
+        "1. Identify conclusion and evidence — find the logical gap",
+        "2. Predict: what must be true (unstated) for evidence → conclusion?",
+        "3. Apply Negation Test: negate each choice — does the conclusion collapse?",
+        "4. Eliminate: background facts, irrelevant context, strengtheners that aren't necessary",
+        "5. Confirm: the assumption is required but not explicitly stated in the argument"
+      ]
+    }
+  },
+  "548": {
+    "hint": "Find the unstated bridge the argument REQUIRES. Negate each choice — the one that collapses the conclusion is the assumption. Never pick what's merely nice-to-have.",
+    "theory": {
+      "title": "CR Assumption — Generalization Gap",
+      "icon": "🔗",
+      "summary": "An assumption is the unstated premise that MUST be true for the conclusion to hold. Arguments that extrapolate from a sample to a whole population always hide a generalization assumption.",
+      "keyFacts": [
+        "Assumption = necessary, unstated link between evidence and conclusion",
+        "Negation test: negate the choice → if argument collapses, that's the assumption",
+        "Pilot-to-policy arguments assume: pilot results will hold at scale",
+        "'Nice-to-have' facts (preferences, duration, competitors) ≠ logical necessity",
+        "Correct assumption: its negation makes the conclusion logically unsupportable",
+        "Wrong answers often introduce irrelevant or already-stated info"
+      ],
+      "example": {
+        "problem": "Pilot shows 4-day week boosts productivity. Report recommends company-wide adoption. What must be assumed?",
+        "steps": [
+          "Premise: small pilot employees reported higher productivity in 4 days",
+          "Conclusion: company should adopt 4-day week company-wide",
+          "Gap: pilot sample ≠ whole company",
+          "Negate A: 'pilot results would NOT generalize' → policy recommendation has no basis → argument destroyed",
+          "Negate B: 'employees do NOT prefer fewer days' → conclusion still holds if productivity is the goal",
+          "A is necessary; B is irrelevant to the productivity-based argument"
+        ],
+        "answer": "A — negating it (results don't generalize) directly destroys the recommendation's logical basis"
+      },
+      "traps": [
+        "Picking a choice that strengthens rather than enables the argument",
+        "Confusing 'relevant' with 'necessary' — irrelevant true facts still fail the test",
+        "Over-scope: assumptions needn't cover every detail (pilot duration, other companies)",
+        "Self-report validity is a weakener topic, not what the argument assumes"
+      ],
+      "solveSteps": [
+        "1. Identify: premise → conclusion, then spot the gap",
+        "2. Apply negation test to each choice",
+        "3. Eliminate choices whose negation leaves conclusion intact",
+        "4. Pick the choice whose negation makes conclusion impossible or unsupported",
+        "5. Verify: assumption is unstated — if already in the argument, it can't be assumed"
+      ]
+    }
+  },
+  "549": {
+    "hint": "Find the unstated bridge: what MUST be true for fewer illnesses to actually mean lower net bills? Try negating each choice — if the argument collapses, that's the assumption.",
+    "theory": {
+      "title": "CR Assumption — The Necessary Gap",
+      "icon": "🔗",
+      "summary": "An assumption is the unstated premise the argument cannot survive without. Locate the logical gap between evidence and conclusion, then ask: which choice must be true to cross it?",
+      "keyFacts": [
+        "Assumption = unstated premise required for evidence → conclusion to hold",
+        "Negation test: negate the choice; if argument falls apart, it's the assumption",
+        "Cost-benefit argument gap: proving 'fewer vet bills' ≠ proving net savings unless diet cost is controlled",
+        "Study correlation only proves one side of a ledger — full conclusion needs both sides",
+        "Irrelevant truths (duration, enjoyment, approval) don't bridge the financial gap",
+        "Correct assumption is NECESSARY, not merely helpful or possible"
+      ],
+      "example": {
+        "problem": "Vet says new diet lowers vet bills because a study showed fewer illnesses. What must be assumed?",
+        "steps": [
+          "Conclusion: switching saves money (lowers vet bills net)",
+          "Evidence: diet → fewer illnesses → lower vet costs",
+          "Gap: diet itself has a cost — does that cost wipe out the savings?",
+          "Negate A: 'The diet costs MORE than vet savings' → now switching costs more overall → conclusion destroyed ✓",
+          "Negating B/C/D/E leaves argument intact → those aren't necessary"
+        ],
+        "answer": "A — negating it (diet costs exceed savings) directly kills the cost-reduction conclusion; all other negations leave the argument standing"
+      },
+      "traps": [
+        "Study detail (length, size) seems important but isn't required for the cost logic",
+        "Enjoyment and regulatory approval are real-world concerns, not logical gaps in THIS argument",
+        "'Largest expense' framing (E) is irrelevant — conclusion doesn't require vet bills to dominate all costs",
+        "Confusing 'sufficient' assumption (makes argument airtight) with 'necessary' assumption (must be true)"
+      ],
+      "solveSteps": [
+        "1. Strip to bare argument: conclusion + evidence, one sentence each",
+        "2. Spot the logical gap — what unstated link does evidence → conclusion require?",
+        "3. Apply negation test to top candidates: negate → does conclusion collapse?",
+        "4. Eliminate choices whose negation leaves argument intact",
+        "5. Confirm winner: its negation destroys the argument; the original statement is what the argument silently depends on"
+      ]
+    }
+  },
+  "550": {
+    "hint": "Negate each choice: if the plan COLLAPSES, that's the assumption. The gap: does a recommendation actually change what customers buy?",
+    "theory": {
+      "title": "CR Assumption — Negation Test",
+      "icon": "🔗",
+      "summary": "An assumption is an unstated premise the argument REQUIRES. Negate it — if the conclusion breaks, you found it. If the argument survives, it's not the assumption.",
+      "keyFacts": [
+        "Assumption = necessary unstated premise the argument cannot work without",
+        "Negation test: make the choice FALSE → if conclusion falls apart, it's the assumption",
+        "Assumption bridges evidence to conclusion — fills the logical gap",
+        "Wrong answers: relevant or supportive details, but not REQUIRED for the plan to work",
+        "Causal plans assume cause actually produces the predicted effect",
+        "Scope: assumption must connect the specific evidence to the specific conclusion — no extras"
+      ],
+      "example": {
+        "problem": "Retailer recommends products via browsing history → predicts increased sales. Which assumption does the plan depend on?",
+        "steps": [
+          "Conclusion: browsing-based recommendations will increase sales",
+          "Evidence: retailer will tailor recommendations to each customer's history",
+          "Gap: plan assumes recommendation changes purchase behavior — never stated",
+          "Negate A: customers are NOT more likely to buy recommendations → plan cannot raise sales → argument collapses ✓",
+          "Negate B: customers don't browse long → recommendations still could raise purchase rate → argument survives ✗",
+          "A's negation destroys the plan; it is the necessary bridge"
+        ],
+        "answer": "A — without it (recommendations don't raise purchase likelihood), the plan has no mechanism to increase sales"
+      },
+      "traps": [
+        "Confusing 'helpful to the plan' with 'required by the plan' — many choices support but aren't necessary",
+        "Choosing peripheral details (catalog size, account creation, display placement) that bypass the core sales-lift gap",
+        "Forgetting to negate — picking a choice that 'sounds right' without testing it",
+        "Assuming the plan is good; your job is to find what it MUST assume, not what would help"
+      ],
+      "solveSteps": [
+        "1. Identify conclusion and evidence; name the logical gap between them",
+        "2. For each candidate: assume it is FALSE (negate it)",
+        "3. Ask: does the conclusion now fail? If yes → assumption found",
+        "4. Eliminate all choices whose negation leaves the argument intact",
+        "5. Confirm: winner connects evidence to conclusion directly, not just a supporting detail"
+      ]
+    }
+  },
+  "551": {
+    "hint": "Inference = must be true from stated facts only. Contrapositive: if ALL X have Y and something lacks Y, what follows necessarily? Never add unstated assumptions.",
+    "theory": {
+      "title": "Necessary Conditions & Contrapositive Inference",
+      "icon": "🔄",
+      "summary": "'All A are B' means B is necessary for A. Flip it: lacking B guarantees not-A. Inference questions demand logical certainty — not probability, not common sense.",
+      "keyFacts": [
+        "'All A are B' → B is a NECESSARY condition for A",
+        "Contrapositive: NOT B → NOT A (logically equivalent, always valid)",
+        "Inverse (Not A → Not B) and converse (B → A) are NOT valid inferences",
+        "Inference answer must be 100% guaranteed by the premises — no maybe",
+        "Scope creep traps: future predictions, causal claims, and 'most/always' statements go beyond stated facts",
+        "Check each choice: could the premises be true while this choice is false? If yes → eliminate"
+      ],
+      "example": {
+        "problem": "All licensed pilots have passed a medical exam. Jordan has not passed a medical exam. What can be inferred?",
+        "steps": [
+          "Identify structure: All pilots → passed exam (exam is necessary for pilot status)",
+          "Contrapositive: NOT passed exam → NOT a pilot",
+          "Jordan hasn't passed → Jordan is NOT a licensed pilot",
+          "Verify: is any other choice guaranteed? 'Jordan will pass later' — not stated. Eliminate."
+        ],
+        "answer": "Jordan is not a licensed pilot"
+      },
+      "traps": [
+        "Future predictions ('will become') — premises say nothing about future",
+        "'Most/always' generalizations — one rule about a group ≠ claim about majority",
+        "Causal or prescriptive claims ('only path to mastery') — not in premises",
+        "Converse error: B → A (having ≥1,000 games makes you a grandmaster) — INVALID"
+      ],
+      "solveSteps": [
+        "1. Identify logical structure: universal statement (All X have Y)?",
+        "2. Form contrapositive: NOT Y → NOT X",
+        "3. Apply to subject: does subject lack the necessary condition?",
+        "4. Test each choice: must it be true given ONLY the stated premises?",
+        "5. Eliminate anything that predicts, generalizes, or adds causal claims"
+      ]
+    }
+  },
+  "552": {
+    "hint": "Find what the premises GUARANTEE. Owning a leash does NOT guarantee owning a dog — leashes have other sources. Avoid assuming the converse.",
+    "theory": {
+      "title": "Inference — Conditional Logic & Affirming the Consequent",
+      "icon": "⇒",
+      "summary": "A conditional 'If A then B' does NOT mean 'If B then A.' Seeing the result (B) tells you nothing certain about the cause (A). Inferences must follow necessarily from the premises.",
+      "keyFacts": [
+        "If A → B, then B alone does NOT imply A (converse fallacy)",
+        "Valid inference: A is true → conclude B is true",
+        "Invalid inference: B is true → conclude A is true (affirming the consequent)",
+        "'Can be properly inferred' means: true in EVERY scenario consistent with the premises",
+        "Any choice that adds information not in the premises is an over-claim",
+        "Negate the inference candidate — if negation is possible, the inference is invalid"
+      ],
+      "example": {
+        "problem": "Every dog owner in Town X owns a leash. Sam owns a leash. What can be inferred?",
+        "steps": [
+          "Map the rule: dog owner → leash owner",
+          "Sam owns a leash: Sam satisfies the RESULT of the rule",
+          "Ask: does satisfying the result guarantee the cause? No — Sam could own a leash for a cat, bike, bag, etc.",
+          "Both 'Sam owns a dog' and 'Sam does not own a dog' are consistent with premises",
+          "Only safe inference: Sam might or might not own a dog"
+        ],
+        "answer": "Sam might or might not own a dog — the premises neither confirm nor rule out dog ownership."
+      },
+      "traps": [
+        "Assuming the converse: 'Sam owns a leash → Sam owns a dog' — invalid flip of the conditional",
+        "Concluding Sam definitely does NOT own a dog — premises don't say that either",
+        "Scope creep: inferring facts about 'most residents' from a rule about individuals",
+        "Treating 'implies' as 'if and only if' — the rule runs one direction only"
+      ],
+      "solveSteps": [
+        "1. Map each premise as a conditional arrow (A → B)",
+        "2. Identify what is GIVEN about the specific subject (which side of the arrow?)",
+        "3. Given the result (B): cannot conclude A — both A and ¬A are possible",
+        "4. Given the cause (A): safely conclude B",
+        "5. Eliminate any choice that adds info beyond what premises guarantee"
+      ]
+    }
+  },
+  "553": {
+    "hint": "'Unless both X and Y, no Z' means access requires BOTH. Missing either condition → no access. Identify the contrapositive before evaluating choices.",
+    "theory": {
+      "title": "Conditional Logic — Necessary Conditions",
+      "icon": "🔒",
+      "summary": "A necessary condition must be met for the outcome to occur. 'No access unless both A and B' means access requires A AND B — missing either blocks access.",
+      "keyFacts": [
+        "'No X unless Y' ≡ 'If X, then Y' ≡ Contrapositive: 'If not Y, then not X'",
+        "'Both A and B required' means absence of EITHER is sufficient to deny the outcome",
+        "Contrapositive is logically equivalent to the original — use it freely",
+        "Must-be-true answers follow with certainty; avoid choices that are merely possible",
+        "For inference questions: the answer is proven by the premises alone — no outside info",
+        "Distractors introduce scope beyond the passage (future actions, tenure, others' access)"
+      ],
+      "example": {
+        "problem": "Policy: no access to system unless employee completed BOTH training A and training B. Carlos has not completed training A. What must be true?",
+        "steps": [
+          "Restate rule as conditional: Access → Training A AND Training B",
+          "Contrapositive: NOT Training A OR NOT Training B → NOT Access",
+          "Carlos lacks Training A → left side of contrapositive is satisfied",
+          "Therefore: Carlos does NOT have access",
+          "Check distractors: 'Carlos will complete training soon' — not stated; 'others have access' — not stated"
+        ],
+        "answer": "Carlos does not have access to the system — contrapositive fires directly."
+      },
+      "traps": [
+        "Choosing 'Anna has completed security training' — her security status is irrelevant once compliance is missing",
+        "Predicting future actions (will complete soon) — the passage states no such plan",
+        "Bringing in outside info like tenure or company size",
+        "Confusing sufficient vs. necessary: compliance alone doesn't grant access, but lacking it denies it"
+      ],
+      "solveSteps": [
+        "1. Identify the conditional rule and rewrite: Outcome → Condition(s)",
+        "2. Write the contrapositive: NOT Condition → NOT Outcome",
+        "3. Apply given facts to the contrapositive — does it fire?",
+        "4. Eliminate choices that go beyond what premises guarantee",
+        "5. Pick the choice that follows with certainty, not just possibility"
+      ]
+    }
+  },
+  "554": {
+    "hint": "Find what MUST be true given the premises — not what is likely, possible, or implied. Map each condition explicitly before evaluating choices.",
+    "theory": {
+      "title": "Must-Be-True Inference — Necessary vs. Sufficient Conditions",
+      "icon": "🔒",
+      "summary": "A 'must be true' conclusion cannot be false if all premises are true. Test each choice: can it be false while all premises hold? If yes, eliminate it.",
+      "keyFacts": [
+        "Must Be True ≠ Could Be True. Choice must follow necessarily from the premises alone.",
+        "Distinguish conditions: eligible (age-based) vs. registered (action-based) — conflating them is the main trap.",
+        "Logical form: 'Only registered may vote' → NOT registered → CANNOT vote (modus tollens).",
+        "Premises set hard limits — never add assumptions (interest, intent, behavior) not stated.",
+        "Extreme words ('will', 'most', 'never') almost always fail the must-be-true test — no evidence for magnitude or future.",
+        "Two-condition rules: satisfy both → qualify; fail one → disqualify — regardless of other attributes."
+      ],
+      "example": {
+        "problem": "All citizens over 18 are eligible. Only registered citizens may cast a ballot. Joaquin: citizen, age 25, not registered. What must be true?",
+        "steps": [
+          "List hard facts: eligible = yes (25 > 18); registered = no.",
+          "Rule: casting a ballot requires registration — 'only registered may cast.'",
+          "Apply modus tollens: not registered → cannot cast ballot.",
+          "Check (D): 'not eligible' — FALSE. Eligibility is met; registration is the missing condition.",
+          "Check others: future behavior, political interest, proportion of registered voters — all unsupported by premises."
+        ],
+        "answer": "A — 'Joaquin cannot cast a ballot' follows necessarily: the rule blocks unregistered voters regardless of eligibility."
+      },
+      "traps": [
+        "Confusing eligibility with registration — Joaquin IS eligible (age ≥ 18), he just isn't registered.",
+        "Inferring intent or future action ('will register') — premises say nothing about motivation.",
+        "Assuming inability to vote implies ineligibility — two distinct conditions, one can be met without the other.",
+        "Picking 'could be true' choices rather than 'must be true' — the standard is much stricter."
+      ],
+      "solveSteps": [
+        "1. List every stated condition as hard facts — no embellishment.",
+        "2. Identify the logical rule structure (if/only-if, necessary, sufficient).",
+        "3. For each choice, ask: can this be FALSE while all premises remain TRUE? If yes, eliminate.",
+        "4. Watch for choices that conflate two separate conditions (eligible vs. registered).",
+        "5. Correct answer will follow directly from a rule + a fact via deductive logic."
+      ]
+    }
+  },
+  "555": {
+    "hint": "Spot the conditional: every winner had acclaimed prior work. Aldo lacks that. Apply the contrapositive — what MUST follow? No letter revealed here.",
+    "theory": {
+      "title": "Contrapositive — Necessary Condition Logic",
+      "icon": "⇒",
+      "summary": "A conditional 'All X are Y' flips to 'Not Y → Not X.' If the condition is absent, the outcome is ruled out — this is the only rock-solid inference.",
+      "keyFacts": [
+        "Conditional: All A → B  ≡  contrapositive: ¬B → ¬A",
+        "Contrapositive is logically equivalent — it MUST be true",
+        "Converse (All B → A) and inverse (¬A → ¬B) are NOT valid — classic traps",
+        "'Must be true' = survives all possible worlds; one counterexample kills an answer",
+        "GMAT CR inference questions reward the most conservative, tightest conclusion",
+        "Never assume the converse: prize winners had acclaim ≠ acclaimed authors win prizes"
+      ],
+      "example": {
+        "problem": "All Whitfield Prize winners had acclaimed prior work. Aldo's prior work had no acclaim. What must be true?",
+        "steps": [
+          "Identify conditional: Winner → Acclaimed prior work",
+          "Take contrapositive: No acclaimed prior work → Not a winner",
+          "Aldo satisfies antecedent of contrapositive: no acclaimed prior work",
+          "Conclude: Aldo cannot be a Whitfield winner",
+          "Check scope — conclusion covers only Whitfield, not all prizes or future reception"
+        ],
+        "answer": "Aldo's next novel cannot win the Whitfield Prize — contrapositive applies directly."
+      },
+      "traps": [
+        "Assuming converse: 'acclaimed authors win prizes' — the original says nothing about that direction",
+        "Over-reaching: concluding Aldo's next novel will be poorly received — prize eligibility ≠ quality judgment",
+        "Confusing 'prior work' scope: the condition is about work BEFORE the prize-winning novel, not after",
+        "Picking answers with weasel words like 'often' or 'most' — these go beyond what the premises guarantee"
+      ],
+      "solveSteps": [
+        "1. Identify the conditional: underline 'every/all/only' statements",
+        "2. Write formal form: Whitfield winner → acclaimed prior work",
+        "3. Flip and negate → contrapositive: ¬acclaimed → ¬Whitfield winner",
+        "4. Match Aldo to contrapositive antecedent (no acclaim = condition met)",
+        "5. Pick the answer that states ONLY what the contrapositive forces — reject any answer that adds claims not in premises"
+      ]
+    }
+  },
+  "556": {
+    "hint": "Find what the premises GUARANTEE — no assumptions. Watch for answers that extend beyond the basket's scope.",
+    "theory": {
+      "title": "Must-Be-True Inference — Contrapositive & Scope",
+      "icon": "🔍",
+      "summary": "'Must be true' means provably forced by the given premises alone. Any answer that adds info, generalizes beyond the stated scope, or assumes unstated facts is wrong.",
+      "keyFacts": [
+        "'Must be true' = logically necessary, not just plausible or likely",
+        "Conditional: All A are B → contrapositive: not-B → not-A",
+        "Scope matters: 'all apples in X' ≠ 'all apples everywhere'",
+        "Eliminate answers that require outside knowledge or new assumptions",
+        "Eliminate answers that are merely possible (could be true ≠ must be true)",
+        "The correct inference is often the contrapositive of a given premise"
+      ],
+      "example": {
+        "problem": "All apples in the basket are red. The basket contains a green fruit. What must be true?",
+        "steps": [
+          "Identify premises: (1) basket apples → red; (2) basket has a green fruit",
+          "Apply contrapositive of (1): not red → not an apple",
+          "The green fruit is not red, so by contrapositive it cannot be an apple",
+          "Check scope: this conclusion stays inside the basket — no world-level claim needed",
+          "Reject B ('no apples are green') — premise only covers basket apples, not all apples"
+        ],
+        "answer": "A — 'The green fruit is not an apple' follows directly from the contrapositive; it stays within the stated scope."
+      },
+      "traps": [
+        "Choosing B: over-generalizes to all apples in the world; premise only covers this basket",
+        "Choosing E: 'by mistake' is an assumption — premises say nothing about intent",
+        "Confusing 'could be true' with 'must be true' — several choices are possible but not guaranteed",
+        "Reversing the conditional: 'all apples are red' does NOT mean 'all red things are apples'"
+      ],
+      "solveSteps": [
+        "1. Label each premise; identify what 'all A are B' implies by contrapositive (not-B → not-A)",
+        "2. Apply contrapositive to the second premise to draw the forced conclusion",
+        "3. Check scope: does the answer stay within the stated context or extend beyond it?",
+        "4. Eliminate any choice that needs an assumption, outside knowledge, or is merely possible",
+        "5. Pick the answer that is 100% guaranteed by the premises as written"
+      ]
+    }
+  },
+  "557": {
+    "hint": "Two groups total 150% — they must spill over 100%. Minimum overlap = A% + B% − 100%. Which answer follows from that floor?",
+    "theory": {
+      "title": "Overlapping Sets — Minimum Overlap Rule",
+      "icon": "∩",
+      "summary": "When two groups together exceed 100% of a population, they must share members. The minimum overlap is (A + B) − 100%. This floor is provable with no other information.",
+      "keyFacts": [
+        "Min overlap = A% + B% − 100%  (when sum > 100%)",
+        "Max overlap = the smaller of A% or B%",
+        "If A + B ≤ 100%, overlap could be zero — no minimum guaranteed",
+        "Inclusion-exclusion: |A ∪ B| = |A| + |B| − |A ∩ B|, so |A ∩ B| = |A| + |B| − |A ∪ B|",
+        "Since |A ∪ B| ≤ 100%, minimum |A ∩ B| = |A| + |B| − 100%",
+        "'Must be true' = true under ALL possible distributions, not just some"
+      ],
+      "example": {
+        "problem": "80% prefer flexible hours, 70% prefer remote work. What is the minimum % who prefer both?",
+        "steps": [
+          "Total percentage claimed: 80 + 70 = 150%",
+          "Population is 100%, so at least 50% must be counted twice",
+          "Min overlap = 150% − 100% = 50%",
+          "Verify: if exactly 50% overlap → 80−50=30% flex only, 70−50=20% remote only, 30+20+50=100% ✓",
+          "Any smaller overlap forces total > 100%, impossible"
+        ],
+        "answer": "At least 50% prefer both — minimum overlap is 50%"
+      },
+      "traps": [
+        "Assuming overlap is exactly 50% — it could be higher (up to 70%)",
+        "Confusing 'must be true' with 'could be true' — only the minimum floor is guaranteed",
+        "Answer E (20% flex only) assumes overlap is exactly 70%, an unwarranted assumption",
+        "Answer B says 'most who prefer flex also prefer remote' — true only if overlap > 40% of 80%, not guaranteed at floor"
+      ],
+      "solveSteps": [
+        "1. Sum the two percentages: 80 + 70 = 150%",
+        "2. Minimum overlap = 150% − 100% = 50%",
+        "3. Check each answer: does it hold under ALL valid distributions?",
+        "4. The 50% floor is the only provable claim — pick the answer matching it",
+        "5. Reject answers that fix a specific value (e.g., 'exactly 20%') or assume overlap equals one group"
+      ]
+    }
+  },
+  "558": {
+    "hint": "Apply the rule's contrapositive: if GPA < 3.5 → cannot be in honors. Pick the one conclusion forced by the premises alone — no outside assumptions allowed.",
+    "theory": {
+      "title": "CR Inference — Contrapositive Logic",
+      "icon": "⊃",
+      "summary": "A 'must be true' inference question demands a conclusion that follows necessarily from the premises alone. The contrapositive of a conditional is logically equivalent and is the key deductive move.",
+      "keyFacts": [
+        "Conditional rule: If A → B  is equivalent to  If ¬B → ¬A  (contrapositive)",
+        "'No X has property P' means X → ¬P, so ¬(¬P) → ¬X, i.e. P → ¬X",
+        "Must-be-true = supported by BOTH premises with ZERO extra assumptions",
+        "Eliminate any choice that adds new info (predictions, policies, statistics)",
+        "Modus tollens: rule says A→B; fact shows ¬B; conclude ¬A — always valid",
+        "Scope trap: premises about a group say nothing about what individual will do next"
+      ],
+      "example": {
+        "problem": "No honors student has GPA below 3.5. Jordan's GPA is 3.2. What must be true?",
+        "steps": [
+          "State the rule as conditional: honors → GPA ≥ 3.5",
+          "Write the contrapositive: GPA < 3.5 → not in honors",
+          "Apply to Jordan: 3.2 < 3.5 → Jordan is not in honors",
+          "Check other choices: 'Jordan will raise GPA' — unsupported prediction; eliminate",
+          "The only logically forced conclusion is Jordan is not in the honors program"
+        ],
+        "answer": "Jordan is not in the honors program — direct application of the contrapositive, no extra assumptions needed."
+      },
+      "traps": [
+        "Choosing a prediction ('Mei will improve GPA') — future actions are never forced by past facts",
+        "Choosing a scope expansion ('program admits only freshmen') — premises say nothing about admission criteria",
+        "Confusing sufficient and necessary conditions — honors requires ≥ 3.5, but ≥ 3.5 does NOT guarantee honors",
+        "Picking a statistically plausible but logically unforced statement about GPAs in general"
+      ],
+      "solveSteps": [
+        "1. Identify the conditional rule and rewrite as If A → B",
+        "2. Write its contrapositive: If ¬B → ¬A",
+        "3. Match a given fact to ¬B — confirm the antecedent is triggered",
+        "4. Conclude ¬A — this is the must-be-true answer",
+        "5. Eliminate every other choice that adds info beyond the two premises"
+      ]
+    }
+  },
+  "559": {
+    "hint": "Negate the given conditional and apply contrapositive: if no ID, what must follow? 'Must be true' = logically guaranteed, not merely possible.",
+    "theory": {
+      "title": "Contrapositive Logic — Must Be True",
+      "icon": "⇒",
+      "summary": "A conditional 'If P then Q' guarantees one safe inference: if not Q, then not P. Everything else is an assumption. GMAT exploits this ruthlessly.",
+      "keyFacts": [
+        "Conditional: P → Q. Contrapositive: ¬Q → ¬P. Both are logically equivalent.",
+        "Converse (Q → P) and inverse (¬P → ¬Q) are NOT valid inferences — classic traps.",
+        "'Must be true' = survives in EVERY scenario allowed by the premises, not just some.",
+        "Scope matters: the rule only covers people born after Jan 1, 2000 — silence on others.",
+        "Over-specification trap: adding detail not in premises (dates, reasons, frequencies) makes a statement merely possible, not necessary."
+      ],
+      "example": {
+        "problem": "All residents registered after 2010 have a city pass. Marco has no city pass. What must be true?",
+        "steps": [
+          "Conditional: registered after 2010 → has city pass",
+          "Contrapositive: no city pass → NOT registered after 2010",
+          "Marco has no city pass → Marco was NOT registered after 2010",
+          "That's it — we cannot say when he registered or why he lacks the pass"
+        ],
+        "answer": "Marco was not registered after 2010."
+      },
+      "traps": [
+        "Picking an answer that adds specifics not in premises (e.g., 'born before 1990' — that's narrower than 'not after Jan 1, 2000')",
+        "Confusing 'must be true' with 'could be true' — possibility answers feel right but aren't guaranteed",
+        "Assuming a reason or cause (e.g., 'rejected the program') when none is stated",
+        "Generalizing to frequency ('most citizens') from a single individual case"
+      ],
+      "solveSteps": [
+        "1. Identify the conditional: 'Every X that meets condition → gets result'",
+        "2. Note the negated consequent: subject LACKS the result",
+        "3. Apply contrapositive: subject does NOT meet the condition",
+        "4. Check each answer: does it follow with 100% certainty, or does it add unwarranted detail?",
+        "5. Eliminate any answer that adds specifics, reasons, or statistics not derivable from premises"
+      ]
+    }
+  },
+  "560": {
+    "hint": "Conditional rule: BOTH must approve for >$50k. CEO said no. What outcome does that block? Stop there — don't add assumptions the rule never made.",
+    "theory": {
+      "title": "Conditional Logic — Contrapositive in CR Inference",
+      "icon": "⇒",
+      "summary": "A conditional rule (If A → B) only lets you infer NOT-A from NOT-B (contrapositive). Missing one required condition blocks the outcome — nothing more, nothing less.",
+      "keyFacts": [
+        "Rule form: (needs >$50k) → (CEO approves AND CFO approves)",
+        "Contrapositive: NOT(both approve) → project cannot receive >$50k",
+        "Inverse (NOT-A → NOT-B) and Converse (B → A) are INVALID inferences",
+        "Absence of one condition blocks the outcome only — it reveals nothing else",
+        "Distinguish what a project 'requires' (intent) from what it will 'receive' (result)",
+        "Must-be-true = 100% forced by the rule; any extra assumption = wrong"
+      ],
+      "example": {
+        "problem": "Policy: projects needing >$50k must be approved by BOTH CEO and CFO. CEO did NOT approve project P. What must be true?",
+        "steps": [
+          "Formalize: (needs >$50k) → (CEO approves ∧ CFO approves)",
+          "Contrapositive: CEO did not approve → condition unmet → >$50k outcome is blocked",
+          "Therefore: project P will not receive more than $50,000",
+          "Cannot conclude project is canceled, CFO's stance, or what the project originally 'requires'"
+        ],
+        "answer": "A — CEO non-approval blocks the >$50k funding per policy; all other choices inject unjustified assumptions"
+      },
+      "traps": [
+        "Choice D: 'requires less than $50k' — we know what it will RECEIVE, not what it originally needed",
+        "Choice C: 'CFO approved' — CEO's refusal tells us nothing about CFO's action",
+        "Choice B: 'project canceled' — no rule says missing approval = cancellation; project may proceed at ≤$50k",
+        "Treating the conditional as reversible: policy governs the approval threshold, not what happens to the project otherwise"
+      ],
+      "solveSteps": [
+        "1. Identify the conditional: what triggers what? Write it as If → Then",
+        "2. Note which condition is stated as absent or false",
+        "3. Apply contrapositive: absent necessary condition → outcome blocked",
+        "4. Eliminate every choice that adds information the rule never provided",
+        "5. Select the choice forced 100% by the rule alone — zero extra assumptions"
+      ]
+    }
+  },
+  "561": {
+    "hint": "Isolate Ari's evidence vs. his conclusion. Ask: does his sample size and reach justify a claim about ALL engineers everywhere?",
+    "theory": {
+      "title": "Hasty Generalization — Unrepresentative Sample",
+      "icon": "🔬",
+      "summary": "Drawing a universal conclusion from a limited or biased sample. The sample may not represent the full population, so the conclusion overreaches the evidence.",
+      "keyFacts": [
+        "Hasty generalization: conclusion uses ALL/EVERY/NONE, but evidence covers only SOME personal subset",
+        "Key signal: universal quantifier in conclusion ('all engineers') vs. bounded sample in premise ('engineers I have met')",
+        "Correlation ≠ causation: a separate flaw — requires two variables and a causal claim (absent here)",
+        "Circular reasoning: premise merely restates conclusion — not the same as over-generalizing",
+        "Ad hominem: attacks the speaker, not the argument — irrelevant when no person is being challenged",
+        "Scope shift variant: evidence about Group A used to conclude about broader Group B"
+      ],
+      "example": {
+        "problem": "Ari has met some engineers who like math. He concludes all engineers like math. What is the flaw?",
+        "steps": [
+          "Premise: engineers Ari personally met like math — finite, self-selected sample",
+          "Conclusion: ALL engineers like math — universal, includes billions never observed",
+          "Gap: no reason Ari's personal contacts represent every engineer worldwide",
+          "Flaw name: hasty generalization — universal conclusion from small, possibly unrepresentative sample",
+          "Eliminate other flaws: no causal claim, no circular logic, no personal attack — only generalization fits"
+        ],
+        "answer": "A — conclusion leaps from a personal sample to a universal claim without justification"
+      },
+      "traps": [
+        "Choosing 'correlation vs. causation' — argument makes zero causal claim; liking math is just observed, not caused by being an engineer",
+        "Choosing 'assuming what one is trying to prove' — premise and conclusion are different statements, not circular",
+        "'Too narrow conclusion' is the opposite error — Ari's conclusion is too BROAD, not too narrow",
+        "Overlooking the word 'all' in the conclusion — that universal quantifier is exactly what creates the flaw"
+      ],
+      "solveSteps": [
+        "1. Separate premise(s) from conclusion explicitly",
+        "2. Check scope: does evidence breadth match conclusion breadth?",
+        "3. Name the flaw: generalization / causation / circular / ad hominem / false dilemma / scope shift",
+        "4. Match your label to answer choices — eliminate any flaw type absent from the argument",
+        "5. Confirm: the correct choice must describe a flaw that actually occurs in this specific argument"
+      ]
+    }
+  },
+  "562": {
+    "hint": "Spot the logical leap: does the argument prove causation or merely note that two things happen together? Correlation ≠ causation.",
+    "theory": {
+      "title": "Correlation vs. Causation Fallacy",
+      "icon": "🔗",
+      "summary": "Two events appearing together (correlation) does not mean one produces the other (causation). A hidden third factor — or coincidence — may explain both.",
+      "keyFacts": [
+        "Correlation = A and B occur together; Causation = A produces B",
+        "Post hoc ergo propter hoc: 'after this, therefore because of this' — classic causal fallacy",
+        "A third variable (confound) can cause both A and B independently",
+        "Sufficient vs necessary: A always preceding B makes A sufficient for B, not the cause",
+        "Reverse causation: maybe B causes A, not the other way",
+        "Valid causal argument needs: mechanism, controlled comparison, ruled-out alternatives"
+      ],
+      "example": {
+        "problem": "Every time Marco wears his lucky tie to interviews, he gets the job. So the tie causes him to get the job. What is the flaw?",
+        "steps": [
+          "Identify the evidence: tie worn → job obtained (correlation)",
+          "Identify the conclusion: tie causes job offer (causation)",
+          "Ask: could something else explain both? (e.g., he only wears the tie when he's well-prepared)",
+          "Ask: could the arrow be reversed? (No — you can't get the job before the interview)",
+          "Verdict: argument jumps from co-occurrence to causation without ruling out confounds"
+        ],
+        "answer": "Correlation/causation fallacy — the tie may merely correlate with confidence or preparation, not produce the job offer."
+      },
+      "traps": [
+        "Choosing 'small sample' — the flaw isn't about sample size, it's about the logical leap from co-occurrence to cause",
+        "Choosing 'sufficient vs necessary' — that's a separate flaw about logical conditions, not about causal inference",
+        "Confusing 'overlooking counter-evidence' with failing to establish a causal mechanism",
+        "Any answer that accurately restates A and B co-occur without identifying the unjustified causal inference"
+      ],
+      "solveSteps": [
+        "1. Find the conclusion — is it a causal claim ('causes', 'leads to', 'results in')?",
+        "2. Find the evidence — does it show only correlation / sequence?",
+        "3. Name the gap: co-occurrence ≠ causation",
+        "4. Check alternatives: confound? reverse causation? coincidence?",
+        "5. Pick answer that labels the unjustified leap from correlation to causation"
+      ]
+    }
+  },
+  "563": {
+    "hint": "Spot the disconnect: does the attack address the PLAN or the PERSON? Name the fallacy — then match it to the answer choices.",
+    "theory": {
+      "title": "CR Flaw — Ad Hominem Attack",
+      "icon": "🎯",
+      "summary": "An ad hominem attacks the person making the argument instead of the argument itself. The personal fact is irrelevant to the logical merit of the claim.",
+      "keyFacts": [
+        "Ad hominem = attack on person, not position — always a flaw",
+        "Irrelevance test: if you removed the personal attack, would the argument still stand? No → the 'argument' is just the attack",
+        "Divorce / health / personality says nothing about budget competence",
+        "Other named flaws: circular reasoning, false analogy, hasty generalization, correlation ≠ causation, straw man",
+        "GMAT often places a tempting 'assumption' answer — but if no logical bridge exists at all, it's irrelevance, not a faulty assumption",
+        "Flaw answer must match HOW the argument fails, not just something wrong with it"
+      ],
+      "example": {
+        "problem": "Politician says opponent's tax plan is bad because opponent cheated on a college exam 20 years ago. What is the flaw?",
+        "steps": [
+          "Identify the conclusion: 'the tax plan is bad'",
+          "Identify the evidence: 'opponent cheated on an exam'",
+          "Ask: is the evidence logically connected to the conclusion?",
+          "No logical link between past cheating and plan quality",
+          "Label: irrelevant personal attack (ad hominem)"
+        ],
+        "answer": "Attacks the person, not the plan — the cheating tells us nothing about tax policy merit"
+      },
+      "traps": [
+        "'Assumes divorce affects budget decisions' — tempting, but ad hominem is deeper: even if divorce DID affect decisions, attacking a person is still not the same as critiquing the plan",
+        "Hasty generalization requires a sample → conclusion pattern; this has no such pattern",
+        "Cause-effect confusion requires two events being linked; here only one irrelevant fact is cited",
+        "Possibility vs. certainty trap only applies when the argument says 'might' but concludes 'definitely'"
+      ],
+      "solveSteps": [
+        "1. Identify conclusion and evidence in the argument",
+        "2. Ask: is the evidence relevant to the conclusion?",
+        "3. If evidence is about a person rather than the issue → ad hominem",
+        "4. Match to answer: look for 'attacks person / character rather than substance'",
+        "5. Eliminate answers naming fallacies that require different structures (generalization, causation, etc.)"
+      ]
+    }
+  },
+  "564": {
+    "hint": "Spot the flaw category: is the reason actually a reason, or just a claim about what others do? Identify the fallacy type, not the topic.",
+    "theory": {
+      "title": "Appeal to Popularity — Ad Populum Fallacy",
+      "icon": "👥",
+      "summary": "Claiming something is correct or permitted just because many people do it. Popularity is evidence of prevalence, not of validity or justification.",
+      "keyFacts": [
+        "Ad populum: 'everyone does X' → 'X is justified' — invalid leap",
+        "Popularity proves frequency, not correctness or permission",
+        "Flaw questions ask WHY the reasoning fails, not whether the conclusion is false",
+        "Other common flaws: equivocation (confusing terms), hasty generalization (one case → all), necessary vs sufficient confusion",
+        "Appeal to authority = citing a source; appeal to popularity = citing the crowd — both bypass real reasons",
+        "Correct reasoning would need a premise linking the behavior to a legitimate justification"
+      ],
+      "example": {
+        "problem": "A student argues: 'Cheating must be acceptable because most students cheat on exams.' What is the flaw?",
+        "steps": [
+          "Identify the conclusion: cheating is acceptable",
+          "Identify the stated reason: most students do it",
+          "Ask: does the reason logically support the conclusion?",
+          "Popularity ≠ moral/logical permission — the premise is irrelevant to the conclusion",
+          "Flaw = ad populum / appeal to popularity"
+        ],
+        "answer": "Appeal to popularity — the prevalence of an action gives no logical basis for its permissibility"
+      },
+      "traps": [
+        "Confusing ad populum with hasty generalization (one case → rule) — different flaw",
+        "Confusing ad populum with appeal to authority — authority cites expertise, not crowd size",
+        "Picking 'fails to define key term' when terms are clear but the reasoning link is broken",
+        "Answer choice wording varies: 'appeal to popularity,' 'peer pressure,' 'bandwagon' — all same flaw"
+      ],
+      "solveSteps": [
+        "1. Identify the conclusion and the stated reason",
+        "2. Ask: what TYPE of logical link is being made? (authority, emotion, popularity, causation, etc.)",
+        "3. Check: does the reason actually support the conclusion, or does it just reference something unrelated (like crowd behavior)?",
+        "4. Match the flaw to the answer choice — appeal to popularity = 'everyone does it' as justification",
+        "5. Eliminate: generalization needs a single-case premise; equivocation needs a term used two ways; necessary/sufficient needs conditional logic"
+      ]
+    }
+  },
+  "565": {
+    "hint": "Spot the logical leap: 'no proof of X' does not mean 'X is false.' What does the argument silently assume about lack of evidence?",
+    "theory": {
+      "title": "Argument from Ignorance — Absence of Evidence",
+      "icon": "🔍",
+      "summary": "Failing to prove something is true does not prove it is false. Lack of proof is not proof of lack — research may simply be incomplete.",
+      "keyFacts": [
+        "Absence of evidence ≠ evidence of absence",
+        "Valid: 'We have no evidence yet.' Invalid leap: 'Therefore it doesn't exist.'",
+        "Burden of proof: the arguer treats the inability to prove harm as positive proof of safety",
+        "This fallacy is common in health, science, and policy contexts on the GMAT",
+        "Flaw questions: identify the logical rule violated, not whether the conclusion happens to be true"
+      ],
+      "example": {
+        "problem": "No one has proven this medication causes serious side effects. Therefore it has no serious side effects.",
+        "steps": [
+          "Premise: no proof of side effects exists",
+          "Conclusion: the medication is safe",
+          "Gap: studies may be limited, underfunded, or not yet done — absence of proof ≠ proof of absence",
+          "Flaw: the arguer treats 'unproven' as equivalent to 'false'"
+        ],
+        "answer": "Absence of evidence fallacy — the argument assumes that because no harm has been proven, no harm exists."
+      },
+      "traps": [
+        "Hasty generalization — tempting, but no sample size or population is mentioned in the argument",
+        "Correlation vs causation — irrelevant; no causal chain is constructed here",
+        "Equivocation — no term shifts meaning between premise and conclusion",
+        "Irrelevant authority — no authority figure is cited; do not pick this without evidence of one"
+      ],
+      "solveSteps": [
+        "1. Locate the premise and the conclusion — what is the support and what is being claimed?",
+        "2. Find the logical gap — what hidden assumption bridges premise to conclusion?",
+        "3. Label the flaw type: absence of evidence, generalization, causation, equivocation, authority?",
+        "4. Eliminate answer choices describing flaw types absent from this argument",
+        "5. Confirm: does the remaining choice precisely name the gap, not a generic logical error?"
+      ]
+    }
+  },
+  "566": {
+    "hint": "Spot what the argument IGNORES. High average grade could come from sources other than teaching quality — did the argument rule those out?",
+    "theory": {
+      "title": "CR Flaw — Overlooking Alternative Explanations",
+      "icon": "🔍",
+      "summary": "An argument is flawed when it jumps to one cause while ignoring other causes that could equally explain the evidence. The GMAT loves this pattern.",
+      "keyFacts": [
+        "Flaw type: 'alternative explanation' — conclusion requires RULING OUT rival causes, not just showing correlation",
+        "Evidence (high grades) is consistent with multiple causes: lenient grading, self-selected strong students, easy curriculum, grade inflation",
+        "A valid causal argument must show the named cause is the BEST or ONLY explanation",
+        "'Overlooking alternatives' ≠ 'assuming what it proves' (circular) — keep these distinct",
+        "Common trigger: argument moves from a METRIC (grade, score, revenue) to a QUALITY claim (best, worst, superior)"
+      ],
+      "example": {
+        "problem": "Prof. Lyle's class has the highest avg grade in the department, therefore he is the best teacher. What is the flaw?",
+        "steps": [
+          "Identify conclusion: Prof. Lyle = best teacher",
+          "Identify evidence: highest average grade",
+          "Ask: does evidence REQUIRE that conclusion?",
+          "List rivals: easier grading, stronger student self-selection, simpler course material",
+          "Conclusion is invalidated if ANY rival explains the data — argument never eliminates them"
+        ],
+        "answer": "The argument overlooks alternative explanations (lenient grading, advanced students) that could equally account for the high average without attributing it to teaching quality."
+      },
+      "traps": [
+        "Confusing 'overlooking alternatives' with 'circular reasoning' — they are different flaw types",
+        "Picking 'generalizes from a single course' — that is a sample-size flaw, not what is wrong here; the single-course scope is given, not the issue",
+        "Assuming correlation (high grade) automatically implies causation (good teaching)",
+        "Forgetting that a metric (grade) can be inflated by the teacher themselves via lenient marking"
+      ],
+      "solveSteps": [
+        "1. Identify the conclusion and the evidence supporting it",
+        "2. Ask: what ELSE could explain the evidence besides what the argument claims?",
+        "3. If the argument never eliminates those alternatives, the flaw is 'overlooking alternative explanations'",
+        "4. Eliminate trap answers by checking flaw labels: circular ≠ alternative cause; sample size ≠ rival cause",
+        "5. Pick the answer that names the specific overlooked alternatives (lenient grading, student quality)"
+      ]
+    }
+  },
+  "567": {
+    "hint": "Identify what the argument requires vs. what it guarantees. Does the conclusion reverse the logical arrow?",
+    "theory": {
+      "title": "Necessary vs. Sufficient Conditions",
+      "icon": "⇒",
+      "summary": "A necessary condition must hold for X, but doesn't guarantee X. Flipping the arrow — treating necessary as sufficient — is a classic GMAT logical flaw.",
+      "keyFacts": [
+        "Necessary: X → N (X requires N; without N, no X possible)",
+        "Sufficient: S → X (S alone guarantees X)",
+        "Flaw pattern: premise gives P→Q, conclusion illegally claims Q→P",
+        "Test it: can you have N without getting X? If yes, N is merely necessary",
+        "Signal words — necessary: 'must', 'requires', 'needs'; sufficient: 'ensures', 'guarantees', 'whenever'",
+        "Counterexample kills it: find one case where N holds but X doesn't follow"
+      ],
+      "example": {
+        "problem": "Coach: strong runners need 5+ hrs sleep, so anyone getting 5+ hrs sleep will become a strong runner.",
+        "steps": [
+          "Premise: strong runner → 5+ hrs sleep (sleep is NECESSARY for strong runner)",
+          "Conclusion: 5+ hrs sleep → strong runner (sleep treated as SUFFICIENT)",
+          "Arrow reversal: P→Q flipped to Q→P — logically invalid",
+          "Counterexample: a couch potato sleeps 9 hrs, still not a strong runner",
+          "Verdict: necessary condition mistakenly used as sufficient"
+        ],
+        "answer": "The argument illegally reverses the logical arrow — sleep is required by strong runners, but having sleep does not produce them."
+      },
+      "traps": [
+        "Cause/effect flaw is different — here the issue is logical direction, not which thing causes which",
+        "Small-sample flaw involves insufficient data, not a structural arrow reversal",
+        "Don't pick 'appeals to popularity' or 'attacks speaker' — those are completely different flaw types"
+      ],
+      "solveSteps": [
+        "1. Restate the premise as a conditional: 'If X then Y' — which direction?",
+        "2. Restate the conclusion: does it flip that arrow ('If Y then X')?",
+        "3. Construct a counterexample: someone with Y but without X",
+        "4. Name the flaw: necessary condition treated as sufficient (arrow reversal)",
+        "5. Match the answer choice that captures this logical error exactly"
+      ]
+    }
+  },
+  "568": {
+    "hint": "Find what the mayor ignores: correlation ≠ causation. Ask — could something else explain the same revenue drop?",
+    "theory": {
+      "title": "CR Flaw — Alternative Causation / Post Hoc",
+      "icon": "🔎",
+      "summary": "An argument assumes X caused Y because Y followed X. The flaw: another factor could have caused Y. Ruling out alternatives is the arguer's burden.",
+      "keyFacts": [
+        "Post hoc ergo propter hoc: 'after this, therefore because of this' is never valid alone",
+        "Correlation ≠ causation — two events co-occurring proves nothing",
+        "Causal argument is flawed when obvious alternative causes are ignored",
+        "Flaw answers name the logical error in structure, not content",
+        "Common alternative causes: economic shifts, seasonality, industry trends, competitor entry",
+        "Correct flaw answer matches the STRUCTURAL error, not a side issue"
+      ],
+      "example": {
+        "problem": "City bans smoking → restaurant revenues fall 5% → mayor concludes ban hurts business. What is the flaw?",
+        "steps": [
+          "Identify the conclusion: smoking ban caused the revenue drop",
+          "Identify the evidence: revenues fell after the ban",
+          "Spot the gap: correlation in time doesn't establish cause",
+          "Ask: what else could explain the drop? (recession, tourism decline, price hikes)",
+          "Match: the argument ignores alternative explanations — that is the flaw"
+        ],
+        "answer": "Alternative causation flaw — the argument never rules out other factors driving the decline"
+      },
+      "traps": [
+        "Choice B (single restaurant → all) — argument is about all restaurants, not one; wrong flaw type",
+        "Choice E (circular reasoning) — the argument doesn't assume its conclusion; it draws an unsupported causal leap",
+        "Confusing 'weakener' with 'flaw' — a flaw answer names the logical error, not just a counterexample",
+        "Picking an answer that is true but irrelevant to the argument's structure"
+      ],
+      "solveSteps": [
+        "1. Identify conclusion and the evidence used to support it",
+        "2. Label the argument type: causal, statistical, analogy, etc.",
+        "3. For causal arguments: ask 'did the arguer eliminate alternative causes?'",
+        "4. Match the gap to a named flaw: alternative causation, correlation≠causation, hasty generalization, circular reasoning, equivocation",
+        "5. Eliminate choices that describe real flaws but not THIS argument's flaw"
+      ]
+    }
+  },
+  "569": {
+    "hint": "Spot the forced binary: buy OR fall behind. Ask — are those truly the only two options? Other paths may exist.",
+    "theory": {
+      "title": "Logical Flaw — False Dilemma",
+      "icon": "⚠",
+      "summary": "A false dilemma artificially limits choices to two when more exist. The argument forces 'either X or Y' to pressure a conclusion, hiding other valid alternatives.",
+      "keyFacts": [
+        "False dilemma = presenting only two options when a spectrum of alternatives exists",
+        "Structure: 'If not A, then B — therefore do A' collapses many possibilities into one binary",
+        "Other common flaws: hasty generalization (small sample → broad claim), causal confusion (correlation ≠ causation), circular reasoning (conclusion restates premise), appeal to authority (expert cited without relevance)",
+        "Distinguish flaw TYPE before reading answer choices — eliminates 4 wrong answers fast",
+        "GMAT flaw questions ask HOW the reasoning breaks, not WHETHER the conclusion is true"
+      ],
+      "example": {
+        "problem": "'If you don't exercise daily, you'll get sick. So you must exercise daily.' What is the flaw?",
+        "steps": [
+          "Identify the logical structure: if NOT A → B; therefore A",
+          "Ask: is NOT A the only cause of B? Could B happen even with A? Could NOT A never cause B?",
+          "Here, many people stay healthy without daily exercise — the binary is false",
+          "Flaw: false dilemma — ignores diet, genetics, occasional exercise, etc.",
+          "Correct answer names this forced binary as the structural error"
+        ],
+        "answer": "False dilemma — the argument hides alternatives between the two presented extremes"
+      },
+      "traps": [
+        "Confusing false dilemma with hasty generalization — generalization needs a sample, dilemma needs a forced binary",
+        "Appeal to authority requires an actual expert being cited improperly — absent here",
+        "Circular reasoning means conclusion = premise; this argument has a different premise and conclusion",
+        "Picking causal confusion: no two events are presented as cause/effect here"
+      ],
+      "solveSteps": [
+        "1. Identify the argument structure: premise → conclusion",
+        "2. Name the logical move: is it forcing a binary? overgeneralizing? reversing cause/effect? restating the conclusion?",
+        "3. Match the flaw TYPE to one of the five standard categories before reading choices",
+        "4. Eliminate choices whose flaw type doesn't match what you identified",
+        "5. Pick the choice that names the structural error, not just a factual weakness"
+      ]
+    }
+  },
+  "570": {
+    "hint": "Identify the gap between PREMISE and CONCLUSION. Does past achievement logically guarantee quality of a brand-new work?",
+    "theory": {
+      "title": "CR Flaw — Past Success as Guarantee",
+      "icon": "🏆",
+      "summary": "Using a track record as proof of a new outcome is a logical leap. Past success shows pattern, not certainty — each product stands on its own evidence.",
+      "keyFacts": [
+        "Flaw questions ask: what logical error does the argument commit?",
+        "Past success → future/current quality is an unwarranted assumption — correlation is not guarantee",
+        "'Must be' in a conclusion signals overconfident claim; flag that word",
+        "Distinguish flaw types: hasty generalization (small sample), ad hominem (attacks person), circular reasoning, appeal to authority/past record",
+        "Appeal to past record ≠ evidence about THIS specific new work",
+        "Correct flaw answer must name the EXACT error — not a nearby-sounding one"
+      ],
+      "example": {
+        "problem": "A reviewer says the new film must be excellent because the director has won several awards. What is the flaw?",
+        "steps": [
+          "Premise: director won awards (past success)",
+          "Conclusion: new film MUST be excellent",
+          "Gap: no evidence links those past awards to THIS film's quality",
+          "Flaw: past record treated as logical guarantee of present outcome",
+          "Match to choices: find the option that names this exact leap"
+        ],
+        "answer": "A — past awards are a track record, not logical proof about this specific film"
+      },
+      "traps": [
+        "Confusing 'hasty generalization' (small sample) with 'past success guarantee' — different flaw families",
+        "Ad hominem attacks a person to dismiss them; this argument uses the person favorably — opposite direction",
+        "Absence of criticism (choice E) is irrelevant — argument makes a positive claim, not an absence claim",
+        "Picking a flaw that sounds sophisticated but doesn't match the actual reasoning error in the stimulus"
+      ],
+      "solveSteps": [
+        "1. Isolate the premise(s) and the conclusion — draw the logical link explicitly",
+        "2. Ask: does the premise LOGICALLY guarantee the conclusion, or merely suggest it?",
+        "3. Name the gap in your own words before reading choices",
+        "4. Match your named gap to the answer choice that describes it most precisely",
+        "5. Eliminate any choice that describes a DIFFERENT flaw, even if that flaw sounds plausible"
+      ]
+    }
+  },
+  "571": {
+    "hint": "Best evaluator: YES → weakens AND NO → strengthens (or vice versa). Hunt for an alternative cause that could explain the observed data without the program.",
+    "theory": {
+      "title": "CR Evaluate — Testing Causal Claims",
+      "icon": "🧪",
+      "summary": "Evaluate questions ask which question's answer most affects the conclusion. Strong evaluators expose alternative explanations — a third factor that could cause the same outcome, bypassing the claimed cause.",
+      "keyFacts": [
+        "Evaluate question goal: find the question whose YES/NO answer swings the conclusion's strength",
+        "Causal structure: A happened → B happened → therefore A caused B",
+        "Alternative cause: different reason B happened → conclusion collapses even if A is real",
+        "Best evaluator test: substitute YES → does it weaken? substitute NO → does it strengthen? If both true, it's the answer",
+        "Confounding variable: a simultaneous change that also explains the outcome",
+        "Irrelevant choices relate to the topic but don't test the causal mechanism (cost, satisfaction, enrollment count)"
+      ],
+      "example": {
+        "problem": "Wellness program launched → sick days dropped → management concludes program improved employee health. Which question best evaluates this?",
+        "steps": [
+          "Identify the causal claim: the program (not something else) caused fewer sick days",
+          "Ask: what else could make sick days drop regardless of health?",
+          "Candidate: a policy change making it harder to take sick days → same data, different cause",
+          "Test choice A — YES (policy changed): alternative cause exists → conclusion undermined",
+          "Test choice A — NO (no policy change): one rival eliminated → conclusion slightly supported",
+          "Choices B–E relate to wellness but don't explain WHY the drop occurred"
+        ],
+        "answer": "A — policy change is a direct alternative cause; its YES/NO answer flips the argument's strength"
+      },
+      "traps": [
+        "Enrollment size: tells scale, not causation — 500 enrollees still can't rule out a policy driver",
+        "Satisfaction scores: employees liking a program ≠ program actually improved health",
+        "Program duration or cost: operational facts, irrelevant to whether the program caused the drop",
+        "Confusing 'topic-relevant' with 'conclusion-testing' — many choices mention wellness but don't probe the causal link"
+      ],
+      "solveSteps": [
+        "1. Identify the conclusion and the evidence supporting it",
+        "2. Ask: what alternative explanation could produce the same evidence?",
+        "3. For each choice, run the YES/NO test — does each answer change whether the conclusion holds?",
+        "4. Pick the choice with the biggest swing: YES weakens, NO strengthens (or vice versa)",
+        "5. Eliminate choices that are merely interesting but don't expose a rival cause or gap in the reasoning"
+      ]
+    }
+  },
+  "572": {
+    "hint": "Experiment compares two groups — ask: could something OTHER than the fertilizer explain the yield gap? Seek the question that tests whether the comparison was fair.",
+    "theory": {
+      "title": "Evaluate Questions — Causal Claim Validity",
+      "icon": "🔬",
+      "summary": "Evaluate questions ask which fact would most help you judge the argument. For causal claims from experiments, the critical test is whether confounding variables — not the proposed cause — could explain the observed effect.",
+      "keyFacts": [
+        "Evaluate = find what would STRENGTHEN or WEAKEN the argument",
+        "Causal claim valid only if alternative explanations are ruled out",
+        "Key test: were the two groups comparable EXCEPT for the variable being studied?",
+        "Confounding variable = hidden factor that could independently cause the effect",
+        "A question exposing or ruling out confounders is highest-value for evaluation",
+        "Details about scale, duration, or location matter less than comparability of conditions"
+      ],
+      "example": {
+        "problem": "Fertilized plots yield 30% more than unfertilized plots. Scientist concludes the fertilizer caused higher yields. Which question best evaluates this?",
+        "steps": [
+          "Identify the causal claim: fertilizer → higher yield",
+          "Identify the evidence: fertilized vs. unfertilized comparison",
+          "Ask: what else could explain the yield gap?",
+          "Soil quality, sunlight, water — if fertilized plots had better baseline conditions, that explains the gap independently",
+          "A question about condition comparability directly tests this alternative explanation",
+          "Questions about tomato weight or fertilizer amount describe the experiment but don't test whether the comparison was fair"
+        ],
+        "answer": "Were soil and climate conditions comparable? — If NO, the gap may reflect better baseline conditions, not the fertilizer. If YES, the causal claim is strengthened."
+      },
+      "traps": [
+        "Picking a question that is interesting but doesn't test the causal link (e.g., how much fertilizer was used)",
+        "Confusing 'relevant to the experiment' with 'relevant to the argument's validity'",
+        "Missing that the core assumption is: the two groups were otherwise equal",
+        "Choosing detail questions (duration, location) that add context but don't probe causal validity"
+      ],
+      "solveSteps": [
+        "1. Identify the causal claim: what causes what?",
+        "2. Identify the evidence structure: how were the two groups compared?",
+        "3. Ask: what hidden variable (confounder) could explain the effect instead?",
+        "4. Find the choice whose YES/NO answer would support or undermine the causal link",
+        "5. Eliminate choices that add descriptive detail but don't test the inference"
+      ]
+    }
+  },
+  "573": {
+    "hint": "Causal claim built on correlation. Ask: could a pre-existing difference between the two groups — not the software — explain the score gap?",
+    "theory": {
+      "title": "Causal Arguments — Selection Bias & the Two-Way Test",
+      "icon": "🔬",
+      "summary": "When an argument leaps from correlation to causation, the key vulnerability is a pre-existing group difference. The best Evaluate question is the one whose YES/NO answer could both strengthen and weaken the conclusion.",
+      "keyFacts": [
+        "Evaluate question goal: find the question whose answer most directly tests the conclusion",
+        "Causal argument pattern: Group A (uses X) outperforms Group B → X causes the improvement",
+        "Classic flaw: selection bias — groups were already different before the treatment",
+        "Two-way test: ask 'if YES, does conclusion weaken? if NO, does conclusion hold?' — strong evaluate question passes both",
+        "Operational details (cost, features, device count) cannot test causation — eliminate immediately",
+        "The alternative explanation closest to the conclusion's core is the highest-leverage test"
+      ],
+      "example": {
+        "problem": "Publisher: software users score higher than non-users, therefore the software raises scores. Which question best evaluates this?",
+        "steps": [
+          "Identify the causal claim: software → higher scores",
+          "Spot the evidence: correlation only — no random assignment, no control",
+          "Key vulnerability: self-selection — motivated students may both buy software AND study harder",
+          "Apply two-way test to choice A: 'Are users already more motivated/prepared?'",
+          "If YES → score gap predates software → conclusion weakens",
+          "If NO → groups comparable before software → conclusion holds",
+          "Choices B–E address operational details; YES/NO to them leaves causation untouched"
+        ],
+        "answer": "A — it directly tests whether a pre-existing group difference, not the software, explains the score gap"
+      },
+      "traps": [
+        "Choosing details like cost or device availability — these don't touch the causal mechanism",
+        "Thinking 'more info about the software' helps — the argument is about groups, not features",
+        "Missing that Evaluate ≠ Find the Flaw — you need the question that TESTS, not the flaw itself",
+        "Forgetting the two-way test: a good evaluate answer cuts both ways"
+      ],
+      "solveSteps": [
+        "1. Identify the causal claim: what does the author say causes what?",
+        "2. Find the evidence: is it correlation or true controlled experiment?",
+        "3. Name the most direct alternative explanation (selection bias, confounding variable)",
+        "4. Apply two-way test to each choice: does YES weaken AND NO preserve the conclusion?",
+        "5. Eliminate choices whose answers cannot affect the causal link regardless of YES/NO"
+      ]
+    }
+  },
+  "574": {
+    "hint": "Ask: which answer, depending on YES vs NO, flips the argument? One choice cuts both ways — that is the evaluator. Find the assumption gap first.",
+    "theory": {
+      "title": "CR Evaluate — The Two-Way Test",
+      "icon": "⚖",
+      "summary": "Evaluate questions need a question whose YES/NO answer both matters: one direction strengthens, the other weakens. Only the assumption gap passes this test.",
+      "keyFacts": [
+        "Evaluate = find info that could strengthen OR weaken the conclusion",
+        "Map the argument: identify Evidence → Conclusion and the gap between them",
+        "Two-Way Test: does YES support the conclusion? does NO undermine it? Both must be true",
+        "Causal arguments: look for confounding variables — alternative causes of the observed effect",
+        "Trap answers: interesting but irrelevant details that don't touch the core gap",
+        "The correct evaluator always targets the hidden assumption, not peripheral details"
+      ],
+      "example": {
+        "problem": "A clinic claims its diet plan is effective because patients lost avg 12 lbs in 3 months. Which question best evaluates this?",
+        "steps": [
+          "Map: Evidence = 12 lbs lost; Conclusion = diet plan caused the loss",
+          "Spot the gap: could something else explain the weight loss?",
+          "Apply Two-Way Test to choice A: 'Did patients also exercise?'",
+          "If YES → exercise may be the real cause; diet's credit weakens",
+          "If NO → diet more likely the true driver; argument strengthens",
+          "A passes both directions → strongest evaluator"
+        ],
+        "answer": "Choice A — exercise is a confounding variable; its presence or absence directly tests whether the diet deserves causal credit"
+      },
+      "traps": [
+        "Patient satisfaction (D) and food list (E) are irrelevant to whether diet caused the loss",
+        "Measurement method (B) is a side issue — precise measurement doesn't test the causal claim",
+        "Plan longevity (C) has no bearing on whether the observed loss was diet-driven",
+        "Any answer where both YES and NO leave the argument unchanged fails the Two-Way Test"
+      ],
+      "solveSteps": [
+        "1. Circle Evidence and Conclusion; write the gap in one sentence",
+        "2. Identify the assumption the argument relies on (usually: no alternative cause)",
+        "3. For each choice apply Two-Way Test: YES → argument strengthens? NO → argument weakens?",
+        "4. Eliminate choices where YES and NO produce the same or no effect",
+        "5. Select the choice that pulls the argument in opposite directions depending on the answer"
+      ]
+    }
+  },
+  "575": {
+    "hint": "Evaluate question: which answer exposes a gap that could confirm OR undermine the conclusion? Look for what the argument silently assumes.",
+    "theory": {
+      "title": "CR Evaluate — Testing the Hidden Assumption",
+      "icon": "🔬",
+      "summary": "Evaluate questions ask which piece of information would most help judge whether a conclusion holds. The right answer always targets the argument's central assumption — not background color, not popularity, not geography.",
+      "keyFacts": [
+        "Evaluate = find the question whose YES/NO answer changes the verdict",
+        "Correct answer cuts BOTH ways: if yes → supports plan; if no → defeats it",
+        "Wrong answers are irrelevant: they don't affect whether the conclusion stands",
+        "Cost-benefit plans hide a classic gap: initial/ongoing costs vs. claimed savings",
+        "Isolate the CONCLUSION first, then ask: what must be true for this to hold?",
+        "Eliminate choices that only support or only weaken — you need a toggle"
+      ],
+      "example": {
+        "problem": "City plans LED streetlights claiming energy savings will save money. Which question best evaluates the plan?",
+        "steps": [
+          "Conclusion: LED installation saves money overall",
+          "Hidden assumption: energy savings exceed total costs (install + maintenance)",
+          "Ask: which question, if answered either way, could flip the verdict?",
+          "'Do install/maintain costs outstrip savings?' → YES = plan fails, NO = plan works",
+          "Other choices (color, lifespan alone, popularity, location) don't test the money claim"
+        ],
+        "answer": "A — directly tests whether net savings are real; all other choices are irrelevant to the financial conclusion"
+      },
+      "traps": [
+        "Choosing lifespan (C) without tying it to cost — lifespan matters only if it affects the math",
+        "Popularity in other cities (D) is irrelevant — other cities' choices don't validate this city's finances",
+        "Picking an answer that only weakens (never confirms) the plan — that's Weaken, not Evaluate",
+        "Forgetting the two-way test: correct answer must be able to both support AND undermine"
+      ],
+      "solveSteps": [
+        "1. Find the conclusion (what is being claimed?)",
+        "2. Identify the core assumption (what must be true for the conclusion to hold?)",
+        "3. Apply the two-way test: does this question's answer, either YES or NO, affect the conclusion?",
+        "4. Eliminate choices that are irrelevant, decorative, or only one-directional",
+        "5. Choose the option whose answer could most directly confirm or kill the conclusion"
+      ]
+    }
+  },
+  "576": {
+    "hint": "Label each marked segment: is it a premise, conclusion, principle, or explanation? Map structure before reading choices — traps flip the roles.",
+    "theory": {
+      "title": "Bold-Face CR — Argument Role Mapping",
+      "icon": "🧱",
+      "summary": "Bold-face questions test whether you can dissect argument structure. Each segment plays exactly one role: premise, conclusion, background principle, counterexample, or offered explanation.",
+      "keyFacts": [
+        "General principle = broad rule the argument invokes or violates",
+        "Anomaly = fact that contradicts the expected pattern",
+        "Explanation = the author's proposed cause for the anomaly",
+        "Conclusion = what the author is trying to establish (often the explanation in anomaly arguments)",
+        "'Typically' / 'generally' signals a principle, not a conclusion",
+        "'The likely explanation is...' signals the author's answer, NOT just evidence"
+      ],
+      "example": {
+        "problem": "[Lower rates usually boost home buying.] Yet sales fell here despite lower rates. {Employment uncertainty likely kept buyers away.} What roles do the two marked portions play?",
+        "steps": [
+          "1. Tag the anomaly: 'sales fell despite lower rates' — unexpected event",
+          "2. [Bracketed]: states the general expectation. No claim about THIS city → it's a background principle, not a conclusion",
+          "3. {Curly}: author proposes a cause for the anomaly → this IS the explanation (and the conclusion of the argument)",
+          "4. Match: principle + explanation = answer A",
+          "5. Eliminate: B wrong (principle ≠ conclusion); C wrong (explanation ≠ evidence); D wrong (principle ≠ alternative explanation)"
+        ],
+        "answer": "A — bracketed sets up the general rule that gets violated; curly-braced is the author's proposed explanation for the violation"
+      },
+      "traps": [
+        "Confusing 'principle' with 'conclusion' — principles are general background rules, not what the author is arguing for here",
+        "Labeling the explanation as 'evidence' — evidence supports a conclusion externally; an explanation IS the conclusion in anomaly arguments",
+        "Choosing 'both are premises' when one segment is clearly the author's claim",
+        "Forgetting that the anomaly sentence (middle, unmarked) is what triggers the need for an explanation"
+      ],
+      "solveSteps": [
+        "1. Find the anomaly — the sentence that says 'but unexpectedly X happened'",
+        "2. Label [segment 1]: broad rule or specific fact? Applies to this case or generally?",
+        "3. Label {segment 2}: is the author asserting this, or just reporting it as fact?",
+        "4. If author is asserting it as cause/conclusion → label it explanation/conclusion",
+        "5. Match your two labels against answer choices — eliminate any that mislabel either segment"
+      ]
+    }
+  },
+  "577": {
+    "hint": "Label each bold segment: prediction, fact, conclusion, or explanation? Ask what job each sentence does in the argument's logic before matching answer choices.",
+    "theory": {
+      "title": "Bold-Face CR — Structural Role Mapping",
+      "icon": "🔲",
+      "summary": "Bold-face questions ask what role each marked segment plays in the argument's logical chain. Classify each segment independently (prediction, evidence, conclusion, explanation, objection) then match the pair to answer choices.",
+      "keyFacts": [
+        "Prediction: a belief held BEFORE the outcome was known — may or may not have come true",
+        "Reconciliation/explanation: addresses WHY actual results differ from expectation",
+        "Conclusion: the author's main claim, supported by evidence",
+        "Objection: a challenge to a prior claim; counterobjection rebuts the objection",
+        "Evidence: raw factual data offered to support a conclusion",
+        "An argument can have both a refuted prediction AND an explanation — classic 'anomaly + resolution' structure"
+      ],
+      "example": {
+        "problem": "A policy was expected to raise output. Output dropped instead. [Prediction of rise] {Explanation: workers reduced overtime hours.} What roles do the two segments play?",
+        "steps": [
+          "Segment 1: stated before outcome known, uses 'expected' — signals PREDICTION",
+          "Check: did the prediction come true? No → the argument must reconcile the gap",
+          "Segment 2: gives a causal mechanism for the unexpected outcome — EXPLANATION",
+          "Pair = prediction + reconciliation → matches answer choice 'prediction the argument reconciles; explanation that reconciles it'",
+          "Eliminate: neither is a conclusion (no claim is being argued for); neither is mere evidence"
+        ],
+        "answer": "Prediction + reconciliation explanation"
+      },
+      "traps": [
+        "'Prediction' ≠ 'conclusion' — a prediction is a prior belief; a conclusion is what the author argues NOW",
+        "Do not assume the first bold segment is always the conclusion — read its logical function",
+        "Eliminate any choice where one descriptor clearly misfits, even if the other fits perfectly",
+        "'Both are evidence' / 'both are conclusions' — always check if the two segments contradict each other (they usually do in this pattern)"
+      ],
+      "solveSteps": [
+        "1. Read the full argument, ignoring bold markers, to grasp structure",
+        "2. Label each bold segment: prediction / fact / conclusion / evidence / explanation / objection",
+        "3. Check relationship: do they agree, contradict, or does one explain the other?",
+        "4. Match your two labels to each answer choice — eliminate any choice where one label is wrong",
+        "5. Choose the choice where BOTH labels fit exactly"
+      ]
+    }
+  },
+  "578": {
+    "hint": "First locate the main conclusion (look for 'so/therefore/thus'). Then classify each bold: IS it the conclusion, or does it support/oppose/precede it?",
+    "theory": {
+      "title": "Bold-Face CR — Argument Role Mapping",
+      "icon": "🔍",
+      "summary": "Bold-Face questions ask you to name each highlighted portion's logical role: conclusion, premise, background fact, or counter-point. Find the main conclusion first — everything else is classified relative to it.",
+      "keyFacts": [
+        "Main conclusion = what author is trying to prove; signal words: 'so', 'therefore', 'thus'",
+        "Background fact = acknowledged observation, often conceded before 'however/but'",
+        "Premise = evidence that DIRECTLY supports the conclusion",
+        "Counter-premise = fact that seems to oppose the conclusion but gets qualified or dismissed",
+        "'However/but/yet' signals a pivot — what FOLLOWS is the author's actual position",
+        "Eliminate any choice that mislabels even ONE of the two portions"
+      ],
+      "example": {
+        "problem": "A factory met its targets. However, targets were lowered last year, so meeting them is no longer strong evidence of high productivity. What roles do the two bolded portions play?",
+        "steps": [
+          "Spot the conclusion: 'so meeting the targets is no longer strong evidence…' — 'so' = conclusion marker",
+          "Classify portion 1 [factory met targets]: stated as a fact, then immediately qualified by 'however' → acknowledged background fact",
+          "Classify portion 2 {meeting targets is no longer evidence…}: follows 'so' directly → the conclusion",
+          "Match to choices: portion 1 = acknowledged fact, portion 2 = conclusion drawn about that fact"
+        ],
+        "answer": "A — portion 1 is the acknowledged fact; portion 2 is the conclusion drawn from the qualifying premise"
+      },
+      "traps": [
+        "Confusing 'background fact' with 'premise' — acknowledged facts get conceded, premises actively support",
+        "Assuming the two bold portions must contradict each other — here they are causally linked",
+        "Calling the conclusion 'supporting evidence' — the conclusion is what evidence supports, never the reverse",
+        "Forgetting to check BOTH labels simultaneously — one wrong label kills the choice"
+      ],
+      "solveSteps": [
+        "1. Read the full argument; find the main conclusion (signal words: so/therefore/thus)",
+        "2. Classify each bold: IS it the conclusion, or does it support/oppose/precede it?",
+        "3. Note pivot words ('however/but') — what precedes often = conceded fact; what follows = author's stance",
+        "4. Eliminate choices that misidentify either portion",
+        "5. Confirm final pick: both labels must match at the same time"
+      ]
+    }
+  },
+  "579": {
+    "hint": "Map each marked portion: what does it DO? Identify which states a fact and which draws an inference. Don't pick an answer before labeling both.",
+    "theory": {
+      "title": "Bold-Face CR — Premise vs Conclusion Roles",
+      "icon": "🔎",
+      "summary": "Bold-face questions ask you to name what each highlighted portion IS doing in the argument — supporting, concluding, or countering. Label structure first, then match to choices.",
+      "keyFacts": [
+        "Conclusion = a claim/judgment, often follows 'therefore / thus / so / consequently'",
+        "Premise = a fact or evidence used to support the conclusion",
+        "Background = neutral context; doesn't directly support or oppose",
+        "Counter-premise = fact that goes against the main conclusion",
+        "Two portions can play DIFFERENT roles — resist picking symmetric answers",
+        "Signal words: 'therefore/thus/hence' → conclusion; 'because/since/given that' → premise"
+      ],
+      "example": {
+        "problem": "Portion 1: 'City banned plastic bags.' Portion 2: 'Therefore, ocean plastic will decline.' What roles do they play?",
+        "steps": [
+          "Portion 1: states a factual event — no judgment, no inference",
+          "Portion 2: begins with 'Therefore' — signals a conclusion drawn from the fact",
+          "Label: Portion 1 = premise (evidence); Portion 2 = conclusion",
+          "Scan choices for 'evidence / premise' + 'conclusion' pairing"
+        ],
+        "answer": "Portion 1 is a premise; Portion 2 is the conclusion drawn from it."
+      },
+      "traps": [
+        "Assuming both portions must be the same type (both premises, both conclusions)",
+        "Picking 'background' when the portion is actually load-bearing evidence",
+        "Ignoring signal words like 'therefore' — the conclusion almost always follows them",
+        "Confusing a counter-premise with the main conclusion"
+      ],
+      "solveSteps": [
+        "1. Read the full argument for overall structure before looking at marked portions",
+        "2. Find the main conclusion — look for 'therefore / thus / so'",
+        "3. Label each marked portion independently: premise, conclusion, or background",
+        "4. Eliminate choices where either label is wrong",
+        "5. Confirm: does the remaining choice accurately describe BOTH portions?"
+      ]
+    }
+  },
+  "580": {
+    "hint": "Label each bold portion independently: is it a fact/evidence or a conclusion? Counter-evidence opposes a stated view; a conclusion follows from evidence with 'therefore/suggests/thus' logic.",
+    "theory": {
+      "title": "Bold-Face CR — Argument Role Mapping",
+      "icon": "🏗",
+      "summary": "Bold-Face questions ask you to name the structural role of highlighted portions. Every portion is one of: background fact, evidence (pro or con), intermediate conclusion, or main conclusion.",
+      "keyFacts": [
+        "Five roles: background/context, evidence supporting main view, evidence opposing main view, intermediate conclusion, main conclusion",
+        "Conclusion signals: 'suggests,' 'therefore,' 'thus,' 'shows,' 'indicates,' 'so'",
+        "Evidence signals: statistics, studies, observations — factual claims",
+        "Counter-evidence opposes the position the argument argues against, NOT the argument's own position",
+        "Main conclusion is what the AUTHOR wants you to believe — not what the critics claim",
+        "Evaluate each bold portion independently, then eliminate answers that mislabel either one"
+      ],
+      "example": {
+        "problem": "Critics say streaming kills theaters. [Blockbuster attendance rose last 3 years.] {Theaters are not in immediate danger of replacement.} What roles do the two portions play?",
+        "steps": [
+          "Identify the critics' claim: streaming will replace theaters",
+          "Ask: does the bracketed fact support or oppose the critics' claim? It opposes — attendance rose, not fell",
+          "Label bracketed: counter-evidence to critics' claim",
+          "Ask: does the curly portion follow from the bracketed fact? Yes — 'this suggests...' = conclusion signal",
+          "Label curly: conclusion drawn from that counter-evidence",
+          "Match: evidence against critics' claim + conclusion from that evidence"
+        ],
+        "answer": "A — bracketed is counter-evidence to critics' claim; curly is the conclusion the author draws from it"
+      },
+      "traps": [
+        "Confusing the critics' claim with the author's conclusion — they are opposites here",
+        "Treating 'background fact' as equivalent to 'evidence against' — background is neutral context, counter-evidence is adversarial",
+        "Mislabeling the conclusion as 'evidence' because it contains factual-sounding language",
+        "Choosing C because curly 'contradicts' critics — it does, but labeled wrong: curly is CONCLUSION, not a direct contradiction statement"
+      ],
+      "solveSteps": [
+        "1. Find the author's main conclusion — what is the argument ultimately claiming?",
+        "2. Label each bold portion: fact, evidence (pro/con), or conclusion",
+        "3. For each portion ask: does it support the author, oppose a critic, or IS it a conclusion?",
+        "4. Eliminate answers that mislabel either portion — one wrong label = wrong answer",
+        "5. Watch for 'suggests/therefore/thus' in curly/bold text — strong conclusion signals"
+      ]
+    }
+  },
+  "581": {
+    "hint": "Find the TRUE grammatical subject — ignore everything between commas. 'Along with / as well as / together with' do NOT create plural subjects.",
+    "theory": {
+      "title": "Subject-Verb Agreement — Interrupting Phrases",
+      "icon": "✂️",
+      "summary": "Prepositional and participial phrases inserted between subject and verb are distractors. The verb must agree with the true grammatical subject, not the nearest noun.",
+      "keyFacts": [
+        "'Along with', 'as well as', 'together with', 'in addition to' = interrupting phrases — they do NOT join subjects",
+        "Interrupting phrases are set off by commas; strip them to expose the real subject",
+        "Only 'and' creates a compound (plural) subject",
+        "Collective nouns (committee, board, team, jury) take singular verbs in American English",
+        "Near-noun trap: verb agrees with subject, NOT the noun closest to it"
+      ],
+      "example": {
+        "problem": "The manager, along with two assistants, [blank] responsible for the report.",
+        "steps": [
+          "Strip the interrupting phrase: 'along with two assistants'",
+          "Remaining subject: 'The manager' → singular",
+          "Choose singular verb: 'is'",
+          "Confirm: 'The manager is responsible' ✓"
+        ],
+        "answer": "is responsible"
+      },
+      "traps": [
+        "'Along with the board members' looks like it adds people → tempts plural 'are'",
+        "Nearest noun before verb is plural ('members') → near-noun trap",
+        "'Have voted' changes tense — always check tense + agreement together",
+        "'Are voting and decide' mixes tenses and creates structure error"
+      ],
+      "solveSteps": [
+        "1. Bracket everything between commas surrounding the verb",
+        "2. Read sentence without the bracketed phrase",
+        "3. Identify the true grammatical subject and its number",
+        "4. Match verb number (singular/plural) and tense to that subject",
+        "5. Confirm no tense shift or structure error in remaining choices"
+      ]
+    }
+  },
+  "582": {
+    "hint": "Find the true grammatical subject — ignore prepositional phrases between subject and verb. Singular or plural?",
+    "theory": {
+      "title": "Subject-Verb Agreement — Prepositional Phrase Trap",
+      "icon": "🔗",
+      "summary": "The verb must agree with the true subject, not the nearest noun. Prepositional phrases like 'of students' modify the subject but are never the subject themselves.",
+      "keyFacts": [
+        "True subject is the head noun, never a noun inside a prepositional phrase",
+        "Phrase pattern: '[Head Noun] of [Modifier]' → verb agrees with Head Noun",
+        "'The list of students' → subject = list (singular) → verb = is",
+        "Strip the prepositional phrase mentally: 'The list ___ posted' makes agreement obvious",
+        "Collective nouns (group, team, committee, list, number) are singular in American English",
+        "'A number of X are...' is an idiomatic exception — memorize it separately"
+      ],
+      "example": {
+        "problem": "The list of students who passed the exam ___ posted on the bulletin board.",
+        "steps": [
+          "Identify head noun: 'the list'",
+          "Identify prepositional phrase: 'of students who passed the exam' — modifier, not subject",
+          "Strip modifier: 'The list ___ posted'",
+          "List is singular → verb must be singular present passive: 'is posted'"
+        ],
+        "answer": "is posted"
+      },
+      "traps": [
+        "Choosing 'are' because 'students' (plural) is nearby — students is inside a prepositional phrase",
+        "'were posted' introduces past tense without justification",
+        "'have been posted' shifts to present perfect — tense mismatch with no context requiring it",
+        "Any plural verb form when head noun is singular"
+      ],
+      "solveSteps": [
+        "1. Find the main verb in brackets — identify what it agrees with",
+        "2. Locate head noun before any 'of / in / with / by' phrase",
+        "3. Strip the prepositional phrase mentally to isolate subject",
+        "4. Determine singular vs. plural, then match verb form",
+        "5. Check tense — default to simple present unless context demands otherwise"
+      ]
+    }
+  },
+  "583": {
+    "hint": "'Each' is always singular — the prepositional phrase after it never changes that. Ask: what is the true grammatical subject?",
+    "theory": {
+      "title": "Subject-Verb Agreement — Indefinite Pronouns",
+      "icon": "📐",
+      "summary": "Indefinite pronouns like 'each', 'every', 'either', 'neither', 'one' are grammatically singular regardless of any plural noun that follows in a prepositional phrase.",
+      "keyFacts": [
+        "'Each', 'every', 'either', 'neither', 'one', 'anyone', 'everyone', 'no one' → always singular verb",
+        "Prepositional phrase (of the X) never changes the subject's number",
+        "'Each of the candidates HAS' — verb agrees with 'each', not 'candidates'",
+        "'Both', 'few', 'many', 'several' → always plural verb",
+        "'Some', 'all', 'none', 'most' → number depends on the noun in the 'of' phrase",
+        "Strip the prepositional phrase to isolate true subject, then choose verb"
+      ],
+      "example": {
+        "problem": "Each of the candidates ___ a complete application. Which verb form is correct?",
+        "steps": [
+          "Identify subject: 'Each of the candidates'",
+          "Strip prepositional phrase: 'of the candidates' → subject is 'Each'",
+          "'Each' is an indefinite pronoun → always singular",
+          "Singular present perfect → 'has submitted'",
+          "Reject 'have submitted' — plural form, wrong agreement"
+        ],
+        "answer": "has submitted"
+      },
+      "traps": [
+        "Choosing plural verb because 'candidates' (plural) is nearby — but it is not the subject",
+        "Progressive forms ('are submitting', 'were submitting') add incorrect tense shift without justification",
+        "'Have been submitting' looks grammatical but uses plural 'have' — same agreement error as 'have submitted'"
+      ],
+      "solveSteps": [
+        "1. Underline the full subject phrase",
+        "2. Strip any prepositional phrase (of/in/with/by...) to find the head noun or pronoun",
+        "3. Classify: is the head word a singular-only indefinite pronoun?",
+        "4. Match verb number to that head word, not to any nearby noun",
+        "5. Eliminate choices that use wrong number or unjustified tense shift"
+      ]
+    }
+  },
+  "584": {
+    "hint": "With neither/nor, verb matches the CLOSER subject. Ignore the first noun — find what sits right before the verb and check its number.",
+    "theory": {
+      "title": "Neither/Nor — Proximity Rule",
+      "icon": "⚖",
+      "summary": "Correlative conjunctions (neither/nor, either/or) use a proximity rule: the verb agrees with whichever subject is closer to it, not the first. 'Neither' alone looks singular but does not control the verb here.",
+      "keyFacts": [
+        "Neither X nor Y → verb agrees with Y (closer subject)",
+        "Either X or Y → same rule: verb agrees with Y",
+        "Not only X but also Y → same rule: verb agrees with Y",
+        "If closer subject is plural → plural verb; singular → singular verb",
+        "Trap phrase: 'neither of the [noun]' = singular because 'neither' is the pronoun subject",
+        "Tense must also match time context — past marker 'until last week' eliminates present-tense options"
+      ],
+      "example": {
+        "problem": "Neither the manager nor the employees ___ aware of the new policy until last week.",
+        "steps": [
+          "Spot correlative conjunction: 'neither...nor'",
+          "Two subjects: 'the manager' (singular) and 'the employees' (plural)",
+          "Proximity rule: verb agrees with the CLOSER subject — 'the employees'",
+          "'The employees' is plural → need plural verb",
+          "'Until last week' signals past tense → 'were' ✓"
+        ],
+        "answer": "were aware — plural closer subject governs agreement, past tense required"
+      },
+      "traps": [
+        "'Neither' feels singular, tempting 'was' — but proximity rule overrides when nor follows",
+        "'Neither of the employees was' IS correct — there 'neither' itself is the singular pronoun subject",
+        "Present-tense choices (is/are) ignored by 'until last week' past-time signal",
+        "'Awared' is not a word — 'aware' is an adjective, never a past participle"
+      ],
+      "solveSteps": [
+        "1. Identify correlative conjunction: neither/nor, either/or, not only/but also",
+        "2. Find both subjects and label each singular or plural",
+        "3. Apply proximity rule: verb agrees with the subject CLOSER to it",
+        "4. Confirm tense matches the sentence's time context",
+        "5. Eliminate non-words and adjective-as-participle errors"
+      ]
+    }
+  },
+  "585": {
+    "hint": "'The number' = singular subject → needs singular verb. Don't be distracted by the plural noun in a prepositional phrase nearby.",
+    "theory": {
+      "title": "'The Number' vs 'A Number' — Agreement Trap",
+      "icon": "🔢",
+      "summary": "'The number' is always singular; 'a number' is always plural. The surrounding phrase 'of [plural noun]' is a red herring that lures you into a plural verb.",
+      "keyFacts": [
+        "'The number of X' → singular verb (is, was, has)",
+        "'A number of X' → plural verb (are, were, have)",
+        "Prepositional phrases (of applicants, of people) never change the subject",
+        "Subject = 'the number', not 'applicants' — ignore the of-phrase when finding the verb",
+        "Redundancy trap: 'higher in number' is redundant when subject already contains 'number'",
+        "'Have been higher' introduces unnecessary perfect tense with no temporal justification"
+      ],
+      "example": {
+        "problem": "The number of applicants this year ___ than last year. Which verb is correct?",
+        "steps": [
+          "Identify subject: 'The number' (not 'applicants')",
+          "'The number' → singular → needs singular verb",
+          "Eliminate 'are' (plural) → cuts A, C",
+          "Check for redundancy: 'higher in number' — 'number' already in subject → redundant → cuts D",
+          "'Have been' adds present perfect with no reason → cuts E",
+          "'is higher' — singular, clean, correct"
+        ],
+        "answer": "is higher"
+      },
+      "traps": [
+        "'of applicants' makes you think plural → wrong; of-phrase modifies, doesn't set agreement",
+        "'are higher in number' — doubly wrong: plural verb AND redundant 'in number'",
+        "'have been higher' — tense mismatch; simple comparison needs simple present or past",
+        "Confusing 'a number of students ARE' (correct) with 'the number of students IS' (correct)"
+      ],
+      "solveSteps": [
+        "1. Strip the of-phrase — find the true subject before 'of'",
+        "2. Is it 'the number' (singular) or 'a number' (plural)?",
+        "3. Match verb number: 'the number IS', 'a number ARE'",
+        "4. Flag redundancy: if subject contains 'number', 'in number' in predicate is redundant",
+        "5. Confirm tense fits context — simple comparison → no need for perfect tense"
+      ]
+    }
+  },
+  "586": {
+    "hint": "With either/or (neither/nor), the verb agrees with the subject CLOSEST to it — identify that subject's number before choosing.",
+    "theory": {
+      "title": "Either/Or Agreement — Proximity Rule",
+      "icon": "⚖",
+      "summary": "When two subjects are joined by either/or or neither/nor, the verb matches the nearer subject. Singular near subject → singular verb; plural near subject → plural verb.",
+      "keyFacts": [
+        "Either A or B + verb → verb agrees with B (closer subject)",
+        "Neither A nor B + verb → same: verb agrees with B",
+        "Swap order to control agreement: put plural subject closer for plural verb",
+        "Compound subject with AND → always plural (different rule)",
+        "Progressive tense: is/are + V-ing — never 'is being bringing' (double progressive is ungrammatical)",
+        "Present perfect: has/have → has for singular, have for plural"
+      ],
+      "example": {
+        "problem": "Either the manager or the employees [verb] responsible for the error.",
+        "steps": [
+          "Identify the two subjects: 'manager' (singular), 'employees' (plural)",
+          "Identify the joiner: 'either/or' → proximity rule applies",
+          "Closer subject to verb: 'employees' (plural)",
+          "Plural subject → plural verb: 'are'",
+          "Result: 'Either the manager or the employees are responsible'"
+        ],
+        "answer": "'are responsible' — plural verb matches 'employees', the closer subject"
+      },
+      "traps": [
+        "Defaulting to singular because 'either' sounds singular — 'either' does not control agreement, proximity does",
+        "Matching the first subject (teacher/manager) instead of the closer one",
+        "Double progressive 'is being bringing' — grammatically impossible in standard English",
+        "Using present perfect 'has/have brought' when context calls for present progressive"
+      ],
+      "solveSteps": [
+        "1. Spot the joiner: either/or or neither/nor → use proximity rule",
+        "2. Identify the subject CLOSEST to the verb",
+        "3. Determine that subject's number (singular or plural)",
+        "4. Match verb number accordingly (is/was vs. are/were)",
+        "5. Verify tense form is structurally valid (no double progressive, correct aux)"
+      ]
+    }
+  },
+  "587": {
+    "hint": "Subject is 'a pair' (singular noun), not 'shoes'. Find the true subject before picking the verb form.",
+    "theory": {
+      "title": "Subject-Verb Agreement — Collective/Unit Nouns",
+      "icon": "🔗",
+      "summary": "Words like 'a pair of,' 'a number of,' 'a group of' can fool you — the head noun ('pair') governs verb agreement, not the object of the preposition ('shoes').",
+      "keyFacts": [
+        "True subject = head noun, NOT the noun in the prepositional phrase after 'of'",
+        "'A pair of X' → singular verb (one pair)",
+        "'A number of X' → plural verb ('a number of students are…')",
+        "'The number of X' → singular verb ('the number of students is…')",
+        "Intervening prepositional phrases (of/with/along with) never change subject number",
+        "Collective unit nouns (pair, set, series, group) take singular verbs in American English"
+      ],
+      "example": {
+        "problem": "A pair of scissors ___ missing from the drawer.",
+        "steps": [
+          "Identify subject: 'A pair' — not 'scissors'",
+          "'A pair' = one unit → singular",
+          "Eliminate plural verbs (are, were)",
+          "Correct verb: 'is'"
+        ],
+        "answer": "is missing"
+      },
+      "traps": [
+        "'Shoes' (plural) is inside a prepositional phrase — it cannot be the subject",
+        "'Are sitting' sounds natural because 'shoes' is nearby and plural — classic proximity trap",
+        "'Were sitted' and 'have sat' are non-standard forms for this context",
+        "'Are being sit' is ungrammatical passive construction"
+      ],
+      "solveSteps": [
+        "1. Strip the prepositional phrase: 'A pair of red shoes' → subject = 'A pair'",
+        "2. Determine number of true subject: 'pair' is singular",
+        "3. Match verb number: singular → 'is'",
+        "4. Check tense: present progressive ('is sitting') fits context",
+        "5. Eliminate all plural or malformed options"
+      ]
+    }
+  },
+  "588": {
+    "hint": "In 'there is/are' constructions, find the REAL subject after the verb — then match singular/plural. Never reveal which option corrects it.",
+    "theory": {
+      "title": "Existential 'There' — Subject-Verb Agreement",
+      "icon": "📍",
+      "summary": "'There' is never the subject. The real subject follows the verb — find it, check its number, then choose is/are accordingly.",
+      "keyFacts": [
+        "In 'There is/are X' sentences, X is the grammatical subject",
+        "Singular X → 'there IS'; plural X → 'there ARE'",
+        "'There' itself is an expletive placeholder — never controls verb agreement",
+        "'Plenty of + plural noun' → plural verb ('are plenty of reasons')",
+        "'Several of reasons' is ungrammatical — 'several' takes no 'of' before a noun directly",
+        "Trick: rewrite as 'X exists/exist' to find the correct verb form"
+      ],
+      "example": {
+        "problem": "There ___ many reasons for studying mathematics. Which verb form is correct?",
+        "steps": [
+          "Identify subject: 'there' is a placeholder, not the subject",
+          "Real subject = 'reasons' (comes after the verb)",
+          "'Reasons' is plural",
+          "Plural subject → plural verb 'are'",
+          "Result: 'There ARE many reasons' ✓"
+        ],
+        "answer": "'are many reasons' — plural subject 'reasons' demands plural verb 'are'"
+      },
+      "traps": [
+        "Treating 'there' as the subject and defaulting to 'is'",
+        "'is plenty of reasons' — 'reasons' is still the subject and it's plural, so 'is' is wrong",
+        "'are several of reasons' — 'several of reasons' is ungrammatical; 'several reasons' needs no 'of'",
+        "Ignoring intervening phrases between verb and true subject"
+      ],
+      "solveSteps": [
+        "1. Spot 'there is/are' construction",
+        "2. Identify the REAL subject — the noun phrase after the verb",
+        "3. Check that noun's number (singular or plural)",
+        "4. Match: singular → 'is', plural → 'are'",
+        "5. Eliminate choices with ungrammatical phrases ('several of reasons', etc.)"
+      ]
+    }
+  },
+  "589": {
+    "hint": "Find the true subject before the first prepositional phrase — ignore everything between commas. Ask: singular or plural?",
+    "theory": {
+      "title": "Subject-Verb Agreement — Interrupting Phrases",
+      "icon": "🔗",
+      "summary": "The grammatical subject controls verb number, not nearby nouns in prepositional or participial phrases. Strip the interrupters to expose the true subject.",
+      "keyFacts": [
+        "True subject = the noun that 'does' the verb, NOT every noun in the sentence",
+        "'Of + noun' prepositional phrases NEVER change the subject's number",
+        "Phrases set off by commas (including…, along with…, as well as…) are interrupters — ignore them for agreement",
+        "Collective nouns (collection, group, team, committee) take singular verbs on GMAT",
+        "Verb must match the stripped subject: 'The collection … was', not 'were'",
+        "Passive voice 'was displayed' is grammatically correct and common on GMAT"
+      ],
+      "example": {
+        "problem": "The group of students, along with their teacher, ___ planning the trip. Which verb form is correct?",
+        "steps": [
+          "Strip interrupter: 'along with their teacher' → gone",
+          "Remaining subject: 'The group'",
+          "'Group' = collective noun = singular",
+          "Correct verb: 'is planning'",
+          "Full sentence: 'The group … is planning the trip' ✓"
+        ],
+        "answer": "is planning — collective noun 'group' takes singular verb"
+      },
+      "traps": [
+        "'Coins' is the closest noun to the verb, tempting 'were' — but coins is inside a prepositional phrase",
+        "'Including several gold pieces' sounds plural and important — it is not the subject",
+        "Collective nouns (collection, team, jury) look like they could be plural — GMAT treats them as singular",
+        "'Have displayed' shifts tense incorrectly to present perfect with no justification"
+      ],
+      "solveSteps": [
+        "1. Locate the verb, then find what noun performs that action",
+        "2. Cross out all 'of + noun' and comma-bracketed interrupting phrases",
+        "3. Check if remaining subject is singular or plural",
+        "4. Match verb number: singular → was/is/has; plural → were/are/have",
+        "5. Watch collective nouns — GMAT = singular"
+      ]
+    }
+  },
+  "590": {
+    "hint": "Focus on whether the subject is 'a number' or 'a number of [noun]' — the noun phrase type determines singular vs plural verb.",
+    "theory": {
+      "title": "'A Number Of' vs 'The Number Of' — Agreement Trap",
+      "icon": "🔢",
+      "summary": "'A number of' = plural idiom meaning 'several/many'; takes a plural verb. 'The number of' = singular noun phrase; takes a singular verb.",
+      "keyFacts": [
+        "'A number of + noun' → plural verb (a number of people HAVE arrived)",
+        "'The number of + noun' → singular verb (the number of people IS rising)",
+        "Quantity words like 'a number of', 'a variety of', 'a series of' all take plural verbs",
+        "Subject is logically the plural noun after 'of', not the word 'number'",
+        "Do not be fooled by intervening prepositional phrases — find the true subject"
+      ],
+      "example": {
+        "problem": "A number of students __ absent today. Which verb form is correct?",
+        "steps": [
+          "Identify subject: 'a number of students' — 'a number of' is a plural quantifier",
+          "The head noun students (plural) drives agreement",
+          "Plural subject → plural verb: 'were'",
+          "Check: 'The number of students WAS high' — here 'the number' IS the subject → singular"
+        ],
+        "answer": "were absent"
+      },
+      "traps": [
+        "Choosing 'has' because 'number' looks singular",
+        "Confusing 'a number of' (plural) with 'the number of' (singular)",
+        "Passive constructions like 'has been opened' add unnecessary complexity and are usually wrong",
+        "Treating the entire phrase as singular because it starts with 'a'"
+      ],
+      "solveSteps": [
+        "1. Identify the full subject noun phrase before the verb",
+        "2. Ask: is it 'a number of' or 'the number of'?",
+        "3. 'A number of' → plural verb; 'the number of' → singular verb",
+        "4. Eliminate singular options (has, is, opens, has been) when subject is 'a number of'",
+        "5. Choose the simple plural active form — 'have opened'"
+      ]
+    }
+  },
+  "591": {
+    "hint": "Is 'Mathematics' singular or plural here? Academic disciplines ending in -s follow a special rule — test the verb form that matches the subject's grammatical number.",
+    "theory": {
+      "title": "Academic Disciplines — Singular Nouns Ending in -s",
+      "icon": "📐",
+      "summary": "Fields of study ending in -s (mathematics, physics, economics) are grammatically singular. They take singular verbs despite the -s ending that normally signals plural.",
+      "keyFacts": [
+        "Mathematics, physics, economics, statistics, linguistics → always singular",
+        "Rule: if the -s word names ONE unified field/concept, use singular verb",
+        "Contrast: 'The statistics are misleading' (individual data points = plural)",
+        "Intervening clause between subject and verb does NOT change subject's number",
+        "'Which' clause is parenthetical — strip it to check subject-verb match",
+        "Singular field → is/was/has been, NOT are/were/have been"
+      ],
+      "example": {
+        "problem": "Mathematics, which many students find challenging, ___ required for graduation.",
+        "steps": [
+          "Strip the relative clause: 'Mathematics … is/are required for graduation'",
+          "Identify subject: 'Mathematics' — one unified academic discipline",
+          "Academic discipline ending in -s → grammatically singular",
+          "Singular subject needs singular verb: 'is required'",
+          "Eliminate: are required, were required, have been required (plural forms)",
+          "'is being required' is awkward passive progressive — 'is required' is idiomatic"
+        ],
+        "answer": "is required"
+      },
+      "traps": [
+        "'Mathematics' ends in -s → assuming plural and choosing 'are required'",
+        "Distracted by the long 'which' clause, losing track of the real subject",
+        "'is being required' sounds sophisticated but adds unnecessary progressive aspect",
+        "Confusing countable statistics (plural) with the field of statistics (singular)"
+      ],
+      "solveSteps": [
+        "1. Identify the true subject — strip any intervening clauses",
+        "2. Ask: does this -s word name a unified field/discipline or countable items?",
+        "3. Unified field → singular verb (is/was/has been)",
+        "4. Countable items → plural verb (are/were/have been)",
+        "5. Prefer simple tense over progressive unless ongoing action is implied"
+      ]
+    }
+  },
+  "592": {
+    "hint": "'Data' is Latin plural of 'datum' — GMAT treats it as grammatically plural. Strip the prep phrase, find the true subject, match verb number.",
+    "theory": {
+      "title": "Latin Plurals — Data, Criteria, Phenomena",
+      "icon": "∑",
+      "summary": "Everyday English treats 'data' as singular, but GMAT follows strict Latin grammar: data/criteria/phenomena are plural and demand plural verbs.",
+      "keyFacts": [
+        "data (pl.) → datum (sg.) — GMAT always treats 'data' as plural",
+        "criteria (pl.) → criterion (sg.); phenomena (pl.) → phenomenon (sg.); media (pl.) → medium (sg.)",
+        "Plural subject → plural verb: 'data suggest,' 'criteria are,' 'phenomena occur'",
+        "Prepositional phrase after subject (e.g. 'from the experiment') does NOT change the subject's number",
+        "Progressive forms (is suggesting, have been suggesting) add unjustified aspect shift — prefer simple tense",
+        "'Information,' 'evidence,' 'research' ARE singular — do not over-apply the Latin plural rule"
+      ],
+      "example": {
+        "problem": "The data from the latest experiment _____ that the hypothesis is incorrect.",
+        "steps": [
+          "Strip prep phrase: 'from the latest experiment' → true subject is 'data'",
+          "Recall: GMAT treats 'data' as plural (datum → data)",
+          "Plural subject needs plural verb → 'suggest' not 'suggests'",
+          "Eliminate progressive forms — no context requires ongoing or habitual aspect",
+          "Select simple plural verb: 'suggest'"
+        ],
+        "answer": "suggest"
+      },
+      "traps": [
+        "'suggests' — treating 'data' as singular, mirroring casual English usage",
+        "Matching verb to 'experiment' (nearest noun) instead of the true subject 'data'",
+        "Choosing progressive 'is suggesting' or 'have been suggesting' — unjustified tense/aspect change",
+        "Confusing 'data' with 'information' — 'information' IS singular on GMAT"
+      ],
+      "solveSteps": [
+        "1. Strip all prepositional phrases to isolate the true grammatical subject",
+        "2. Check if subject is a known Latin plural (data, criteria, phenomena, media)",
+        "3. Latin plural → plural verb; Latin singular (datum, criterion) → singular verb",
+        "4. Prefer simple present/past unless context clearly demands progressive or perfect",
+        "5. Eliminate answers that change verb number or introduce unjustified tense shifts"
+      ]
+    }
+  },
+  "593": {
+    "hint": "Subject is 'Each' — singular always. Prepositional phrase 'of the books' is a distractor. Find the true subject before picking verb.",
+    "theory": {
+      "title": "Each / Every — Singular Indefinite Pronouns",
+      "icon": "1️⃣",
+      "summary": "'Each' and 'every' are always grammatically singular, even when followed by 'of the [plural noun].' The noun in the prepositional phrase never controls the verb.",
+      "keyFacts": [
+        "Each, every, either, neither, anyone, someone, no one → always singular verb",
+        "'Of the [plural]' after each/every is a prepositional phrase — never the subject",
+        "Test: mentally delete 'of the books' → 'Each ___ read' → clearly needs 'has been'",
+        "Collective vs. distributive: 'each' is distributive — treats members one by one → singular",
+        "'Have been' sounds natural but is wrong: proximity bias pulls toward plural noun",
+        "Neither compound subject (each + noun) nor plural complement changes verb agreement"
+      ],
+      "example": {
+        "problem": "Each of the reports on the manager's desk [have been / has been] reviewed.",
+        "steps": [
+          "Locate the verb: 'have been' or 'has been'",
+          "Find the subject: 'Each' — indefinite pronoun",
+          "Identify the distractor: 'of the reports on the manager's desk' — prepositional phrase",
+          "Delete the phrase: 'Each ___ reviewed' → needs singular",
+          "Singular verb = 'has been'"
+        ],
+        "answer": "has been"
+      },
+      "traps": [
+        "Choosing 'have been' because 'books/reports' (plural) is nearby — proximity error",
+        "'Are' or 'were being' — wrong tense/form, also ignores singular rule",
+        "Thinking plural prepositional object overrides subject agreement",
+        "Forgetting that 'each of the [plural]' is a fixed singular pattern on GMAT"
+      ],
+      "solveSteps": [
+        "1. Identify the verb and locate the subject — ignore everything between",
+        "2. Check for indefinite pronouns: each, every, either, neither → singular",
+        "3. Delete any prepositional phrase (of the…) to expose bare subject",
+        "4. Match verb number to the true subject, not the nearest noun",
+        "5. Eliminate plural verb forms; pick singular 'has been'"
+      ]
+    }
+  },
+  "594": {
+    "hint": "Collective nouns (team, committee, jury) always take a singular verb on the GMAT. Check whether the subject is a group acting as one unit.",
+    "theory": {
+      "title": "Collective Nouns — Singular on GMAT",
+      "icon": "👥",
+      "summary": "Words like team, committee, jury, and group refer to a single unit acting together. The GMAT treats them as singular, so they take a singular verb regardless of how many members are inside.",
+      "keyFacts": [
+        "Collective nouns (team, committee, jury, staff, group, faculty) = singular on GMAT",
+        "Singular subject → singular verb: is, was, has, does",
+        "Plural subject → plural verb: are, were, have, do",
+        "Test: can you replace the noun with 'it'? If yes, use singular verb",
+        "American English (GMAT standard): collective nouns singular; British English often plural — ignore British intuition",
+        "Trap phrases like 'of players' after the noun don't change subject number"
+      ],
+      "example": {
+        "problem": "The committee [are meeting] tomorrow to vote on the proposal.",
+        "steps": [
+          "Identify subject: 'committee' — collective noun",
+          "GMAT treats collective nouns as singular units",
+          "Singular subject needs singular verb",
+          "Replace: 'are meeting' (plural) → 'is meeting' (singular)",
+          "Check: 'It is meeting tomorrow' — grammatically sound ✓"
+        ],
+        "answer": "is meeting"
+      },
+      "traps": [
+        "'Team are' sounds natural in British English — GMAT uses American English rules",
+        "Prepositional phrase 'of players / of members' after noun tricks you into using plural verb",
+        "'Have been' or 'were' add unnecessary tense shift when simple present is correct",
+        "Passive forms like 'are being practiced' change meaning entirely"
+      ],
+      "solveSteps": [
+        "1. Identify the subject — strip prepositional phrases between subject and verb",
+        "2. Ask: is the subject a collective noun (team, jury, committee, group)?",
+        "3. If yes → treat as singular → use is/was/has",
+        "4. Eliminate all plural verb choices (are, were, have)",
+        "5. Among remaining singular options, pick the one that preserves original tense and active voice"
+      ]
+    }
+  },
+  "595": {
+    "hint": "Find the true subject — ignore the prepositional phrase between subject and verb. Ask: is that noun singular or plural?",
+    "theory": {
+      "title": "Subject-Verb Agreement — Prepositional Phrase Trap",
+      "icon": "🔗",
+      "summary": "The verb must agree with its subject, not with a nearby noun. Prepositional phrases like 'of vintage stamps' are modifiers — they never change the subject.",
+      "keyFacts": [
+        "Subject controls verb number; prepositional phrases do not",
+        "Trap pattern: [singular noun] + [of + plural noun] + verb → use singular verb",
+        "'Collection', 'group', 'series', 'number', 'set' are singular nouns",
+        "Cross out 'of X' mentally to expose the real subject",
+        "Continuous action = 'is/are + verb-ing'; passive = 'is/are being + verb-ed'",
+        "'Have grown' mismatch: introduces present-perfect aspect, no reason given by context"
+      ],
+      "example": {
+        "problem": "My collection of vintage stamps ___ each year. Which verb form is correct?",
+        "steps": [
+          "Identify subject: 'My collection' — cross out 'of vintage stamps'",
+          "'Collection' is singular → needs singular verb",
+          "Action is ongoing (each year) → present continuous: 'is growing'",
+          "Reject 'are growing' — agrees with 'stamps', not 'collection'",
+          "Reject 'is being grown' — passive voice; stamps don't get grown"
+        ],
+        "answer": "is growing"
+      },
+      "traps": [
+        "'Are growing' — eye jumps to plural 'stamps' right before the blank",
+        "'Have grown' — present perfect implies a completed action, not ongoing",
+        "'Is/are being grown' — passive voice implies stamps are cultivated by someone",
+        "Any plural verb: always check what noun is actually the subject"
+      ],
+      "solveSteps": [
+        "1. Find the subject — the main noun before the verb",
+        "2. Cross out any 'of + noun' prepositional phrase in between",
+        "3. Determine singular or plural",
+        "4. Match verb number; pick active vs passive based on meaning",
+        "5. Eliminate tense/aspect mismatches (perfect, passive) unless context demands"
+      ]
+    }
+  },
+  "596": {
+    "hint": "List items must share the same grammatical form. Identify the form of the first two items, then match the third — never mix forms.",
+    "theory": {
+      "title": "Parallelism — Matching Grammatical Form in Lists",
+      "icon": "⚖",
+      "summary": "Items in a list must use the same grammatical form. Mixing gerunds with infinitives or other forms breaks parallel structure and is always wrong on GMAT.",
+      "keyFacts": [
+        "All items in a list must share the same grammatical form",
+        "Gerund = verb + -ing (hiking, swimming, biking)",
+        "Infinitive = to + verb (to hike, to swim, to bike)",
+        "Mix gerund + infinitive in same list = parallel error",
+        "Lead item sets the pattern — all others must match",
+        "Extra words (around, up, down) on one item only also break parallelism"
+      ],
+      "example": {
+        "problem": "She enjoys hiking, swimming, and ___ on weekends. Choose the form that completes the list correctly.",
+        "steps": [
+          "Identify list: 'hiking', 'swimming', '___'",
+          "Both given items are gerunds (-ing form)",
+          "Third item must also be a gerund",
+          "'biking' = gerund ✓",
+          "'to bike' = infinitive ✗ — breaks parallelism"
+        ],
+        "answer": "biking"
+      },
+      "traps": [
+        "'to bike' looks clean but switches form to infinitive — classic trap",
+        "'to be biking' adds progressive + infinitive — doubly wrong",
+        "'will bike' is a finite verb — wrong form entirely",
+        "'biking around' adds an extra modifier not present on other items — asymmetric"
+      ],
+      "solveSteps": [
+        "1. Find the list — look for commas or 'and/or'",
+        "2. Identify the grammatical form of the first two items",
+        "3. Eliminate any option that changes that form",
+        "4. Watch for extra words on one item only — still breaks parallelism",
+        "5. Pick the option that matches form exactly"
+      ]
+    }
+  },
+  "597": {
+    "hint": "List after one 'to' → all verbs share that 'to'. Match the base form of the first two verbs — no -ing, no 'to' repeated.",
+    "theory": {
+      "title": "Parallel Lists — Shared Infinitive 'to'",
+      "icon": "⫿",
+      "summary": "When a single 'to' opens a list, every verb in the list must be bare infinitive (base form). Adding -ing or repeating 'to' breaks the parallel structure.",
+      "keyFacts": [
+        "Parallel list rule: items in a list must share the same grammatical form",
+        "Shared 'to' rule: 'to [V1], [V2], and [V3]' — V2 and V3 are bare infinitives, NOT 'to V2'",
+        "-ing form (gerund/participle) ≠ bare infinitive — breaks parallelism",
+        "Repeating 'to' in the last item ('and to streamline') is technically acceptable but only if ALL items have 'to'",
+        "Check the FIRST item in the list to determine the required form for all others",
+        "Adjective past-participle (streamlined) changes meaning — now modifies a noun, not continues the verb list"
+      ],
+      "example": {
+        "problem": "'The plan aims to cut costs, increase revenue, and [???] waste.' Which completes the parallel list?",
+        "steps": [
+          "Identify list anchor: 'to cut' — bare infinitive after 'to'",
+          "List continues: 'increase' — bare infinitive ✓",
+          "Third item must also be bare infinitive",
+          "'reducing' (-ing) ✗ | 'to reduce' (repeated to) ✗ | 'reduce' (bare) ✓"
+        ],
+        "answer": "reduce waste — bare infinitive matches 'cut' and 'increase'"
+      },
+      "traps": [
+        "Choosing -ing form because the sentence sounds active or dynamic",
+        "Repeating 'to' on only the last item while others lack it",
+        "Mistaking a past participle adjective ('streamlined operations') for a verb",
+        "Missing that 'improve' in the original is already bare infinitive — confirmation of the required form"
+      ],
+      "solveSteps": [
+        "1. Identify the list: find the commas + 'and' structure",
+        "2. Find the anchor: what form does the FIRST verb take?",
+        "3. Apply that form to every item in the list",
+        "4. Eliminate any choice with -ing, extra 'to', or a noun phrase where a verb is needed",
+        "5. Confirm the surviving choice reads naturally in the full sentence"
+      ]
+    }
+  },
+  "598": {
+    "hint": "Three-item list — all items must share the same grammatical form. Identify what form the first two use, then match it exactly.",
+    "theory": {
+      "title": "Parallelism — Matching Grammatical Form in Lists",
+      "icon": "⚖",
+      "summary": "Items in a series must share the same grammatical form. Mixing adjectives with noun phrases or verb phrases breaks the parallel structure and is always wrong on GMAT.",
+      "keyFacts": [
+        "Parallel list rule: every element must be the same part of speech (adj, noun, verb, etc.)",
+        "Adjective list → all items must be adjectives: smart, kind, and brave ✓",
+        "Breaking parallel: smart, kind, and she is brave ✗ — last item is a clause",
+        "Trigger words: 'and', 'or', 'but', 'both…and', 'either…or', 'neither…nor'",
+        "Strip surrounding words and align bare elements side-by-side to spot mismatch",
+        "Shortest correct form usually wins — avoid adding helping verbs or pronouns"
+      ],
+      "example": {
+        "problem": "She is intelligent, articulate, and ___ (fill in parallel adjective).",
+        "steps": [
+          "Identify the list: intelligent, articulate, and ___",
+          "Both existing items are single adjectives",
+          "Third item must also be a single adjective",
+          "'Experienced' is a simple adjective → matches ✓",
+          "'She has experience' is a clause → breaks parallel ✗"
+        ],
+        "answer": "experienced"
+      },
+      "traps": [
+        "Adding a pronoun ('she has experience') creates an unnecessary clause break",
+        "'Is experienced' adds a linking verb — redundant when adjective alone works",
+        "'Experiencing' is a participle/gerund — wrong part of speech for this list",
+        "'Has experience' is a verb phrase, not an adjective"
+      ],
+      "solveSteps": [
+        "1. Spot the list signal: 'and', 'or', or a correlative conjunction",
+        "2. Identify the grammatical form of the first two (or more) elements",
+        "3. Strip filler — reduce each item to its bare grammatical core",
+        "4. Choose the answer that matches that core form exactly",
+        "5. Prefer the shortest option that achieves parallelism — no extras"
+      ]
+    }
+  },
+  "599": {
+    "hint": "List follows 'how to' — each verb must match base-form infinitive: read / write / ___. Check that all three items share the same grammatical form.",
+    "theory": {
+      "title": "Parallel Structure — Infinitive Lists",
+      "icon": "⛓",
+      "summary": "Items in a list must share identical grammatical form. An anchor phrase like 'how to' locks every element into base-form infinitives — no gerunds, no clauses allowed.",
+      "keyFacts": [
+        "Parallelism rule: list items must be the same part of speech and form",
+        "'How to [verb]' anchor → every list element must be a bare infinitive (base verb)",
+        "Gerunds (-ing forms) and noun phrases break the parallel frame",
+        "Inserting a subject ('they should…') introduces a new clause — wrong structure",
+        "The parallel marker is the coordinating conjunction (and/or/but) — look left to identify the pattern",
+        "Spot the anchor (to read, to write…) → strip implied 'to' from later items → all should be bare verbs"
+      ],
+      "example": {
+        "problem": "She loves to swim, to hike, and [running]. Which form is correct for the bracketed item?",
+        "steps": [
+          "Anchor phrase: 'to swim, to hike' — base infinitive pattern",
+          "Conjunction 'and' signals a third parallel item is required",
+          "'Running' (gerund) ≠ infinitive → breaks parallelism",
+          "Correct form: 'run' (bare infinitive, 'to' implied)",
+          "Full sentence: 'She loves to swim, to hike, and run' ✓"
+        ],
+        "answer": "run — bare infinitive matches the established 'to [verb]' pattern"
+      },
+      "traps": [
+        "Selecting a gerund (-ing) because it 'sounds active' — gerunds break infinitive lists",
+        "Adding a subject pronoun ('they should think') — creates a clause, not a parallel verb",
+        "Noun phrase ('creative thinking') changes part of speech from verb to noun",
+        "Forgetting that 'to' can be implied: 'how to read, write, and think' is fully parallel"
+      ],
+      "solveSteps": [
+        "1. Find the list's anchor: what grammatical form do the first items use?",
+        "2. Identify the conjunction (and/or/but) marking the final element",
+        "3. Strip any implied repeated words (to, the, a) from earlier items to isolate the core form",
+        "4. Match the final element to that exact form — base verb, gerund, noun, or clause",
+        "5. Eliminate choices that introduce a different part of speech or an extra subject/clause"
+      ]
+    }
+  },
+  "600": {
+    "hint": "List of comparatives joined by 'and' must be grammatically parallel. Identify the form of the first two items, then match the blank.",
+    "theory": {
+      "title": "Parallelism — Parallel List Items",
+      "icon": "⟺",
+      "summary": "Items in a list connected by coordinating conjunctions (and/or/but) must share the same grammatical form. Mixing adjectives with clauses or nouns breaks parallelism.",
+      "keyFacts": [
+        "All items in a list must match in part of speech and structure",
+        "Adjective list: fast, efficient, cheap — NOT fast, efficient, 'it costs less'",
+        "Comparative adjectives: faster, more efficient, less expensive — same tier",
+        "Never mix adjective phrases with full clauses (subject + verb) in a list",
+        "'It costs less' = clause; 'less expensive' = adjective phrase — incompatible",
+        "When in doubt, strip list down: 'faster, more fuel-efficient, and ___ than' — blank must be adjective"
+      ],
+      "example": {
+        "problem": "The device is lighter, more durable, and [it costs less / less expensive] than its predecessor.",
+        "steps": [
+          "Identify list: lighter | more durable | ?",
+          "Both are adjective phrases modifying 'device'",
+          "'It costs less' = independent clause — breaks parallelism",
+          "'Less expensive' = adjective phrase — matches",
+          "Confirm: lighter, more durable, less expensive — all parallel comparatives ✓"
+        ],
+        "answer": "less expensive"
+      },
+      "traps": [
+        "'It costs less' sounds natural in speech but inserts a clause into an adjective list",
+        "'Has less cost' — verb phrase, still not parallel with adjectives",
+        "'Cheaper costing' — awkward participial phrase, non-idiomatic",
+        "'Less in cost' — prepositional phrase, wrong category"
+      ],
+      "solveSteps": [
+        "1. Find the list and its conjunction (and/or/but)",
+        "2. Identify the grammatical form of the first 2 items",
+        "3. Eliminate any answer that changes that form (clause, noun, prep phrase)",
+        "4. Among remaining, pick the most idiomatic adjective phrase",
+        "5. Read full sentence aloud to confirm flow"
+      ]
+    }
+  },
+  "601": {
+    "hint": "Spot the list anchor: 'to expand, increase, and ___'. All items must share the same verb form — bare infinitive. Which choice completes the pattern?",
+    "theory": {
+      "title": "Parallelism — Infinitive Lists",
+      "icon": "⇌",
+      "summary": "Items in a GMAT list must share the same grammatical form. When the first item uses 'to + verb', every subsequent item must use bare infinitive (verb only) — no gerunds, clauses, or passive constructions.",
+      "keyFacts": [
+        "Parallel infinitive: 'to expand, [to] increase, [to] raise' — 'to' drops after first",
+        "Never mix forms: infinitive + gerund + clause in same list = wrong",
+        "Passive voice in a list ('will be raised', 'should be raised') breaks parallelism unless entire list is passive",
+        "Pronoun subjects inside a list ('they should…') create a full clause — forbidden in verb-list",
+        "Each item must be grammatically substitutable for the others at the join point"
+      ],
+      "example": {
+        "problem": "Goals are to expand the program, increase membership, and ___.",
+        "steps": [
+          "Identify anchor form: 'to expand' → infinitive list",
+          "Each item plugs in after 'to': to expand / to increase / to ___",
+          "Test B: 'raise the budget' → 'to raise the budget' ✓ bare infinitive",
+          "Test A: 'a budget will be raised' → 'to a budget will be raised' ✗ clause",
+          "Test D: 'raising of the budget' → 'to raising…' ✗ gerund mismatch"
+        ],
+        "answer": "raise the budget — bare infinitive completes 'to expand, increase, and raise'"
+      },
+      "traps": [
+        "'Raising of the budget' sounds formal but is a gerund, not an infinitive",
+        "'The budget should be raised' — passive clause, not parallel",
+        "'They should raise' — introduces a new subject mid-list, breaks the verb chain",
+        "Forgetting 'to' can repeat before each item: GMAT omits it after first, but form must still match"
+      ],
+      "solveSteps": [
+        "1. Find the list: locate commas or 'and/or' joining multiple items",
+        "2. Identify the anchor: what grammatical form does the FIRST item use?",
+        "3. Strip each choice down to its core form — does it match the anchor?",
+        "4. Eliminate any choice that introduces a full clause, passive voice (if others are active), or different verb form",
+        "5. Verify: mentally substitute each item into 'to ___' — only bare infinitives fit"
+      ]
+    }
+  },
+  "602": {
+    "hint": "'Not only X but also Y' demands parallel grammar. Match the structure of the first clause to spot the cleanest, most concise parallel verb.",
+    "theory": {
+      "title": "Correlative Conjunctions — Not Only…But Also",
+      "icon": "⚖",
+      "summary": "Correlative conjunctions (not only…but also, either…or, neither…nor, both…and) require both sides to share the same grammatical form. Mismatched structures are always wrong.",
+      "keyFacts": [
+        "'Not only X but also Y' → X and Y must be the same part of speech / structure",
+        "Match verb to verb, noun to noun, phrase to phrase",
+        "Avoid passive constructions when an active parallel is available",
+        "Extra words (that was given, about it) dilute parallelism — prefer concise match",
+        "'And' cannot replace 'but also' in the not-only…but-also frame"
+      ],
+      "example": {
+        "problem": "Not only did she finish the report, [blank] at the conference.",
+        "steps": [
+          "Identify the frame: 'Not only did she FINISH…'",
+          "The blank must complete 'but she also [VERB]…' to match 'finish'",
+          "'had a presentation that was given' → passive + wordy, no parallel verb",
+          "'presented it' → active verb, mirrors 'finish' structure ✓",
+          "'gave a presentation about it' → verbose, 'about it' adds noise"
+        ],
+        "answer": "'but she also presented it' — active verb 'presented' parallels 'finish'"
+      },
+      "traps": [
+        "Substituting 'and' for 'but also' breaks the correlative frame",
+        "Passive phrases ('that was given') look grammatical but destroy concision and parallelism",
+        "Extra prepositional phrases ('about it') are padding — GMAT penalizes wordiness",
+        "Forgetting 'also' is part of the fixed correlative — dropping it changes meaning"
+      ],
+      "solveSteps": [
+        "1. Spot the correlative: not only…but also / either…or / neither…nor / both…and",
+        "2. Identify the grammatical form of the first element (verb, noun, phrase)",
+        "3. Require the second element to match exactly",
+        "4. Eliminate passive or wordy alternatives even if grammatically legal",
+        "5. Pick shortest answer that maintains the parallel form"
+      ]
+    }
+  },
   "751": {
     "hint": "For g(f(x)), ask: where does f(x) satisfy g's domain constraint? Set f(x) ≥ 3, then solve the inequality — expect two outer regions, not a middle interval.",
     "theory": {
