@@ -28452,6 +28452,790 @@ const QUESTION_THEORIES = {
         "5. Arrange girls in chosen gaps: girls! — multiply all three together"
       ]
     }
+  },
+  "1208": {
+    "hint": "Use f(3)=0 to solve for k first, then substitute k and evaluate at x=−3. Watch sign arithmetic with negatives.",
+    "theory": {
+      "title": "Quadratic Functions — Solve for Parameter, Then Evaluate",
+      "icon": "🔧",
+      "summary": "When a function has an unknown constant, a given output value lets you pin that constant. Once k is fixed, the function is fully defined for any input.",
+      "keyFacts": [
+        "f(a) = value → substitute x=a and solve for the unknown parameter",
+        "After finding k, rewrite f(x) fully before evaluating at new x",
+        "(−x)² = x², but −kx changes sign when x is negative",
+        "f(−x) ≠ −f(x) unless f is an odd function — never assume symmetry",
+        "Factoring check: x²−6x+9 = (x−3)² → double-check roots",
+        "Plug-and-chug beats factoring shortcuts when signs are tricky"
+      ],
+      "example": {
+        "problem": "f(x) = x² − kx + 9, f(3) = 0, k positive integer. Find f(−3).",
+        "steps": [
+          "f(3)=0 → 3²−3k+9=0 → 18−3k=0 → k=6",
+          "f(x) = x²−6x+9",
+          "f(−3) = (−3)²−6(−3)+9",
+          "= 9+18+9",
+          "= 36"
+        ],
+        "answer": "36 (choice D)"
+      },
+      "traps": [
+        "Assuming f(−3)=−f(3)=0 — only true for odd functions, not this one",
+        "Sign error: −6(−3) = +18, not −18",
+        "Computing f(3) again instead of f(−3)",
+        "Forgetting to find k first and leaving an expression with k"
+      ],
+      "solveSteps": [
+        "1. Substitute the given x value into f(x) and set equal to given output",
+        "2. Solve the equation for the unknown constant k",
+        "3. Rewrite f(x) with k plugged in",
+        "4. Substitute the target x value (here −3) and evaluate carefully",
+        "5. Watch every sign, especially −k·(negative x)"
+      ]
+    }
+  },
+  "1209": {
+    "hint": "Two successive % changes apply to DIFFERENT bases — multiply the multipliers: (1+r1)×(1+r2). Never add or subtract raw percentages.",
+    "theory": {
+      "title": "Successive Percent Changes — Multiply Multipliers",
+      "icon": "🔗",
+      "summary": "When one percent change is applied to the result of another, you multiply the decimal multipliers. Adding/subtracting the raw percents ignores that the second base has already changed.",
+      "keyFacts": [
+        "Net multiplier = (1 + r1) × (1 + r2); net % change = that product − 1",
+        "+40% then −15% → 1.40 × 0.85 = 1.19 → net +19%",
+        "Shortcut formula: r1 + r2 + (r1×r2)/100 where r1,r2 are signed percent integers",
+        "Cross-term (r1×r2)/100 is usually negative when one rate is a discount — that's why result < naive sum",
+        "Order doesn't matter: (1+r1)(1+r2) = (1+r2)(1+r1) — same final price",
+        "Only works multiplicatively; NEVER add or subtract raw %s applied to different bases"
+      ],
+      "example": {
+        "problem": "Item marked up 40%, then discounted 15%. Net % change from original cost?",
+        "steps": [
+          "Let cost = 100 (pick 100 for clean arithmetic)",
+          "After 40% markup: 100 × 1.40 = 140",
+          "After 15% discount on marked price: 140 × 0.85 = 119",
+          "Net change: 119 − 100 = 19%",
+          "Shortcut: 40 + (−15) + (40×−15)/100 = 25 − 6 = 19 ✓"
+        ],
+        "answer": "19% net increase"
+      },
+      "traps": [
+        "40% − 15% = 25% — WRONG: subtracts percents off different bases",
+        "The discount base is the marked-up price, not original cost",
+        "Result is always less than naive sum when one change is negative",
+        "Picking cost = 100 is the fastest path — don't use algebra unless forced"
+      ],
+      "solveSteps": [
+        "1. Set cost = 100",
+        "2. Apply first % change: multiply by (1 + r1/100)",
+        "3. Apply second % change to NEW amount: multiply by (1 + r2/100)",
+        "4. Net % change = final amount − 100 (since cost was 100)",
+        "5. Sanity: result must differ from r1+r2 by the cross-term r1·r2/100"
+      ]
+    }
+  },
+  "1210": {
+    "hint": "Find slope of L first, then use negative-reciprocal for M. Write both equations, then solve the system — don't assume intersection = point M passes through.",
+    "theory": {
+      "title": "Perpendicular Lines — Slope & Intersection",
+      "icon": "⊥",
+      "summary": "Perpendicular lines have slopes that are negative reciprocals: if L has slope m, M has slope −1/m. Find both equations, then set equal to get the intersection.",
+      "keyFacts": [
+        "Slope formula: m = (y₂ − y₁)/(x₂ − x₁)",
+        "Perpendicular slopes multiply to −1: m₁ · m₂ = −1",
+        "Point-slope form: y − y₁ = m(x − x₁)",
+        "Intersection: set y-expressions equal and solve for x, then back-substitute",
+        "Negative reciprocal: slope −1 → perpendicular slope = 1; slope 2/3 → perpendicular slope = −3/2",
+        "A point a line PASSES THROUGH is NOT necessarily the intersection point"
+      ],
+      "example": {
+        "problem": "Line L through (−2, 5) and (4, −1); Line M ⊥ L through (3, 2). Where do they intersect?",
+        "steps": [
+          "Slope of L = (−1−5)/(4−(−2)) = −6/6 = −1",
+          "Line L: y = −x + 3",
+          "Slope of M = −1/(−1) = 1 (negative reciprocal)",
+          "Line M: y − 2 = 1(x − 3) → y = x − 1",
+          "Set equal: −x + 3 = x − 1 → x = 2, y = 1",
+          "Intersection: (2, 1)"
+        ],
+        "answer": "(2, 1)"
+      },
+      "traps": [
+        "Picking (3, 2) — the point M passes through — as the intersection (it's on M, not on L)",
+        "Picking a point on L like (4, −1) without checking it satisfies M",
+        "Forgetting to negate AND flip the slope for perpendicular: slope −1 → perp slope = +1 (not −1)",
+        "Arithmetic error in slope: watch sign of x₁ when it is negative, (−2) not (+2)"
+      ],
+      "solveSteps": [
+        "1. Compute slope of L using the two given points",
+        "2. Perpendicular slope = −1 ÷ slope of L",
+        "3. Write equation of M using perpendicular slope + its given point",
+        "4. Solve system: set both y-expressions equal, find x then y",
+        "5. Verify point satisfies BOTH line equations before choosing answer"
+      ]
+    }
+  },
+  "1211": {
+    "hint": "Isolate x/y by dividing both sides: x/y = (2/3)÷(3/4). Flip-and-multiply — watch which fraction goes on top.",
+    "theory": {
+      "title": "Solving a Ratio from a Fractional Equation",
+      "icon": "✂️",
+      "summary": "When ax = by, divide both sides by y and by a to get x/y = b/a. Flip-and-multiply is the only operation needed — the trap is putting the fractions in the wrong order.",
+      "keyFacts": [
+        "ax = by  →  x/y = b/a  (divide both sides by y, then by a)",
+        "Dividing by a fraction = multiplying by its reciprocal: (p/q)÷(r/s) = (p/q)×(s/r)",
+        "Always isolate the exact ratio asked for — x/y ≠ y/x",
+        "x/y < 1 means x < y; x/y > 1 means x > y — use as a sanity check",
+        "No need to solve for x or y individually; the equation gives the ratio directly"
+      ],
+      "example": {
+        "problem": "(3/4)x = (2/3)y, x≠0, y≠0. Find x/y.",
+        "steps": [
+          "Divide both sides by y: (3/4)(x/y) = 2/3",
+          "Divide both sides by 3/4: x/y = (2/3) ÷ (3/4)",
+          "Flip-and-multiply: (2/3) × (4/3) = 8/9",
+          "Check: 8/9 < 1, so x < y — consistent with x having the larger coefficient on the left"
+        ],
+        "answer": "8/9"
+      },
+      "traps": [
+        "Inverting: computing y/x instead of x/y gives 9/8 (choice C)",
+        "Dividing the wrong way: (3/4)÷(2/3) = 9/8, then making a further error",
+        "Solving for x and y separately by guessing values — unnecessary and error-prone",
+        "Forgetting to flip when dividing by a fraction (multiplying by the same fraction instead)"
+      ],
+      "solveSteps": [
+        "1. Write the equation as a ratio: ax = by → x/y = b/a",
+        "2. Identify b = 2/3, a = 3/4",
+        "3. Compute (2/3) ÷ (3/4) = (2/3) × (4/3)",
+        "4. Multiply numerators and denominators: 8/9",
+        "5. Sanity check: is 8/9 between plausible bounds? Yes — it's less than 1, matching x < y"
+      ]
+    }
+  },
+  "1212": {
+    "hint": "Convert both sides to the same base (powers of 2), then set exponents equal. One wrong distribution of the exponent lands on a trap answer.",
+    "theory": {
+      "title": "Exponential Equations — Common Base Strategy",
+      "icon": "🔢",
+      "summary": "When bases differ but share a common factor, rewrite everything as one base. Once bases match, equate the exponents and solve a simple linear equation.",
+      "keyFacts": [
+        "4 = 2², 8 = 2³, 9 = 3², 27 = 3³ — memorize these pairings",
+        "a^(m·n) = (a^m)^n — use to expand composite exponents",
+        "Same base → equal exponents: 2^p = 2^q ⟹ p = q",
+        "4^(x+1) = 2^(2x+2), NOT 2^(2x+1) — multiply ENTIRE exponent by base-conversion factor",
+        "If no common base exists, try taking log of both sides"
+      ],
+      "example": {
+        "problem": "Solve 4^(x+1) = 8^(x−1) for x.",
+        "steps": [
+          "Rewrite: 4^(x+1) = (2²)^(x+1) = 2^(2x+2)",
+          "Rewrite: 8^(x−1) = (2³)^(x−1) = 2^(3x−3)",
+          "Set exponents equal: 2x + 2 = 3x − 3",
+          "Solve: 5 = x"
+        ],
+        "answer": "x = 5"
+      },
+      "traps": [
+        "Forgetting to multiply the full binomial exponent: writing 2^(2x+1) instead of 2^(2x+2) lands on x = 7",
+        "Trying to equate bases directly without converting (4 ≠ 8, so nothing cancels)",
+        "Solving 2x+1 = 3x−1 instead of 2x+2 = 3x−3 — one sign error flips the answer"
+      ],
+      "solveSteps": [
+        "1. Find a common base for all terms (usually smallest prime factor)",
+        "2. Rewrite each side: multiply the original exponent by the conversion factor — distribute carefully",
+        "3. Set the resulting exponents equal (bases now match)",
+        "4. Solve the linear equation",
+        "5. Sanity-check by plugging back into one side"
+      ]
+    }
+  },
+  "1213": {
+    "hint": "Set up (acid after)/(total after) = target %. Both numerator AND denominator increase when you add pure acid — don't fix the denominator.",
+    "theory": {
+      "title": "Mixture — Adding Pure Substance",
+      "icon": "🧪",
+      "summary": "Adding a pure substance changes both the numerator (amount of that substance) and the denominator (total volume). Set the new ratio equal to the target concentration and solve.",
+      "keyFacts": [
+        "Acid in final mix = original acid + pure acid added",
+        "Total volume in final mix = original volume + pure acid added",
+        "Equation: (original acid + x) / (original volume + x) = target %",
+        "Pure acid = 100% concentration — contributes x to numerator AND x to denominator",
+        "Cross-multiply to clear the fraction, then isolate x",
+        "Answer must be less than original volume — sanity check"
+      ],
+      "example": {
+        "problem": "20 L of 30% acid solution. How many liters of pure acid added to reach 50%?",
+        "steps": [
+          "Acid currently: 0.30 × 20 = 6 L",
+          "Let x = pure acid added",
+          "New equation: (6 + x)/(20 + x) = 0.50",
+          "Cross-multiply: 6 + x = 10 + 0.5x",
+          "0.5x = 4 → x = 8"
+        ],
+        "answer": "8 liters"
+      },
+      "traps": [
+        "Fixing denominator at 20: solving 6 + x = 0.50 × 20 gives x = 4 — wrong",
+        "Forgetting pure acid also adds to total volume — only updating numerator",
+        "Using 50% of original volume (10) directly as the acid target without accounting for added volume",
+        "Starting from (6 + x)/20 = 0.50 — denominator must increase too"
+      ],
+      "solveSteps": [
+        "1. Calculate original acid: original % × original volume",
+        "2. Define x = amount of pure substance added",
+        "3. Write equation: (original acid + x) / (original volume + x) = target decimal",
+        "4. Cross-multiply and solve for x",
+        "5. Verify: plug x back in — does (acid+x)/(vol+x) equal target %?"
+      ]
+    }
+  },
+  "1214": {
+    "hint": "LCM × GCF = product of the two integers. Plug in what you know and solve for the unknown.",
+    "theory": {
+      "title": "LCM × GCF Identity",
+      "icon": "🔢",
+      "summary": "For any two positive integers, LCM × GCF equals their product. This single identity links all four values — know any three, find the fourth.",
+      "keyFacts": [
+        "LCM(a,b) × GCF(a,b) = a × b  (always)",
+        "GCF divides both numbers; LCM is divisible by both",
+        "GCF(a,b) × k₁ = a and GCF(a,b) × k₂ = b where k₁,k₂ are coprime",
+        "LCM = GCF × k₁ × k₂",
+        "If LCM = one of the integers, the other divides it",
+        "GCF ≤ min(a,b) ≤ max(a,b) ≤ LCM — use as sanity check"
+      ],
+      "example": {
+        "problem": "LCM of two integers is 120, GCF is 4, one integer is 24. Find the other.",
+        "steps": [
+          "Apply identity: LCM × GCF = a × b",
+          "120 × 4 = 480 = 24 × b",
+          "b = 480 / 24 = 20",
+          "Verify: GCF(24,20) = 4 ✓  LCM(24,20) = 120 ✓"
+        ],
+        "answer": "20"
+      },
+      "traps": [
+        "Choosing 40: LCM(24,40)=120 passes but GCF(24,40)=8≠4 — must verify BOTH conditions",
+        "Choosing 16: GCF(24,16)=8≠4 — fails GCF check",
+        "Forgetting to verify: always confirm both LCM and GCF match after solving",
+        "LCM/GCF alone don't uniquely determine the pair — need one integer as anchor"
+      ],
+      "solveSteps": [
+        "1. Recall identity: LCM × GCF = product of integers",
+        "2. Compute product: 120 × 4 = 480",
+        "3. Divide by known integer: 480 / 24 = other integer",
+        "4. Verify both GCF and LCM match the given values",
+        "5. Sanity: GCF ≤ both integers ≤ LCM"
+      ]
+    }
+  },
+  "1215": {
+    "hint": "'Given first is red' means start AFTER that draw: update both the red count AND the total. Never use original counts.",
+    "theory": {
+      "title": "Conditional Probability — Without Replacement",
+      "icon": "🎲",
+      "summary": "A condition ('given X happened') shrinks the sample space. With 'without replacement', both the favorable count and the total drop by what was already drawn.",
+      "keyFacts": [
+        "P(B|A) = P(A∩B) / P(A) — formal definition",
+        "Intuitive shortcut: treat the 'given' event as already done, recount what remains",
+        "Without replacement: remove the drawn item from both numerator pool and denominator",
+        "With replacement: counts reset — condition has no effect on next draw",
+        "'Given first is X' → new total = n−1, new count of X = (original count of X)−1",
+        "Conditional ≠ unconditional: P(2nd red) ≠ P(2nd red | 1st red)"
+      ],
+      "example": {
+        "problem": "Bag: 5 red, 4 blue, 3 green (12 total). Draw 2 without replacement. Given first is red, P(second is red)?",
+        "steps": [
+          "Condition 'first is red' → treat it as done: 1 red removed",
+          "Remaining marbles: 12 − 1 = 11",
+          "Remaining red: 5 − 1 = 4",
+          "P(2nd red | 1st red) = 4/11"
+        ],
+        "answer": "4/11"
+      },
+      "traps": [
+        "5/12 — uses original 5 red out of 12; ignores the condition entirely",
+        "5/11 — reduces total but forgets to reduce red count too",
+        "2/11 — arithmetic error halving the numerator for no reason",
+        "Confusing 'without replacement' with 'with replacement' (where answer would be 5/12)"
+      ],
+      "solveSteps": [
+        "1. Identify the condition: what has 'already happened'?",
+        "2. Remove conditioned item from the bag (reduce total AND its color count)",
+        "3. Count favorable outcomes in the updated bag",
+        "4. Divide: favorable / new total",
+        "5. Sanity-check: answer must be less than original proportion if same color drawn"
+      ]
+    }
+  },
+  "1216": {
+    "hint": "For each statement ask: can n be prime AND composite? If yes → insufficient. Check if combining statements adds any new constraint.",
+    "theory": {
+      "title": "Primality & Mod 6 — Necessary vs Sufficient",
+      "icon": "🔢",
+      "summary": "Every prime > 3 is ≡ 1 or 5 (mod 6), but the converse fails: not every number ≡ 5 (mod 6) is prime. Necessary condition ≠ sufficient condition.",
+      "keyFacts": [
+        "All primes > 3 satisfy n ≡ 1 or 5 (mod 6) — but this is necessary, NOT sufficient",
+        "n ≡ 5 (mod 6) means n = 5, 11, 17, 23, 29, 35, 41 … — composites appear",
+        "Odd + ≡5 (mod6) gives zero new info: every n ≡5 (mod6) is already odd",
+        "DS rule: if one statement is a subset of the other, combining = no gain",
+        "To prove insufficiency: find one prime example AND one composite example for same condition"
+      ],
+      "example": {
+        "problem": "Is n prime, given n+1 divisible by 6?",
+        "steps": [
+          "n+1 divisible by 6 → n ≡ 5 (mod 6)",
+          "List: 5 (prime ✓), 11 (prime ✓), 17 (prime ✓), 35 = 5×7 (composite ✗)",
+          "Two valid outputs → statement alone cannot decide → NOT sufficient",
+          "Statement 2: n odd — includes 5 (prime) and 9 (composite) → NOT sufficient",
+          "Combined: S2 adds nothing S1 didn't already give (all ≡5 mod6 are odd)"
+        ],
+        "answer": "E — neither statement alone nor together pins prime vs composite; counterexamples exist under both conditions simultaneously"
+      },
+      "traps": [
+        "Thinking 'all primes > 3 are ≡ 5 mod 6' implies the statement is sufficient — direction is reversed",
+        "Assuming odd numbers are more likely prime — 9, 15, 25 are odd composites",
+        "Missing that S2 is redundant given S1 (≡5 mod6 already forces odd), so combining = no gain",
+        "Stopping after finding only prime examples; always hunt for the composite counterexample"
+      ],
+      "solveSteps": [
+        "1. For each statement: find one prime n and one composite n satisfying it",
+        "2. If both exist → statement is NOT sufficient alone",
+        "3. Combine statements: check if the intersection adds any new restriction",
+        "4. If combined condition is identical to one statement alone → still NOT sufficient",
+        "5. Answer E when counterexamples survive even the combined constraint"
+      ]
+    }
+  },
+  "1217": {
+    "hint": "Area = ½·base·height = 30 → base·height = 60. Check each statement: can you uniquely solve for BC using that one fact alone?",
+    "theory": {
+      "title": "Triangle Base — Area Equation DS",
+      "icon": "△",
+      "summary": "Triangle area formula links base and height multiplicatively. Knowing either variable alone, or any ratio between them, is enough to pin both values.",
+      "keyFacts": [
+        "Area = ½ × base × height — always",
+        "Rearrange: base × height = 2 × Area (constant product)",
+        "One variable known → other solved directly (linear equation)",
+        "A ratio between base and height collapses two unknowns to one (substitution)",
+        "DS trap: students assume two unknowns need two independent statements — ignores that a ratio IS a second equation"
+      ],
+      "example": {
+        "problem": "Triangle area = 30. Is BC solvable from (1) height = 10, or (2) BC = 2 × height?",
+        "steps": [
+          "Base × height = 2 × 30 = 60",
+          "Stmt 1: height = 10 → BC = 60/10 = 6 ✓",
+          "Stmt 2: BC = 2h → substitute: (2h) × h = 60 → h² = 30 → h = √30",
+          "BC = 2√30 ✓",
+          "Both statements independently determine BC"
+        ],
+        "answer": "D — each statement alone gives a unique numeric answer for BC"
+      },
+      "traps": [
+        "Assuming two unknowns always require two separate statements — a ratio between them is itself an equation",
+        "Stmt 2 looks insufficient because it introduces h as unknown — but substitution resolves it",
+        "Forgetting to set base × height = 60 first (off-by-2 error from skipping the ½ factor)",
+        "Picking C because 'more info feels safer' — classic DS over-caution trap"
+      ],
+      "solveSteps": [
+        "1. Rewrite given area: base × height = 2 × 30 = 60",
+        "2. Stmt 1: substitute known height → single-step solve for BC",
+        "3. Stmt 2: write BC in terms of h, substitute into equation → one variable, one equation → solve",
+        "4. Each statement alone yields a unique value → mark D",
+        "5. Sanity: both answers should be positive real numbers ✓"
+      ]
+    }
+  },
+  "1218": {
+    "hint": "x/y > 0 iff x,y share a sign. Test each statement: does it force same-sign pairing, or can one variable flip the result?",
+    "theory": {
+      "title": "Sign of a Quotient — Same-Sign Logic",
+      "icon": "±",
+      "summary": "x/y is positive exactly when x and y share the same sign. The product xy > 0 encodes this directly; a sum x + y > 0 does not.",
+      "keyFacts": [
+        "x/y > 0 ⟺ x and y have the same sign (both + or both −)",
+        "xy > 0 ⟺ same sign — algebraically equivalent to x/y > 0",
+        "x + y > 0 does NOT guarantee same sign: x=5, y=−1 gives sum 4 > 0 but opposite signs",
+        "A large positive can dominate a sum even when paired with a negative",
+        "DS tactic: find a counterexample where sign differs to kill sufficiency",
+        "Check both (++), (−−), (+−), (−+) cases when testing sign statements"
+      ],
+      "example": {
+        "problem": "Is x/y > 0? (1) xy > 0  (2) x + y > 0",
+        "steps": [
+          "x/y > 0 requires x,y same sign",
+          "Stmt 1: xy > 0 means same sign by definition → x/y > 0 always. SUFFICIENT",
+          "Stmt 2: Try x=3, y=1 → sum=4>0, x/y=3>0 ✓",
+          "Try x=3, y=−1 → sum=2>0, x/y=−3<0 ✗",
+          "Stmt 2 gives YES and NO → NOT sufficient"
+        ],
+        "answer": "A — statement 1 alone is sufficient; xy > 0 directly forces same-sign, but statement 2 allows opposite-sign pairs whose sum is still positive"
+      },
+      "traps": [
+        "Thinking x+y>0 implies both are positive — one large positive can drag the sum up",
+        "Forgetting x/y<0 when signs differ, not just when x or y is zero",
+        "Picking D because statement 2 'feels positive' — always test a mixed-sign counterexample",
+        "Ignoring the (−,−) case for statement 1 — product still >0 and quotient still >0"
+      ],
+      "solveSteps": [
+        "1. Reframe target: x/y > 0 ⟺ x,y same sign",
+        "2. Stmt 1: does xy > 0 force same sign? Yes — definition of positive product. Mark SUFFICIENT",
+        "3. Stmt 2: try same-sign pair (both work) then mixed-sign pair with large positive — find counterexample",
+        "4. Counterexample kills stmt 2 alone → NOT sufficient",
+        "5. Answer: statement 1 alone sufficient → A"
+      ]
+    }
+  },
+  "1219": {
+    "hint": "Each statement gives one equation but two unknowns. Ask: does combining both statements close the system? Don't guess the fraction until r is uniquely pinned.",
+    "theory": {
+      "title": "DS — Two-Variable System: When You Need Both Equations",
+      "icon": "🔵",
+      "summary": "A single linear relationship between two unknowns leaves infinitely many solutions. You need a second independent equation to pin both values and compute the target fraction.",
+      "keyFacts": [
+        "Fraction = r / (r + b). Two unknowns → need 2 independent equations",
+        "Statement gives ratio or difference → 1 equation. Alone: infinite solutions",
+        "Statement gives conditional count → 1 equation in same 2 unknowns. Alone: insufficient",
+        "Two independent equations in 2 unknowns → unique solution → sufficient",
+        "Check independence: if stmt 2 is just a scalar multiple of stmt 1, combining still fails",
+        "DS goal: 'sufficient' means ONE unique answer, not just 'can compute something'"
+      ],
+      "example": {
+        "problem": "Box has r red and b blue balls. What fraction are red? (1) b = r + 12. (2) Adding 6 red makes 40% of balls red.",
+        "steps": [
+          "Stmt 1 alone: fraction = r/(2r+12). Any r works (r=1→1/14, r=6→1/4). NOT sufficient",
+          "Stmt 2 alone: (r+6)/(r+b+6) = 0.4. Two unknowns, one equation. NOT sufficient",
+          "Both: substitute b = r+12 into stmt 2 → (r+6)/(2r+18) = 0.4",
+          "Solve: r+6 = 0.4(2r+18) = 0.8r+7.2 → 0.2r = 1.2 → r = 6",
+          "Fraction = 6/(6+18) = 6/24 = 1/4. Unique answer → SUFFICIENT"
+        ],
+        "answer": "C — neither statement alone pins r, but together they form a 2×2 linear system with a unique solution."
+      },
+      "traps": [
+        "Stmt 1 feels 'almost enough' — it isn't; r=1 and r=6 both satisfy b=r+12 with different fractions",
+        "Stmt 2's percentage looks precise but hides a second unknown (b)",
+        "Forgetting to check whether both statements are truly independent (they are here)",
+        "Computing the answer (1/4) and thinking that proves stmt 1 or stmt 2 was enough alone"
+      ],
+      "solveSteps": [
+        "1. Name unknowns: r = red, b = blue. Target = r/(r+b)",
+        "2. Stmt 1 alone: write equation, count unknowns — if underdetermined, mark INSUFFICIENT",
+        "3. Stmt 2 alone: same test — one equation, two unknowns → INSUFFICIENT",
+        "4. Both together: substitute stmt 1 into stmt 2 to get one equation in one unknown, solve",
+        "5. If unique r (and b) → fraction is uniquely determined → answer C"
+      ]
+    }
+  },
+  "1220": {
+    "hint": "Ask: does each statement alone pin the sign of p−q? Then test both together — try q negative AND q positive under both constraints before concluding.",
+    "theory": {
+      "title": "Absolute Value + Sign — Number Line DS",
+      "icon": "📍",
+      "summary": "'|p| > |q|' only says p is farther from 0 — not which direction. Combine with a sign constraint and case-split on q's sign to decide sufficiency.",
+      "keyFacts": [
+        "p − q > 0 ⟺ p > q — translate inequality before testing",
+        "| p | > | q | means p farther from origin; p can be + or −",
+        "p > 0 alone doesn't constrain q at all — q can be huge positive",
+        "Combined: p > 0 AND |p| > |q| → p > |q| ≥ 0",
+        "If q ≥ 0: p > |q| = q → p > q ✓",
+        "If q < 0: p > 0 > q → p > q ✓  — BOTH cases covered"
+      ],
+      "example": {
+        "problem": "p and q on number line. Is p > q? (1) |p| > |q|  (2) p > 0",
+        "steps": [
+          "Stmt 1 alone: p=3,q=2 → yes; p=−3,q=2 → no. INSUFFICIENT",
+          "Stmt 2 alone: p=3,q=1 → yes; p=1,q=5 → no. INSUFFICIENT",
+          "Both together: p>0 and |p|>|q| → p > |q|",
+          "Case q≥0: p > |q| = q ✓",
+          "Case q<0: p > 0 > q ✓",
+          "All cases → p > q guaranteed"
+        ],
+        "answer": "C — neither alone works, but together they force p > q in every case"
+      },
+      "traps": [
+        "Thinking |p|>|q| implies p>q — p=−3,q=2 kills this",
+        "Forgetting to test q<0 when combining; positive q isn't the hard case",
+        "Stopping at 'two statements still look tricky' and picking E without exhausting cases",
+        "The listed answer E is a distractor — systematic case-split reveals C"
+      ],
+      "solveSteps": [
+        "1. Rewrite target: p−q>0 ⟺ p>q",
+        "2. Test each statement alone with YES and NO counterexamples",
+        "3. If both insufficient alone, combine and split on q's sign (q≥0 vs q<0)",
+        "4. Verify BOTH cases are forced — if yes, answer is C",
+        "5. If any case still ambiguous under both statements, answer is E"
+      ]
+    }
+  },
+  "1221": {
+    "hint": "Consecutive integers: mean = (min + max) / 2. Ask — does each statement alone pin BOTH endpoints?",
+    "theory": {
+      "title": "Consecutive Integers — Mean from Endpoints",
+      "icon": "📏",
+      "summary": "For any consecutive integer set, mean = (min + max) / 2. You need both endpoints to compute the mean — one anchor alone leaves the other free.",
+      "keyFacts": [
+        "Consecutive integers are symmetric around their midpoint → mean = median",
+        "Mean = (min + max) / 2 — requires BOTH endpoints",
+        "Knowing only min: max (and count) unknown → mean unknown",
+        "Knowing only max: min (and count) unknown → mean unknown",
+        "Both endpoints together → mean is fully determined, regardless of how many integers",
+        "DS rule: if two variables determine the answer, check whether each statement gives only one"
+      ],
+      "example": {
+        "problem": "Set T is consecutive integers. Min = −8, max = 8. What is the mean?",
+        "steps": [
+          "Consecutive set → mean = (min + max) / 2",
+          "Min = −8, max = 8",
+          "Mean = (−8 + 8) / 2 = 0 / 2 = 0",
+          "Verify: set is symmetric around 0, so mean = 0 ✓"
+        ],
+        "answer": "0"
+      },
+      "traps": [
+        "Thinking min alone anchors the mean — it doesn't; max is still free (T could be {−8,−7} or {−8,...,100})",
+        "Same trap for max alone — min is unknown",
+        "Assuming 'consecutive' means the set is fixed in size — size is not given",
+        "Picking D because each statement 'tells you something' — but sufficiency requires a unique answer"
+      ],
+      "solveSteps": [
+        "1. Identify what determines the mean: for consecutive integers, need min AND max",
+        "2. Test S1 alone: min = −8, max unknown → multiple means possible → NOT sufficient",
+        "3. Test S2 alone: max = 8, min unknown → multiple means possible → NOT sufficient",
+        "4. Test both: min = −8 AND max = 8 → mean = (−8+8)/2 = 0, unique → SUFFICIENT",
+        "5. Answer: C — neither alone, both together sufficient"
+      ]
+    }
+  },
+  "1222": {
+    "hint": "r² is always positive when r ≠ 0 — so the sign of r²s depends entirely on s alone. Which statement pins the sign of s?",
+    "theory": {
+      "title": "Squared Factor — Always Positive",
+      "icon": "²",
+      "summary": "r² ≥ 0 for any real r, and r² > 0 whenever r ≠ 0. So r²s shares the sign of s — the 'r' variable is a red herring.",
+      "keyFacts": [
+        "r² > 0 for all r ≠ 0 (squaring kills the sign)",
+        "r²s > 0 ⟺ s > 0 (since r² is a positive constant multiplier)",
+        "Knowing r > 0 adds NOTHING — r² > 0 was already guaranteed by r ≠ 0",
+        "DS trap: extra-looking info (sign of r) that is actually useless",
+        "Reduce the target inequality first — simplify before evaluating statements"
+      ],
+      "example": {
+        "problem": "r and s are non-zero integers. Is r²s > 0? (1) r > 0 (2) s > 0",
+        "steps": [
+          "Simplify target: r ≠ 0 → r² > 0 always",
+          "So r²s > 0 ⟺ s > 0",
+          "Stmt 1: r > 0. r² > 0 was already true. Sign of s unknown → insufficient",
+          "Stmt 2: s > 0 → r²s = (positive)(positive) > 0 → YES, sufficient"
+        ],
+        "answer": "B — statement 2 alone is sufficient; statement 1 is irrelevant because r² > 0 regardless of r's sign"
+      },
+      "traps": [
+        "Choosing D: thinking r > 0 makes r² positive — it was already positive since r ≠ 0",
+        "Forgetting to simplify first: attacking statements without reducing r²s > 0 to s > 0",
+        "Thinking both statements are needed when one alone fully resolves the question",
+        "Overlooking the given condition r ≠ 0, which is doing the heavy lifting"
+      ],
+      "solveSteps": [
+        "1. Simplify the target expression before reading statements",
+        "2. r ≠ 0 (given) → r² > 0 always → reduce r²s > 0 to: is s > 0?",
+        "3. Stmt 1: tells us about r — irrelevant after simplification → NOT sufficient",
+        "4. Stmt 2: s > 0 directly answers the reduced question → SUFFICIENT",
+        "5. Answer B"
+      ]
+    }
+  },
+  "1223": {
+    "hint": "Each statement gives one equation in two unknowns. Ask: can I isolate X's speed alone, or do I need both equations?",
+    "theory": {
+      "title": "Closing-Distance Rates — DS Sufficiency",
+      "icon": "🚗",
+      "summary": "Two objects moving toward each other close the gap at their combined speed. One equation in two unknowns is never sufficient alone; a second independent equation completes the system.",
+      "keyFacts": [
+        "Objects toward each other: distance = (v₁ + v₂) × time",
+        "One equation, two unknowns → NOT sufficient (infinitely many solutions)",
+        "Two independent equations, two unknowns → unique solution → SUFFICIENT",
+        "'Meet after t hours': total distance = (v_X + v_Y) × t  → one equation",
+        "Speed difference: v_Y = v_X + k  → second independent equation",
+        "DS decision: count independent equations vs unknowns before solving"
+      ],
+      "example": {
+        "problem": "Two cars 300 mi apart head toward each other. What is car X's speed? (1) They meet in 2 hr. (2) Car Y is 20 mph faster than X.",
+        "steps": [
+          "Let v = speed of X, u = speed of Y",
+          "Statement (1): (v + u) × 2 = 300 → v + u = 150. One equation, two unknowns. NOT sufficient.",
+          "Statement (2): u = v + 20. One equation, two unknowns. NOT sufficient.",
+          "Both: substitute (2) into (1): v + (v + 20) = 150 → 2v = 130 → v = 65 mph. SUFFICIENT."
+        ],
+        "answer": "C — neither statement alone pins X's speed, but together they form a 2×2 system with a unique solution."
+      },
+      "traps": [
+        "Statement (1) feels like enough because it uses 300 mi and 2 hr — but it only gives the SUM of speeds",
+        "Statement (2) gives a ratio/difference, not an absolute value — still two unknowns",
+        "Don't solve for a number and declare sufficient; verify the system is not underdetermined",
+        "Assuming equal speeds when not stated — the problem never says X = Y"
+      ],
+      "solveSteps": [
+        "1. Define unknowns: v_X and v_Y (two unknowns)",
+        "2. Test S1 alone: does it produce a unique (v_X, v_Y)? Count independent equations.",
+        "3. Test S2 alone: same check.",
+        "4. Test both: substitute to eliminate one unknown — unique answer → C",
+        "5. Confirm answer is reasonable (65 + 85 = 150, 150 × 2 = 300 ✓)"
+      ]
+    }
+  },
+  "1224": {
+    "hint": "Stmt 1: two points → compute slope directly. Stmt 2: y-int > x-int — test a positive-slope and a negative-slope example before concluding.",
+    "theory": {
+      "title": "Line Slope — Two Points vs. Intercept Comparison",
+      "icon": "📐",
+      "summary": "Two distinct points fix a line completely; compute slope directly. An intercept inequality constrains but may not pin the slope's sign — always test counterexamples.",
+      "keyFacts": [
+        "Slope = (y₂ − y₁) / (x₂ − x₁); two points → exact value",
+        "y-intercept: set x = 0 → y = b",
+        "x-intercept: set y = 0 → x = −b/m (undefined when m = 0)",
+        "b > −b/m can hold for BOTH positive and negative m — depends on sign of b",
+        "DS 'does X > 0?' is sufficient if EVERY valid case gives the same YES/NO answer",
+        "One counterexample with opposite sign kills sufficiency instantly"
+      ],
+      "example": {
+        "problem": "Does line L have positive slope? (2) y-intercept of L > x-intercept of L.",
+        "steps": [
+          "Try y = x + 2: slope = 1 > 0 ✓, y-int = 2, x-int = −2; 2 > −2 ✓ → YES",
+          "Try y = −2x + 3: slope = −2 < 0, y-int = 3, x-int = 3/2; 3 > 1.5 ✓ → NO",
+          "Both lines satisfy stmt 2 but give opposite answers → NOT sufficient"
+        ],
+        "answer": "Statement 2 alone: insufficient (counterexamples yield slope > 0 and slope < 0)"
+      },
+      "traps": [
+        "Computing slope from stmt 1 correctly but misreading sign: (0−3)/(1−(−2)) = −3/3 = −1, negative",
+        "Assuming y-int > x-int forces positive slope — it doesn't; sign of b and m interact",
+        "Forgetting that 'sufficient' in DS means SAME answer for ALL valid cases, not just one",
+        "Mixing up x-intercept formula: it is −b/m, not b/m"
+      ],
+      "solveSteps": [
+        "1. Stmt 1: plug two points into slope formula → exact numeric slope → definitive YES/NO",
+        "2. Stmt 2: express intercepts algebraically (y-int = b, x-int = −b/m), then test two concrete lines satisfying the inequality",
+        "3. If one example gives YES and another gives NO → NOT sufficient",
+        "4. Conclude: Stmt 1 sufficient, Stmt 2 not → answer A"
+      ]
+    }
+  },
+  "1225": {
+    "hint": "Set up: Total = only-M + only-S + both. Count unknowns — can each statement alone pin 'both'? Check if combining reduces unknowns to zero.",
+    "theory": {
+      "title": "Overlapping Sets — Inclusion-Exclusion DS",
+      "icon": "∩",
+      "summary": "Two overlapping groups obey: Total = |A| + |B| − both. Equivalently, Total = only-A + only-B + both. Sufficiency = enough constraints to isolate 'both'.",
+      "keyFacts": [
+        "Core formula: |A ∪ B| = |A| + |B| − |A ∩ B|",
+        "Segment form: Total = only-A + only-B + both (3 unknowns + total = 4 quantities)",
+        "Given total, need ANY two of: |A|, |B|, only-A, only-B, both to solve",
+        "only-A = |A| − both  →  |A| and only-A carry the same info once 'both' is unknown",
+        "DS rule: count free unknowns after each statement; sufficient when 0 remain",
+        "Statements that each reduce by 1 unknown → need both (answer C)"
+      ],
+      "example": {
+        "problem": "100 people study at least one of math or science. How many study both? (1) 60 study math. (2) 50 study science.",
+        "steps": [
+          "Formula: 100 = |M| + |S| − both",
+          "S1 alone: |M|=60 → 100 = 60 + |S| − both. Two unknowns remain. NOT sufficient.",
+          "S2 alone: |S|=50 → 100 = |M| + 50 − both. Two unknowns remain. NOT sufficient.",
+          "Together: 100 = 60 + 50 − both → both = 10. Unique answer."
+        ],
+        "answer": "C — neither statement alone pins 'both', but together they supply |M| and |S|, making the equation fully determined."
+      },
+      "traps": [
+        "Confusing 'only-science' with 'total science' — these differ by 'both'",
+        "Thinking S1 alone suffices because total is given — total alone plus one set size leaves one free variable",
+        "Forgetting the segment form: if a statement gives only-A, substitute only-A = |A| − both before counting unknowns",
+        "Assuming two statements always mean C — verify they don't contradict or over-constrain"
+      ],
+      "solveSteps": [
+        "1. Write the formula: Total = only-A + only-B + both (label unknowns)",
+        "2. Plug in total (given) — note how many unknowns remain",
+        "3. Test S1: does it eliminate enough unknowns to pin 'both'? If not → insufficient",
+        "4. Test S2 independently the same way",
+        "5. Test both together: count remaining free unknowns; zero → C; still >0 → E"
+      ]
+    }
+  },
+  "1246": {
+    "hint": "Set up ar²=12 and ar⁵=96, then divide to isolate r³. Once you have r, back-solve for a.",
+    "theory": {
+      "title": "Geometric Sequences — Finding Any Term",
+      "icon": "✖",
+      "summary": "In a geometric sequence each term multiplies by constant ratio r. Given two terms, divide them to eliminate a and solve for r, then back-calculate the first term.",
+      "keyFacts": [
+        "nth term: aₙ = a·r^(n-1)",
+        "Divide any two term equations to cancel a and get a pure power of r",
+        "r³ = term₆/term₃ because the exponents differ by 3",
+        "Once r is known: a = aₙ / r^(n-1)",
+        "Integer r values are common on GMAT — check r=2 first if ratio is a power of 2"
+      ],
+      "example": {
+        "problem": "Geometric sequence: 3rd term = 12, 6th term = 96. Find the 1st term.",
+        "steps": [
+          "Write equations: ar² = 12 and ar⁵ = 96",
+          "Divide: ar⁵/ar² = r³ = 96/12 = 8",
+          "Solve: r = ∛8 = 2",
+          "Substitute back: a·(2²) = 12 → a = 12/4 = 3"
+        ],
+        "answer": "3"
+      },
+      "traps": [
+        "Dividing 12 by r only once (off by one exponent) gives 6 — wrong",
+        "Using arithmetic sequence formula (aₙ = a + (n-1)d) instead of geometric",
+        "Computing r = 96/12 = 8 and using that as r directly instead of taking cube root",
+        "Forgetting that the 3rd term uses exponent n-1 = 2, not 3"
+      ],
+      "solveSteps": [
+        "1. Write the formula for both given terms: aₙ = a·r^(n-1)",
+        "2. Divide the larger-term equation by the smaller to cancel a",
+        "3. The exponent difference equals the index difference — solve for r",
+        "4. Substitute r back into either equation to find a",
+        "5. Sanity-check: plug a and r into both original term conditions"
+      ]
+    }
+  },
+  "1247": {
+    "hint": "Terminating decimal ↔ denominator (reduced) has ONLY 2s and 5s as prime factors. Check if statement gives you that guarantee — not just 'has a 5'.",
+    "theory": {
+      "title": "Terminating Decimals — Prime Factor Rule",
+      "icon": "🔢",
+      "summary": "p/q is terminating iff q's prime factorization contains only 2s and 5s (after reducing). Any other prime factor — 3, 7, 11, … — creates a repeating block.",
+      "keyFacts": [
+        "Terminating ↔ q (in lowest terms) = 2^a × 5^b for non-negative integers a, b",
+        "1/2=0.5, 1/4=0.25, 1/5=0.2, 1/8=0.125, 1/25=0.04 — all terminate",
+        "1/3, 1/6, 1/7, 1/9, 1/11 — any prime factor ≠ 2,5 → repeating decimal",
+        "Having a factor of 5 is NECESSARY but not SUFFICIENT — q could also have 7, 11, etc.",
+        "Reduce p/q first — e.g. 6/12 = 1/2; check denominator after cancellation",
+        "DS: need certainty for ALL valid values of p and q, not just one example"
+      ],
+      "example": {
+        "problem": "Is p/q a terminating decimal if q is divisible by 5 but not by 3?",
+        "steps": [
+          "Try q=5: 1/5=0.2 → terminates",
+          "Try q=35=5×7: 1/35=0.02857… → does NOT terminate",
+          "Both satisfy 'divisible by 5, not by 3' — two different outcomes",
+          "∴ Statement 1 alone is insufficient",
+          "Statement 2: q has only prime factors 2 and 5 — exactly the terminating condition",
+          "No counter-example possible → always terminates"
+        ],
+        "answer": "B — statement 2 gives the exact prime-factor condition; statement 1 leaves room for other primes like 7"
+      },
+      "traps": [
+        "'Divisible by 5 but not 3' sounds restrictive but allows primes like 7, 11, 13 — still non-terminating",
+        "Forgetting to reduce: 4/12 → 1/3 is repeating even though original denominator had factor 2",
+        "Assuming q=5 as the only case for statement 1 — always test a second value in DS",
+        "Thinking any prime factor of 5 is sufficient — you need NO OTHER prime factors"
+      ],
+      "solveSteps": [
+        "1. Recall rule: terminating ↔ denominator (reduced) = 2^a × 5^b only",
+        "2. For each statement, ask: does this GUARANTEE q has no other prime factors?",
+        "3. Statement 1: find a counter-example (q=35) — insufficient",
+        "4. Statement 2: directly states the exact condition — sufficient",
+        "5. Answer B"
+      ]
+    }
   }
 };
 
