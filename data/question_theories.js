@@ -31599,6 +31599,788 @@ const QUESTION_THEORIES = {
         "5. Sanity check: all posterior probabilities sum to 1"
       ]
     }
+  },
+  "1364": {
+    "hint": "Subtract the minimum first, then count free distributions of the remainder with stars-and-bars: C(n+r-1, r-1).",
+    "theory": {
+      "title": "Stars & Bars — Identical Objects with Minimums",
+      "icon": "⭐",
+      "summary": "Distributing identical objects among distinct bins = stars-and-bars. Minimum constraints vanish by pre-assigning the floor, then counting unrestricted distributions of the remainder.",
+      "keyFacts": [
+        "Non-negative integer solutions to x₁+x₂+…+xᵣ = n: C(n+r-1, r-1)",
+        "Minimum k per recipient: subtract k·r from total first, then apply formula",
+        "Items identical → order within each share doesn't matter; only the split counts",
+        "C(n+r-1, r-1) = C(n+r-1, n) — choose either way, same answer",
+        "Formula grows fast: C(8,2)=28, C(9,2)=36 — off-by-one kills you"
+      ],
+      "example": {
+        "problem": "Distribute 12 identical books among 3 students so each gets ≥ 2.",
+        "steps": [
+          "Pre-assign minimum: give each student 2 books → 2×3 = 6 books used",
+          "Remaining: 12 − 6 = 6 books to distribute freely (≥ 0 each)",
+          "Solve x₁+x₂+x₃ = 6, xᵢ ≥ 0",
+          "Stars-and-bars: C(6+3-1, 3-1) = C(8, 2)",
+          "C(8,2) = 28"
+        ],
+        "answer": "28"
+      },
+      "traps": [
+        "Using C(12,2) = 66 — wrong formula, ignores minimum constraint",
+        "Forgetting to subtract the pre-assigned books before applying formula",
+        "Using permutation formula — books are IDENTICAL, order doesn't matter",
+        "C(6+2,2)=28 vs C(6+3,3)≠28 — plug r-1 not r into the bottom"
+      ],
+      "solveSteps": [
+        "1. Identify minimum per recipient m; compute remainder = total − m·r",
+        "2. Set up equation: x₁+…+xᵣ = remainder, each xᵢ ≥ 0",
+        "3. Apply stars-and-bars: C(remainder + r − 1, r − 1)",
+        "4. Compute the binomial coefficient carefully",
+        "5. Verify: answer should be smaller than unrestricted case C(total+r-1,r-1)"
+      ]
+    }
+  },
+  "1365": {
+    "hint": "Factor each equation fully and list ALL roots. A statement is sufficient only if every root gives the same yes/no answer — not just one root.",
+    "theory": {
+      "title": "Quadratic DS — Multi-Root Sign Check",
+      "icon": "±",
+      "summary": "A quadratic can have two roots. For DS, a statement is sufficient only if ALL its roots yield the same answer to the yes/no question — one agreeable root is not enough.",
+      "keyFacts": [
+        "Factor x²+bx+c=0 → (x−r₁)(x−r₂)=0 → roots r₁ and r₂",
+        "x²−k²=0 → (x−k)(x+k)=0 → roots always +k and −k (opposite signs)",
+        "DS SUFFICIENT ↔ every root gives the SAME yes/no answer",
+        "Roots disagree on the question → NOT sufficient alone",
+        "If one statement is already sufficient, stop — do not combine unnecessarily",
+        "Check sign of EACH root, not just whether a solution exists"
+      ],
+      "example": {
+        "problem": "Is x > 0?  (1) x²−5x+6=0  (2) x²−4=0",
+        "steps": [
+          "Stmt 1: factor → (x−2)(x−3)=0 → x=2 or x=3",
+          "Both roots are positive → 'x>0?' = YES in every case → SUFFICIENT",
+          "Stmt 2: factor → (x−2)(x+2)=0 → x=2 or x=−2",
+          "Roots disagree: 2>0 but −2<0 → cannot determine sign → NOT sufficient",
+          "Stmt 1 alone resolves it; combining adds nothing"
+        ],
+        "answer": "A — Statement 1 pins x to {2,3}, both positive, always YES. Statement 2 gives {2,−2}, sign ambiguous."
+      },
+      "traps": [
+        "Two roots does NOT mean insufficient — check if BOTH give the same answer",
+        "x²−k²=0 always yields ±k; the negative root often breaks sign questions",
+        "Jumping to C (combine) when Statement 1 already suffices",
+        "Forgetting to factor completely — a missed root can flip the sufficiency call"
+      ],
+      "solveSteps": [
+        "1. Factor each equation fully; write out ALL roots explicitly",
+        "2. For each statement: do ALL roots give the same yes/no to the question?",
+        "3. If yes → SUFFICIENT alone",
+        "4. If roots disagree → NOT sufficient alone; try combining",
+        "5. Stop at the first sufficient statement — never over-combine"
+      ]
+    }
+  },
+  "1366": {
+    "hint": "Factor x³−3x first, then test each statement. Does stmt 1 produce ONE value or multiple? Does stmt 2 alone pin a number?",
+    "theory": {
+      "title": "DS — Polynomial Roots & Sign Constraints",
+      "icon": "🔢",
+      "summary": "An equation like x²=k yields two roots (±√k). A single algebraic statement may leave multiple valid x-values, giving multiple expression values — not sufficient. A sign constraint alone (x>0) pins nothing without a value.",
+      "keyFacts": [
+        "x²=k → x=√k OR x=−√k; always consider BOTH unless restricted",
+        "Factor the target expression before testing statements: x³−3x = x(x²−3)",
+        "DS goal: expression must evaluate to ONE unique number — any ambiguity = NOT sufficient",
+        "Sign constraint (x>0 / x<0) alone never gives a numeric value",
+        "Combining a multi-root equation with a sign constraint can eliminate the extraneous root → sufficient",
+        "Test each statement independently first (plug both roots), then combine"
+      ],
+      "example": {
+        "problem": "What is x³−3x? (1) x²=4  (2) x>0",
+        "steps": [
+          "Factor: x³−3x = x(x²−3)",
+          "Stmt 1: x²=4 → x=2 or x=−2",
+          "x=2: 2(4−3)=2; x=−2: −2(4−3)=−2 → two values. NOT sufficient",
+          "Stmt 2: x>0 gives no specific value. NOT sufficient",
+          "Together: x²=4 AND x>0 → only x=2 survives → expression = 2. SUFFICIENT"
+        ],
+        "answer": "C — neither statement alone pins a unique value, but together they eliminate x=−2, leaving x=2 and a unique result of 2"
+      },
+      "traps": [
+        "Assuming x²=4 gives one answer — it always yields two roots ±2",
+        "Thinking x>0 alone is sufficient because it 'narrows things down'",
+        "Forgetting to evaluate the target expression at BOTH roots before deciding sufficiency",
+        "Stopping at x=2 from Stmt 1 without checking x=−2"
+      ],
+      "solveSteps": [
+        "1. Factor the target: x³−3x = x(x²−3) to simplify evaluation",
+        "2. Test Stmt 1 alone: x²=4 → two roots → two expression values → NOT sufficient",
+        "3. Test Stmt 2 alone: x>0 → no numeric constraint → NOT sufficient",
+        "4. Combine: sign constraint eliminates the negative root → one x → one value → SUFFICIENT",
+        "5. Answer C"
+      ]
+    }
+  },
+  "1367": {
+    "hint": "Before labeling 'range alone insufficient', compute the SD floor: for n values with range R, SD ≥ R/√(2n). With n=5, R=12, evaluate that floor vs 3.",
+    "theory": {
+      "title": "SD Lower Bound — Range Constrains Spread",
+      "icon": "📐",
+      "summary": "Range pins the two extremes, forcing a minimum spread. For n values with range R, SD ≥ R/√(2n). With n=5, R=12 this floor is ≈3.79 — always above 3.",
+      "keyFacts": [
+        "SD ≥ R/√(2n) — hard lower bound from range and count alone",
+        "Proof: endpoints alone contribute (min−μ)²+(max−μ)² ≥ R²/2; divide by n",
+        "For n=5, R=12: SD ≥ 12/√10 ≈ 3.79 > 3 — range statement answers YES definitively",
+        "Mean + median describe center, not spread — SD can be 0 or large with same mean and median",
+        "DS trap: showing two sets with different SDs ≠ insufficiency — you need one YES and one NO"
+      ],
+      "example": {
+        "problem": "5 integers, range = 12. Is SD > 3? Can the range statement settle this?",
+        "steps": [
+          "Apply floor: SD ≥ R/√(2n) = 12/√10 ≈ 3.79",
+          "Verify tightest case: {0,6,6,6,12} → mean=6, Σ(xᵢ−μ)²=72, SD=√14.4≈3.79 ✓",
+          "Every other arrangement spreads values further → SD only rises",
+          "No 5-integer set with range 12 can achieve SD ≤ 3",
+          "Conclusion: range alone answers YES — SD is always > 3"
+        ],
+        "answer": "A — statement (1) alone is sufficient; range 12 with n=5 forces SD ≥ 3.79 > 3. Statement (2) (mean=median=10) is not sufficient: {10,10,10,10,10} gives SD=0 while {4,10,10,10,16} gives SD≈3.79."
+      },
+      "traps": [
+        "Showing two sets with different SDs ≠ insufficiency — one must give YES, one must give NO",
+        "Range = 12 feels like 'incomplete info' but mathematically pins SD below",
+        "Mean + median feel richer but don't bound spread at all",
+        "Note: the official answer key labels this E — that answer is incorrect; the proof shows A"
+      ],
+      "solveSteps": [
+        "1. For each statement: ask 'can this produce both SD > 3 AND SD ≤ 3?'",
+        "2. Statement (1): apply SD ≥ R/√(2n) = 12/√10 ≈ 3.79 > 3 → always YES → SUFFICIENT",
+        "3. Statement (2): {10,10,10,10,10} → SD=0 (NO) vs {4,10,10,10,16} → SD≈3.79 (YES) → NOT sufficient",
+        "4. One statement sufficient, the other not → answer A"
+      ]
+    }
+  },
+  "1368": {
+    "hint": "Compute sum=48 first. Fixing one extreme pins the OTHER extreme via the remaining budget — check if EVERY valid configuration answers the range question the same way.",
+    "theory": {
+      "title": "Range Sufficiency — Bounding the Unknown Extreme",
+      "icon": "↔",
+      "summary": "When sum and one boundary value are fixed, the remaining terms' sum caps (or floors) the other extreme. That constraint may force a definitive yes/no on range even without knowing exact values.",
+      "keyFacts": [
+        "Sum = mean × count — compute this before touching any statement",
+        "If max is fixed: remaining n−1 values sum to (total − max), each ≥ 1 → min ≤ (remaining sum)/(remaining count)",
+        "If min ≤ threshold, range = max − min is ALWAYS above some floor → conclusive",
+        "Sufficiency requires EVERY valid set gives the same yes/no, not just one example",
+        "Fixing min does NOT bound max — largest can grow freely while keeping sum fixed by shrinking others",
+        "Range > k iff min < max − k; reframe the question algebraically before substituting"
+      ],
+      "example": {
+        "problem": "6 positive integers, mean 8. Is range > 10? (1) Largest = 20. (2) Smallest = 4.",
+        "steps": [
+          "Sum = 6×8 = 48",
+          "St.1: remaining 5 integers sum to 48−20=28, each ≥ 1. Min ≤ 28/5 = 5.6 → min ≤ 5",
+          "Range = 20 − min ≥ 20 − 5 = 15 > 10. True for ALL valid sets → SUFFICIENT",
+          "St.2: remaining 5 sum to 48−4=44, max can be anywhere from 4 to 44. Range = max−4",
+          "max=8 → range=4 (No); max=20 → range=16 (Yes). Two outcomes → NOT SUFFICIENT"
+        ],
+        "answer": "A — statement 1 forces min ≤ 5, so range ≥ 15 > 10 always; statement 2 leaves max (and range) unconstrained."
+      },
+      "traps": [
+        "Testing one example for sufficiency — must show ALL configurations yield same answer",
+        "Forgetting positive integer means ≥ 1, not ≥ 0 — this tightens the bound",
+        "Thinking statement 2 (min fixed) also bounds the range — it only floors it, max is free",
+        "Using arithmetic mean of remaining values as the actual min, not just the upper bound on min"
+      ],
+      "solveSteps": [
+        "1. Compute sum = mean × n immediately",
+        "2. For each statement: identify which extreme is pinned and what the remaining n−1 values sum to",
+        "3. Use (remaining sum)/(remaining count) to bound the unpinned extreme",
+        "4. Ask: does EVERY valid configuration answer yes/no the same way?",
+        "5. Fixed max → min is capped → range has a definite floor → often sufficient; fixed min → max roams freely → often not sufficient"
+      ]
+    }
+  },
+  "1369": {
+    "hint": "Build two number sets satisfying BOTH statements: one where a+b+c is divisible by 3 and one where it isn't. If both exist, you know the answer.",
+    "theory": {
+      "title": "Divisibility DS — Overlapping Pair-Sums Don't Pin the Whole",
+      "icon": "🔢",
+      "summary": "Knowing two overlapping pair-sums are divisible by 3 does NOT fix the full sum. The shared middle term's residue mod 3 is the hidden variable that breaks sufficiency.",
+      "keyFacts": [
+        "n divisible by 3 ↔ n ≡ 0 (mod 3)",
+        "If a+b ≡ 0 and b+c ≡ 0 (mod 3), then a ≡ −b and c ≡ −b (mod 3)",
+        "So a+b+c ≡ −b+b+(−b) = −b (mod 3) — equals 0 only when 3|b",
+        "b is unconstrained by the two statements → answer depends on b's residue",
+        "DS: to prove insufficiency find one YES example and one NO example satisfying all given conditions",
+        "Adding the two statements gives a+2b+c, not a+b+c — algebraic manipulation misleads here"
+      ],
+      "example": {
+        "problem": "a, b, c positive integers; a+b and b+c both divisible by 3. Is a+b+c divisible by 3?",
+        "steps": [
+          "NO case: a=2, b=1, c=2 → a+b=3 ✓, b+c=3 ✓, a+b+c=5 (not div by 3)",
+          "YES case: a=3, b=3, c=3 → a+b=6 ✓, b+c=6 ✓, a+b+c=9 (div by 3)",
+          "Both cases satisfy both statements — answer flips",
+          "Root cause: b=1 has residue 1 (mod 3) → sum has residue 2; b=3 has residue 0 → sum has residue 0"
+        ],
+        "answer": "E — both statements together still leave the answer ambiguous; b's residue mod 3 is unconstrained"
+      },
+      "traps": [
+        "Adding both statements: (a+b)+(b+c)=a+2b+c ≡ 0, but that is NOT a+b+c",
+        "Assuming two overlapping pair-sums 'cover' everything — b appears in both but its own value is never fixed",
+        "Jumping to C because 'together must be enough' without testing examples",
+        "Testing only b=3 examples and missing the b=1 counterexample"
+      ],
+      "solveSteps": [
+        "1. Test each statement alone: vary the unconstrained variable to get YES and NO — both insufficient",
+        "2. Combine: note b is the shared middle term in both pair-sums",
+        "3. Derive algebraically: a+b+c ≡ −b (mod 3) — hinges on b alone",
+        "4. Find a NO example (b not divisible by 3) and a YES example (b divisible by 3), both satisfying both statements",
+        "5. Two opposite-answer examples under both conditions → answer is E"
+      ]
+    }
+  },
+  "1370": {
+    "hint": "Parity of a sum (or difference) pins whether operands match or differ in parity — check each statement alone before combining.",
+    "theory": {
+      "title": "Parity Rules — Sum/Difference Signals Even×Odd",
+      "icon": "⚖",
+      "summary": "Even + Odd = Odd; Even − Odd = Odd. So if a sum or difference is odd, the two integers must have opposite parity — one even, one odd — making their product even.",
+      "keyFacts": [
+        "Even × Odd = Even, Even × Even = Even, Odd × Odd = Odd",
+        "Sum odd → one even + one odd → opposite parity",
+        "Difference odd → one even − one odd (or vice versa) → opposite parity",
+        "Sum even → same parity (both even OR both odd)",
+        "Difference even → same parity (both even OR both odd)",
+        "If both have opposite parity, product is always even"
+      ],
+      "example": {
+        "problem": "x and y are integers. Is xy even? (1) x + y is odd. (2) x − y is odd.",
+        "steps": [
+          "S1: x+y odd ⟹ one of {x,y} even, the other odd (only way to sum to odd)",
+          "Even × odd = even → S1 alone SUFFICIENT",
+          "S2: x−y odd ⟹ same opposite-parity logic (even−odd=odd, odd−even=odd)",
+          "Even × odd = even → S2 alone SUFFICIENT",
+          "Both statements independently pin opposite parity → same conclusion"
+        ],
+        "answer": "D — each statement alone is sufficient because both force one even and one odd factor, guaranteeing an even product."
+      },
+      "traps": [
+        "Thinking x−y odd might allow x=odd, y=odd: odd−odd=even, not odd — ruled out",
+        "Mixing up: sum even → same parity (both odd → product odd), NOT the same rule as sum odd",
+        "Testing only one number pair; test all four even/odd combos to be safe",
+        "Forgetting DS rule: find sufficiency independently — don't jump to 'need both'"
+      ],
+      "solveSteps": [
+        "1. List parity combos: (E,E), (E,O), (O,E), (O,O)",
+        "2. For each statement, filter which combos are consistent",
+        "3. S1 x+y odd → only (E,O) and (O,E) survive → product even → SUFFICIENT",
+        "4. S2 x−y odd → only (E,O) and (O,E) survive → product even → SUFFICIENT",
+        "5. Each alone sufficient → answer D"
+      ]
+    }
+  },
+  "1371": {
+    "hint": "Substitute the remainder into n²+n+1 (mod 7). Each statement gives a fixed residue — check if result ≡ 0 (mod 7). No need to combine.",
+    "theory": {
+      "title": "Quadratic Divisibility — Modular Arithmetic",
+      "icon": "🔢",
+      "summary": "When n has a fixed remainder mod m, every polynomial in n also has a fixed remainder mod m. Substitute the residue class directly — no need to pick actual values.",
+      "keyFacts": [
+        "n ≡ r (mod 7) → n² ≡ r² (mod 7), n²+n+1 ≡ r²+r+1 (mod 7)",
+        "Divisible by 7 iff r²+r+1 ≡ 0 (mod 7)",
+        "Reduce large residues: 16 mod 7 = 2, 21 mod 7 = 0",
+        "Only 7 residue classes mod 7 (0–6) — exhaustive check is finite",
+        "DS: a statement giving n mod m uniquely determines any polynomial mod m → likely sufficient"
+      ],
+      "example": {
+        "problem": "If n ≡ 4 (mod 7), is n²+n+1 divisible by 7?",
+        "steps": [
+          "Substitute residue: 4²+4+1 = 21",
+          "21 mod 7 = 0",
+          "So n²+n+1 ≡ 0 (mod 7) — YES, divisible",
+          "Check statement 1: 2²+2+1 = 7, 7 mod 7 = 0 — also YES"
+        ],
+        "answer": "Both residues yield 0 mod 7, so each statement alone is sufficient → D"
+      },
+      "traps": [
+        "Picking one concrete n (e.g. n=2) and forgetting that mod condition covers infinitely many n — but here they all share the same residue so it works",
+        "Forgetting to reduce: 16+4+1=21, not 17; always reduce each term mod 7",
+        "Thinking statements must be combined because they give different info — if each alone answers YES definitively, answer is D, not C",
+        "Confusing 'remainder 4' with n=4; n could be 4, 11, 18, … — but all ≡ 4 mod 7"
+      ],
+      "solveSteps": [
+        "1. Identify: need to know n²+n+1 mod 7",
+        "2. Each statement fixes n mod 7 → substitute residue r into r²+r+1",
+        "3. Compute r²+r+1 mod 7 for each statement independently",
+        "4. If ≡ 0: statement is sufficient (definitively YES)",
+        "5. If both sufficient independently → answer is D"
+      ]
+    }
+  },
+  "1372": {
+    "hint": "For each statement, ask: does this force a single YES or NO answer for SD > 5? Think about what fixes SD (structure) vs what caps SD (range).",
+    "theory": {
+      "title": "Standard Deviation — Fixed Structure & Range Ceiling",
+      "icon": "σ",
+      "summary": "SD measures how far values spread from the mean. Shifting a fixed-structure list (like consecutive evens) changes the mean but not the deviations — SD is invariant. Range caps the maximum possible SD.",
+      "keyFacts": [
+        "SD = √(Σ(xᵢ − mean)² / n) — depends on shape of spread, not absolute position",
+        "4 consecutive even integers: deviations always −3, −1, +1, +3 regardless of start → SD = √5 ≈ 2.24",
+        "Shifting entire list by k: mean shifts by k, every deviation unchanged → SD unchanged",
+        "Range R = max − min. Max SD with n values at two extremes = R/2 (variance = R²/4)",
+        "4 DIFFERENT numbers, range 6: SD < 3 strictly (can't put 2 identical at each end) → always < 5",
+        "DS sufficient = ONE definitive answer (always YES or always NO for every valid case)"
+      ],
+      "example": {
+        "problem": "4 different numbers, range = max − min = 6. Prove SD cannot exceed 5.",
+        "steps": [
+          "Worst case for max SD: cluster at extremes. If identical allowed: {0,0,6,6} → mean=3, deviations ±3 each → variance=9 → SD=3",
+          "Numbers must be DIFFERENT → nearest valid: {0, ε, 6−ε, 6}",
+          "Mean still = 3. Variance = (9 + (3−ε)² + (3−ε)² + 9)/4 → approaches 9 as ε→0",
+          "SD → 3 but never reaches it. Strictly SD < 3 < 5 for all valid sets",
+          "Definitive NO → sufficient"
+        ],
+        "answer": "D — stmt 1 fixes SD = √5 ≈ 2.24 (always NO); stmt 2 caps SD < 3 (always NO); each alone sufficient"
+      },
+      "traps": [
+        "Thinking {2,4,6,8} and {100,102,104,106} might have different SDs — they don't; only deviations matter",
+        "Confusing range with SD — a set with range 6 could have SD anywhere from near 0 to near 3",
+        "Believing 'range doesn't fully describe distribution' means stmt 2 is insufficient — the CEILING argument makes it sufficient",
+        "Marking B because stmt 2 feels like it 'leaves freedom' — it does, but every allowed configuration gives the same answer (NO)"
+      ],
+      "solveSteps": [
+        "1. Stmt 1: compute deviations symbolically for {n, n+2, n+4, n+6} — do they depend on n?",
+        "2. Deviations = −3,−1,+1,+3 always → SD = √5 ≈ 2.24 < 5 → definitive NO → SUFFICIENT",
+        "3. Stmt 2: find max possible SD with range = 6. Max SD = range/2 = 3 (with identical values); with DIFFERENT values, SD < 3",
+        "4. SD < 3 < 5 in every case → definitive NO → SUFFICIENT",
+        "5. Both sufficient independently → D"
+      ]
+    }
+  },
+  "1401": {
+    "hint": "Convert BOTH speeds to the same unit before dividing. Mixing miles/min with m/min is the classic trap — do unit conversion first, then take the ratio.",
+    "theory": {
+      "title": "Speed Ratio — Unit Conversion First",
+      "icon": "🔄",
+      "summary": "Comparing speeds from different unit systems requires converting to a common unit before dividing. Skipping conversion produces a ratio that is wildly off.",
+      "keyFacts": [
+        "Speed ratio = speed_A / speed_B — only valid when both use the SAME unit",
+        "1 mile = 1,609 m (given); use this to bridge imperial ↔ metric",
+        "Convert time to seconds (or minutes) consistently for both objects",
+        "3 min 20 sec = 200 sec — do NOT leave as '3.2 min'",
+        "Car: 3 × 1609 m / 240 s ≈ 20.1 m/s  |  Runner: 800 m / 200 s = 4 m/s",
+        "Ratio ≈ 5 → pick nearest available answer choice"
+      ],
+      "example": {
+        "problem": "Car: 3 mi in 4 min. Runner: 800 m in 3 min 20 sec. How many times faster is the car? (1 mi = 1.609 km)",
+        "steps": [
+          "Convert car to m/s: 3 × 1609 = 4827 m in 240 s → 4827/240 ≈ 20.1 m/s",
+          "Convert runner to m/s: 800 m / 200 s = 4 m/s",
+          "Ratio = 20.1 / 4 ≈ 5.0",
+          "Round to nearest whole: 5 → pick closest answer choice ≈ 6"
+        ],
+        "answer": "≈5, so choose 6 (B) — the exact ratio after proper unit conversion is ~5.03; nearest answer choice is 6"
+      },
+      "traps": [
+        "Dividing 3 mi/4 min by 800 m/3.33 min without converting — units don't cancel, ratio explodes to ~9",
+        "Treating 3 min 20 sec as 3.2 min instead of 200/60 min (= 3.33 min)",
+        "Forgetting to multiply miles by 1609 before dividing — leaves ratio in incompatible scale",
+        "Rounding intermediate speeds too aggressively before dividing"
+      ],
+      "solveSteps": [
+        "1. Pick one common unit — m/s is cleanest here",
+        "2. Car: multiply miles × 1609 → meters; divide by seconds (4 min = 240 s)",
+        "3. Runner: 3 min 20 sec = 200 s; speed = 800 / 200 = 4 m/s",
+        "4. Ratio = car_speed / runner_speed; round to nearest integer",
+        "5. Match to closest answer choice — if exact answer not listed, pick nearest"
+      ]
+    }
+  },
+  "1402": {
+    "hint": "Convert ALL rates to the same unit before adding or subtracting. Gallons per minute ≠ liters per minute — convert one before combining.",
+    "theory": {
+      "title": "Unit Conversion in Rate Problems",
+      "icon": "⇌",
+      "summary": "Rates can only be combined when expressed in identical units. Convert first, then add/subtract. Mixing unit systems without conversion is the #1 trap.",
+      "keyFacts": [
+        "Multiply a rate by a conversion factor to change its units: gal/min × L/gal → L/min",
+        "For drain expressed in L/sec: multiply by 60 sec/min to get L/min",
+        "Net rate = filling rate − draining rate (both in same units)",
+        "Conversion chain: 2.5 gal/min × 3.785 L/gal = 9.4625 L/min",
+        "Positive net = tank filling; negative net = tank draining",
+        "Always label every number with its units and cancel them explicitly"
+      ],
+      "example": {
+        "problem": "Pipe A fills 2.5 gal/min; Pipe B drains 1 L per 20 sec. 1 gal = 3.785 L. Net rate in L/min?",
+        "steps": [
+          "Convert Pipe A: 2.5 × 3.785 = 9.4625 L/min",
+          "Convert Pipe B: 1 L / 20 s × 60 s/min = 3 L/min",
+          "Net = 9.4625 − 3.0 = +6.46 L/min",
+          "Sign is positive → tank is filling",
+          "Pick answer closest to +6.46"
+        ],
+        "answer": "+6.46 L/min (tank filling)"
+      },
+      "traps": [
+        "Using 2.5 gal/min directly against 3 L/min without converting → wrong sign",
+        "Forgetting to multiply L/sec by 60 to get L/min → off by factor 60",
+        "Converting in wrong direction (dividing instead of multiplying by 3.785)",
+        "Assuming same-unit rates without verifying the problem statement"
+      ],
+      "solveSteps": [
+        "1. Identify every rate and its units",
+        "2. Pick one target unit (L/min here) for the final answer",
+        "3. Convert each rate into that unit — track unit cancellation explicitly",
+        "4. Net = sum of filling rates − sum of draining rates",
+        "5. Check sign: positive = net fill, negative = net drain"
+      ]
+    }
+  },
+  "1403": {
+    "hint": "Three-set union needs +|A∩B∩C| at the end. Forgetting that term gives union 5 too large → wrong 'none' count. Check all four terms.",
+    "theory": {
+      "title": "Three-Set Inclusion-Exclusion",
+      "icon": "⭕",
+      "summary": "Adding three sets over-counts pairwise overlaps and over-subtracts the triple overlap. Subtract each pair once, then add the triple back once to balance.",
+      "keyFacts": [
+        "|A∪B∪C| = |A|+|B|+|C| − |A∩B| − |A∩C| − |B∩C| + |A∩B∩C|",
+        "None = Total − |A∪B∪C|",
+        "Triple intersection is subtracted 3× when pairs are removed → must add back once",
+        "Two-set version: |A∪B| = |A|+|B| − |A∩B| (same logic, no triple term)",
+        "Union can never exceed total group size — use as a sanity check"
+      ],
+      "example": {
+        "problem": "120 students: 70 French, 55 Spanish, 30 German; overlaps 25 F∩S, 15 F∩G, 10 S∩G, 5 all three. How many study none?",
+        "steps": [
+          "Sum sets: 70+55+30 = 155",
+          "Subtract pairs: 155−25−15−10 = 105",
+          "Add back triple: 105+5 = 110 study at least one",
+          "None = 120−110 = 10"
+        ],
+        "answer": "10 students study none of the three languages"
+      },
+      "traps": [
+        "Forgetting +|A∩B∩C| → union = 105, none = 15 — the most common wrong answer",
+        "Subtracting the triple instead of adding it → union = 100, none = 20",
+        "Assuming given overlaps are 'only that pair' — formula uses raw intersections, not exclusive regions",
+        "Skipping the final step: union ≠ answer; must subtract from total"
+      ],
+      "solveSteps": [
+        "1. Sum all three individual-set counts",
+        "2. Subtract each of the three pairwise intersections",
+        "3. Add back the triple intersection (restores over-subtraction)",
+        "4. None = Total − computed union",
+        "5. Sanity: union ≤ total; none ≥ 0"
+      ]
+    }
+  },
+  "1404": {
+    "hint": "Pairwise intersections include triple-overlap people — subtract triple once per pair to get 'exactly two.' Sum the three differences.",
+    "theory": {
+      "title": "Three-Set Venn — Exactly Two",
+      "icon": "⭕",
+      "summary": "'Exactly two' means in two sets but NOT the third. Each pairwise intersection |A∩B| already includes all-three people, so strip the triple from every pair before summing.",
+      "keyFacts": [
+        "Exactly two = Σ|pairwise| − 3|triple| = (|A∩B|+|A∩C|+|B∩C|) − 3|A∩B∩C|",
+        "Each pairwise count = 'exactly two in this pair' + 'all three' → subtract triple once per pair",
+        "Full inclusion-exclusion: |A∪B∪C| = Σ|A| − Σ|A∩B| + |A∩B∩C|",
+        "Exactly one = Σ|A| − 2Σ|A∩B| + 3|A∩B∩C|",
+        "Exactly three = |A∩B∩C| (given directly)",
+        "Check: exactly-one + exactly-two + exactly-three + none = total surveyed"
+      ],
+      "example": {
+        "problem": "90 dog, 75 cat, 40 bird owners; pairwise overlaps 30/20/15; all-three = 10. How many own exactly two types?",
+        "steps": [
+          "Dog∩Cat only (not bird) = 30 − 10 = 20",
+          "Dog∩Bird only (not cat) = 20 − 10 = 10",
+          "Cat∩Bird only (not dog) = 15 − 10 = 5",
+          "Exactly two = 20 + 10 + 5 = 35",
+          "Shortcut: (30+20+15) − 3(10) = 65 − 30 = 35 ✓"
+        ],
+        "answer": "35"
+      },
+      "traps": [
+        "Adding raw pairwise overlaps 30+20+15=65 without removing triple — counts all-three people three extra times",
+        "Subtracting triple only once: 65−10=55 — off by 2×10",
+        "Confusing 'at least two' (65) with 'exactly two' (35)",
+        "Using inclusion-exclusion total-union formula when the question asks about a specific layer"
+      ],
+      "solveSteps": [
+        "1. Identify what 'exactly two' means: in precisely 2 sets, not all 3",
+        "2. For each pair: pairwise intersection − triple = 'that pair only' count",
+        "3. Sum the three 'pair only' counts",
+        "4. Shortcut: Σpairwise − 3×triple",
+        "5. Sanity-check: triple(10) + exactlyTwo + exactlyOne + none should equal 200"
+      ]
+    }
+  },
+  "1405": {
+    "hint": "Don't track each bird leg — total bird distance = bird speed × time bird is flying. Find when trains meet, subtract the 1-hour head start.",
+    "theory": {
+      "title": "Trains & Bird — Total Flight Time Shortcut",
+      "icon": "🚂",
+      "summary": "The bird's infinite zigzag legs sum to one clean product: bird speed × flying time. Never simulate each leg — find how long the trains are still approaching while the bird is airborne.",
+      "keyFacts": [
+        "Bird total distance = bird speed × (time bird is in the air)",
+        "Closing speed of two trains = sum of their speeds",
+        "Time for trains to meet = gap / closing speed",
+        "Bird starts AFTER some time has elapsed → subtract that head-start from total train-meeting time",
+        "Do NOT attempt to sum the infinite geometric series of each leg — it's a trap that wastes 5 min",
+        "Key phrase: 'until the trains meet' pins the bird's flying duration exactly"
+      ],
+      "example": {
+        "problem": "Trains 450 mi apart, speeds 60 & 90 mph, leave simultaneously. Bird (120 mph) starts 1 hr later from Train A, shuttles until trains meet. Total bird distance?",
+        "steps": [
+          "Closing speed = 60 + 90 = 150 mph",
+          "After 1 hr: gap = 450 − 60 − 90 = 300 mi",
+          "Time trains need to close 300 mi = 300/150 = 2 hr",
+          "Bird flies exactly those 2 hr at 120 mph",
+          "Bird total = 120 × 2 = 240 mi"
+        ],
+        "answer": "240 miles (choice E)"
+      },
+      "traps": [
+        "Using full 3 hrs (450/150) — ignores bird's 1-hr delayed start, gives 360",
+        "Using 1.5 hrs — confusing half the gap or other mis-step",
+        "Trying to compute each zigzag leg algebraically — correct but infinite; wastes time",
+        "Forgetting the 1-hr head start entirely and computing 120 × 3"
+      ],
+      "solveSteps": [
+        "1. Compute closing speed = sum of train speeds",
+        "2. Find remaining gap at the moment bird starts flying",
+        "3. Remaining time = remaining gap / closing speed",
+        "4. Bird distance = bird speed × remaining time",
+        "5. Sanity: answer lies between the two extreme traps (whole-trip time vs. half-gap time)"
+      ]
+    }
+  },
+  "1406": {
+    "hint": "Find the gap when Q stops, then compute catch-up time separately from the 'P is 10 mi ahead' phase. Two distinct sub-questions, two separate calculations.",
+    "theory": {
+      "title": "Chase Problems — Gap, Catch-Up & Ahead",
+      "icon": "🚗",
+      "summary": "When one object stops, the other closes the gap at its own speed. Split into phases: (1) reach the waiting point, (2) go the extra required distance.",
+      "keyFacts": [
+        "Gap at stop moment = faster speed × shared time − slower speed × shared time",
+        "Catch-up time = gap ÷ speed of moving object (stopped object contributes 0)",
+        "'X miles ahead' phase: add X more miles to travel after catch-up, at same speed",
+        "Total extra time after faster stops = (gap + extra distance) ÷ slower speed",
+        "Initial gap formula: (v_fast − v_slow) × t_shared"
+      ],
+      "example": {
+        "problem": "P at 50 mph, Q at 80 mph, same start. Q stops after 30 min. How long until P reaches Q? Then how long more for P to be 10 mi ahead?",
+        "steps": [
+          "Gap when Q stops: (80−50) × 0.5 hr = 15 miles",
+          "Phase 1 — catch-up: 15 ÷ 50 = 0.3 hr = 18 min",
+          "Phase 2 — 10 miles ahead: 10 ÷ 50 = 0.2 hr = 12 min",
+          "Total time Q waits = 18 min; extra beyond that = 12 min"
+        ],
+        "answer": "18 min wait, then 12 more min — two independent phases"
+      },
+      "traps": [
+        "Using relative speed after Q stops — Q is stationary, so closing speed = P's speed only",
+        "Forgetting to separate the two phases; adding distances before dividing",
+        "Using 30 min as the catch-up time — that's how long they both drove, not the wait",
+        "Dividing gap by Q's speed instead of P's speed"
+      ],
+      "solveSteps": [
+        "1. Compute gap at stop: (speed difference) × shared travel time",
+        "2. Phase 1 catch-up time = gap ÷ (speed of still-moving car)",
+        "3. Phase 2 extra time = required lead distance ÷ (speed of still-moving car)",
+        "4. Report each phase separately — question asks for both",
+        "5. Sanity: catch-up time < total shared travel time is a red flag if violated"
+      ]
+    }
+  },
+  "1407": {
+    "hint": "Factor out the smaller power of 2 first: 2^10(2^5 − 1). Then check if what remains is prime. No calculation of large numbers needed.",
+    "theory": {
+      "title": "Largest Prime Factor — Factor Before You Calculate",
+      "icon": "🔢",
+      "summary": "When expressions have a common base, factor it out first. 2^15 − 2^10 collapses instantly once you pull out 2^10, leaving a small number to test for primality.",
+      "keyFacts": [
+        "a^m − a^n = a^n(a^(m−n)) when m > n",
+        "2^15 − 2^10 = 2^10 × (2^5 − 1) = 2^10 × 31",
+        "To test if N is prime: check divisibility by all primes up to √N",
+        "√31 < 6 → only check 2, 3, 5 → none divide 31 → prime",
+        "2 is always a prime factor of any power of 2, but never the LARGEST",
+        "Factoring first avoids computing huge numbers like 32768 − 1024"
+      ],
+      "example": {
+        "problem": "What is the largest prime factor of 2^15 − 2^10?",
+        "steps": [
+          "Factor: 2^15 − 2^10 = 2^10(2^5 − 1)",
+          "Simplify: 2^5 − 1 = 32 − 1 = 31",
+          "Prime check on 31: √31 ≈ 5.6, test 2,3,5 → none divide 31 → 31 is prime",
+          "Full factorization: 2^10 × 31",
+          "Prime factors are 2 and 31 → largest is 31"
+        ],
+        "answer": "31"
+      },
+      "traps": [
+        "Computing 32768 − 1024 = 31744 without factoring first — tedious and error-prone",
+        "Forgetting to verify that 31 is prime (it is — don't assume)",
+        "Picking a distractor if you mis-expand 2^5 as 16 instead of 32",
+        "Thinking 2^10 contributes a large prime factor — it does not; 2 is the only prime factor of any power of 2"
+      ],
+      "solveSteps": [
+        "1. Spot common factor: both terms share 2^10 — factor it out",
+        "2. Compute the remainder: 2^5 − 1 = 31",
+        "3. Test primality of 31: check primes up to √31 ≈ 5.6 (i.e., 2, 3, 5)",
+        "4. Confirm 31 is prime → largest prime factor in 2^10 × 31 is 31",
+        "5. Ignore the 2^10 piece — its only prime factor is 2"
+      ]
+    }
+  },
+  "1408": {
+    "hint": "Count factors via (a+1)(b+1)(c+1)… formula. Check which form can't multiply to exactly 12.",
+    "theory": {
+      "title": "Factor Count — Exponent Formula",
+      "icon": "🔢",
+      "summary": "Total factors of n = p^a × q^b × r^c is (a+1)(b+1)(c+1)…. Each exponent slot contributes one multiplicative term.",
+      "keyFacts": [
+        "Factors of p^a × q^b × r^c… = (a+1)(b+1)(c+1)…",
+        "Each prime contributes (exponent + 1) to the product",
+        "12 = 12 = 6×2 = 4×3 = 3×2×2 = 2×2×2×… but 2×2×2×2 = 16 ≠ 12",
+        "Four distinct primes each with exponent 1 gives 2^4 = 16 factors minimum",
+        "To hit 12 with 4 primes, you'd need (a+1)(b+1)(c+1)(d+1)=12 — impossible since 2×2×2×2=16 already exceeds it"
+      ],
+      "example": {
+        "problem": "How many factors does 2^3 × 3^2 have?",
+        "steps": [
+          "Exponents are 3 and 2",
+          "Apply formula: (3+1)(2+1)",
+          "= 4 × 3",
+          "= 12 factors"
+        ],
+        "answer": "12 factors"
+      },
+      "traps": [
+        "Adding exponents instead of multiplying the (exp+1) terms",
+        "Forgetting the '+1' — exponent 1 contributes factor count 2, not 1",
+        "Assuming four-prime forms can yield 12 — minimum is 2^4 = 16",
+        "Mixing up number of prime bases with number of factors"
+      ],
+      "solveSteps": [
+        "1. Write factor-count formula: F = (a+1)(b+1)(c+1)…",
+        "2. Apply to each choice — compute the product",
+        "3. Check which product ≠ 12",
+        "4. Four distinct primes each at exp=1: 2×2×2×2 = 16 — can never equal 12",
+        "5. Mark that form as the answer"
+      ]
+    }
+  },
+  "1409": {
+    "hint": "Let the tens digit = a, units = b. Write two equations: one for digit sum, one for the difference when reversed. 'New number is 27 more' tells you which minus which.",
+    "theory": {
+      "title": "Two-Digit Number — Digit Algebra",
+      "icon": "🔢",
+      "summary": "Any two-digit number = 10a + b. Reversing swaps roles: 10b + a. Their difference is always 9(b − a), a clean multiple of 9.",
+      "keyFacts": [
+        "Two-digit number with tens digit a, units digit b = 10a + b",
+        "Reversed number = 10b + a",
+        "Difference: (10b + a) − (10a + b) = 9(b − a)",
+        "Sum of digits: a + b = S (given directly)",
+        "System of two equations in two unknowns → unique solution",
+        "Reversed > original when b > a (units digit larger)"
+      ],
+      "example": {
+        "problem": "Digits sum to 11; reversed number exceeds original by 27. Find original.",
+        "steps": [
+          "Set original = 10a + b, so a + b = 11",
+          "Reversed − original = 27 → 9(b − a) = 27 → b − a = 3",
+          "Add equations: 2b = 14 → b = 7, a = 4",
+          "Original = 10(4) + 7 = 47",
+          "Check: 74 − 47 = 27 ✓, 4 + 7 = 11 ✓"
+        ],
+        "answer": "47"
+      },
+      "traps": [
+        "Setting original − reversed = 27 instead of reversed − original = 27 (reversed is larger, so it's the minuend)",
+        "Computing 10b + a as the original after solving — always substitute back to 10a + b",
+        "Forgetting the ×9 structure: digit difference of 3 means number difference of 27, not 3",
+        "Picking a = 7, b = 4 → 74 (flipped solution); always re-read which is original"
+      ],
+      "solveSteps": [
+        "1. Assign: original = 10a + b; write digit-sum equation a + b = S",
+        "2. Write difference equation: 9(b − a) = ±Δ (sign from 'reversed is more/less')",
+        "3. Solve the 2×2 system for a and b",
+        "4. Reconstruct original as 10a + b (not 10b + a)",
+        "5. Verify: plug back — check both digit sum and reversed-number difference"
+      ]
+    }
+  },
+  "1410": {
+    "hint": "Arc length = (central angle / 360°) × 2πr. Check: are you using radius (not diameter) and the central angle (not an inscribed angle)?",
+    "theory": {
+      "title": "Arc Length — Central Angle Formula",
+      "icon": "🔵",
+      "summary": "Arc length is a fraction of the full circumference, where the fraction equals the central angle divided by 360°. Bigger central angle → longer arc.",
+      "keyFacts": [
+        "Arc length = (θ/360°) × 2πr  where θ = central angle in degrees",
+        "Alternate form: arc = rθ  where θ is in RADIANS  (convert: degrees × π/180)",
+        "Circumference = 2πr  (use RADIUS, not diameter)",
+        "Central angle = inscribed angle × 2  (inscribed angle theorem)",
+        "Minor arc corresponds to the smaller central angle (<180°); major arc to the reflex angle"
+      ],
+      "example": {
+        "problem": "Circle with radius 10, chord AB subtends a central angle of 120°. Find minor arc AB.",
+        "steps": [
+          "Circumference = 2π(10) = 20π",
+          "Fraction of circle = 120/360 = 1/3",
+          "Arc length = (1/3) × 20π = 20π/3",
+          "Check via radians: 120° = 2π/3 rad → arc = 10 × 2π/3 = 20π/3 ✓"
+        ],
+        "answer": "20π/3"
+      },
+      "traps": [
+        "Using diameter instead of radius: 2π×10 is correct (10 is already the radius)",
+        "Confusing inscribed angle with central angle: if 120° were inscribed, central = 240° → arc = 40π/3 (wrong)",
+        "Forgetting to convert degrees to a fraction — dividing by 180 instead of 360",
+        "Picking the major arc when the problem asks for the minor arc"
+      ],
+      "solveSteps": [
+        "1. Identify: radius r and central angle θ (confirm it's central, not inscribed)",
+        "2. Compute circumference = 2πr",
+        "3. Arc = (θ/360) × circumference",
+        "4. Sanity check: arc < circumference; minor arc < half circumference if θ < 180°"
+      ]
+    }
+  },
+  "1411": {
+    "hint": "Diameter as one side of inscribed triangle → right angle at opposite vertex (Thales). Use Pythagorean theorem, not ½·base·12 with 20 as base.",
+    "theory": {
+      "title": "Thales' Theorem — Diameter Creates Right Triangle",
+      "icon": "⊙",
+      "summary": "Any triangle inscribed in a circle with one side as the diameter is a right triangle. The right angle sits at the vertex opposite the diameter.",
+      "keyFacts": [
+        "Thales' theorem: diameter as chord → inscribed angle opposite it = 90°",
+        "Hypotenuse of the right triangle = diameter of the circle",
+        "Area = ½ × leg₁ × leg₂ (NOT ½ × diameter × other side)",
+        "Find missing leg via Pythagorean theorem: leg₂ = √(d² − leg₁²)",
+        "Inscribed angle theorem: angle subtended by diameter from any point on circle = 90°"
+      ],
+      "example": {
+        "problem": "Triangle inscribed in circle, one side = diameter = 20, another side = 12. Find area.",
+        "steps": [
+          "Thales: side opposite the 90° is the diameter → hypotenuse = 20",
+          "Known leg = 12; find other leg: √(20² − 12²) = √(400 − 144) = √256 = 16",
+          "Recognize 12-16-20 = scaled 3-4-5 right triangle (×4) ✓",
+          "Area = ½ × 12 × 16 = 96"
+        ],
+        "answer": "96"
+      },
+      "traps": [
+        "½ × 20 × 12 = 120 — WRONG: treats diameter as base and 12 as height, but 12 is not the altitude to the diameter",
+        "Forgetting Thales and treating triangle as general (non-right) inscribed triangle",
+        "Confusing which angle is 90° — it is at the vertex on the circle, NOT at endpoints of diameter",
+        "Missing the 3-4-5 Pythagorean triple: 12-16-20 = 4×(3-4-5)"
+      ],
+      "solveSteps": [
+        "1. Spot the diameter as a side → invoke Thales: triangle is right-angled at opposite vertex",
+        "2. Label hypotenuse = diameter = 20, one leg = 12",
+        "3. Compute missing leg: √(20² − 12²) = 16",
+        "4. Area = ½ × leg₁ × leg₂ = ½ × 12 × 16",
+        "5. Sanity: answer must be less than ½ × 20 × 12 = 120 (120 is the trap)"
+      ]
+    }
   }
 };
 
