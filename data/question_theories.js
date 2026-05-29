@@ -26883,6 +26883,790 @@ const QUESTION_THEORIES = {
         "5. Sanity: result must be between 40 and 80, closer to 40 — 53.3 ✓"
       ]
     }
+  },
+  "1105": {
+    "hint": "Selling price ≠ cost price — strip out the 10% profit first to find the true cost per kg, then allegate. Don't mix at $11.",
+    "theory": {
+      "title": "Mixture + Profit: Back-Calculate Cost Before Alligating",
+      "icon": "⚗",
+      "summary": "When a blend is sold at a profit, the 'mean cost' in alligation is not the selling price. Divide SP by (1 + profit%) first, then set up the weighted-average equation.",
+      "keyFacts": [
+        "Cost price = Selling price ÷ (1 + profit%)  e.g. 11/1.10 = $10/kg",
+        "Alligation equation: w₁·c₁ + w₂·c₂ = W·c_mean",
+        "Alligation ratio shortcut: (c_high − c_mean) : (c_mean − c_low) gives low:high kg ratio",
+        "Total amount check: ratio parts must sum to total weight",
+        "Profit/loss always operates on COST price, not selling price",
+        "Two-unknowns → use (q) + (W−q) substitution to keep one variable"
+      ],
+      "example": {
+        "problem": "Two coffees: $8/kg and $14/kg. Sell 90 kg at $11/kg with 10% profit. How many kg of $14 coffee?",
+        "steps": [
+          "Step 1: Cost price of blend = 11 ÷ 1.10 = $10/kg",
+          "Step 2: Let q = kg of $14 coffee; (90−q) = kg of $8 coffee",
+          "Step 3: 8(90−q) + 14q = 10 × 90  →  720 + 6q = 900",
+          "Step 4: 6q = 180  →  q = 30",
+          "Verify: 60×8 + 30×14 = 480+420 = $900 cost; 90×11 = $990 SP; 990/900 = 1.10 ✓"
+        ],
+        "answer": "30 kg of Type Q (choice A)"
+      },
+      "traps": [
+        "Using $11 as cost price — omits the profit strip-out step, giving q = 45 (the decoy D)",
+        "Reversing which variable is q (assigning q to Type P instead of Q)",
+        "Alligation ratio gives parts, not kg — must scale by total weight if using shortcut",
+        "Assuming profit% applies to selling price instead of cost price"
+      ],
+      "solveSteps": [
+        "1. Strip profit: Cost price = SP ÷ (1 + profit%)",
+        "2. Label unknowns: q = kg of expensive type; (W−q) = kg of cheap type",
+        "3. Write weighted-avg equation: c_low(W−q) + c_high·q = c_mean·W",
+        "4. Solve for q",
+        "5. Verify: (total cost) × (1+profit%) = (total weight × SP)"
+      ]
+    }
+  },
+  "1106": {
+    "hint": "Units digit of 7 repeats with period 4. To find which position, compute the exponent mod 4 — not mod 4 directly, but 7^7 mod 4 using another cycle.",
+    "theory": {
+      "title": "Units Digit of Tower Powers — Double Cyclicity",
+      "icon": "🗼",
+      "summary": "Units digits of integer powers cycle with period 4 (or a divisor of 4). For a^(b^c), reduce the exponent b^c mod (cycle length) using a second cyclicity argument.",
+      "keyFacts": [
+        "Units digits of 7^n cycle: 7, 9, 3, 1 — period 4",
+        "To find units digit of 7^n: compute n mod 4 (1→7, 2→9, 3→3, 0→1)",
+        "For a tower 7^(7^7), need 7^7 mod 4",
+        "7 ≡ 3 (mod 4), so 7^7 ≡ 3^7 (mod 4)",
+        "3^n mod 4 cycles: 3, 1, 3, 1 — period 2; odd exponent → 3 (mod 4)",
+        "So 7^7 ≡ 3 (mod 4) → units digit of 7^(7^7) = 3"
+      ],
+      "example": {
+        "problem": "What is the units digit of 7^(7^7)?",
+        "steps": [
+          "Step 1: 7^n units digit cycle is 7,9,3,1 — period 4. Need exponent mod 4.",
+          "Step 2: Compute 7^7 mod 4. Since 7 ≡ 3 (mod 4), need 3^7 mod 4.",
+          "Step 3: 3^n mod 4 alternates 3,1,3,1 — period 2. 7 is odd → 3^7 ≡ 3 (mod 4).",
+          "Step 4: Exponent 7^7 ≡ 3 (mod 4). Position 3 in cycle → units digit = 3."
+        ],
+        "answer": "3"
+      },
+      "traps": [
+        "Computing 7^7 directly — number is enormous; mod arithmetic is the only path",
+        "Using 7^7 mod 4 = 7 mod 4 = 3 without verifying via 3^7 mod 4 (shortcut skips a step but happens to give same result — know why)",
+        "Misreading cycle position: mod 4 = 0 means position 4 (units digit 1), not position 0",
+        "Confusing the outer base's cycle (period 4) with the inner base's cycle (period 2)"
+      ],
+      "solveSteps": [
+        "1. Find the units-digit cycle of the outer base (7 → period 4: 7,9,3,1)",
+        "2. Reduce the full exponent mod 4 — but exponent is itself a power, so apply cyclicity again",
+        "3. Compute inner base mod 4 (7 mod 4 = 3), then find 3^(inner exp) mod 4 using period-2 cycle",
+        "4. Map final remainder (1,2,3,0) to cycle position → read off units digit",
+        "5. Sanity: result must appear in the outer base's cycle"
+      ]
+    }
+  },
+  "1107": {
+    "hint": "Phrase 'but NOT both' = exclusive OR. Use ⌊N/k⌋ for each set, subtract 2×(both) — NOT 1×.",
+    "theory": {
+      "title": "Inclusion-Exclusion — Exclusive OR Counting",
+      "icon": "⊕",
+      "summary": "'Divisible by A or B but NOT both' is XOR. Start with inclusion-exclusion union, then strip out the overlap a second time.",
+      "keyFacts": [
+        "Count divisible by k in [1,N]: ⌊N/k⌋",
+        "Inclusive OR (A or B or both): |A| + |B| − |A∩B|",
+        "Exclusive OR (A or B, NOT both): |A| + |B| − 2·|A∩B|",
+        "Divisible by both 3 and 7 ↔ divisible by LCM(3,7) = 21",
+        "'NOT both' removes the overlap once from each side → subtract 2× overlap",
+        "⌊300/3⌋=100, ⌊300/7⌋=42, ⌊300/21⌋=14"
+      ],
+      "example": {
+        "problem": "How many integers 1–300 are divisible by 3 or 7 but NOT by both?",
+        "steps": [
+          "Count div-by-3: ⌊300/3⌋ = 100",
+          "Count div-by-7: ⌊300/7⌋ = 42",
+          "Count div-by-both: LCM(3,7)=21 → ⌊300/21⌋ = 14",
+          "Union (3 or 7, inclusive): 100+42−14 = 128",
+          "Remove 'both' elements: 128−14 = 114  OR shortcut: 100+42−2(14)=114"
+        ],
+        "answer": "114"
+      },
+      "traps": [
+        "Using (|A|+|B|−|A∩B|) and stopping — that counts 'both' elements too",
+        "Forgetting LCM: divisible by BOTH 3 and 7 means divisible by 21, not 3×7=21 only when gcd=1",
+        "Subtracting overlap only once instead of twice for exclusive OR",
+        "Rounding errors: ⌊300/21⌋=14 not 15 (21×14=294, 21×15=315>300)"
+      ],
+      "solveSteps": [
+        "1. Count each set with ⌊N/divisor⌋",
+        "2. Find overlap set via LCM, count with ⌊N/LCM⌋",
+        "3. If 'or both allowed': union = A+B−overlap",
+        "4. If 'NOT both' (XOR): answer = A+B−2×overlap",
+        "5. Sanity: XOR count < union count; result < smaller of A, B"
+      ]
+    }
+  },
+  "1108": {
+    "hint": "Count all factors of 2 hiding inside 15! using repeated floor division: ⌊15/2⌋+⌊15/4⌋+⌊15/8⌋+… Stop when divisor exceeds n.",
+    "theory": {
+      "title": "Legendre's Formula — Prime Factors in n!",
+      "icon": "∑",
+      "summary": "n! contains more copies of a prime p than you'd guess. Multiples of p² contribute twice, p³ three times. Legendre's formula sums them all with repeated floor divisions.",
+      "keyFacts": [
+        "Power of prime p in n! = ⌊n/p⌋ + ⌊n/p²⌋ + ⌊n/p³⌋ + … (stop when pᵏ > n)",
+        "Each term counts multiples that contribute at least one additional factor",
+        "⌊ ⌋ = floor (integer part only — drop remainder)",
+        "Works for ANY prime: use p=2 for powers of 2, p=3 for powers of 3, p=5 for trailing zeros",
+        "For trailing zeros: take min(power of 2, power of 5) — power of 5 always limits",
+        "Sum is always finite: floor goes to 0 once pᵏ > n"
+      ],
+      "example": {
+        "problem": "What is the largest n such that 2^n divides 15!?",
+        "steps": [
+          "⌊15/2⌋ = 7  (multiples of 2: 2,4,6,8,10,12,14)",
+          "⌊15/4⌋ = 3  (multiples of 4 contribute a 2nd factor: 4,8,12)",
+          "⌊15/8⌋ = 1  (multiples of 8 contribute a 3rd factor: 8)",
+          "⌊15/16⌋ = 0  → stop (16 > 15)",
+          "Total = 7 + 3 + 1 = 11"
+        ],
+        "answer": "11 — 2^11 divides 15! exactly"
+      },
+      "traps": [
+        "Counting only direct multiples of 2 (gives 7) — misses extra factors from 4, 8, 16…",
+        "Off-by-one: including ⌊15/16⌋ thinking 16 still counts (it equals 0 so harmless, but ⌊15/32⌋ onward also 0)",
+        "Confusing 'largest n' with number of even numbers in 1–15",
+        "Applying arithmetic mean or other shortcut instead of the floor-sum"
+      ],
+      "solveSteps": [
+        "1. Identify the prime p (here p = 2)",
+        "2. Compute ⌊n/p⌋, ⌊n/p²⌋, ⌊n/p³⌋, … until result = 0",
+        "3. Sum all non-zero floor values",
+        "4. That sum = exact power of p dividing n!",
+        "5. Sanity: answer must be ≥ ⌊n/p⌋ and ≤ n — here 7 ≤ 11 ≤ 15 ✓"
+      ]
+    }
+  },
+  "1109": {
+    "hint": "Compute sum before reading statements. Check: does the question stem already give you everything needed? Evaluate each statement with the stem — then ask if it adds new info.",
+    "theory": {
+      "title": "Arithmetic Mean — Sum Reconstruction",
+      "icon": "∑",
+      "summary": "Mean × Count = Sum. When one element is removed, the removed value equals the difference of the two sums. Always compute the sums from the stem before touching the statements.",
+      "keyFacts": [
+        "Sum = Mean × Count (always derive this first)",
+        "Removed element = Original sum − Remaining sum",
+        "If stem gives both means AND both counts, the removed value is fully determined from the stem alone",
+        "DS rule: evaluate each statement WITH stem info — if stem already answers it, each statement that's consistent also makes the question answerable",
+        "Statement 'removed > 30' alone cannot pin a unique value — it's a range, not an exact number"
+      ],
+      "example": {
+        "problem": "8 numbers average 25; after removing one, 7 numbers average 24. What is the removed number?",
+        "steps": [
+          "Sum of 8 = 8 × 25 = 200",
+          "Sum of 7 = 7 × 24 = 168",
+          "Removed = 200 − 168 = 32",
+          "Both sums derivable from stem alone — question answered before reading statements"
+        ],
+        "answer": "32"
+      },
+      "traps": [
+        "Jumping to statements without computing sums from the stem — the stem may already solve it",
+        "Treating 'removed > 30' as pinning a unique value — it only narrows a range",
+        "Forgetting: each statement is evaluated together with ALL stem info, not in isolation from it",
+        "Confusing sufficient (unique answer exists) with necessary (adds new info)"
+      ],
+      "solveSteps": [
+        "1. Compute original sum = mean × count from stem",
+        "2. Compute remaining sum = new mean × new count from stem",
+        "3. Removed value = original sum − remaining sum (may be answerable from stem alone)",
+        "4. Statement 1: does it uniquely determine the removed value with stem? Check sufficiency",
+        "5. Statement 2: does it pin one unique value or just a range? A range ≠ sufficient"
+      ]
+    }
+  },
+  "1110": {
+    "hint": "For DS: can each statement alone give a definitive YES or NO? Symmetric distributions have a special median-mean relationship worth knowing.",
+    "theory": {
+      "title": "Median vs Mean — Symmetry & Skew",
+      "icon": "📊",
+      "summary": "In a symmetric distribution the median equals the mean. Skew pulls the mean toward the tail while the median stays near center — so asymmetry is what breaks median = mean.",
+      "keyFacts": [
+        "Consecutive integers form a symmetric set → median = mean ALWAYS",
+        "For any symmetric set: median = mean (no skew)",
+        "Right-skewed (long right tail): mean > median",
+        "Left-skewed (long left tail): mean < median",
+        "DS 'No' is just as sufficient as 'Yes' — a definitive answer either way = sufficient",
+        "Knowing one endpoint (smallest/largest) alone doesn't fix skew without knowing spread"
+      ],
+      "example": {
+        "problem": "9 consecutive integers starting at k. Is median > mean?",
+        "steps": [
+          "List: k, k+1, …, k+8 — symmetric around k+4",
+          "Median = k+4 (5th of 9 terms)",
+          "Mean = (9k + 36)/9 = k+4",
+          "Median = Mean → answer is NO, definitively",
+          "Statement alone answers the question → sufficient"
+        ],
+        "answer": "A — Statement (1) alone is sufficient: consecutive integers guarantee median = mean (symmetric), so the answer is a definitive 'No'. Statement (2) only gives sign of one endpoint — skew is unconstrained, so it's insufficient."
+      },
+      "traps": [
+        "Forgetting that 'No' counts as sufficient in DS — sufficiency ≠ 'Yes'",
+        "Assuming negative integers imply left-skew — they don't; it depends on full distribution",
+        "Consecutive integers can be negative, zero, or positive — symmetry holds regardless",
+        "Confusing 'distinct' with 'consecutive' — distinct alone doesn't imply symmetry"
+      ],
+      "solveSteps": [
+        "1. Consecutive integers? → symmetric → median = mean → definitive 'No' → sufficient",
+        "2. Only one endpoint known (stmt 2)? → cannot determine full shape → test two cases",
+        "3. Case 1 symmetric: median = mean. Case 2 asymmetric: mean ≠ median → insufficient",
+        "4. Mark sufficient/insufficient, then apply DS answer key: A"
+      ]
+    }
+  },
+  "1111": {
+    "hint": "Statement 1 gives full sets — check if a constant shift changes SD. Statement 2 gives only range — range alone can't pin down spread.",
+    "theory": {
+      "title": "Standard Deviation — Spread vs. Shift",
+      "icon": "📊",
+      "summary": "SD measures spread around the mean, not position. Shifting every element by a constant leaves SD unchanged; only stretching or compressing the gaps changes it.",
+      "keyFacts": [
+        "SD = 0 iff all elements are equal; larger gaps → larger SD",
+        "Adding/subtracting a constant to every element: SD unchanged",
+        "Multiplying every element by k: SD scales by |k|",
+        "Range = max − min; equal range does NOT imply equal SD",
+        "Two sets with same spacing pattern have identical SD regardless of starting value",
+        "DS: if you can answer definitively YES or NO, the statement is sufficient"
+      ],
+      "example": {
+        "problem": "Set A = {2,4,6,8,10}, Set B = {4,4,4,4,4}. Which has greater SD?",
+        "steps": [
+          "A's mean = 6; deviations: −4,−2,0,2,4",
+          "Variance of A = (16+4+0+4+16)/5 = 8, SD ≈ 2.83",
+          "B's mean = 4; all deviations = 0, SD = 0",
+          "A has greater SD"
+        ],
+        "answer": "SD(A) > SD(B) because A has spread, B has none"
+      },
+      "traps": [
+        "Equal range ≠ equal SD: {1,1,1,1,9} and {1,3,5,7,9} both have range 8 but very different SDs",
+        "Constant shift fools test-takers into thinking SD changes — it does NOT",
+        "Forgetting DS asks Yes/No: a definitive 'No' is still sufficient",
+        "Assuming you must compute exact SD values — pattern recognition is faster"
+      ],
+      "solveSteps": [
+        "1. Statement 1: identify if sets differ by constant shift only → SD identical → answer is 'No' → sufficient",
+        "2. Statement 2: equal range constrains only max−min, not internal distribution → construct two counterexamples with same range but different SD → insufficient",
+        "3. Since S1 alone decides, answer is A"
+      ]
+    }
+  },
+  "1112": {
+    "hint": "Range = max − min. Ask: does each statement pin down the minimum uniquely? If min is fixed, max is fixed. Do not assume min without proof.",
+    "theory": {
+      "title": "Range + Min/Max — DS Sufficiency",
+      "icon": "📏",
+      "summary": "Range fixes the gap between endpoints; knowing either one immediately determines the other. DS trap: constraints that look limiting (positive integers) may still leave the minimum free.",
+      "keyFacts": [
+        "Range = max − min (always)",
+        "Know min → max = min + Range; know max → min = max − Range",
+        "Average constrains the sum (sum = mean × n), not individual endpoints",
+        "'Positive integers' sets a floor at 1 but min could be 1, 2, 3 … — NOT uniquely determined",
+        "Only a single numeric value for min (or max) gives sufficiency",
+        "Sum = 6 × 10 = 60; used to check feasibility, not to find max directly"
+      ],
+      "example": {
+        "problem": "6 values, average = 10, range = 12. Is min = 4 sufficient to find max?",
+        "steps": [
+          "Range = max − min = 12",
+          "Statement 1 gives min = 4 explicitly",
+          "max = 4 + 12 = 16 — unique value → sufficient",
+          "Statement 2: positive integers → min ≥ 1, but min could be 1 → max 13, or min 2 → max 14, etc.",
+          "Multiple valid configurations → max is not uniquely determined → not sufficient"
+        ],
+        "answer": "A — statement 1 pins min to a single value, making max = min + 12 unique; statement 2 allows multiple minimums."
+      },
+      "traps": [
+        "Assuming min = 1 just because 'positive integers' — that's a floor, not a fixed value",
+        "Using the average/sum to calculate max directly — sum constrains all values together, not endpoints alone",
+        "Thinking both statements together are needed when statement 1 alone closes the question",
+        "Confusing 'range limits the spread' with 'range tells you where the endpoints are'"
+      ],
+      "solveSteps": [
+        "1. Write the key identity: max = min + Range",
+        "2. Test Statement 1: does it give a unique numeric value for min? If yes → sufficient",
+        "3. Test Statement 2: does it uniquely fix min? List 2+ valid minimums — if multiple work → not sufficient",
+        "4. If Statement 1 alone suffices, answer is A — stop; no need to test combination",
+        "5. Sanity: verify feasibility with sum = mean × n (all 6 values must sum to 60 and be consistent)"
+      ]
+    }
+  },
+  "1113": {
+    "hint": "Factor x²−5x+6 = (x−2)(x−3). Check each statement: does it force both factors to share the same sign? Test each alone before combining.",
+    "theory": {
+      "title": "Quadratic Inequality — Sign Analysis via Factoring",
+      "icon": "📐",
+      "summary": "A quadratic is positive when both factors share the same sign. Factor first, then map the number line into regions where the product is positive or negative.",
+      "keyFacts": [
+        "Factor: (x−a)(x−b) > 0 ⟺ both positive OR both negative",
+        "Roots split number line into 3 regions: x < min, min < x < max, x > max",
+        "Product > 0 in outer regions (x < smaller root OR x > larger root)",
+        "Product < 0 in inner region (between the two roots)",
+        "For DS: each statement must pin x entirely inside one sign-consistent region to be sufficient",
+        "Boundary values (roots themselves) make the expression = 0, not > 0"
+      ],
+      "example": {
+        "problem": "Is (x−2)(x−3) > 0? Given x > 3 alone, or x < 2 alone.",
+        "steps": [
+          "Roots are x = 2 and x = 3",
+          "Number line regions: x < 2 | 2 < x < 3 | x > 3",
+          "x > 3: both (x−2) > 0 and (x−3) > 0 → product > 0 ✓",
+          "x < 2: both (x−2) < 0 and (x−3) < 0 → product > 0 ✓",
+          "Middle region 2 < x < 3: signs differ → product < 0"
+        ],
+        "answer": "Each outer region alone guarantees the product > 0"
+      },
+      "traps": [
+        "Forgetting the left outer region (x < 2) also makes the expression positive",
+        "Testing only one sign combination — always check both outer regions",
+        "Assuming you need both statements because the condition has two parts",
+        "Including the roots: x = 2 or x = 3 gives expression = 0, which is NOT > 0"
+      ],
+      "solveSteps": [
+        "1. Factor the quadratic: find roots a and b (a < b)",
+        "2. Draw sign chart: mark three regions on number line",
+        "3. For each statement, determine which region(s) x is restricted to",
+        "4. If restricted entirely to x > b OR entirely to x < a → expression > 0 → sufficient",
+        "5. If statement allows x between roots → expression can be ≤ 0 → insufficient"
+      ]
+    }
+  },
+  "1114": {
+    "hint": "Rewrite |x−3|<2 as an interval, then check whether each statement forces x into that exact interval — or merely overlaps it.",
+    "theory": {
+      "title": "Absolute Value Inequalities — Distance Interpretation & DS Sufficiency",
+      "icon": "📏",
+      "summary": "|x − a| < b means x lies within b units of a: the interval (a−b, a+b). A statement is sufficient only if it FORCES x into that interval, not merely allows it.",
+      "keyFacts": [
+        "|x − a| < b  ↔  a − b < x < a + b  (distance from a is less than b)",
+        "Quadratic inequality ax²+bx+c < 0: factor, find roots, test sign between roots",
+        "(x − r₁)(x − r₂) < 0 with r₁ < r₂  →  r₁ < x < r₂  (parabola opens up, negative between roots)",
+        "DS: sufficient = statement's solution set is a SUBSET of the target interval",
+        "DS: if statement's range is wider → can find counterexamples → NOT sufficient",
+        "Overlap ≠ subset. Statement 2 overlapping the target interval doesn't guarantee x is in it"
+      ],
+      "example": {
+        "problem": "Is |x − 3| < 2? (1) x²−6x+5 < 0  (2) |x| < 4",
+        "steps": [
+          "Rewrite target: |x−3|<2 → 1 < x < 5",
+          "Stmt 1: factor → (x−1)(x−5)<0 → 1 < x < 5. Identical to target → YES always. SUFFICIENT.",
+          "Stmt 2: |x|<4 → −4 < x < 4. Wider than target.",
+          "Test x=0: in range of Stmt 2, but |0−3|=3 > 2 → NO",
+          "Test x=2: in range of Stmt 2, |2−3|=1 < 2 → YES. Contradictory answers → NOT sufficient."
+        ],
+        "answer": "A — statement 1 produces exactly the interval 1<x<5, which is equivalent to the question's condition; statement 2's interval is wider and allows counterexamples."
+      },
+      "traps": [
+        "Forgetting to factor the quadratic and just guessing the interval from Stmt 1",
+        "Assuming Stmt 2 is sufficient because its range 'mostly' overlaps the target — overlap ≠ subset",
+        "Sign error on (x−1)(x−5)<0: the product is negative BETWEEN the roots, not outside them",
+        "Treating |x−3|<2 as x−3<2 only (dropping the left bound x>1)"
+      ],
+      "solveSteps": [
+        "1. Rewrite question as a plain interval: |x−3|<2 → 1<x<5",
+        "2. Stmt 1: solve inequality algebraically (factor quadratic) → get interval → check if it equals/subsets target",
+        "3. Stmt 2: solve |x|<4 → get interval → check if it subsets target OR find one yes + one no counterexample",
+        "4. If statement's solution set ⊆ target → SUFFICIENT; if wider → find counterexample to prove NOT sufficient",
+        "5. Choose A/B/C/D/E based on which statement(s) are sufficient"
+      ]
+    }
+  },
+  "1115": {
+    "hint": "Test each statement alone with quick counterexamples; then combine algebraically — if both sum and difference are ≡ 0 mod 5, what does that force about x and y individually?",
+    "theory": {
+      "title": "Modular Arithmetic: Sum + Difference Forces Individual Divisibility",
+      "icon": "🔢",
+      "summary": "Having x−y and x+y both divisible by 5 is a system of two mod-5 equations. Adding/subtracting them isolates x and y individually, locking each ≡ 0 mod 5.",
+      "keyFacts": [
+        "If a ≡ 0 (mod 5) and b ≡ 0 (mod 5), then a+b ≡ 0 and a−b ≡ 0 (mod 5)",
+        "Conversely: (x−y) ≡ 0 AND (x+y) ≡ 0 → add: 2x ≡ 0 mod 5 → x ≡ 0 mod 5",
+        "Similarly subtract: 2y ≡ 0 mod 5 → y ≡ 0 mod 5 (since gcd(2,5)=1, 2 is invertible mod 5)",
+        "If x ≡ 0 mod 5 then x² ≡ 0 mod 5; same for y → x²+y² ≡ 0 mod 5",
+        "Each statement alone allows counterexamples — always find YES and NO cases to rule out sufficiency",
+        "DS rule: test each statement with concrete integers; combine statements algebraically"
+      ],
+      "example": {
+        "problem": "x, y integers. Is x²+y² divisible by 5? (1) x−y divisible by 5. (2) x+y divisible by 5.",
+        "steps": [
+          "Stmt 1 alone: x=5,y=0 → 25 div by 5 ✓; x=6,y=1 → 37 not div by 5 ✗ → INSUFFICIENT",
+          "Stmt 2 alone: x=5,y=0 → 25 ✓; x=4,y=1 → 17 ✗ → INSUFFICIENT",
+          "Together: x−y ≡ 0 and x+y ≡ 0 (mod 5). Add: 2x ≡ 0 → x ≡ 0 (mod 5)",
+          "Subtract: 2y ≡ 0 → y ≡ 0 (mod 5). So x²+y² ≡ 0+0 = 0 (mod 5) — ALWAYS yes",
+          "Both statements together are sufficient."
+        ],
+        "answer": "C — neither alone is sufficient (counterexamples exist for each), but together they force x ≡ 0 and y ≡ 0 mod 5, guaranteeing x²+y² ≡ 0 mod 5."
+      },
+      "traps": [
+        "Assuming x−y div by 5 means x and y are each multiples of 5 — WRONG (e.g. x=6, y=1)",
+        "Assuming either statement alone is sufficient after finding one YES example — always find a NO case too",
+        "Forgetting that 2 is invertible mod 5 (gcd(2,5)=1), so 2x ≡ 0 mod 5 → x ≡ 0 mod 5",
+        "Trying specific numbers for the combined case instead of proving algebraically — algebra is faster and definitive"
+      ],
+      "solveSteps": [
+        "1. For each statement alone: find a YES case AND a NO case (counterexample rules out sufficiency)",
+        "2. If both alone are insufficient, combine: write both as congruences mod 5",
+        "3. Add and subtract the two congruences to isolate x mod 5 and y mod 5",
+        "4. Determine if x and y are each ≡ 0 mod 5, which forces x²+y² ≡ 0 mod 5",
+        "5. If combined is sufficient and neither alone is: answer is C"
+      ]
+    }
+  },
+  "1116": {
+    "hint": "Each new hire earns less than the current average — does that alone guarantee the mean drops? Check whether you need n to decide.",
+    "theory": {
+      "title": "Adding Members Below the Mean — Effect on Average",
+      "icon": "📉",
+      "summary": "Any new value below the current mean pulls the mean down — no matter how many members already exist. The original count is irrelevant when the new salary is unambiguously below average.",
+      "keyFacts": [
+        "New mean = (old sum + new sum) / (old n + new n)",
+        "If every new value < current mean, new mean < old mean — always, regardless of group size",
+        "If every new value > current mean, new mean > old mean — always",
+        "Only ambiguous when new values straddle the current mean",
+        "DS flow: sufficient = can answer YES or definitively NO with certainty"
+      ],
+      "example": {
+        "problem": "Group of n people averages $60k. 5 new hires join at $50k each. Does the average fall?",
+        "steps": [
+          "New sum = 60000n + 5×50000 = 60000n + 250000",
+          "New count = n + 5",
+          "New avg = (60000n + 250000)/(n+5)",
+          "Old avg would be (60000n + 300000)/(n+5) if new hires earned $60k",
+          "Since 250000 < 300000, new avg < 60000 for any n > 0"
+        ],
+        "answer": "Yes — always decreases, for any n"
+      },
+      "traps": [
+        "Thinking you need n to compute the exact new average — you don't need the exact value, only direction",
+        "Assuming larger n makes the new hires' impact negligible — direction still holds",
+        "DS trap: statement 2 gives n but zero info about new salaries — cannot determine direction",
+        "Confusing 'average could decrease' with 'average will definitely decrease'"
+      ],
+      "solveSteps": [
+        "1. Identify what determines direction: are new values above or below current mean?",
+        "2. Statement 1: new salary $50k < $60k mean → mean must fall, regardless of n. Sufficient.",
+        "3. Statement 2: n = 20 gives group size only, new salaries unknown → cannot determine direction. Not sufficient.",
+        "4. Answer: A — statement 1 alone sufficient."
+      ]
+    }
+  },
+  "1151": {
+    "hint": "Factor n!+n = n·[(n−1)!+1]. Since gcd(n,n+1)=1, the question reduces to: does (n+1) divide (n−1)!+1? Test each Roman numeral directly.",
+    "theory": {
+      "title": "Factorial Divisibility & Wilson's Theorem",
+      "icon": "∏",
+      "summary": "n!+n factors as n·[(n−1)!+1]. Because gcd(n, n+1)=1, divisibility by n+1 collapses to checking whether (n+1) | (n−1)!+1 — then Wilson's theorem or direct arithmetic decides each case.",
+      "keyFacts": [
+        "n!+n = n·(n−1)!+n = n·[(n−1)!+1]",
+        "gcd(n, n+1)=1 always, so (n+1)|n·X iff (n+1)|X",
+        "Wilson's Theorem: p prime ⟹ (p−1)!≡−1 (mod p)",
+        "If n+1=p prime: (n−1)!=(p−2)! ≡ −1·(p−1)^{−1}≡−1·(−1)=1 (mod p), so (n−1)!+1≡2 (mod p)",
+        "If n+1 composite and >4: (n+1)|(n−1)!, so (n−1)!+1≡1 (mod n+1)",
+        "Fastest GMAT move: compute n!+n directly for small n and divide by n+1"
+      ],
+      "example": {
+        "problem": "Does n=6 satisfy (n+1) | (n!+n)?",
+        "steps": [
+          "n!+n = 6!+6 = 720+6 = 726",
+          "n+1 = 7",
+          "726 ÷ 7 = 103 remainder 5",
+          "726 = 7×103 + 5 ≠ 0 mod 7",
+          "(n+1) does NOT divide n!+n for n=6"
+        ],
+        "answer": "Not divisible — remainder 5, so n=6 fails the condition"
+      },
+      "traps": [
+        "Thinking average of n! and n matters — factor the expression instead",
+        "Assuming n+1 prime guarantees divisibility — Wilson gives (n−1)!+1≡2, not 0",
+        "Skipping direct computation and relying on theorem alone without checking mod arithmetic",
+        "Forgetting gcd(n,n+1)=1 is the key step that reduces n·X divisibility to X divisibility"
+      ],
+      "solveSteps": [
+        "1. Rewrite: n!+n = n·[(n−1)!+1]",
+        "2. Note gcd(n,n+1)=1, so need (n+1) | (n−1)!+1",
+        "3. For each Roman numeral, compute (n−1)!+1 mod (n+1) directly",
+        "4. Alternatively compute n!+n and divide by n+1 — remainder 0 = divisible",
+        "5. Eliminate Roman numerals that fail; pick the answer matching survivors"
+      ]
+    }
+  },
+  "1152": {
+    "hint": "Rewrite the target expression as a square of x/y + y/x. The given sum appears in disguise — no quadratic needed.",
+    "theory": {
+      "title": "Algebraic Identity — Reciprocal Sum Squared",
+      "icon": "🔁",
+      "summary": "When x/y + y/x = k, the expression (x²+y²)²/(x²y²) equals k². Spotting that (x²+y²)/(xy) = x/y + y/x is the entire key.",
+      "keyFacts": [
+        "x/y + y/x = (x²+y²)/(xy)  — single-fraction form",
+        "(x²+y²)²/(x²y²) = [(x²+y²)/(xy)]² — split denominator as product of squares",
+        "Equivalently: x²/y² + 2 + y²/x² = (x/y + y/x)²  — expand and verify",
+        "Given s = x/y + y/x, target = s²  — no need to find x or y individually",
+        "This works for any non-zero x, y — the value is fully determined by s alone"
+      ],
+      "example": {
+        "problem": "If x/y + y/x = 3, find (x²+y²)²/(x²y²).",
+        "steps": [
+          "Let s = x/y + y/x = 3",
+          "Rewrite: (x²+y²)/(xy) = x/y + y/x = s = 3",
+          "So (x²+y²)²/(x²y²) = [(x²+y²)/(xy)]² = s²",
+          "s² = 3² = 9",
+          "Verify: (x/y+y/x)² = x²/y² + 2 + y²/x² = (x²+y²)²/(x²y²) ✓"
+        ],
+        "answer": "9"
+      },
+      "traps": [
+        "Trying to solve for x and y individually — unnecessary and leads nowhere",
+        "Computing s² = 9 then subtracting 2, confusing (a+b)²−2ab with this expression",
+        "Choosing 'cannot be determined' — the expression collapses to a constant given s",
+        "Arithmetic slip: (x²+y²)²/(x²y²) ≠ (x/y+y/x)²−2; the +2 is already inside the square"
+      ],
+      "solveSteps": [
+        "1. Label the given sum s = x/y + y/x",
+        "2. Rewrite target: (x²+y²)²/(x²y²) = [(x²+y²)/(xy)]²",
+        "3. Recognize (x²+y²)/(xy) = x/y + y/x = s",
+        "4. Target = s² — substitute s = 3 → answer = 9"
+      ]
+    }
+  },
+  "1153": {
+    "hint": "Break into cases: exactly 2W / 3W / 4W. In the 2-woman case, Dr. Patel is locked in — choose remaining seats around her, not freely.",
+    "theory": {
+      "title": "Constrained Combinatorics — Case Decomposition with Forced Inclusion",
+      "icon": "🔒",
+      "summary": "When a member is mandatory in specific cases, lock them in first, then count the remaining seats freely. Case-by-case enumeration prevents double-counting.",
+      "keyFacts": [
+        "'At least k' → split into exhaustive cases: exactly k, k+1, … up to max",
+        "Forced member in case X: fix them, then C(remaining pool, remaining seats)",
+        "Cases are mutually exclusive → add subtotals directly",
+        "C(n,r) = n! / (r!(n-r)!) — order doesn't matter in committees",
+        "Complement: total unrestricted − forbidden can be faster when few cases are excluded",
+        "Sanity check: each case total = (women ways) × (men ways)"
+      ],
+      "example": {
+        "problem": "From 3 men and 3 women choose a 3-person committee with ≥2 women. Ms. X must be included whenever there are exactly 2 women. How many committees?",
+        "steps": [
+          "Case 1 (exactly 2W): Ms. X is locked in. Choose 1 more woman from remaining 2: C(2,1)=2. Choose 1 man from 3: C(3,1)=3. Subtotal = 2×3 = 6",
+          "Case 2 (exactly 3W): no restriction. C(3,3)=1 way, 0 men. Subtotal = 1",
+          "Total = 6 + 1 = 7"
+        ],
+        "answer": "7 committees"
+      },
+      "traps": [
+        "Forgetting to lock in Dr. Patel first — choosing 2 women freely from all 4 over-counts by including forbidden committees",
+        "Using unrestricted count then subtracting wrong set (e.g., subtracting committees where Dr. Patel absent in ALL cases, not just 2-woman case)",
+        "Mixing up which pool to draw from after fixing Dr. Patel (draw from remaining 3 women, not all 4)",
+        "Ignoring the 4-women case — it has no restriction and must be added"
+      ],
+      "solveSteps": [
+        "1. List cases: exactly 2W, exactly 3W, exactly 4W",
+        "2. For the constrained case (exactly 2W): lock Dr. Patel → choose from remaining pool",
+        "3. For unconstrained cases: choose freely from full pool",
+        "4. Multiply (women choices) × (men choices) per case",
+        "5. Sum all case subtotals"
+      ]
+    }
+  },
+  "1154": {
+    "hint": "Apply each discount in sequence — multiply the 'keep' factors (1−p/100)(1−q/100)(1−r/100). Adding percentages is the trap.",
+    "theory": {
+      "title": "Successive Percentage Discounts — Compound Multiplication",
+      "icon": "🏷",
+      "summary": "Successive discounts compound: each applies to the already-reduced price. Three discounts of 20%, 15%, 10% are NOT equivalent to 45% off — they're equivalent to 1−(0.80×0.85×0.90) ≈ 38.8% off.",
+      "keyFacts": [
+        "Each discount multiplies by its keep-factor: p% off → multiply by (1−p/100)",
+        "Successive discounts = multiply all keep-factors: (1−p)(1−q)(1−r) applied to original",
+        "Adding percents is WRONG — discounts compound on a shrinking base",
+        "Combined equivalent discount = 1 − (keep₁ × keep₂ × keep₃)",
+        "Order of successive discounts doesn't matter — multiplication is commutative",
+        "Keep-factor shortcut: p=20→0.80, q=15→0.85, r=10→0.90"
+      ],
+      "example": {
+        "problem": "Item priced $500. Successive discounts: 20%, then 15%, then 10% coupon. Final price?",
+        "steps": [
+          "Keep-factors: 0.80 × 0.85 × 0.90",
+          "Step 1: 500 × 0.80 = 400",
+          "Step 2: 400 × 0.85 = 340",
+          "Step 3: 340 × 0.90 = 306",
+          "Shortcut: 500 × (0.80×0.85×0.90) = 500 × 0.612 = 306"
+        ],
+        "answer": "$306"
+      },
+      "traps": [
+        "Adding discounts: 20+15+10=45% off → 500×0.55=$275 — WRONG, each applies to reduced price",
+        "Multiplying discount fractions instead of keep-fractions: 0.20×0.15×0.10 is meaningless here",
+        "Stopping after two discounts and forgetting the coupon",
+        "Computing 500×0.45=$225 — double-error from both adding and misapplying"
+      ],
+      "solveSteps": [
+        "1. Convert each discount to keep-factor: (1 − rate)",
+        "2. Multiply all keep-factors together",
+        "3. Multiply product by original price",
+        "4. Sanity: result must be less than applying the largest discount alone"
+      ]
+    }
+  },
+  "1155": {
+    "hint": "Compute net rate for EACH phase separately. A draining pipe subtracts from the combined rate — track tank fraction after phase 1, then re-compute rate for phase 2.",
+    "theory": {
+      "title": "Multi-Pipe Work Rates — Draining Pipes & Phase Changes",
+      "icon": "🚰",
+      "summary": "Each pipe contributes a signed rate (fill = +, drain = −). When pipes open or close mid-problem, split into phases: compute net rate, find fraction filled, then handle the new configuration.",
+      "keyFacts": [
+        "Rate = 1 / time-to-complete (in tanks per hour)",
+        "Filling pipe: + rate. Draining pipe: − rate",
+        "Net rate = algebraic sum of all open pipes' rates",
+        "Fraction filled in phase = net rate × duration",
+        "Always verify: fraction can be > 1 (overflow) or < 0 (net drain)",
+        "Common denominator trick: convert all rates to same denominator before summing"
+      ],
+      "example": {
+        "problem": "Pipe A fills in 6 hr, B drains in 4 hr, C fills in 3 hr. All three open 2 hr, then B closes. How many more hours to fill the rest?",
+        "steps": [
+          "Phase 1 net rate: 1/6 − 1/4 + 1/3 = 2/12 − 3/12 + 4/12 = 3/12 = 1/4 tank/hr",
+          "After 2 hr: 2 × 1/4 = 1/2 tank filled; 1/2 tank remains",
+          "Phase 2 (B closed) rate: 1/6 + 1/3 = 1/6 + 2/6 = 1/2 tank/hr",
+          "Time = remaining / rate = (1/2) / (1/2) = 1 hr"
+        ],
+        "answer": "1 hour"
+      },
+      "traps": [
+        "Forgetting to subtract the draining pipe rate (treating all pipes as additive)",
+        "Using the original full-tank time without accounting for what's already filled",
+        "Re-adding pipe B's rate in phase 2 after it's closed",
+        "Dividing time incorrectly: time = work remaining / rate, not rate / work"
+      ],
+      "solveSteps": [
+        "1. Assign signed rates: fill = +1/t, drain = −1/t",
+        "2. Sum all open-pipe rates for phase 1",
+        "3. Multiply net rate × duration → fraction filled in phase 1",
+        "4. Subtract from 1 to get remaining fraction",
+        "5. Re-compute net rate with new pipe configuration; time = remaining / new rate"
+      ]
+    }
+  },
+  "1156": {
+    "hint": "Find slope of L, flip & negate for M's slope, write both equations, then set equal and solve for x.",
+    "theory": {
+      "title": "Perpendicular Lines — Slope & Intersection",
+      "icon": "⊥",
+      "summary": "Two lines are perpendicular when their slopes are negative reciprocals: m₁ × m₂ = −1. Find both line equations, then equate to get the intersection point.",
+      "keyFacts": [
+        "Slope formula: m = (y₂ − y₁)/(x₂ − x₁)",
+        "Perpendicular slope: flip and negate → m⊥ = −1/m",
+        "Point-slope form: y − y₁ = m(x − x₁)",
+        "Intersection: set the two y-expressions equal, solve for x",
+        "Then substitute x back into either equation to get y",
+        "Negative reciprocal of integer n = −1/n; of fraction p/q = −q/p"
+      ],
+      "example": {
+        "problem": "Line L passes through (−3, 5) and (2, −5). Line M ⊥ L passes through (4, 1). Find x-coordinate of intersection.",
+        "steps": [
+          "Slope of L: (−5−5)/(2−(−3)) = −10/5 = −2",
+          "Slope of M = −1/(−2) = 1/2",
+          "Line L: y − 5 = −2(x+3) → y = −2x − 1",
+          "Line M: y − 1 = ½(x−4) → y = x/2 − 1",
+          "Set equal: −2x − 1 = x/2 − 1 → −2x = x/2 → −5x/2 = 0 → x = 0"
+        ],
+        "answer": "x = 0 (point of intersection is (0, −1))"
+      },
+      "traps": [
+        "Forgetting to negate when flipping — reciprocal alone (e.g. 1/2 instead of −1/2) is not perpendicular",
+        "Arithmetic sign error when expanding point-slope form with a negative point like (−3, 5)",
+        "Stopping after finding x without checking both line equations agree on y",
+        "Confusing parallel (same slope) with perpendicular (negative reciprocal slopes)"
+      ],
+      "solveSteps": [
+        "1. Compute slope of L using two given points: m = Δy/Δx",
+        "2. Perpendicular slope: m_M = −1/m_L",
+        "3. Write equation of M using point-slope form with given point",
+        "4. Write equation of L using point-slope form with either known point",
+        "5. Set y-expressions equal, solve for x; verify by plugging back into both equations"
+      ]
+    }
+  },
+  "1157": {
+    "hint": "Adding a constant never changes SD; multiplying by k scales SD by |k|. Focus on what the transformation does to spread, not location.",
+    "theory": {
+      "title": "Standard Deviation — Linear Transformations",
+      "icon": "📏",
+      "summary": "SD measures spread, not position. Shifting every value by a constant leaves spread unchanged; scaling every value by k multiplies SD by |k|.",
+      "keyFacts": [
+        "SD(X + c) = SD(X) — adding constant shifts mean, not spread",
+        "SD(k·X) = |k|·SD(X) — multiplying by k scales all deviations by |k|",
+        "Combined: SD(k·X + c) = |k|·SD(X)",
+        "Variance follows same rules: Var(k·X + c) = k²·Var(X)",
+        "Mean transforms fully: mean(k·X + c) = k·mean + c",
+        "These rules apply to ANY set — no need to compute SD from scratch"
+      ],
+      "example": {
+        "problem": "Set S = {2,5,8,11,14}. Set T = 3S + 7. What is SD(T)/SD(S)?",
+        "steps": [
+          "T is formed by multiply by 3 then add 7",
+          "SD(3S) = 3·SD(S) — multiplication scales spread",
+          "SD(3S + 7) = SD(3S) — adding 7 shifts, no change to spread",
+          "So SD(T) = 3·SD(S)",
+          "Ratio = SD(T)/SD(S) = 3"
+        ],
+        "answer": "3"
+      },
+      "traps": [
+        "Adding 7 also scales SD — WRONG, constants never affect spread",
+        "Ratio = 7 because 7 was added — confuses shift with scale",
+        "Computing full SD of both sets — unnecessary, transformation rules suffice",
+        "Ratio = 10 (3+7) — blindly combining the two constants"
+      ],
+      "solveSteps": [
+        "1. Identify the linear transformation: T = k·S + c",
+        "2. Extract k (multiplier) and c (additive constant)",
+        "3. Apply SD(T) = |k|·SD(S) — drop c entirely",
+        "4. Form ratio SD(T)/SD(S) = |k|",
+        "5. Sanity: ratio must equal |k|, independent of c"
+      ]
+    }
+  },
+  "1158": {
+    "hint": "Expand both squares and add the two equations — the cross terms cancel cleanly, leaving 2(a²+b²).",
+    "theory": {
+      "title": "Sum/Difference Squares — Symmetric Combo Trick",
+      "icon": "⊞",
+      "summary": "(a+b)² and (a−b)² together let you extract a²+b² and ab without solving for a or b individually. Adding eliminates the cross term; subtracting isolates it.",
+      "keyFacts": [
+        "(a+b)² = a² + 2ab + b²",
+        "(a−b)² = a² − 2ab + b²",
+        "Add them: (a+b)² + (a−b)² = 2(a²+b²)",
+        "Subtract them: (a+b)² − (a−b)² = 4ab",
+        "Never need individual values of a or b",
+        "Works even when a,b are non-integer or irrational"
+      ],
+      "example": {
+        "problem": "(a+b)² = 49 and (a−b)² = 9. Find a²+b².",
+        "steps": [
+          "Expand: a²+2ab+b² = 49",
+          "Expand: a²−2ab+b² = 9",
+          "Add equations: 2a²+2b² = 58",
+          "Divide by 2: a²+b² = 29"
+        ],
+        "answer": "29"
+      },
+      "traps": [
+        "Trying to find a and b separately — unnecessary and wastes time",
+        "Taking √49=7 and √9=3 then averaging — doesn't give a²+b²",
+        "Forgetting the 2ab cross term when expanding",
+        "Subtracting instead of adding — gives 4ab, not a²+b²"
+      ],
+      "solveSteps": [
+        "1. Expand both squared expressions fully",
+        "2. Identify what to ADD or SUBTRACT to isolate the target expression",
+        "3. Adding eliminates ±2ab → yields 2(a²+b²)",
+        "4. Divide both sides by 2",
+        "5. Check: result should lie between the two given values (9 < 29 < 49) ✓"
+      ]
+    }
   }
 };
 
