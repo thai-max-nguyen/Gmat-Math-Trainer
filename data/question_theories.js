@@ -32381,6 +32381,798 @@ const QUESTION_THEORIES = {
         "5. Sanity: answer must be less than ½ × 20 × 12 = 120 (120 is the trap)"
       ]
     }
+  },
+  "1412": {
+    "hint": "Two chords crossing inside a circle → multiply the two segments of each chord. Set the products equal.",
+    "theory": {
+      "title": "Intersecting Chords — Segment Products",
+      "icon": "⊙",
+      "summary": "When two chords cross inside a circle, each chord is split into two segments. The product of the two segments is equal for both chords — a consequence of similar triangles inscribed in the circle.",
+      "keyFacts": [
+        "Intersecting Chords Theorem: PT × TQ = RT × TS",
+        "Applies ONLY when intersection point T is INSIDE the circle",
+        "Products are equal, not sums and not ratios",
+        "If chords intersect OUTSIDE, use secant-secant rule (different formula)",
+        "Both products equal the same value — call it k to check arithmetic"
+      ],
+      "example": {
+        "problem": "Chords PQ and RS intersect inside a circle at T. PT = 4, TQ = 9, RT = 6. Find TS.",
+        "steps": [
+          "Apply theorem: PT × TQ = RT × TS",
+          "4 × 9 = 6 × TS",
+          "36 = 6 × TS",
+          "TS = 6"
+        ],
+        "answer": "6"
+      },
+      "traps": [
+        "Adding segments instead of multiplying: PT + TQ = RT + TS gives 13 = 6 + TS → TS = 7 (wrong)",
+        "Using ratios: TQ/PT = TS/RT gives 13.5 (wrong)",
+        "Applying the theorem to the full chords (PQ × RS) instead of segment pairs",
+        "Confusing inside-intersection with outside-intersection — different formulas apply"
+      ],
+      "solveSteps": [
+        "1. Confirm intersection is INSIDE the circle (theorem requires this)",
+        "2. Identify the two segment pairs: (PT, TQ) and (RT, TS)",
+        "3. Set products equal: PT × TQ = RT × TS",
+        "4. Plug in known values and solve for the unknown segment",
+        "5. Sanity check: both products should equal the same number"
+      ]
+    }
+  },
+  "1413": {
+    "hint": "6 = 2 × 3. Ask: does each statement guarantee BOTH prime factors? Check each statement alone before combining.",
+    "theory": {
+      "title": "Divisibility by 6 — Prime Factor Coverage",
+      "icon": "🔢",
+      "summary": "Divisible by 6 means divisible by BOTH 2 AND 3. A statement is sufficient only if it locks in every required prime factor.",
+      "keyFacts": [
+        "6 = 2 × 3 — need factor of 2 AND factor of 3",
+        "If n divisible by 12 = 2² × 3 → contains 2 and 3 → divisible by 6",
+        "If n divisible by 9 = 3² → contains 3 but NOT necessarily 2",
+        "Divisible by a composite → divisible by all its prime factors",
+        "Higher multiples (12, 18, 24…) carry their full prime factorization",
+        "DS rule: test YES case and NO case to prove insufficiency"
+      ],
+      "example": {
+        "problem": "Is integer n divisible by 6? (1) n divisible by 12. (2) n divisible by 9.",
+        "steps": [
+          "6 = 2 × 3 — need both primes confirmed",
+          "Stmt 1: 12 = 2² × 3 → any multiple of 12 has factor 2 and factor 3 → always divisible by 6. SUFFICIENT.",
+          "Stmt 2: 9 = 3² → guarantees factor of 3, says nothing about factor of 2",
+          "Test n=9: 9 ÷ 6 = 1.5 → NOT divisible by 6 (NO)",
+          "Test n=18: 18 ÷ 6 = 3 → divisible by 6 (YES)",
+          "Two different answers → Stmt 2 alone NOT SUFFICIENT"
+        ],
+        "answer": "A — statement 1 alone is sufficient; statement 2 leaves the factor of 2 unresolved"
+      },
+      "traps": [
+        "Assuming 'divisible by 9' implies 'divisible by 6' — 9 has no factor of 2",
+        "Thinking you need both statements — 12 already covers everything 6 needs",
+        "Forgetting to test a counterexample for statement 2 (n=9 kills it)",
+        "Confusing 'divisible by a bigger number' with 'divisible by 6'"
+      ],
+      "solveSteps": [
+        "1. Factor the target: 6 = 2 × 3 — list required primes",
+        "2. Factor each statement's divisor into primes",
+        "3. Check if statement covers ALL required primes → SUFFICIENT",
+        "4. If any required prime missing, find YES/NO examples → NOT SUFFICIENT",
+        "5. Answer based on statement 1 alone, statement 2 alone, then both"
+      ]
+    }
+  },
+  "1414": {
+    "hint": "Use both equations to pin a unique (x,y) pair, then ask: does that single pair give a definitive YES or NO? A definitive NO is still sufficient.",
+    "theory": {
+      "title": "DS Sufficiency — Definitive 'No' Counts",
+      "icon": "🔒",
+      "summary": "In Data Sufficiency, sufficient means ONE definite answer — yes OR no. Finding a unique value that makes the answer definitively 'no' is just as sufficient as finding one that says 'yes'.",
+      "keyFacts": [
+        "Sufficient = exactly one answer (yes or no), not necessarily yes",
+        "Two linear equations with two unknowns → unique solution if independent",
+        "x+y=a and x−y=b → solve: x=(a+b)/2, y=(a−b)/2",
+        "Divisibility: x/y is integer iff y divides x evenly",
+        "Testing counterexamples: find two cases with different yes/no outcomes → NOT sufficient",
+        "One statement alone may allow both integer and non-integer cases → insufficient"
+      ],
+      "example": {
+        "problem": "x and y are positive integers. Is x/y an integer? (1) x+y=24  (2) x−y=6",
+        "steps": [
+          "S1 alone: x=12,y=12 → 12/12=1 ✓ integer; x=15,y=9 → 15/9 not integer → two outcomes → insufficient",
+          "S2 alone: x=9,y=3 → 9/3=3 ✓; x=10,y=4 → 10/4=2.5 → two outcomes → insufficient",
+          "Both together: x+y=24, x−y=6 → x=15, y=9 (unique)",
+          "15/9 = 5/3 — definitively NOT an integer",
+          "One definitive answer → SUFFICIENT"
+        ],
+        "answer": "C — neither statement alone pins a unique (x,y), but together they do; that unique pair gives a definitive 'no', which is sufficient."
+      },
+      "traps": [
+        "'Not an integer' feels like a bad answer → assuming insufficient. Wrong: definitive no = sufficient",
+        "Forgetting to test multiple cases for each statement alone — one example never proves sufficiency",
+        "Arithmetic slip: x=(24+6)/2=15, y=(24−6)/2=9 — verify both original equations",
+        "Assuming any sum/difference constraint forces divisibility"
+      ],
+      "solveSteps": [
+        "1. For each statement alone, find 2+ valid (x,y) pairs and check if x/y integer-status changes — if it does, INSUFFICIENT",
+        "2. Combine both: solve the 2×2 linear system for unique x and y",
+        "3. Evaluate x/y for that unique pair — get a definitive yes or no",
+        "4. Definitive answer (either direction) → BOTH sufficient → C"
+      ]
+    }
+  },
+  "1415": {
+    "hint": "DS: test each statement alone. Ask — does it pin the answer to YES or NO with no counterexample possible?",
+    "theory": {
+      "title": "Prime Definition — Exactly Two Factors",
+      "icon": "🔢",
+      "summary": "A prime is defined by its factor count, not its parity or size. Any condition equivalent to the definition pins primality; 'odd and >1' does not.",
+      "keyFacts": [
+        "Prime ≡ exactly two distinct positive integer factors: 1 and itself",
+        "1 is NOT prime — it has only one factor",
+        "2 is the only even prime",
+        "Odd + greater than 1 ≠ prime: 9, 15, 25, 35 are all odd, >1, composite",
+        "Composite odd numbers abound — always test a square of a small prime (9, 25, 49)",
+        "DS sufficiency: a statement is sufficient if it forces a unique YES or unique NO"
+      ],
+      "example": {
+        "problem": "Is positive integer k prime? (1) k has exactly 2 positive integer factors. (2) k is odd and k > 1.",
+        "steps": [
+          "St(1): 'exactly 2 factors' IS the definition of prime → k must be prime. SUFFICIENT.",
+          "St(2): Try k=9 → odd, >1, but 9=3² has factors 1,3,9 → NOT prime.",
+          "St(2): Try k=11 → odd, >1, prime → YES.",
+          "Two outcomes possible under St(2) → NOT SUFFICIENT.",
+          "Only St(1) settles the question definitively."
+        ],
+        "answer": "A — statement 1 alone is sufficient because 'exactly two positive factors' is the literal definition of prime; statement 2 allows counterexamples like 9."
+      },
+      "traps": [
+        "Confusing 'odd and >1' with prime — odd composites (9, 15, 25) disprove this",
+        "Forgetting 1 is not prime (one factor, not two)",
+        "Assuming both statements needed when St(1) alone closes the question",
+        "Overlooking that DS asks sufficiency, not the value of k"
+      ],
+      "solveSteps": [
+        "1. Recall: prime ↔ exactly two positive factors (1 and itself)",
+        "2. Test St(1) alone: does it match the definition? If yes → SUFFICIENT",
+        "3. Test St(2) alone: find one counterexample (k=9) to show NOT SUFFICIENT",
+        "4. Since St(1) alone works and St(2) alone fails → answer is A",
+        "5. No need to test combined once A is confirmed"
+      ]
+    }
+  },
+  "1416": {
+    "hint": "Piecewise function — check if a > b guarantees f(a) > f(b). Test cases mixing negative/positive regions. Ask: is EITHER statement alone, or BOTH together, sufficient?",
+    "theory": {
+      "title": "Piecewise Functions — DS Sufficiency Traps",
+      "icon": "🔀",
+      "summary": "Piecewise functions switch rules at a boundary. A > B does NOT guarantee f(a) > f(b) when a and b can straddle the boundary where behavior flips.",
+      "keyFacts": [
+        "f(x) = x² for x ≤ 0: outputs are large-positive for very negative x, approach 0 near x=0 — DECREASING toward 0",
+        "f(x) = 2x for x > 0: outputs grow linearly — INCREASING",
+        "Negative-region values can be HUGE: f(−5) = 25, which beats f(1) = 2",
+        "a > b is insufficient when b is negative — the squared term can dominate",
+        "DS sufficiency requires the comparison to be determined YES or NO for ALL valid cases",
+        "When both statements allow counterexamples, answer is E"
+      ],
+      "example": {
+        "problem": "f(x) = x² (x ≤ 0) and f(x) = 2x (x > 0). Is f(a) > f(b)? (1) a > b  (2) a > 0",
+        "steps": [
+          "St(1) only — try a=2, b=1: f(2)=4 > f(1)=2 → YES",
+          "St(1) only — try a=1, b=−3: f(1)=2 < f(−3)=9 → NO. Not sufficient.",
+          "St(2) only — a>0 pins f(a)=2a, but b unknown: b=0 gives NO match; b=−3 reverses it. Not sufficient.",
+          "Both — a>0 and a>b: a=1,b=0 → f=2>0 YES; a=1,b=−3 → f=2<9 NO",
+          "Counterexample survives both statements → E"
+        ],
+        "answer": "E — even knowing a > 0 and a > b, b can be a large-negative number whose squared value exceeds 2a"
+      },
+      "traps": [
+        "Assuming a > b implies f(a) > f(b) — only valid for strictly monotonic functions",
+        "Ignoring that x² on the negative side grows fast (f(−10)=100 >> f(5)=10)",
+        "Thinking statement (2) helps pin b — it only constrains a",
+        "Forgetting to test cross-boundary cases (one positive, one negative)"
+      ],
+      "solveSteps": [
+        "1. Map the function: identify which region each variable is in",
+        "2. For each statement, try a YES case then hunt for a NO counterexample",
+        "3. Cross-boundary test: pick one variable positive, one negative — often breaks monotonicity assumptions",
+        "4. If a counterexample survives BOTH statements combined, choose E",
+        "5. Never assume a > b ⇒ f(a) > f(b) without confirming the function is monotone"
+      ]
+    }
+  },
+  "1417": {
+    "hint": "Each statement maps a variable to a sign range. Combining: can n still be both positive and negative? Test one positive and one negative n value.",
+    "theory": {
+      "title": "Inequality Sign Ranges — Even vs Odd Powers",
+      "icon": "±",
+      "summary": "x² < x forces x into (0,1) — positive only. x³ < x² forces x ≠ 0 and x < 1 — but x can still be negative. One undetermined sign can leave a product's sign ambiguous even when both statements are used.",
+      "keyFacts": [
+        "x² < x  →  x(x−1) < 0  →  0 < x < 1  (positive fraction only)",
+        "x³ < x²  →  x²(x−1) < 0  →  x² > 0 AND x−1 < 0  →  x ∈ (−∞, 0) ∪ (0, 1)",
+        "Even power x² ≥ 0 always — factor it out; sign comes entirely from the remaining LINEAR factor",
+        "If one variable is pinned positive but the other can be + or −, product sign is NOT determined",
+        "Always probe with two test values straddling 0: try n = 0.5 and n = −2"
+      ],
+      "example": {
+        "problem": "Is mn < 0? (1) m² < m  (2) n³ < n²",
+        "steps": [
+          "S1: m(m−1) < 0 → 0 < m < 1. m is positive. Without knowing n, sign of mn unknown. INSUFFICIENT.",
+          "S2: n²(n−1) < 0 → n² > 0 and n < 1 → n ∈ (−∞,0) ∪ (0,1). n's sign is NOT pinned. INSUFFICIENT.",
+          "Both together: m > 0 fixed. Test n = 0.5 → mn > 0. Test n = −2 → mn < 0.",
+          "Two valid scenarios yield opposite answers → TOGETHER still insufficient."
+        ],
+        "answer": "E — combining both statements leaves n's sign ambiguous (positive fraction or negative), so mn can be either positive or negative"
+      },
+      "traps": [
+        "Assuming n³ < n² forces n negative — it only forces n < 1 and n ≠ 0",
+        "Believing 'two statements must be enough together' without testing numbers — always plug in",
+        "Forgetting x²(n−1) < 0 requires x ≠ 0 as a separate condition",
+        "Stopping analysis after narrowing ranges without checking whether the TARGET (sign of product) is still ambiguous"
+      ],
+      "solveSteps": [
+        "1. Factor each inequality: isolate linear factors, note any always-nonneg terms (even powers)",
+        "2. Map each statement to a number-line interval for its variable",
+        "3. Test S1 alone: substitute n = +1 and n = −1 — does mn sign change? If yes, INSUFFICIENT",
+        "4. Test S2 alone: find both a positive and a negative n that satisfy n²(n−1) < 0 — sign of n unfixed",
+        "5. Combined: hold m > 0 fixed, try n = 0.5 and n = −2 — if mn flips sign, answer is E"
+      ]
+    }
+  },
+  "1418": {
+    "hint": "Each statement alone leaves the total open-ended. Ask: does combining the ratio constraint with the minimum count pin a definite answer to the yes/no question?",
+    "theory": {
+      "title": "DS — Ratio + Minimum Count → Minimum Total",
+      "icon": "🔵",
+      "summary": "A ratio tells you the shape of the split, not the size. A minimum count sets a floor. Together they force a minimum total — enough to answer a yes/no threshold question.",
+      "keyFacts": [
+        "Ratio a:b → total must be a multiple of (a+b); e.g., 3:5 → multiples of 8",
+        "Minimum count on one part → minimum multiplier k → minimum total",
+        "Sufficient for yes/no = EVERY possible scenario gives the same answer (all yes OR all no)",
+        "Statement alone: enumerate 2+ valid totals straddling the threshold → NOT sufficient",
+        "Combined: if minimum total already exceeds threshold, answer is always YES → SUFFICIENT",
+        "DS trap: confirming ONE valid case isn't enough — must rule out ALL counter-cases"
+      ],
+      "example": {
+        "problem": "Jar has red and blue marbles, R:B = 3:5, at least 9 red. More than 20 total?",
+        "steps": [
+          "Ratio 3:5 → red = 3k, blue = 5k, total = 8k",
+          "Minimum red ≥ 9 → 3k ≥ 9 → k ≥ 3",
+          "Minimum total = 8 × 3 = 24",
+          "24 > 20, and all larger k give totals 32, 40, … also > 20",
+          "Every scenario → YES, always more than 20"
+        ],
+        "answer": "C — neither statement alone pins the total above 20, but together they force minimum total = 24 > 20"
+      },
+      "traps": [
+        "Statement 1 alone: 8 marbles (k=1) ≤ 20 and 24 (k=3) > 20 — both valid, NOT sufficient",
+        "Statement 2 alone: 10 total (9 red + 1 blue, ignoring ratio) ≤ 20 — NOT sufficient",
+        "Forgetting that ratio constrains blue count too — can't just add 1 blue to 9 red",
+        "Stopping after finding one scenario that says YES — must verify no NO-scenario exists"
+      ],
+      "solveSteps": [
+        "1. Statement 1: express totals as multiples of 8; find examples ≤20 and >20 → NOT sufficient",
+        "2. Statement 2: try small totals with ≥9 red ignoring ratio; find totals ≤20 → NOT sufficient",
+        "3. Combine: ratio forces red=3k; minimum red≥9 forces k≥3; minimum total=8k=24",
+        "4. Check: all valid totals (24, 32, 40…) exceed 20 → answer is always YES → SUFFICIENT",
+        "5. Choose C"
+      ]
+    }
+  },
+  "1419": {
+    "hint": "Statement (2) pins the parity of BOTH integers at once — odd product has an iron rule. Statement (1) lets parity float; test two counter-examples to kill it.",
+    "theory": {
+      "title": "Parity Rules + DS Sufficiency",
+      "icon": "⚖",
+      "summary": "Odd × odd = odd is a one-way gate: an odd product FORCES both factors to be odd. Use parity rules to determine whether a statement pins even/odd status.",
+      "keyFacts": [
+        "odd + odd = even; even + even = even; odd + even = odd",
+        "odd × odd = odd — ONLY way to get an odd product",
+        "If product is odd → BOTH factors must be odd (no exceptions)",
+        "If product is even → at least one factor is even (can't conclude both)",
+        "p/q = integer means q | p, but says nothing definitive about parity",
+        "DS: find ONE counter-example pair → statement is NOT sufficient"
+      ],
+      "example": {
+        "problem": "p and q are integers. Does p/q being an integer tell us p+q is even?",
+        "steps": [
+          "Try p=6, q=3: p/q=2 ✓ integer; p+q=9 → odd",
+          "Try p=6, q=2: p/q=3 ✓ integer; p+q=8 → even",
+          "Two valid cases give different parity → NOT sufficient",
+          "Now try p×q=odd: forces both p,q odd",
+          "odd+odd=even always → SUFFICIENT"
+        ],
+        "answer": "B — statement 2 pins both p and q as odd, so p+q must be even; statement 1 allows mixed parity"
+      },
+      "traps": [
+        "Divisibility ≠ same parity: q|p allows (even, even), (odd, odd), (even, odd) pairs",
+        "Thinking 'p/q integer → they share structure → same parity' — FALSE",
+        "Forgetting to test two counter-examples before declaring insufficiency",
+        "Confusing 'odd product' with 'odd sum' — they are separate parity facts"
+      ],
+      "solveSteps": [
+        "1. List parity combinations: (odd,odd), (odd,even), (even,even)",
+        "2. For each statement, test which combinations are ALLOWED",
+        "3. Statement (1): plug in counter-examples to check if p+q can be both even and odd",
+        "4. Statement (2): apply odd-product rule → both factors must be odd → sum is even, no exceptions",
+        "5. Conclude: one statement alone sufficient → pick A, B, or D accordingly"
+      ]
+    }
+  },
+  "1451": {
+    "hint": "Factor the expression first. A product of two integers equals a prime only when one factor is ±1 — check ALL such cases, not just the first.",
+    "theory": {
+      "title": "Product = Prime → One Factor Must Be ±1",
+      "icon": "🔑",
+      "summary": "A prime has exactly two positive divisors: 1 and itself. So if A×B is prime, one of {A, B} must equal ±1. Factor first, then solve for each ±1 case systematically.",
+      "keyFacts": [
+        "Prime p > 1 and divisible only by 1 and itself — negative products are NEVER prime",
+        "If A×B = prime → exactly one of {A, B} is ±1 (and same-sign pair gives positive product)",
+        "Factor quadratics before testing: n²+8n+15 = (n+3)(n+5)",
+        "Two unknowns linked by n → setting each factor = ±1 gives distinct n values",
+        "Check BOTH +1 and −1 for each factor — symmetric solutions often hide one answer",
+        "Primes must be positive integers — if product is negative or 0, discard"
+      ],
+      "example": {
+        "problem": "For how many integers n does (n+3)(n+5) equal a prime?",
+        "steps": [
+          "Set each factor = +1 or −1 (only way product of two integers is prime)",
+          "n+3=1 → n=−2: other factor = 3. Product = 3 ✓ prime",
+          "n+3=−1 → n=−4: other factor = 1. Product = −1 ✗ not prime",
+          "n+5=1 → n=−4: same case as above ✗",
+          "n+5=−1 → n=−6: other factor = −3. Product = (−3)(−1) = 3 ✓ prime",
+          "Two valid integers: n=−2 and n=−6"
+        ],
+        "answer": "2 integers"
+      },
+      "traps": [
+        "Stopping after n+3=1 → n=−2 and choosing 'only 1 solution' — misses the symmetric −1 case",
+        "Forgetting that (−)(−) = positive, so (−3)(−1) = 3 IS prime",
+        "Checking n+3=−1 and getting product −1, then stopping — must also test n+5=−1",
+        "Assuming n must be positive — the solutions here are both negative"
+      ],
+      "solveSteps": [
+        "1. Factor: rewrite expression as product of two linear factors",
+        "2. Recall: A×B prime → one factor is +1 OR −1",
+        "3. Solve for n in all cases: factor1=+1, factor1=−1, factor2=+1, factor2=−1",
+        "4. For each n, compute the product and verify it's a positive prime",
+        "5. Count only the valid (prime) cases — don't stop at the first hit"
+      ]
+    }
+  },
+  "1452": {
+    "hint": "Same distance each leg → harmonic mean: 2ab/(a+b). Compute it — then trust the number you get before scanning choices.",
+    "theory": {
+      "title": "Average Speed — Harmonic Mean & Answer Doubt Trap",
+      "icon": "🚗",
+      "summary": "Average speed = total distance ÷ total time, always. Equal distances pull the average toward the slower leg; the correct answer will be below the arithmetic mean.",
+      "keyFacts": [
+        "Avg speed = total distance / total time — the one formula that never fails",
+        "Equal distance both legs → harmonic mean: 2ab / (a + b)",
+        "Equal time both legs → arithmetic mean: (a + b) / 2",
+        "Harmonic mean is always less than arithmetic mean when a ≠ b",
+        "Round trip or 'returns along same route' always means equal distances",
+        "Compute the number first; THEN check choices — don't let 'None of above' decoy you"
+      ],
+      "example": {
+        "problem": "Car goes 60 mi at 40 mph, returns same 60 mi at 60 mph. Avg speed?",
+        "steps": [
+          "Total distance = 60 + 60 = 120 mi",
+          "Time leg 1 = 60/40 = 1.5 hr",
+          "Time leg 2 = 60/60 = 1.0 hr",
+          "Total time = 2.5 hr",
+          "Avg speed = 120 / 2.5 = 48 mph",
+          "Shortcut: 2(40)(60)/(40+60) = 4800/100 = 48 ✓"
+        ],
+        "answer": "48 mph"
+      },
+      "traps": [
+        "(40+60)/2 = 50 — arithmetic mean only works when TIMES are equal, not distances",
+        "Seeing 48 in the choices but picking 'None of the above' out of self-doubt",
+        "Assuming the answer must be a round number or midpoint between the two speeds",
+        "Forgetting that 'returns along same route' guarantees equal distances"
+      ],
+      "solveSteps": [
+        "1. Identify what is equal: same route / same path → equal distances",
+        "2. Apply harmonic mean: 2ab/(a+b) with a=40, b=60",
+        "3. Or compute directly: total dist ÷ total time",
+        "4. Confirm result is between a and b, closer to the slower speed",
+        "5. Match to choices — trust your arithmetic; don't default to 'None of the above'"
+      ]
+    }
+  },
+  "1453": {
+    "hint": "Account for Train A's 1-hour head start first, then close the gap using COMBINED approach speed (sum both speeds).",
+    "theory": {
+      "title": "Approaching Trains — Head Start + Combined Speed",
+      "icon": "🚂",
+      "summary": "Two objects moving toward each other close distance at the SUM of their speeds. When they depart at different times, subtract the head-start distance first.",
+      "keyFacts": [
+        "Approaching objects: closing speed = v₁ + v₂",
+        "Head start distance = early-train speed × time advantage",
+        "Gap when second train departs = total distance − head-start distance",
+        "Time to meet after second train departs = remaining gap / (v₁ + v₂)",
+        "0.7 hours = 42 minutes (multiply decimal by 60)",
+        "Meeting clock time = departure of SECOND train + time computed"
+      ],
+      "example": {
+        "problem": "Train A leaves at 8 AM at 90 km/h; Train B leaves at 9 AM at 110 km/h toward each other; 430 km apart. When do they meet?",
+        "steps": [
+          "Head start: Train A travels 90 × 1 = 90 km before Train B even moves",
+          "Remaining gap at 9 AM: 430 − 90 = 340 km",
+          "Combined closing speed: 90 + 110 = 200 km/h",
+          "Time to close gap: 340 / 200 = 1.7 hr = 1 hr 42 min",
+          "Meeting time: 9:00 AM + 1 hr 42 min = 10:42 AM"
+        ],
+        "answer": "10:42 AM"
+      },
+      "traps": [
+        "Forgetting the head start — dividing full 430 km by 200 gives 2.15 hr from 8 AM = ~10:09 AM (not a choice)",
+        "Adding head-start time to 8 AM instead of 9 AM for the final clock calculation",
+        "Leaving answer as 1.7 hours without converting 0.7 hr → 42 min",
+        "Using one train's speed instead of combined speed to close the gap"
+      ],
+      "solveSteps": [
+        "1. Identify which train has a head start and compute distance covered before second train departs",
+        "2. Subtract head-start distance from total gap",
+        "3. Closing speed = sum of both speeds (approaching)",
+        "4. Time after second departure = remaining gap / closing speed",
+        "5. Convert decimal hours to minutes; add to second train's departure time"
+      ]
+    }
+  },
+  "1454": {
+    "hint": "Factor the quadratic first. Inequality is negative between the roots — but count only POSITIVE INTEGERS strictly between them, not the interval length.",
+    "theory": {
+      "title": "Quadratic Inequality — Integer Solutions",
+      "icon": "📐",
+      "summary": "A quadratic ax²+bx+c < 0 is negative between its roots (when a>0). Always convert the continuous interval to a discrete integer count — those are different numbers.",
+      "keyFacts": [
+        "Factor: x²−bx+c = (x−r₁)(x−r₂) where r₁ < r₂",
+        "Product of two factors < 0 when they have opposite signs → r₁ < x < r₂",
+        "Interval length (r₂−r₁) ≠ count of integers inside — close but distinct",
+        "Integers strictly between r₁ and r₂: list them — (r₁+1), (r₁+2), …, (r₂−1)",
+        "Strict < excludes endpoints; ≤ would include them",
+        "Apply ALL constraints: here x must be a positive integer"
+      ],
+      "example": {
+        "problem": "How many positive integers x satisfy x²−13x+36 < 0?",
+        "steps": [
+          "Factor: (x−4)(x−9) < 0",
+          "Product negative → factors have opposite signs → 4 < x < 9",
+          "List integers strictly between 4 and 9: 5, 6, 7, 8",
+          "Count: 4 values"
+        ],
+        "answer": "4 (choice B)"
+      },
+      "traps": [
+        "Interval length 9−4=5 → choosing 5 — length ≠ integer count",
+        "Including endpoints x=4 or x=9 — strict < means they give 0, not <0",
+        "Listing 5,6,7,8,9 and counting 9 — 9 is NOT strictly less than 9",
+        "Forgetting 'positive integer' constraint when roots are negative or fractional"
+      ],
+      "solveSteps": [
+        "1. Factor quadratic into (x−r₁)(x−r₂)",
+        "2. Product < 0 → open interval r₁ < x < r₂",
+        "3. List every INTEGER strictly between r₁ and r₂ (exclude endpoints)",
+        "4. Apply domain constraints (positive, integer, etc.)",
+        "5. Count the list — do NOT use interval length as a shortcut"
+      ]
+    }
+  },
+  "1455": {
+    "hint": "Path area = outer circle − inner circle. Set that equal to ½ total. Then r² = R²/2 — take square root, find w = R − r.",
+    "theory": {
+      "title": "Annular Ring Area — Solving for Width",
+      "icon": "⊙",
+      "summary": "A ring (annulus) has area π(R² − r²). When a fraction of the total circle is given, set R² − r² = fraction × R², solve for inner radius r, then width w = R − r.",
+      "keyFacts": [
+        "Annulus area = π(R² − r²) = π(R+r)(R−r)",
+        "Path = ½ total → inner circle also = ½ total → r² = R²/2 → r = R/√2",
+        "Width w = R − R/√2 = R(1 − 1/√2)",
+        "Rationalizing: 1/√2 = √2/2, so R(1 − 1/√2) = R(1 − √2/2) — same value, two forms",
+        "Two answer choices that look different may be algebraically identical — simplify before picking",
+        "Negative width (w > R) is impossible — eliminate such choices on sight"
+      ],
+      "example": {
+        "problem": "Circular garden radius 7 m. Uniform-width path built inside along circumference. Path area = ½ total garden area. Find w.",
+        "steps": [
+          "Total area = 49π. Path = ½ × 49π = 24.5π",
+          "Path area = 49π − π(7−w)² → set equal to 24.5π",
+          "Cancel π: 49 − (7−w)² = 24.5",
+          "(7−w)² = 24.5 = 49/2 → 7−w = 7/√2",
+          "w = 7 − 7/√2 ≈ 2.05 m"
+        ],
+        "answer": "7 − 7/√2 ≈ 2.05 m"
+      },
+      "traps": [
+        "w = 3.5 (= R/2): halving radius gives inner area 12.25π, path = 36.75π — not half the garden",
+        "7 − 7√2 < 0: negative width is physically impossible",
+        "Thinking r = R/2 because 'half the area' — area scales as r², so half area → r = R/√2, not R/2",
+        "Missing that two answer choices can be identical after rationalizing — verify algebraically"
+      ],
+      "solveSteps": [
+        "1. Label: outer radius R, inner radius r = R − w",
+        "2. Write annulus equation: π(R² − r²) = (given fraction) × πR²",
+        "3. Cancel π, isolate r²: r² = R²(1 − fraction)",
+        "4. Take positive square root → r, then w = R − r",
+        "5. Rationalize if needed; check w > 0 and w < R before confirming"
+      ]
+    }
+  },
+  "1456": {
+    "hint": "Set up 2 equations, solve for apples. If result isn't a whole number, no answer choice A–D can be correct.",
+    "theory": {
+      "title": "Systems of Equations — Integer Constraint Trap",
+      "icon": "🍎",
+      "summary": "Two-variable word problems often yield a clean algebraic solution — but GMAT occasionally makes that solution non-integer, invalidating all specific answer choices. Always verify your solution satisfies ALL constraints.",
+      "keyFacts": [
+        "Two unknowns, two equations → unique solution (if independent)",
+        "Substitution: isolate one variable from the count equation, plug into the money equation",
+        "Price × quantity equations: clear decimals early by multiplying through (e.g. ×100)",
+        "Integer constraint: physical quantities (fruits, people, days) must be whole numbers",
+        "If algebra gives a non-integer, NONE of the listed values can be exactly correct",
+        "'Spends exactly $X' means no rounding — non-integer solution ⇒ answer is 'None of the above'"
+      ],
+      "example": {
+        "problem": "Apples cost $1.20, oranges $0.80. Buy 15 fruits for exactly $15.00. How many apples?",
+        "steps": [
+          "Let a = apples, so oranges = 15 − a",
+          "Money eq: 1.20a + 0.80(15 − a) = 15.00",
+          "Expand: 1.20a + 12 − 0.80a = 15 → 0.40a = 3",
+          "a = 7.5 — not a whole number",
+          "Check a=7: $8.40+$6.40=$14.80 ✗  Check a=8: $9.60+$5.60=$15.20 ✗",
+          "No integer solution exists → answer is 'None of the above'"
+        ],
+        "answer": "E — None of the above. The system yields a = 7.5, which violates the integer constraint; neither a=7 nor a=8 hits exactly $15.00."
+      },
+      "traps": [
+        "Rounding 7.5 → 7 or 8 and picking C or D without verifying the exact price",
+        "Forgetting to check whether the algebraic answer satisfies ALL original conditions",
+        "Assuming 'None of the above' is a throwaway option — here it is the correct answer",
+        "Arithmetic slip when substituting decimals; multiply everything by 100 to use integers (120a + 80o = 1500)"
+      ],
+      "solveSteps": [
+        "1. Assign variables: let a = apples, o = 15 − a",
+        "2. Write money equation; clear decimals (×100): 120a + 80(15−a) = 1500",
+        "3. Solve: 40a = 300 → a = 7.5",
+        "4. Check integer constraint: quantities must be whole numbers → 7.5 fails",
+        "5. Verify neighbors (a=7, a=8) don't hit exact total → answer is 'None of the above'"
+      ]
+    }
+  },
+  "1457": {
+    "hint": "Convert 45 min to hours first, THEN apply the 25% reduction to the normal output for that window — don't apply the reduction to the full-hour rate and stop there.",
+    "theory": {
+      "title": "Rate × Time — Unit Conversion + Percentage Reduction",
+      "icon": "⚙",
+      "summary": "When a rate changes for a partial period, find normal output for THAT period first, then scale by the reduction. Skipping the time conversion is the primary trap.",
+      "keyFacts": [
+        "Output = Rate × Time (always match units — hours with hours)",
+        "45 min = 0.75 hr; 30 min = 0.5 hr; 15 min = 0.25 hr",
+        "'Drops by 25%' → malfunction rate = 75% of normal",
+        "Shortcut: loss per hour × fraction of hour = total loss",
+        "Loss = Normal output × reduction% (applied to the partial-period output, not full-hour output)",
+        "Two-path check: direct (75% × normal output) = shortcut (25% × rate × time) — both must agree"
+      ],
+      "example": {
+        "problem": "A machine runs at 800 units/hr. It slows to 60% of normal for 30 minutes. How many fewer units are produced versus normal for that window?",
+        "steps": [
+          "Normal output in 30 min: 800 × 0.5 = 400 units",
+          "Malfunction output: 400 × 0.60 = 240 units",
+          "Fewer produced: 400 − 240 = 160 units",
+          "Shortcut: reduction = 40% × 800 = 320/hr; over 0.5 hr → 320 × 0.5 = 160 ✓"
+        ],
+        "answer": "160 fewer units"
+      },
+      "traps": [
+        "Taking 25% of 1,200 = 300 and choosing 300 — ignores the 45-min window entirely",
+        "Dividing by 60 then multiplying by 45 is correct; dividing by 90 or using wrong reference period gives 150",
+        "Applying reduction to full-hour output then treating result as the answer — off by time factor",
+        "'Returns to normal' is a distractor — only the 45-min malfunction window matters"
+      ],
+      "solveSteps": [
+        "1. Convert malfunction duration to hours (45 min = 0.75 hr)",
+        "2. Compute NORMAL output for that duration: rate × time",
+        "3. Compute MALFUNCTION output: normal output × (1 − reduction%)",
+        "4. Difference = normal output − malfunction output",
+        "5. Shortcut check: reduction rate/hr × time = same answer"
+      ]
+    }
+  },
+  "1458": {
+    "hint": "Spot the hidden quadratic: let u = 3^x to convert 3^(2x) − 10·3^x + 9 = 0 into u² − 10u + 9 = 0, then solve for x.",
+    "theory": {
+      "title": "Exponential Equations — Substitution to Quadratic",
+      "icon": "🔁",
+      "summary": "When an exponential equation has the form f(a^x)² − b·a^x + c = 0, substitute u = a^x to reveal a standard quadratic. Solve for u, then back-solve for x.",
+      "keyFacts": [
+        "If 3^(2x) appears, rewrite as (3^x)² — now it's a quadratic in 3^x",
+        "Let u = a^x to transform: u² − 10u + 9 = 0",
+        "Factor or use quadratic formula on u, then set a^x = each root",
+        "a^x = k → x = log_a(k). If a^x = a^n, then x = n directly",
+        "a^x > 0 always — discard any negative u roots as extraneous",
+        "Check both solutions; neither is automatically excluded"
+      ],
+      "example": {
+        "problem": "Solve 3^(2x) − 10·3^x + 9 = 0 for all x.",
+        "steps": [
+          "Let u = 3^x, so 3^(2x) = u²",
+          "Equation becomes u² − 10u + 9 = 0",
+          "Factor: (u − 1)(u − 9) = 0 → u = 1 or u = 9",
+          "u = 1 → 3^x = 3^0 → x = 0",
+          "u = 9 = 3² → 3^x = 3^2 → x = 2",
+          "Both valid: 3^x > 0 for all real x, so no extraneous roots"
+        ],
+        "answer": "x = 0 or x = 2"
+      },
+      "traps": [
+        "3^x = 1 means x = 0, NOT x = 1 — confusing the base with the exponent → trap D",
+        "Overlooking u = 1 as a valid root (yes, 3^0 = 1 is real and valid)",
+        "Forgetting to back-solve: stop at u = 1 and u = 9 without finding x values",
+        "Trying arithmetic/substitution of answer choices without seeing the quadratic structure"
+      ],
+      "solveSteps": [
+        "1. Identify pattern: a^(2x) and a^x in same equation → hidden quadratic",
+        "2. Substitute u = a^x, rewrite as quadratic in u",
+        "3. Factor or solve quadratic for u",
+        "4. Discard any u ≤ 0 (impossible for a^x with a > 0)",
+        "5. Back-solve each valid u: set a^x = u → x = log_a(u)"
+      ]
+    }
+  },
+  "1459": {
+    "hint": "Multiply successive multipliers: 1.20 × 0.80 × 1.10. Never add/subtract % — each applies to a different base.",
+    "theory": {
+      "title": "Sequential Percent Changes — Multiply Multipliers",
+      "icon": "🔗",
+      "summary": "Each percent change applies to a different base, so you cannot add them. Convert each change to a multiplier and multiply all together.",
+      "keyFacts": [
+        "x% increase → multiply by (1 + x/100); x% decrease → multiply by (1 − x/100)",
+        "Sequential changes: final = P × m₁ × m₂ × m₃ (order matters for magnitudes, not direction)",
+        "Adding percents only works if all percentages apply to the SAME base — they almost never do",
+        "+20% then −20% ≠ 0%: 1.20 × 0.80 = 0.96 → −4% net",
+        "Net % change = (product of multipliers − 1) × 100"
+      ],
+      "example": {
+        "problem": "Price increased 20%, then decreased 20%, then increased 10%. Net % change?",
+        "steps": [
+          "Multipliers: 1.20, 0.80, 1.10",
+          "1.20 × 0.80 = 0.96",
+          "0.96 × 1.10 = 1.056",
+          "Net change = 1.056 − 1 = 0.056 → +5.6%"
+        ],
+        "answer": "+5.6%"
+      },
+      "traps": [
+        "Adding percents: +20 − 20 + 10 = +10% — WRONG, each % hits different base",
+        "Thinking +20% and −20% cancel to 0, leaving only +10%",
+        "+20% then −20%: the −20% is taken on a larger number, so net is negative (−4%)"
+      ],
+      "solveSteps": [
+        "1. Convert each change to multiplier (e.g. +20% → 1.20, −20% → 0.80)",
+        "2. Multiply all multipliers together",
+        "3. Subtract 1 and convert to % for net change",
+        "4. Sanity check: +x% then −x% always gives slight net loss (not zero)"
+      ]
+    }
+  },
+  "1460": {
+    "hint": "Split 'at least 2 women' into exactly-2 + exactly-3 cases. Add C(4,2)×C(5,1) AND C(4,3)×C(5,0) — missing either case kills you.",
+    "theory": {
+      "title": "Combinatorics — 'At Least' Case Split",
+      "icon": "🔢",
+      "summary": "'At least k' means sum over every valid count ≥ k. OR use complement: total − (forbidden cases). Either route must cover all cases — skipping one loses points.",
+      "keyFacts": [
+        "C(n,r) = n! / (r!(n−r)!) — order doesn't matter in committees",
+        "'At least k' → direct: sum C(group,k)+C(group,k+1)+… matching remaining seats",
+        "'At least k' → complement: total C(all,size) − cases with fewer than k",
+        "Multiply independent group choices: C(women chosen, w) × C(men chosen, m)",
+        "Total people = all pools combined; total committees = C(9,3) = 84 for 5M+4W pick 3",
+        "Always verify: direct sum = complement calculation"
+      ],
+      "example": {
+        "problem": "Choose 3 from 5 men + 4 women; at least 2 women. How many committees?",
+        "steps": [
+          "Case 1 — exactly 2W, 1M: C(4,2)×C(5,1) = 6×5 = 30",
+          "Case 2 — exactly 3W, 0M: C(4,3)×C(5,0) = 4×1 = 4",
+          "Total = 30 + 4 = 34",
+          "Complement check: C(9,3)=84; 0W: C(5,3)=10; 1W: C(4,1)×C(5,2)=40; 84−10−40=34 ✓"
+        ],
+        "answer": "34"
+      },
+      "traps": [
+        "Stopping after the exactly-2 case (30) — the all-women case adds 4 more",
+        "Multiplying C(4,2)×C(5,2) — picks 2 from each group but that's 4 people, not 3",
+        "Miscalculating C(4,3)=3 instead of 4, yielding 33",
+        "Using arithmetic mean of group sizes instead of combination formula"
+      ],
+      "solveSteps": [
+        "1. Identify constraint: 'at least k' → list valid (w, m) pairs that sum to committee size",
+        "2. Compute C(women,w)×C(men,m) for each pair",
+        "3. Sum all cases",
+        "4. Optional: verify via complement — total − forbidden",
+        "5. Cross-check: direct = complement; pick the answer"
+      ]
+    }
+  },
+  "1461": {
+    "hint": "Where x lands in sorted order changes the median. Try each case: set mean = median, solve x, then verify x actually fits that range.",
+    "theory": {
+      "title": "Mean = Median — Case Analysis with Unknown",
+      "icon": "⚖",
+      "summary": "When a set contains an unknown x, the median shifts depending on where x ranks. You must test each positional case, solve, then check consistency.",
+      "keyFacts": [
+        "Mean = (sum of all values) / n — always computable algebraically",
+        "Median = middle value of sorted list (n=5 → 3rd element)",
+        "Unknown x changes sort position → median has multiple possible expressions",
+        "For each case: assume x in a range → median is fixed → set mean = median → solve x → verify x fits range",
+        "Only consistent solutions (solve value lies inside the assumed range) are valid",
+        "If no integer choice satisfies exactly, work backwards: plug each choice, compare mean vs median"
+      ],
+      "example": {
+        "problem": "Scores: 72, 85, 88, 90, x. Mean = median. Find x.",
+        "steps": [
+          "Sum of known = 335; mean = (335+x)/5",
+          "Case x∈[72,85]: sorted 72,x,85,88,90; median=85; (335+x)/5=85 → x=90. Contradicts x≤85 ✗",
+          "Case x∈[85,88]: sorted 72,85,x,88,90; median=x; (335+x)/5=x → x=83.75. Contradicts x≥85 ✗",
+          "Case x≥88: median=88; (335+x)/5=88 → x=105. Valid range but unrealistic",
+          "No integer choice satisfies exactly — plug answer choices to find closest fit"
+        ],
+        "answer": "A (75) — the only choice in range 72–85 where the algebraic gap is smallest; exact solution ≈83.75 is non-integer"
+      },
+      "traps": [
+        "Assuming median is always 85 regardless of where x lands — wrong if x<85",
+        "Forgetting to verify the solved x actually falls in the assumed range (consistency check)",
+        "Skipping case analysis and just averaging — mean≠median unless verified",
+        "Picking x=85 or x=90 because they match existing scores — coincidence, not logic"
+      ],
+      "solveSteps": [
+        "1. Compute sum of known values; write mean = (sum+x)/5",
+        "2. Sort known values; identify 5 positional cases for x",
+        "3. For each case write median expression; set mean=median; solve x",
+        "4. Check: does solved x fall inside the assumed range? If not, discard",
+        "5. If no exact integer solution, back-solve each answer choice: compute mean and median, pick the one satisfying or nearest to mean=median"
+      ]
+    }
+  },
+  "1462": {
+    "hint": "Assign fill rates as fractions of tank/hour — filling pumps positive, draining pumps negative. Net rate = sum of all rates; time = 1 / net rate.",
+    "theory": {
+      "title": "Combined Work — Fill vs. Drain",
+      "icon": "🚰",
+      "summary": "When pumps work against each other, net rate = fill rate minus drain rate. Time = 1 ÷ net rate. Never add the times directly.",
+      "keyFacts": [
+        "Rate = 1 / time  (fraction of job per hour)",
+        "Filling pump: +1/t   Draining pump: −1/t",
+        "Net rate = algebraic sum of all individual rates",
+        "Time to complete job = 1 / net rate  (when net rate > 0, job finishes)",
+        "LCD trick: convert each rate to same denominator before adding",
+        "If net rate ≤ 0, tank never fills — drain overpowers fill"
+      ],
+      "example": {
+        "problem": "Pump X fills tank in 4 hr, Pump Y drains it in 12 hr. Both run on empty tank — how long to fill?",
+        "steps": [
+          "Rate X = +1/4, Rate Y = −1/12",
+          "Net = 1/4 − 1/12 = 3/12 − 1/12 = 2/12 = 1/6 tank/hr",
+          "Time = 1 ÷ (1/6) = 6 hours",
+          "Verify: in 6 hr X fills 6/4 = 1.5 tanks, Y drains 6/12 = 0.5 tanks → net 1.0 ✓"
+        ],
+        "answer": "6 hours"
+      },
+      "traps": [
+        "Adding times: 6 + 9 = 15 — wrong shortcut, applies only when both work in SAME direction",
+        "Using combined-work formula 1/T = 1/A + 1/B ignoring sign — drainer must be subtracted",
+        "Guessing 'None of the above' when answer seems surprising — always verify with check",
+        "6×9/(9−6) = 18 arrives at right number but via flawed algebra — learn the rate method"
+      ],
+      "solveSteps": [
+        "1. Label each pump: + for fill, − for drain; rate = ±1/hours",
+        "2. Find net rate = sum of all signed rates (use LCD)",
+        "3. If net rate ≤ 0, tank never fills — stop",
+        "4. Time = 1 ÷ net rate",
+        "5. Verify: multiply time × each rate, sum must equal exactly 1"
+      ]
+    }
   }
 };
 
