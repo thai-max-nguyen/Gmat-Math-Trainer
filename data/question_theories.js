@@ -33963,6 +33963,794 @@ const QUESTION_THEORIES = {
         "5. Add all columns; do NOT add boundary-point corrections"
       ]
     }
+  },
+  "1563": {
+    "hint": "Convert each average to a sum first (avg × count), then subtract. Never add or compare averages directly.",
+    "theory": {
+      "title": "Mean ↔ Sum Conversion",
+      "icon": "∑",
+      "summary": "An average hides information; a sum reveals it. Multiply average × count to recover the sum — then arithmetic on sums is straightforward.",
+      "keyFacts": [
+        "Sum = Mean × Count  (always — this is the master key)",
+        "Adding a number changes both the sum AND the count",
+        "New element = New sum − Old sum",
+        "Old sum = old mean × old count; New sum = new mean × new count",
+        "Never add or subtract means directly — means are not additive",
+        "If new mean > old mean, the added number must be > new mean"
+      ],
+      "example": {
+        "problem": "Mean of 5 numbers is 18. A sixth number is added and mean becomes 20. Find the sixth number.",
+        "steps": [
+          "Old sum = 18 × 5 = 90",
+          "New sum = 20 × 6 = 120",
+          "Sixth number = 120 − 90 = 30",
+          "Check: 30 > 20 (new mean) ✓ — adding a large number pulls mean up"
+        ],
+        "answer": "30"
+      },
+      "traps": [
+        "22: computing 20 + (20−18) = 22 — wrong shortcut, ignores that all 6 numbers shift",
+        "32: adding the two means (18+20=38) then fiddling — means are not additive",
+        "The sixth number must exceed the new mean (20) when the mean rises — narrows choices fast",
+        "Forgetting to use 6 (new count) for the new sum, using 5 instead"
+      ],
+      "solveSteps": [
+        "1. Old sum = old mean × old count",
+        "2. New sum = new mean × new count (use NEW count)",
+        "3. Missing element = New sum − Old sum",
+        "4. Sanity: if mean rose, added number > new mean; if mean fell, added number < new mean"
+      ]
+    }
+  },
+  "1564": {
+    "hint": "Unequal group sizes → WEIGHTED average. Multiply each mean by its group size, sum, divide by total. Simple average (A+B)/2 is the bait.",
+    "theory": {
+      "title": "Weighted Average — Group Size Matters",
+      "icon": "⚖",
+      "summary": "When groups differ in size, the overall mean is pulled toward the larger group. Simple arithmetic average is wrong unless sizes are equal.",
+      "keyFacts": [
+        "Weighted avg = Σ(group mean × group size) / total count",
+        "Simple avg only works when ALL groups have equal size",
+        "Answer is always pulled toward the LARGER group's mean",
+        "Quick sanity: result must lie between the two group means",
+        "Shortcut: Overall = smaller_mean + (weight_of_larger / total) × (larger_mean − smaller_mean) ... or just compute directly",
+        "If k groups: Σ(nᵢ × x̄ᵢ) / Σnᵢ"
+      ],
+      "example": {
+        "problem": "Group A: 10 students, avg 80. Group B: 20 students, avg 65. What is class average?",
+        "steps": [
+          "Group A total = 10 × 80 = 800",
+          "Group B total = 20 × 65 = 1,300",
+          "Combined total = 800 + 1,300 = 2,100",
+          "Class avg = 2,100 / 30 = 70",
+          "Sanity: Group B is twice as large → answer closer to 65 than 80 ✓"
+        ],
+        "answer": "70"
+      },
+      "traps": [
+        "(80+65)/2 = 72.5 — WRONG. Simple average ignores unequal sizes",
+        "Weighting groups backwards gives 67.5 — always check which group is larger",
+        "Answer must lie between 65 and 80, closer to 65 (larger group)",
+        "'Average of averages' is a red flag — always go back to raw totals"
+      ],
+      "solveSteps": [
+        "1. Identify each group's size and mean",
+        "2. Compute each group's total: size × mean",
+        "3. Sum all totals, divide by total count",
+        "4. Sanity check: result lies between group means, pulled toward larger group",
+        "5. Trap-check: if you got simple avg of means, redo with weights"
+      ]
+    }
+  },
+  "1565": {
+    "hint": "Range = max − min. Ask: do the given averages uniquely pin the minimum and maximum values? Averages tell you sums, not individual extremes.",
+    "theory": {
+      "title": "Range vs. Group Averages — Extremes Not Pinned",
+      "icon": "📊",
+      "summary": "A group average fixes the SUM, not any individual value. Range requires knowing the actual minimum and maximum, which a sum alone cannot determine.",
+      "keyFacts": [
+        "Range = max − min; need BOTH extremes pinned",
+        "Average of n values → fixes SUM only: sum = n × avg",
+        "Median of 7 = 4th value in sorted order (not 4th from each end)",
+        "Knowing sum of a group leaves all individual values free to vary (within order constraints)",
+        "'Cannot be determined' is correct when multiple valid configurations exist",
+        "Watch for: treating group average as if it equals each individual member"
+      ],
+      "example": {
+        "problem": "7 numbers, median = 12, four smallest avg 8, two largest avg 18. Is the range determined?",
+        "steps": [
+          "Sorted: p1 ≤ p2 ≤ p3 ≤ p4 ≤ p5 ≤ p6 ≤ p7; median = p4 = 12",
+          "Four smallest (p1–p4) sum = 4×8 = 32; so p1+p2+p3 = 32−12 = 20",
+          "Two largest (p6–p7) sum = 2×18 = 36",
+          "p1 is free: e.g. (1,9,10,12,…) gives p1=1; (6,7,7,12,…) gives p1=6",
+          "p7 is free: e.g. p6=14,p7=22 or p6=18,p7=18 — both sum to 36",
+          "Different (p1, p7) pairs → different ranges → cannot determine"
+        ],
+        "answer": "E — neither the minimum nor the maximum is uniquely fixed by the given sums"
+      },
+      "traps": [
+        "Trap → range 14: assumes min = 2×(group avg)−median = 2×8−12 = 4 and max = 18; treats average as if it mirrors around median",
+        "Trap → treating avg of top two (18) as the actual maximum value",
+        "Assuming all values in a group are equal to their average",
+        "Forgetting median of 7 is position 4, not position 3 or 3.5"
+      ],
+      "solveSteps": [
+        "1. Identify what each given stat pins: median pins p4; averages pin SUMS only",
+        "2. Check min (p1): sum of p1+p2+p3 = 20 — infinitely many splits possible",
+        "3. Check max (p7): sum of p6+p7 = 36 — p7 ranges from 18 to 24",
+        "4. If EITHER extreme is free, range cannot be determined → answer E",
+        "5. Verify with two explicit counter-examples giving different ranges"
+      ]
+    }
+  },
+  "1566": {
+    "hint": "Current median=7.5 (avg of 7,8). Adding k gives 7 elements — new median is single 4th element. What value must that element be?",
+    "theory": {
+      "title": "Median Shift: Even-n to Odd-n",
+      "icon": "📊",
+      "summary": "When set size is even, median = average of two middle values. Add one element → odd size → median = single middle element. This tightens the constraint dramatically.",
+      "keyFacts": [
+        "Even n: median = avg of (n/2)-th and (n/2+1)-th elements",
+        "Odd n: median = single ((n+1)/2)-th element",
+        "Even → odd transition: new median must be a real value IN the set",
+        "If old median (from avg) is not an integer or not in set, only k equal to that exact avg can preserve it",
+        "Inserting k at position p shifts all elements ≥k one position right — recheck which slot is now 'middle'",
+        "Endpoints trap: k=7 → 4th element=7; k=8 → 4th element=8; neither equals 7.5"
+      ],
+      "example": {
+        "problem": "S={2,5,7,8,11,14}. Add k so median stays 7.5. What must k be?",
+        "steps": [
+          "Current median (6 elements): (3rd+4th)/2 = (7+8)/2 = 7.5",
+          "After adding k: 7 elements → median = 4th element",
+          "For median=7.5, the 4th element must literally equal 7.5",
+          "7.5 ∉ S, so k must equal 7.5 and land in position 4",
+          "Verify: {2,5,7,7.5,8,11,14} → 4th = 7.5 ✓",
+          "k=7 → {2,5,7,7,8,11,14} → 4th=7 ✗; k=8 → 4th=8 ✗"
+        ],
+        "answer": "k = 7.5 (only value that becomes the exact 4th element equaling the old median)"
+      },
+      "traps": [
+        "'Any value between 7 and 8' — WRONG. Odd-n median is a single element, not a range; only 7.5 works",
+        "k=7: ties with existing 7 but pushes 4th slot to 7, not 7.5",
+        "k=8: ties with existing 8 but pushes 4th slot to 8, not 7.5",
+        "Forgetting that even→odd changes HOW the median is computed, not just which elements qualify"
+      ],
+      "solveSteps": [
+        "1. Compute current median (even n = avg of two middles)",
+        "2. Note new size is odd → new median = single middle element",
+        "3. Determine which position is the new middle: (n+1)/2 = 4th of 7",
+        "4. Set that position equal to old median value — solve for k",
+        "5. Verify k slots into exactly that position when inserted into sorted set"
+      ]
+    }
+  },
+  "1567": {
+    "hint": "Glue A+B into one unit → 7 units to arrange. Then multiply by internal arrangements of the pair. Don't forget the 2!",
+    "theory": {
+      "title": "Adjacent Items — Glue Technique",
+      "icon": "🪢",
+      "summary": "Force two items to stay together by treating them as one merged unit. Arrange the units, then multiply by the internal orderings within the glued pair.",
+      "keyFacts": [
+        "Glue adjacent items → 1 unit replaces 2, so n items become (n−1) units",
+        "Arrange (n−1) units: (n−1)! ways",
+        "Multiply by internal arrangements of the glued unit: 2! = 2 if two items",
+        "Total = (n−1)! × 2! for a pair forced adjacent",
+        "Generalizes: k items forced together → (n−k+1)! × k! total"
+      ],
+      "example": {
+        "problem": "8 people in a row; A and B must be adjacent. How many arrangements?",
+        "steps": [
+          "Glue A and B into unit [AB] → now 7 units total",
+          "Arrange 7 units: 7! = 5040",
+          "A and B can swap inside the unit: 2! = 2",
+          "Total = 5040 × 2 = 10,080"
+        ],
+        "answer": "10,080"
+      },
+      "traps": [
+        "7! = 5040 — forgot to multiply by 2! for internal A/B swap",
+        "8! = 40,320 — ignored the adjacency constraint entirely",
+        "Forgetting that [AB] and [BA] are distinct arrangements",
+        "Applying glue only to one ordering (A left of B) and not doubling"
+      ],
+      "solveSteps": [
+        "1. Identify the forced-adjacent group and its size k",
+        "2. Merge into 1 unit → total units = n − k + 1",
+        "3. Arrange all units: (n−k+1)!",
+        "4. Multiply by internal orderings: k!",
+        "5. Final answer = (n−k+1)! × k!"
+      ]
+    }
+  },
+  "1568": {
+    "hint": "'At least 2 women' → split into cases (2W+2M, 3W+1M, 4W+0M) OR use complement: total − (0W) − (1W). Add all valid cases.",
+    "theory": {
+      "title": "'At Least' Combinatorics — Cases vs Complement",
+      "icon": "🧮",
+      "summary": "'At least k' problems have two clean paths: enumerate every valid case, or subtract invalid cases from the total. Pick whichever has fewer cases to compute.",
+      "keyFacts": [
+        "C(n,r) = n! / (r!(n−r)!) — order does NOT matter in committees",
+        "'At least k women' = cases with exactly k, k+1, k+2, … women",
+        "Complement: total − (fewer than k women) — fewer subtractions = less work",
+        "Mixed-group selections: C(group1, x) × C(group2, y) for each case",
+        "Total ways = C(all people, committee size) — baseline for complement method",
+        "Always verify: sum of all cases = C(total, committee size)"
+      ],
+      "example": {
+        "problem": "Committee of 4 from 5 men + 4 women. At least 2 women — how many ways?",
+        "steps": [
+          "Case 2W+2M: C(4,2)×C(5,2) = 6×10 = 60",
+          "Case 3W+1M: C(4,3)×C(5,1) = 4×5 = 20",
+          "Case 4W+0M: C(4,4)×C(5,0) = 1×1 = 1",
+          "Total = 60+20+1 = 81",
+          "Complement check: C(9,4)=126; 0W: C(5,4)=5; 1W: C(4,1)×C(5,3)=40; 126−5−40=81 ✓"
+        ],
+        "answer": "81 (case enumeration and complement both confirm; verify answer choices match problem numbers)"
+      },
+      "traps": [
+        "Forgetting a case — e.g. ignoring the all-women possibility",
+        "Using C(n,r)+C(n,r) instead of C(group1,x)×C(group2,y) for mixed groups",
+        "Applying complement but forgetting to subtract ALL invalid cases (both 0W and 1W)",
+        "Confusing 'at least 2' with 'exactly 2' — exactly 2 gives only 60, not the full count"
+      ],
+      "solveSteps": [
+        "1. Count cases: how many valid (women, men) splits fit committee size?",
+        "2. If few valid cases → enumerate: C(W,w)×C(M,m) per case, sum",
+        "3. If many valid cases → complement: C(total,size) − invalid cases",
+        "4. For each case multiply (not add) the two group combinations",
+        "5. Cross-check: sum of ALL cases (0W through 4W) must equal C(9,4)=126"
+      ]
+    }
+  },
+  "1569": {
+    "hint": "Strictly increasing order means each set of digits has exactly ONE valid arrangement — so count combinations, not permutations. Watch which digit pool applies.",
+    "theory": {
+      "title": "Strictly Ordered Digits → Combinations Only",
+      "icon": "📈",
+      "summary": "When digits must appear in strictly increasing order, every subset of distinct digits maps to exactly one valid number. Counting arrangements collapses to counting subsets — C(n, k).",
+      "keyFacts": [
+        "Strictly increasing: each subset of k digits has exactly 1 valid arrangement",
+        "So: count of valid numbers = C(pool size, k)",
+        "Zero trap: if 0 is in pool and order is increasing, 0 must be leftmost → leading zero → not a valid 4-digit number",
+        "For 4-digit strictly increasing numbers, pool = {1–9}, size 9",
+        "C(9,4) = 9!/(4!×5!) = 126",
+        "C(10,4)=210 includes 0 illegally; C(9,3)=84 is for 3-digit version — both common traps"
+      ],
+      "example": {
+        "problem": "How many 4-digit numbers have all distinct digits in strictly increasing order?",
+        "steps": [
+          "Strictly increasing → only 1 arrangement per digit subset",
+          "Can 0 be used? If included, it must be leftmost (increasing order), giving a leading zero → not 4-digit → exclude 0",
+          "Pool = {1,2,...,9}, choose 4",
+          "C(9,4) = 9!/(4!·5!) = (9×8×7×6)/(4×3×2×1) = 3024/24 = 126",
+          "Each chosen subset automatically arranges itself in one unique increasing order"
+        ],
+        "answer": "126"
+      },
+      "traps": [
+        "C(10,4)=210: including 0 in pool ignores the leading-zero constraint",
+        "C(9,3)=84: off-by-one on k — applies to 3-digit increasing numbers",
+        "Treating this as a permutation problem (P instead of C) massively overcounts",
+        "Forgetting that 'strictly increasing' already fixes the arrangement — no additional divide needed"
+      ],
+      "solveSteps": [
+        "1. Confirm order constraint: strictly increasing → 1 arrangement per subset → use C not P",
+        "2. Identify digit pool: leading-zero constraint? If yes, exclude 0 → pool = {1–9}",
+        "3. Choose k digits from pool: C(pool, k)",
+        "4. Compute: C(9,4) = 126",
+        "5. Verify traps: check C(10,4) and C(9,3) appear in wrong answers as sanity check"
+      ]
+    }
+  },
+  "1570": {
+    "hint": "Seat the boys first, then count gaps. 5 boys create 6 slots (including ends). Choose 3 of 6 gaps, then arrange girls in them.",
+    "theory": {
+      "title": "Non-Adjacent Arrangement — Gap Method",
+      "icon": "🪑",
+      "summary": "When a group must not sit together, seat the unrestricted group first to create natural gaps, then slot the restricted group into those gaps.",
+      "keyFacts": [
+        "n unrestricted items in a row create (n+1) gaps (n−1 internal + 2 ends)",
+        "Place k restricted items: choose C(n+1, k) gaps × k! arrangements",
+        "Unrestricted group arranges independently: n! ways",
+        "Total = n! × C(n+1, k) × k!",
+        "Only works if k ≤ n+1 (can't place more restricted items than gaps exist)",
+        "Gap method is cleaner than complement — complement overcounts adjacency patterns"
+      ],
+      "example": {
+        "problem": "5 boys and 3 girls seated in a row, no two girls adjacent. How many arrangements?",
+        "steps": [
+          "Arrange 5 boys: 5! = 120",
+          "5 boys create 6 gaps: _ B _ B _ B _ B _ B _",
+          "Choose 3 gaps for girls: C(6,3) = 20",
+          "Arrange 3 girls in chosen gaps: 3! = 6",
+          "Total: 120 × 20 × 6 = 14,400"
+        ],
+        "answer": "14,400"
+      },
+      "traps": [
+        "Using only internal gaps (4, not 6) — always include the two end positions",
+        "Computing 8! then subtracting — complement method for adjacency is error-prone",
+        "Forgetting to multiply by k! — choosing gaps ≠ arranging people in them",
+        "Mixing up C(n,k) vs C(n+1,k) — gaps = boys+1, not boys"
+      ],
+      "solveSteps": [
+        "1. Arrange the unrestricted group (boys): n! ways",
+        "2. Count gaps: n unrestricted items → (n+1) gaps total",
+        "3. Choose k gaps for restricted group: C(n+1, k)",
+        "4. Arrange restricted group in chosen gaps: k!",
+        "5. Multiply all three factors"
+      ]
+    }
+  },
+  "1571": {
+    "hint": "DS: find one YES and one NO for each statement, then both together. Watch the factor-of-2 count — 6 has only one 2, but 4 needs two.",
+    "theory": {
+      "title": "Integer Division — Prime Factor Sufficiency",
+      "icon": "÷",
+      "summary": "x/y is an integer only if x contains every prime factor of y with at least equal multiplicity. Knowing which numbers divide x and y separately leaves the exponent relationship open.",
+      "keyFacts": [
+        "x/y is integer ⟺ for every prime p: (# of p in x) ≥ (# of p in y)",
+        "6 = 2¹ × 3¹ — multiples of 6 have AT LEAST one 2, not necessarily two",
+        "4 = 2² — multiples of 4 require AT LEAST two 2s in the denominator",
+        "Key gap: x divisible by 6 guarantees only one 2; y divisible by 4 demands two 2s → possible shortfall",
+        "DS rule: to prove INSUFFICIENT, produce one YES case and one NO case",
+        "To prove SUFFICIENT, show no counterexample exists under all valid values"
+      ],
+      "example": {
+        "problem": "Is x/y an integer, given x divisible by 6 and y divisible by 4?",
+        "steps": [
+          "Case A: x=12 (=2²×3), y=4 (=2²) → 12/4 = 3 ✓ integer",
+          "Case B: x=6 (=2¹×3), y=4 (=2²) → 6/4 = 1.5 ✗ not integer",
+          "Both cases satisfy both statements simultaneously",
+          "YES and NO both possible → combined statements insufficient",
+          "Answer: E"
+        ],
+        "answer": "E — even with both statements, x=6,y=4 gives non-integer while x=12,y=4 gives integer; ambiguity remains"
+      },
+      "traps": [
+        "C-trap: 'knowing numerator AND denominator factors must nail it down' — wrong, multiplicity still varies",
+        "Confusing 'divisible by 6' (has ≥ one 2) with 'divisible by 4' needing two 2s",
+        "Testing only 'nice' values like x=12,y=4 and seeing YES — stopping too early",
+        "Forgetting DS asks for definitiveness, not just a possible integer result"
+      ],
+      "solveSteps": [
+        "1. Statement (1) alone: pick x=6,y=3 (integer) vs x=6,y=4 (not) → NOT sufficient",
+        "2. Statement (2) alone: pick x=8,y=4 (integer) vs x=6,y=4 (not) → NOT sufficient",
+        "3. Both together: find pair satisfying both that gives integer (x=12,y=4) AND non-integer (x=6,y=4)",
+        "4. Since YES and NO both survive both constraints → answer E",
+        "5. Key check: does x always have enough of each prime that y demands? If not → E"
+      ]
+    }
+  },
+  "1572": {
+    "hint": "Each statement gives one prime-factor chunk of 12. Ask: does one chunk alone guarantee 12|n? Try n=3 and n=4 as counterexamples.",
+    "theory": {
+      "title": "Divisibility by Product — Coprime Factor Rule",
+      "icon": "🔢",
+      "summary": "If two divisors are coprime (share no prime factors), divisibility by both guarantees divisibility by their product. One factor alone never guarantees the other.",
+      "keyFacts": [
+        "12 = 3 × 4; GCD(3,4) = 1 → they are coprime",
+        "Coprime rule: if GCD(a,b)=1 and a|n and b|n → ab|n → LCM(a,b)|n",
+        "3|n alone does NOT imply 4|n (e.g. n=3)",
+        "4|n alone does NOT imply 3|n (e.g. n=4)",
+        "Both together: 3|n AND 4|n → 12|n (coprime pair, LCM=12)",
+        "DS flow: test each statement with two values — one making target true, one false"
+      ],
+      "example": {
+        "problem": "Is n divisible by 12, given (1) n divisible by 3, (2) n divisible by 4?",
+        "steps": [
+          "Factor 12 = 3 × 4, GCD(3,4) = 1",
+          "S1 alone: n=3 → 3/12 not integer; n=12 → 12/12=1. Two outcomes → INSUFFICIENT",
+          "S2 alone: n=4 → 4/12 not integer; n=12 → integer. Two outcomes → INSUFFICIENT",
+          "Both: 3|n AND 4|n. Coprime rule: LCM(3,4)=12 → 12|n → SUFFICIENT"
+        ],
+        "answer": "C — neither statement alone pins 12|n, but together the coprime pair covers all prime factors of 12."
+      },
+      "traps": [
+        "Choosing E: thinking two partial conditions still leave doubt — coprime factors don't overlap, so together they're exact",
+        "Choosing D: neither statement alone works; counterexamples n=3 and n=4 kill them",
+        "Forgetting to test both a YES and a NO case for each statement",
+        "Assuming 'divisible by 3 and 4' automatically means 'by 12' without checking coprimality — it works here because GCD=1, but would fail if factors shared primes"
+      ],
+      "solveSteps": [
+        "1. Factor the target divisor: 12 = 3 × 4, note GCD(3,4)=1",
+        "2. Test S1 alone: find one n satisfying S1 where target is true AND one where false → INSUFFICIENT",
+        "3. Test S2 alone: same two-case test → INSUFFICIENT",
+        "4. Combine: apply coprime rule — if GCD(a,b)=1, a|n, b|n → LCM(a,b)=ab|n → SUFFICIENT",
+        "5. Answer C"
+      ]
+    }
+  },
+  "1573": {
+    "hint": "Factor 15, 25, and 45 into primes. Ask: does each statement guarantee BOTH prime factors of 15 are present in n?",
+    "theory": {
+      "title": "Divisibility by Composite — Prime Factor Coverage",
+      "icon": "🔢",
+      "summary": "n is a multiple of k if and only if every prime factor of k (with multiplicity) divides n. Check each statement: does it supply ALL required primes?",
+      "keyFacts": [
+        "n multiple of k ⟺ prime factorization of k is a subset of prime factorization of n",
+        "15 = 3 × 5 → need BOTH 3 | n AND 5 | n",
+        "25 = 5² → guarantees 5 | n, says NOTHING about 3 | n",
+        "45 = 3² × 5 → guarantees 3 | n AND 5 | n → 15 | n",
+        "If a statement gives a superset of k's prime factors, it is sufficient alone",
+        "DS rule: try to find one YES and one NO case to prove insufficiency"
+      ],
+      "example": {
+        "problem": "Is integer n a multiple of 15? (1) n is a multiple of 25. (2) n is a multiple of 45.",
+        "steps": [
+          "15 = 3 × 5 — need both factors",
+          "S1: 25 = 5². Test n=25: 25/15 not integer → NO. Test n=75: 75/15=5 → YES. Two outcomes → insufficient",
+          "S2: 45 = 3² × 5. Contains 3 and 5, both factors of 15. Every multiple of 45 is automatically a multiple of 15 → sufficient",
+          "S2 alone decides the question"
+        ],
+        "answer": "B — statement 2 alone is sufficient because 45's prime factorization contains all prime factors of 15; statement 1 lacks the factor 3."
+      },
+      "traps": [
+        "Assuming both statements are needed because S1 'adds' a factor 5 — but S2 already has everything",
+        "Choosing D: S1 (multiples of 25) does NOT cover factor 3 — counterexample 25 itself",
+        "Forgetting to test a counterexample for S1; 75 is a multiple of 25 AND 15, which creates false confidence",
+        "Confusing 'multiple of 25' with 'multiple of 5' — 25 = 5², but 3 is still missing"
+      ],
+      "solveSteps": [
+        "1. Factor the target: 15 = 3 × 5",
+        "2. For each statement, prime-factor the given multiple",
+        "3. Check if statement's prime factors are a superset of target's prime factors",
+        "4. If yes → sufficient alone; if missing any factor → try YES/NO counterexamples to confirm insufficiency",
+        "5. Apply DS answer key: S1 insuff, S2 suff → answer B"
+      ]
+    }
+  },
+  "1574": {
+    "hint": "St(1): x² ∈ Z⁺ sounds strong, but test irrational/negative counterexamples. St(2): work backward — if √x is a positive integer, what must x equal?",
+    "theory": {
+      "title": "Integer Preservation — Powers vs. Roots",
+      "icon": "√",
+      "summary": "Squaring does NOT guarantee the base is an integer (√2 squared = 2). But a positive integer square root forces x to be a perfect square — a positive integer.",
+      "keyFacts": [
+        "x² ∈ Z⁺ does NOT force x ∈ Z: e.g. x = √3 → x² = 3, but x is irrational",
+        "x² ∈ Z⁺ does NOT force x > 0: x = −1 → x² = 1",
+        "√x ∈ Z⁺ means x = k² for some positive integer k → x IS a positive integer",
+        "'Positive integer square root' is a two-for-one: x ≥ 0 AND x is a perfect square",
+        "DS habit: find one counterexample to kill a statement; find ironclad algebra to confirm one"
+      ],
+      "example": {
+        "problem": "Is x a positive integer? (1) x² is a positive integer. (2) √x is a positive integer.",
+        "steps": [
+          "St(1): try x = √2 → x² = 2 ✓ (pos int), but x ∉ Z → INSUFFICIENT",
+          "St(1): also try x = −1 → x² = 1 ✓, but x < 0 → still INSUFFICIENT",
+          "St(2): let √x = k where k ∈ Z⁺. Then x = k² — a positive perfect square → SUFFICIENT",
+          "St(2) alone answers YES definitively; no counterexample possible"
+        ],
+        "answer": "B — statement 2 alone forces x = k² (positive integer); statement 1 allows irrational or negative x."
+      },
+      "traps": [
+        "x² being a positive integer feels like strong info — it isn't; irrationals squared can be integers",
+        "Forgetting x could be negative for St(1): x = −1 gives x² = 1",
+        "Assuming both together are needed (C) when St(2) already closes the question alone",
+        "Confusing direction: √x ∈ Z⁺ → x ∈ Z⁺ is valid; x ∈ Z⁺ → √x ∈ Z⁺ is NOT (x=2 is not a perfect square)"
+      ],
+      "solveSteps": [
+        "1. St(1): construct counterexamples — try x = √n (irrational) and x = −1",
+        "2. If counterexample found, mark INSUFFICIENT; move to St(2)",
+        "3. St(2): set √x = k (positive integer) and solve for x algebraically",
+        "4. If x is pinned to a single type (positive integer), mark SUFFICIENT",
+        "5. Answer B — St(2) alone sufficient, St(1) alone not"
+      ]
+    }
+  },
+  "1575": {
+    "hint": "Split the fraction: (p+q)/q = p/q + 1. If the sum is an integer and 1 is an integer, what must p/q be? Test each statement independently.",
+    "theory": {
+      "title": "Divisibility via Decomposition",
+      "icon": "🔢",
+      "summary": "When a sum or difference is divisible by q, split the fraction: (p±q)/q = p/q ± 1. Integer ± integer = integer, so p/q's nature is pinned.",
+      "keyFacts": [
+        "(p+q)/q = p/q + 1 — always valid algebra",
+        "integer + integer = integer; so if (p+q)/q is integer, p/q must be integer",
+        "(p−q)/q = p/q − 1 — same decomposition works",
+        "'Divisible by q' means the expression equals an integer",
+        "Each statement independently forces p/q to integer status — no combination needed",
+        "DS rule: try each statement alone before assuming you need both"
+      ],
+      "example": {
+        "problem": "Are positive integers p and q such that p/q is an integer, given (1) q | (p+q) or (2) q | (p−q)?",
+        "steps": [
+          "S1: (p+q)/q = p/q + 1. Given integer, so p/q = integer − 1 = integer. SUFFICIENT.",
+          "S2: (p−q)/q = p/q − 1. Given integer, so p/q = integer + 1 = integer. SUFFICIENT.",
+          "Each statement alone locks p/q as integer — answer D."
+        ],
+        "answer": "D — each statement alone is sufficient because splitting the fraction reduces the condition directly to p/q = integer ± 1."
+      },
+      "traps": [
+        "Picking C — thinking you need both, when each independently works",
+        "Picking E — assuming (p+q) or (p−q) conditions say nothing about p/q directly",
+        "Forgetting to split: treat (p+q)/q as a single block instead of p/q + 1",
+        "Confusing 'divisible by q' with 'divisible by p' — direction matters"
+      ],
+      "solveSteps": [
+        "1. Rewrite: does the statement give (p+q)/q or (p−q)/q as integer?",
+        "2. Decompose: (p±q)/q = p/q ± 1",
+        "3. Apply integer arithmetic: integer ± 1 = integer ↔ p/q is integer",
+        "4. Conclude sufficiency for that statement, then test the other independently",
+        "5. Both sufficient alone → answer D"
+      ]
+    }
+  },
+  "1576": {
+    "hint": "Factor each inequality, mark roots on a number line, check ALL sign intervals. Negative x can satisfy both conditions — list every solution set before concluding.",
+    "theory": {
+      "title": "Polynomial Inequalities — Sign Chart Method",
+      "icon": "±",
+      "summary": "Factor f(x) > 0 into linear pieces, mark roots, alternate signs interval by interval. Never assume x > 0 just because a high-power expression dominates.",
+      "keyFacts": [
+        "Rearrange first: x² > x → x(x−1) > 0 → x < 0 OR x > 1",
+        "x³ > x → x(x−1)(x+1) > 0. Roots −1, 0, 1 split number line into 4 intervals",
+        "Sign chart: test one value per interval; signs alternate at each simple root",
+        "x ∈ (−1, 0) satisfies x³ > x even though x is negative: (−0.5)³ = −0.125 > −0.5 ✓",
+        "DS sufficiency: does EVERY x in the solution set give the same YES/NO? Mixed sign → NOT sufficient",
+        "Combining statements: intersect both solution sets; if mixed signs survive → E"
+      ],
+      "example": {
+        "problem": "Is x > 0? (1) x² > x  (2) x³ > x",
+        "steps": [
+          "S1: x(x−1) > 0 → x < 0 OR x > 1. Both signs present → NOT sufficient.",
+          "S2: x(x+1)(x−1) > 0. Roots: −1, 0, 1. Sign chart gives positive on (−1, 0) and (1, ∞).",
+          "S2 alone: x ∈ (−1, 0) [negative] or x > 1 [positive] → NOT sufficient.",
+          "Both together: {x < 0 or x > 1} ∩ {(−1,0) or x > 1} = (−1, 0) or x > 1 → still mixed sign.",
+          "Intersection leaves negative window open → neither alone nor together sufficient."
+        ],
+        "answer": "E — x ∈ (−1, 0) satisfies both statements yet x < 0, so even combined they cannot confirm x > 0."
+      },
+      "traps": [
+        "Trap B: x³ > x seems to force x > 1 — the (−1, 0) interval is invisible without a sign chart",
+        "Trap C: 'together must be stronger' — intersection here still straddles zero",
+        "Never cancel x from xⁿ > x algebraically without case-splitting on sign of x",
+        "High powers feel 'positive' but negative fractions cubed just become smaller negatives"
+      ],
+      "solveSteps": [
+        "1. Rearrange: move all terms left (e.g., x³ − x > 0).",
+        "2. Factor completely; list all real roots (critical points).",
+        "3. Sign chart: mark roots on number line, test one point per interval.",
+        "4. Write solution set; ask 'do ALL values give same YES/NO to the DS question?'",
+        "5. If combining: intersect both sets. Mixed signs still present → NOT sufficient → pick E."
+      ]
+    }
+  },
+  "1577": {
+    "hint": "xy>0 requires BOTH variables same sign. Check each statement: can x be pos while y is neg (or vice versa) and still satisfy the inequality? Find one Yes and one No example for each.",
+    "theory": {
+      "title": "Sign of a Product — Linear Inequalities vs. Same-Sign",
+      "icon": "±",
+      "summary": "xy>0 iff x and y share the same sign. Linear inequalities constrain sums/differences, NOT individual signs — a large positive can dominate a small negative and satisfy both without forcing same-sign.",
+      "keyFacts": [
+        "xy > 0 ⟺ (x>0 AND y>0) OR (x<0 AND y<0)",
+        "x+y > 0 only guarantees the larger magnitude is positive — y can still be negative",
+        "x−y > 0 ⟺ x > y — says ordering, not individual signs",
+        "Adding x+y>0 and x−y>0 gives 2x>0 → x>0, but y's sign remains free",
+        "Knowing x>0 alone is never sufficient to determine sign of xy",
+        "For DS: 'NOT sufficient' needs ONE Yes example AND ONE No example",
+        "Classic E trap: combining two linear inequalities feels more powerful than it is"
+      ],
+      "example": {
+        "problem": "Is xy > 0, given x+y>0 AND x−y>0?",
+        "steps": [
+          "From x+y>0 and x>y, add: 2x>0 → x>0 confirmed",
+          "Now test y>0: x=3, y=1 → xy=3>0 ✓",
+          "Now test y<0: x=3, y=−1 → x+y=2>0 ✓, x>y ✓, but xy=−3<0 ✗",
+          "Both counterexamples satisfy ALL conditions yet give opposite answers",
+          "Cannot determine sign of xy → not sufficient"
+        ],
+        "answer": "E — even combined, statements allow xy<0 (x=3,y=−1) and xy>0 (x=3,y=1)"
+      },
+      "traps": [
+        "Assuming x+y>0 forces both positive — one large pos + small neg also works",
+        "Assuming combining inequalities eliminates all sign ambiguity (classic C trap here)",
+        "Forgetting to test negative-y case once you've deduced x>0",
+        "Stopping at 'x>0 confirmed' and calling it sufficient — y's sign is still free"
+      ],
+      "solveSteps": [
+        "1. Restate target: xy>0 requires same sign — need to pin both x>0,y>0 OR both negative",
+        "2. For each statement, construct a Yes case (xy>0) and a No case (xy<0) that satisfies it",
+        "3. If both cases exist → NOT sufficient alone",
+        "4. Test both statements combined — try x large positive, y small negative to probe the E scenario",
+        "5. If you still get Yes and No → answer is E"
+      ]
+    }
+  },
+  "1578": {
+    "hint": "x/|x| = 1 iff x > 0. Ask: does each statement — alone or combined — guarantee x is strictly positive?",
+    "theory": {
+      "title": "Sign Function x/|x| — Strictly Positive Test",
+      "icon": "±",
+      "summary": "x/|x| is the sign of x: +1 when x>0, −1 when x<0, undefined at 0. The question reduces to 'is x strictly positive?' — any statement that allows even one negative value is insufficient.",
+      "keyFacts": [
+        "x/|x| = +1 if x > 0; = −1 if x < 0; undefined if x = 0",
+        "So x/|x| = 1 ⟺ x > 0 (strictly)",
+        "x > −1 allows (−1, 0) — negative fractions satisfy it",
+        "x ≠ 0 still leaves all of ℝ\\ {0} — positive AND negative",
+        "Combined x > −1 AND x ≠ 0 still includes (−1, 0): e.g. x = −0.5 → ratio = −1",
+        "Only x > 0 (strictly) settles the question YES; anything allowing negative x = insufficient"
+      ],
+      "example": {
+        "problem": "Is x/|x| = 1? (1) x > −1. (2) x ≠ 0.",
+        "steps": [
+          "Rewrite goal: x/|x| = 1 ⟺ x > 0",
+          "Stmt 1: x > −1. Try x = −0.5: ratio = −1 (No). Try x = 2: ratio = 1 (Yes). Two outcomes → NOT sufficient",
+          "Stmt 2: x ≠ 0. Try x = −3: ratio = −1 (No). Try x = 3: ratio = 1 (Yes). NOT sufficient",
+          "Combined: x > −1 AND x ≠ 0. x = −0.5 still valid → ratio = −1 (No). x = 1 → ratio = 1 (Yes). STILL both outcomes",
+          "Conclusion: neither alone nor together pins x > 0"
+        ],
+        "answer": "E — both statements together still permit x ∈ (−1, 0), giving ratio = −1, so the question cannot be answered definitively."
+      },
+      "traps": [
+        "Choosing C: 'x > −1 and x ≠ 0 must mean positive' — forgetting (−1, 0) is a valid range",
+        "Thinking x > −1 eliminates all negatives — it only cuts x ≤ −1",
+        "Forgetting x/|x| is undefined at 0, not 0 itself",
+        "Treating x ≠ 0 as 'x is positive' — negatives satisfy x ≠ 0 too"
+      ],
+      "solveSteps": [
+        "1. Simplify target: x/|x|=1 ⟺ x>0. The real question is 'is x strictly positive?'",
+        "2. Test each statement with two values: one positive, one negative (or fractional negative)",
+        "3. If both YES and NO are achievable → NOT sufficient",
+        "4. Check combined: find a value satisfying BOTH statements that gives NO — if found, answer is E",
+        "5. For any absolute-value sign question, always probe the interval between the bound and 0"
+      ]
+    }
+  },
+  "1579": {
+    "hint": "Squaring kills sign info. Ask: does each statement pin the signs of BOTH x and y — or only one? Test each alone with a counterexample.",
+    "theory": {
+      "title": "Sign Analysis — Squared Terms Strip Sign Info",
+      "icon": "±",
+      "summary": "x/y > 0 iff x and y share the same sign. Squared terms (x², y²) are always positive, so they reveal the OTHER variable's sign, not the squared one's.",
+      "keyFacts": [
+        "x/y > 0 ⟺ x and y have the same sign (both + or both −)",
+        "x² > 0 for ALL x ≠ 0 — squaring strips sign; tells you nothing about x's sign",
+        "x²·y > 0 → y > 0, but x can be + or − → sign of x unknown",
+        "x·y² > 0 → x > 0, but y can be + or − → sign of y unknown",
+        "Determining x/y > 0 requires pinning the signs of BOTH x AND y",
+        "Two individually insufficient statements can together complete the picture → answer C"
+      ],
+      "example": {
+        "problem": "x, y ≠ 0. Is x/y > 0? (1) x²y > 0  (2) xy² > 0",
+        "steps": [
+          "Target: x/y > 0 ⟺ same sign → need sign of x AND sign of y",
+          "S1: x² > 0 always → y > 0. But x = 1,y = 1 gives x/y > 0; x = −1,y = 1 gives x/y < 0. INSUFFICIENT.",
+          "S2: y² > 0 always → x > 0. But x = 1,y = 1 gives x/y > 0; x = 1,y = −1 gives x/y < 0. INSUFFICIENT.",
+          "Together: S1 pins y > 0, S2 pins x > 0. Both positive → x/y > 0. SUFFICIENT."
+        ],
+        "answer": "C — S1 alone leaves x's sign unknown; S2 alone leaves y's sign unknown. Together they pin both x > 0 and y > 0, making x/y > 0 certain."
+      },
+      "traps": [
+        "Picking D because each statement 'contains information' — always test counterexamples first",
+        "Thinking x²y > 0 says something about x's sign — it only constrains y",
+        "Forgetting x/y > 0 also when both are negative (missed when only testing positive cases)",
+        "Picking E — the statements do resolve it when combined"
+      ],
+      "solveSteps": [
+        "1. Reframe the question: what sign condition is needed? (same sign for x/y > 0)",
+        "2. For each statement, identify which variable is squared → that variable's sign is free; the OTHER is pinned",
+        "3. Test each statement ALONE with a counterexample — if one yes + one no → INSUFFICIENT",
+        "4. Combine: does S1+S2 together pin both variables' signs?",
+        "5. Assign A/B/C/D/E based on sufficiency results"
+      ]
+    }
+  },
+  "1580": {
+    "hint": "Factor-sign analysis: product > 0 when both factors same sign. Test each statement's range — does it force a definitive YES or NO every time?",
+    "theory": {
+      "title": "Quadratic Inequalities — Sign Chart Method",
+      "icon": "📊",
+      "summary": "A product of two linear factors is positive when both are positive OR both are negative. Map the sign of each factor across the number line to find where the product changes sign.",
+      "keyFacts": [
+        "(A)(B) > 0 ⟺ both positive OR both negative",
+        "Critical points are roots: set each factor = 0 and mark on number line",
+        "Number line splits into 3 regions; signs alternate at each root",
+        "Test one value per region — sign holds for the entire region",
+        "For DS: check if the given range lands entirely in one sign region"
+      ],
+      "example": {
+        "problem": "Is (x − 3)(x + 2) > 0?  (1) x > 3  (2) x < −2",
+        "steps": [
+          "Roots: x = 3 and x = −2. Three regions: x < −2, −2 < x < 3, x > 3",
+          "Region x < −2: (−)(−) = + → product positive",
+          "Region −2 < x < 3: (+)(−) = − → product negative",
+          "Region x > 3: (+)(+) = + → product positive",
+          "Stmt 1 (x > 3): always in positive region → YES, sufficient",
+          "Stmt 2 (x < −2): always in positive region → YES, sufficient"
+        ],
+        "answer": "D — each statement alone locks x into a region where the product is definitively positive"
+      },
+      "traps": [
+        "Thinking you need BOTH regions covered to be sufficient — each statement only needs to give a consistent YES or NO",
+        "Forgetting negative × negative = positive — the left region also satisfies the inequality",
+        "Choosing C because neither statement 'covers all cases' — sufficiency ≠ exhaustiveness, just consistency",
+        "Skipping the sign chart and guessing based on one test value"
+      ],
+      "solveSteps": [
+        "1. Find roots of each factor; plot on number line",
+        "2. Identify sign of product in each region (alternates, or test a value)",
+        "3. For each DS statement, determine which region(s) it allows",
+        "4. If statement forces x into one region → answer is always same YES/NO → SUFFICIENT",
+        "5. If statement spans two regions with different signs → INSUFFICIENT"
+      ]
+    }
+  },
+  "1581": {
+    "hint": "Ask: does any statement directly give x+y — not x and y separately? A statement can be sufficient even if individual variables are unknown.",
+    "theory": {
+      "title": "DS — Sufficiency for Expressions, Not Variables",
+      "icon": "🎯",
+      "summary": "GMAT DS often asks for a combination like x+y, not the individual values. If a statement pins that exact combination, it's sufficient — no need to solve for x and y separately.",
+      "keyFacts": [
+        "Target = expression (x+y): sufficient if you can compute x+y, even without knowing x or y alone",
+        "3(x+y)=24 → x+y=8: one equation, one unknown (the expression itself)",
+        "x−y=2 gives the DIFFERENCE, not the SUM — different linear combination, insufficient alone",
+        "Two unknowns need two independent equations only when asked for INDIVIDUAL values",
+        "Combine only if neither statement alone works — don't auto-jump to C because you see two variables",
+        "Always simplify statements first; hidden sufficiency often revealed by factoring or dividing"
+      ],
+      "example": {
+        "problem": "What is x+y? (1) 3x+3y=24  (2) x−y=2",
+        "steps": [
+          "Statement (1): factor → 3(x+y)=24 → x+y=8. Done. SUFFICIENT",
+          "Statement (2): x−y=2. Try x=3,y=1 → x+y=4; x=5,y=3 → x+y=8. Different sums. NOT SUFFICIENT",
+          "Statement (1) alone answers the question; stop here"
+        ],
+        "answer": "A — statement (1) directly yields x+y=8; statement (2) only constrains x−y, leaving x+y undetermined"
+      },
+      "traps": [
+        "Picking C: seeing two variables and assuming you always need two equations — wrong when question asks for a combo",
+        "Picking D: statement (2) gives x−y, not x+y — different expression, doesn't help",
+        "Forgetting to simplify: 3x+3y=24 looks like two unknowns until you factor out 3",
+        "Solving for x AND y when question only needs x+y — wastes time and misses the point"
+      ],
+      "solveSteps": [
+        "1. Identify exact target: the question asks for x+y, a linear combination",
+        "2. Test Statement (1): simplify/factor — does it directly give x+y? If yes, SUFFICIENT",
+        "3. Test Statement (2): does it give x+y or something else? If something else, check multiple scenarios for x+y",
+        "4. If one statement suffices, compare A vs B — whichever statement worked alone is the answer",
+        "5. Never assume two variables require two equations — match the statement to the TARGET expression, not individual unknowns"
+      ]
+    }
+  },
+  "1582": {
+    "hint": "Can you express x²+y² using (x+y)² and xy together? Check whether each statement alone fills both unknowns in the identity.",
+    "theory": {
+      "title": "Sum of Squares via Algebraic Identity",
+      "icon": "🔲",
+      "summary": "x²+y² hides inside (x+y)² = x²+2xy+y². Rearrange to x²+y² = (x+y)²−2xy — two inputs, two statements.",
+      "keyFacts": [
+        "(x+y)² = x²+2xy+y²  →  x²+y² = (x+y)²−2xy",
+        "Need BOTH (x+y)² AND xy to compute x²+y²",
+        "(x−y)² = x²−2xy+y²  →  x²+y² = (x−y)²+2xy (alternate form)",
+        "x²+y² is always ≥ 0; equals 0 only if x=y=0",
+        "DS: check each statement plugs one piece of the identity; together they plug both"
+      ],
+      "example": {
+        "problem": "What is x²+y²?  (1) (x+y)²=25  (2) xy=6",
+        "steps": [
+          "Write identity: x²+y² = (x+y)²−2xy",
+          "St(1) gives (x+y)²=25 but xy unknown → expression = 25−2xy, range of values. Insufficient.",
+          "St(2) gives xy=6 so 2xy=12 but (x+y)² unknown → 25 could be anything. Insufficient.",
+          "Both: x²+y² = 25−2(6) = 25−12 = 13. Unique value. Sufficient."
+        ],
+        "answer": "C — neither statement alone supplies both terms of the identity, but together they uniquely determine x²+y²=13."
+      },
+      "traps": [
+        "St(1) alone: (x+y)²=25 looks complete but hides the unknown cross-term 2xy",
+        "Thinking x and y must be integers (e.g. 3,4) and 'solving' — multiple real pairs satisfy each statement",
+        "Overlooking that xy=6 alone leaves (x+y)² completely free",
+        "Choosing E by doubting the identity resolves to a unique number"
+      ],
+      "solveSteps": [
+        "1. Spot the target: x²+y² — write the identity (x+y)²=x²+2xy+y²",
+        "2. Rearrange: x²+y²=(x+y)²−2xy — identify the TWO unknowns needed",
+        "3. Test St(1): fills (x+y)²=25 but leaves 2xy free → insufficient",
+        "4. Test St(2): fills xy=6 but leaves (x+y)² free → insufficient",
+        "5. Combine: both inputs present → unique answer. Choose C."
+      ]
+    }
   }
 };
 
