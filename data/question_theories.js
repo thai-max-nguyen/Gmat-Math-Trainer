@@ -30022,6 +30022,795 @@ const QUESTION_THEORIES = {
         "5. If combined range still straddles threshold → answer E"
       ]
     }
+  },
+  "1288": {
+    "hint": "Find LCM(6,10) first, then count multiples in range, then SUBTRACT the ones also divisible by 9 via LCM(30,9).",
+    "theory": {
+      "title": "LCM Divisibility Counting in a Range",
+      "icon": "🔢",
+      "summary": "'Divisible by A AND B' means divisible by LCM(A,B). Counting multiples in a range uses ⌊max/n⌋ − ⌊(min−1)/n⌋. A 'but NOT by C' clause requires a second LCM and a subtraction step.",
+      "keyFacts": [
+        "Div by A AND B ↔ div by LCM(A, B)",
+        "Multiples of n from a to b (inclusive): ⌊b/n⌋ − ⌊(a−1)/n⌋",
+        "Div by n AND by m ↔ div by LCM(n, m)",
+        "'But NOT divisible by C': subtract count(div by LCM(n,C))",
+        "LCM(6,10)=30; LCM(30,9)=90",
+        "Always list candidates when count is small — catches arithmetic errors"
+      ],
+      "example": {
+        "problem": "How many integers 100–400 divisible by 30 but not by 9?",
+        "steps": [
+          "LCM(6,10)=30. Multiples of 30 in [100,400]: ⌊400/30⌋−⌊99/30⌋ = 13−3 = 10",
+          "List them: 120,150,180,210,240,270,300,330,360,390",
+          "LCM(30,9)=90. Multiples of 90 in range: ⌊400/90⌋−⌊99/90⌋ = 4−1 = 3",
+          "Those 3: 180, 270, 360 (each ÷9 cleanly)",
+          "Answer: 10 − 3 = 7"
+        ],
+        "answer": "7 (trap C=10 omits the exclusion step; trap A=8 miscounts range)"
+      },
+      "traps": [
+        "Forgetting the 'NOT by 9' step and stopping at 10 — the most common error",
+        "Using GCF instead of LCM for 'divisible by both'",
+        "Off-by-one in range formula: use ⌊(min−1)/n⌋, not ⌊min/n⌋",
+        "Assuming LCM(30,9)=30×9=270 instead of 90 (9=3², 30=2·3·5 → LCM=2·3²·5=90)"
+      ],
+      "solveSteps": [
+        "1. Compute LCM of the two divisors → call it n",
+        "2. Count multiples of n in range: ⌊max/n⌋ − ⌊(min−1)/n⌋",
+        "3. For 'NOT by k': compute LCM(n, k), count its multiples same way",
+        "4. Subtract step-3 count from step-2 count",
+        "5. Verify by listing if count ≤ ~15"
+      ]
+    }
+  },
+  "1290": {
+    "hint": "Sum each valid Democrat count ≥ 3: use C(6,k)×C(4,5−k) for k=3,4,5. Divide sum by C(10,5). Don't skip the all-Democrat case.",
+    "theory": {
+      "title": "Committee Probability — Composite Combinations",
+      "icon": "🗳",
+      "summary": "When a committee must meet a composition constraint, count favorable outcomes by summing C(group1,x)×C(group2,k−x) for each valid split. Total = C(pool,size).",
+      "keyFacts": [
+        "P = favorable / C(n,k) where n=pool size, k=committee size",
+        "Majority in a 5-person committee = at least 3 (≥ 3, not > 2.5 ambiguity)",
+        "Each valid split: C(Democrats, x) × C(Republicans, 5−x)",
+        "C(n,r) = 0 if r > n — eliminates impossible cases (e.g. 5 Reps from 4)",
+        "Complement: P(at least j) = 1 − P(fewer than j); use whichever side has fewer terms",
+        "Order never matters in committee selection — always combinations, not permutations"
+      ],
+      "example": {
+        "problem": "Pick 5 from 6 Democrats + 4 Republicans. P(at least 3 Democrats)?",
+        "steps": [
+          "Total: C(10,5) = 252",
+          "3D+2R: C(6,3)×C(4,2) = 20×6 = 120",
+          "4D+1R: C(6,4)×C(4,1) = 15×4 = 60",
+          "5D+0R: C(6,5)×C(4,0) = 6×1 = 6",
+          "Favorable = 120+60+6 = 186",
+          "P = 186/252 = 31/42 ≈ 0.738"
+        ],
+        "answer": "186/252 = 31/42"
+      },
+      "traps": [
+        "Forgetting 5D+0R — all-Democrat committee is valid since 6 ≥ 5",
+        "Using permutations (n!/(n−k)!) instead of combinations — committee order is irrelevant",
+        "Treating 'majority of 5' as > 2 meaning only 3, missing 4 and 5",
+        "Not zeroing out impossible splits: 0D+5R fails because only 4 Republicans exist"
+      ],
+      "solveSteps": [
+        "1. Compute total outcomes: C(total pool, committee size)",
+        "2. List all Democrat counts satisfying the constraint (majority → 3, 4, or 5)",
+        "3. For each count x: calculate C(6,x) × C(4, 5−x)",
+        "4. Sum valid products → favorable count",
+        "5. Divide favorable by total; consider complement if the excluded side has fewer cases"
+      ]
+    }
+  },
+  "1291": {
+    "hint": "Set up the equation from S1 carefully — 'twice as old as she WAS 4 years ago' means 2(m−4), not 2(m+4). Does S1 give one unique age?",
+    "theory": {
+      "title": "Age Problems — Translating Time Shifts",
+      "icon": "🎂",
+      "summary": "Age problems hinge on correctly translating 'X years ago' and 'X years from now' into algebra. A single well-formed equation pins one unique value; a range never does.",
+      "keyFacts": [
+        "Current age = m. Future: m+k. Past: m−k",
+        "'Will be twice as old as she WAS k years ago' → m+k = 2(m−k) (both shifts relative to NOW)",
+        "One linear equation with one unknown → unique solution → DS sufficient",
+        "An inequality (range) almost never pins a unique integer or real value → insufficient",
+        "DS test: sufficient means EXACTLY ONE answer, not 'probably' or 'narrowed down'",
+        "Combine S1+S2 only if neither alone works; here S1 alone resolves it"
+      ],
+      "example": {
+        "problem": "In 8 years, Maria will be twice as old as she was 4 years ago. How old is she now?",
+        "steps": [
+          "Let current age = m",
+          "'In 8 years' → m+8; '4 years ago' → m−4",
+          "Equation: m+8 = 2(m−4)",
+          "Expand: m+8 = 2m−8",
+          "Solve: 16 = m"
+        ],
+        "answer": "16"
+      },
+      "traps": [
+        "Writing m+8 = 2(m+4) — wrong sign on 'years ago'; always subtract for the past",
+        "Treating 15 < m < 25 as sufficient because it 'sounds restrictive' — a range with many integers is never sufficient on DS",
+        "Forgetting to verify the equation makes sense: plug m=16 back → 24 = 2(12) ✓",
+        "Jumping to C (both needed) without fully working out S1 alone"
+      ],
+      "solveSteps": [
+        "1. Assign variable: let m = current age",
+        "2. Translate each time-shift phrase carefully (future = m+k, past = m−k)",
+        "3. Test S1: form the equation, solve — unique value? → SUFFICIENT",
+        "4. Test S2: inequality gives a range of values → INSUFFICIENT",
+        "5. Answer A — S1 alone sufficient, S2 alone not"
+      ]
+    }
+  },
+  "1292": {
+    "hint": "Two sides + included angle → Area = ½·a·b·sin(C). Identify sin(60°) = √3/2 correctly before multiplying.",
+    "theory": {
+      "title": "Triangle Area — Two Sides & Included Angle",
+      "icon": "△",
+      "summary": "When you know two sides and the angle between them, skip the base-height hunt. Area = ½·a·b·sin(C) handles it directly. The sine of the included angle scales the full rectangle down to the triangle.",
+      "keyFacts": [
+        "Area = ½ · a · b · sin(C), where C is the INCLUDED angle between sides a and b",
+        "sin(30°) = 1/2 · sin(45°) = √2/2 · sin(60°) = √3/2 · sin(90°) = 1",
+        "If C = 90°, formula collapses to ½·a·b — the standard right-triangle area",
+        "Larger included angle → larger area (up to 90°); sin drops for obtuse angles beyond 90°",
+        "½·a·b gives the MAX possible area; sin(C) ≤ 1 always scales it down or equal"
+      ],
+      "example": {
+        "problem": "Triangle with two sides 10 and 12, included angle 60°. Find area.",
+        "steps": [
+          "Write formula: Area = ½ · 10 · 12 · sin(60°)",
+          "sin(60°) = √3/2",
+          "Area = ½ · 120 · √3/2",
+          "= 60 · √3/2",
+          "= 30√3"
+        ],
+        "answer": "30√3"
+      },
+      "traps": [
+        "Using ½·a·b = 60 directly — treats angle as 90° (sin(90°)=1), ignores the actual angle",
+        "Plugging sin(30°) = 1/2 instead of sin(60°) = √3/2 — off-by-one on the table",
+        "Forgetting the ½ factor: 10·12·sin(60°) = 60√3, exactly double the answer",
+        "Using sin(45°) = √2/2 when the angle is 60° — produces 30√2"
+      ],
+      "solveSteps": [
+        "1. Identify the two given sides and the angle BETWEEN them (included angle)",
+        "2. Write Area = ½ · side1 · side2 · sin(included angle)",
+        "3. Recall exact sine value: sin(30°)=½, sin(45°)=√2/2, sin(60°)=√3/2",
+        "4. Multiply through carefully — keep the ½ factor",
+        "5. Sanity: result must be less than ½·a·b (unless angle = 90°)"
+      ]
+    }
+  },
+  "1295": {
+    "hint": "Find roots, then ask: where is the product NEGATIVE? Upward parabola dips below zero BETWEEN its roots.",
+    "theory": {
+      "title": "Quadratic Inequality — Sign Chart Method",
+      "icon": "📉",
+      "summary": "For (x−a)(x−b) < 0 with a < b, the product is negative only between the roots. The parabola opens up, so it dips below zero in the middle interval.",
+      "keyFacts": [
+        "Find roots by setting each factor = 0",
+        "(x−a)(x−b) < 0  →  a < x < b  (between roots)",
+        "(x−a)(x−b) > 0  →  x < a  or  x > b  (outside roots)",
+        "Sign chart: pick test points in each interval and check sign",
+        "Roots from (x+3)=0 → x=−3; from (x−2)=0 → x=2  — don't mix them up",
+        "Upward parabola: negative in middle, positive on both ends"
+      ],
+      "example": {
+        "problem": "For what x is (x−2)(x+3) < 0?",
+        "steps": [
+          "Set each factor = 0: x=2 and x=−3",
+          "Order roots: −3 < 2 → three intervals: x<−3, −3<x<2, x>2",
+          "Test x=−4: (−6)(−1)=6 > 0 ✗",
+          "Test x=0: (−2)(3)=−6 < 0 ✓",
+          "Test x=3: (1)(6)=6 > 0 ✗",
+          "Product negative only in middle interval"
+        ],
+        "answer": "−3 < x < 2"
+      },
+      "traps": [
+        "Reversing the region: x<−3 or x>2 is where product is POSITIVE, not negative",
+        "Reading (x+3)=0 as x=+3 — the root is x=−3",
+        "Using the numbers from the factors (2 and 3) as roots instead of 2 and −3",
+        "Forgetting to order roots before writing the interval"
+      ],
+      "solveSteps": [
+        "1. Set each factor = 0 to find both roots",
+        "2. Order roots left to right on number line",
+        "3. For < 0 (parabola opens up): solution is BETWEEN the roots",
+        "4. For > 0: solution is OUTSIDE the roots",
+        "5. Verify with one test point in the solution interval"
+      ]
+    }
+  },
+  "1297": {
+    "hint": "Apply each % to the RUNNING total at that stage, not the original. Chain the multipliers: ×1.40 × 0.85 × 1.10.",
+    "theory": {
+      "title": "Sequential Percent Changes — Chain Multipliers",
+      "icon": "🔗",
+      "summary": "When markups, discounts, and taxes stack, each factor applies to the result of the previous step. Never apply a later % back to the original — the base shifts at every stage.",
+      "keyFacts": [
+        "Markup p% → multiply by (1 + p/100). Discount d% → multiply by (1 − d/100)",
+        "Chain: Final = Original × f₁ × f₂ × f₃  (order does NOT change the product)",
+        "Net multiplier: 1.40 × 0.85 × 1.10 = 1.309 → 30.9% net increase on cost",
+        "Adding/subtracting raw percents (40 − 15 + 10 = 35%) is WRONG — bases differ",
+        "Each intermediate result is the new base for the next percentage"
+      ],
+      "example": {
+        "problem": "Cost $80 → marked up 40% → discounted 15% → 10% tax added. Final price?",
+        "steps": [
+          "Markup: $80 × 1.40 = $112",
+          "Discount: $112 × 0.85 = $95.20",
+          "Tax: $95.20 × 1.10 = $104.72",
+          "Shortcut: $80 × (1.40 × 0.85 × 1.10) = $80 × 1.309 = $104.72"
+        ],
+        "answer": "$104.72"
+      },
+      "traps": [
+        "Applying the 15% discount to the original $80 instead of the marked-up $112",
+        "Adding raw percents: 40 − 15 + 10 = 35%, then 80 × 1.35 = $108 — wrong bases",
+        "Stopping after the discount step ($95.20) and forgetting the tax",
+        "Computing tax on the original cost rather than the discounted price"
+      ],
+      "solveSteps": [
+        "1. Identify each sequential operation and its multiplier (markup → ×1.4, discount → ×0.85, tax → ×1.1)",
+        "2. Start from the given base and apply each multiplier to the PREVIOUS result",
+        "3. Or combine: Final = Base × (all multipliers multiplied together)",
+        "4. Sanity check: a 40% markup partially offset by 15% discount + 10% tax should exceed original cost"
+      ]
+    }
+  },
+  "1298": {
+    "hint": "DS: test each statement alone. Chord + its distance from center forms a right triangle → r² = d² + (chord/2)² → unique area. Check both paths.",
+    "theory": {
+      "title": "Circle Radius — Chord-Distance & Circumference",
+      "icon": "⭕",
+      "summary": "Any chord + perpendicular from center creates a right triangle: r² = d² + (half-chord)². One equation, one unknown — radius fully pinned. Circumference is the other clean path to r.",
+      "keyFacts": [
+        "Circumference = 2πr → r = C/(2π) → Area = πr²",
+        "Perpendicular from center to any chord bisects that chord",
+        "Right triangle: r² = d² + (chord/2)², where d = center-to-chord distance",
+        "Chord length + distance from center → unique r → unique area",
+        "Two statements can give different radii and BOTH still be sufficient (D is valid)"
+      ],
+      "example": {
+        "problem": "A chord has length 10 and lies 6 units from the center. What is the area of the circle?",
+        "steps": [
+          "Draw perpendicular from center to chord — it bisects the chord",
+          "Legs of right triangle: d = 6, half-chord = 10/2 = 5",
+          "r² = 6² + 5² = 36 + 25 = 61",
+          "Area = πr² = 61π"
+        ],
+        "answer": "61π"
+      },
+      "traps": [
+        "Thinking chord data is ambiguous — chord + distance uniquely determines r, no ambiguity",
+        "Assuming D requires both statements to describe the SAME circle — they don't",
+        "Forgetting to halve chord length before applying Pythagorean theorem",
+        "Mixing up r = C/(2π) with r = C/π"
+      ],
+      "solveSteps": [
+        "1. Statement 1 alone: circumference → r = C/(2π) → compute area. Sufficient?",
+        "2. Statement 2 alone: draw perpendicular from center to chord, bisects chord",
+        "3. Apply r² = d² + (chord/2)² → unique r² → unique area. Sufficient?",
+        "4. If each statement independently pins area → answer is D"
+      ]
+    }
+  },
+  "1301": {
+    "hint": "Build the remainder cycle for 7^n ÷ 5 — it repeats every 4. Use 53 mod 4 to find which step in the cycle applies.",
+    "theory": {
+      "title": "Cyclical Remainders of Powers",
+      "icon": "🔄",
+      "summary": "Remainders when a^n ÷ m repeat in a fixed cycle. Find the cycle length, compute exponent mod length, pick the matching remainder.",
+      "keyFacts": [
+        "Compute a^1, a^2, ... mod m until the pattern repeats — that length is L",
+        "Position in cycle = exponent mod L",
+        "If exponent mod L = 0, use the LAST element of the cycle (not the first)",
+        "7 mod 5 cycle: 2, 4, 3, 1 — length 4",
+        "Unit digit and remainder ÷ 5 are DIFFERENT: unit digit uses mod 10, remainder uses mod 5"
+      ],
+      "example": {
+        "problem": "What is the remainder when 7^53 is divided by 5?",
+        "steps": [
+          "Build cycle: 7^1 mod 5=2, 7^2 mod 5=4, 7^3 mod 5=3, 7^4 mod 5=1, 7^5 mod 5=2 → cycle [2,4,3,1], length 4",
+          "Find position: 53 mod 4 = 1  (4×13=52, 53−52=1)",
+          "Position 1 in cycle → remainder = 2"
+        ],
+        "answer": "2"
+      },
+      "traps": [
+        "Unit digit of 7^53 is 7 (units cycle 7,9,3,1); remainder ÷5 is 7 mod 5=2 — confusing these gives wrong answer 3",
+        "When exponent mod cycle_length = 0, use the LAST cycle element, not the first",
+        "Off-by-one from 0-indexing vs 1-indexing the cycle position"
+      ],
+      "solveSteps": [
+        "1. Compute a^1, a^2, ... mod m until value repeats — record the cycle",
+        "2. Note cycle length L",
+        "3. Compute r = exponent mod L",
+        "4. r > 0 → answer is cycle[r];  r = 0 → answer is cycle[L]",
+        "5. Check: result must be in {0, 1, …, m−1}"
+      ]
+    }
+  },
+  "1302": {
+    "hint": "Find each base's units-digit cycle (length 4 for 3 and 7), use exponent mod 4 to pick the right position, then add the two units digits.",
+    "theory": {
+      "title": "Cyclicity of Units Digits",
+      "icon": "🔄",
+      "summary": "Units digits of integer powers repeat in short cycles of length 4. Reduce the exponent mod 4 to find which cycle position applies, then add units digits.",
+      "keyFacts": [
+        "Cycle for 3: 3→9→7→1→3→… (period 4)",
+        "Cycle for 7: 7→9→3→1→7→… (period 4)",
+        "Cycle for 2: 2→4→8→6→… ; for 4: 4→6→4→6… (period 2)",
+        "exp mod 4 = 0 means the 4th position (end of cycle), NOT the 1st",
+        "Units digit of a sum = units digit of (sum of units digits)",
+        "Cycles for 3,7,8,9,2 all have period 4; for 5,6,0,1 period 1"
+      ],
+      "example": {
+        "problem": "What is the units digit of 3^84 + 7^53?",
+        "steps": [
+          "Cycle for 3: positions 1–4 → {3,9,7,1}. 84 mod 4 = 0 → 4th position → units digit 1",
+          "Cycle for 7: positions 1–4 → {7,9,3,1}. 53 mod 4 = 1 → 1st position → units digit 7",
+          "Sum of units digits: 1 + 7 = 8",
+          "Units digit of total sum = 8"
+        ],
+        "answer": "8"
+      },
+      "traps": [
+        "exp mod 4 = 0 means the 4th slot (1 for base 3), not the 1st slot (3) — the most common error",
+        "Confusing cycle for 3 with cycle for 7 — they start differently (3 vs 7)",
+        "Adding wrong cycle entries because cycle position was off by one",
+        "Forgetting to take only the units digit of the final sum when it is ≥ 10"
+      ],
+      "solveSteps": [
+        "1. Write out the 4-step units-digit cycle for each base (3 and 7 both have period 4)",
+        "2. Compute exponent mod 4 for each term (0 maps to position 4)",
+        "3. Look up units digit at that cycle position for each term",
+        "4. Add the two units digits",
+        "5. Take units digit of that sum as the answer"
+      ]
+    }
+  },
+  "1303": {
+    "hint": "Set up TWO equations: digit-sum rule for 9, alternating-sum rule for 11. Solve the system — intersection of the two constraints gives A+B.",
+    "theory": {
+      "title": "Divisibility by 9 and 11 — Simultaneous Constraints",
+      "icon": "🔢",
+      "summary": "Div-by-9 tests total digit sum; div-by-11 tests alternating digit sum. Combine both rules to pin a single unknown digit sum.",
+      "keyFacts": [
+        "Div by 9: sum of ALL digits ≡ 0 (mod 9)",
+        "Div by 11: (odd-position digits) − (even-position digits) ≡ 0 (mod 11)",
+        "Position count starts at digit 1 from the LEFT",
+        "Alternating difference can be 0, ±11, ±22 — pick the one reachable with single digits",
+        "When two divisibility constraints share an unknown, solve them simultaneously",
+        "Single digit range 0–9 limits A+B to 0–18 — use this to reject impossible cases"
+      ],
+      "example": {
+        "problem": "4-digit number 3A7B is divisible by 9. Find all possible values of A+B.",
+        "steps": [
+          "Digit sum = 3 + A + 7 + B = 10 + (A+B)",
+          "Need 10 + (A+B) ≡ 0 (mod 9)",
+          "10 ≡ 1 (mod 9), so A+B ≡ 8 (mod 9)",
+          "A+B = 8 → digit sum 18 ✓ ; A+B = 17 → digit sum 27 ✓",
+          "Both valid from div-by-9 alone — need second rule to narrow down"
+        ],
+        "answer": "A+B = 8 or 17 (div-by-9 alone); add div-by-11 constraint to isolate one value"
+      },
+      "traps": [
+        "Using arithmetic mean instead of the actual digit sum formula",
+        "Forgetting alternating sum direction — always odd-position MINUS even-position",
+        "Overlooking that A+B = 17 is possible (e.g., A=9, B=8)",
+        "Stopping at one rule when both 9 and 11 are required — must satisfy BOTH"
+      ],
+      "solveSteps": [
+        "1. Write div-by-9 equation: 10 + A + B ≡ 0 (mod 9) → list valid A+B values",
+        "2. Write div-by-11 equation: (3+7) − (A+B) ≡ 0 (mod 11) → list valid A+B values",
+        "3. Find intersection of the two solution sets",
+        "4. Verify single-digit constraint: both A and B in 0–9",
+        "5. Pick the A+B value present in BOTH sets"
+      ]
+    }
+  },
+  "1304": {
+    "hint": "Write n = 7k + r, then scale: 2n = 7(2k) + 2r. If 2r < 7, that IS the remainder. No modular arithmetic needed.",
+    "theory": {
+      "title": "Scaling Remainders — Multiply n, Multiply r",
+      "icon": "🔢",
+      "summary": "When you multiply n by a constant, the remainder multiplies by the same constant — then reduce mod m if needed. The key check: is 2r still less than m?",
+      "keyFacts": [
+        "n ≡ r (mod m)  →  2n ≡ 2r (mod m)",
+        "If 2r < m: remainder is simply 2r",
+        "If 2r ≥ m: remainder is 2r − m (subtract one full m)",
+        "General rule: cn ≡ cr (mod m), then reduce: cr mod m",
+        "Works because 2n = 2(mk + r) = m(2k) + 2r — the 2k part is divisible by m"
+      ],
+      "example": {
+        "problem": "n divided by 7 gives remainder 3. What remainder when 2n is divided by 7?",
+        "steps": [
+          "Write n = 7k + 3",
+          "Multiply: 2n = 14k + 6 = 7(2k) + 6",
+          "Check: 6 < 7, so no further reduction needed",
+          "Remainder = 6",
+          "Verify with n=10: 10÷7 rem 3 ✓, 20÷7 rem 6 ✓"
+        ],
+        "answer": "6"
+      },
+      "traps": [
+        "Thinking remainder stays the same (3→3) — multiplying n multiplies the remainder too",
+        "Thinking remainder halves or becomes unpredictable — it scales linearly then reduces mod m",
+        "Forgetting to check if 2r ≥ m — e.g. if r=5 and m=7, then 2r=10, remainder=10−7=3 not 10",
+        "Confusing 'doubling the remainder' as always wrong — here 2×3=6<7, so it is correct"
+      ],
+      "solveSteps": [
+        "1. Write n = mk + r from the given divisor and remainder",
+        "2. Multiply both sides by the constant: 2n = m(2k) + 2r",
+        "3. Check if 2r < m → remainder is 2r directly",
+        "4. If 2r ≥ m → remainder is 2r − m",
+        "5. Verify with one concrete number"
+      ]
+    }
+  },
+  "1305": {
+    "hint": "For 6∣product, need both 2∣product AND 3∣product. Test each expression with n=1 (odd) to kill counterexamples fast.",
+    "theory": {
+      "title": "Consecutive Integers — Guaranteed Divisibility",
+      "icon": "🔢",
+      "summary": "Among k consecutive integers, exactly one is divisible by k. Three consecutive integers always contain a multiple of 2 AND a multiple of 3 — so their product is always divisible by 6.",
+      "keyFacts": [
+        "6 = 2 × 3, so need 2∣product AND 3∣product (both, always)",
+        "Among any 3 consecutive integers: ≥1 even, ≥1 multiple of 3 → product divisible by 6",
+        "Gaps ≠ 1 (e.g. n, n+2, n+4) break the consecutive guarantee — all may be odd",
+        "Test n=1 (smallest odd positive int) to quickly find counterexamples",
+        "n(n+1)(n+2) = 3!/1 × C(n+2,3) — always divisible by 3! = 6",
+        "'Must be divisible' means TRUE FOR ALL n, so one counterexample kills it"
+      ],
+      "example": {
+        "problem": "Which must always be divisible by 6: n(n+1)(n+2), n(n+2)(n+4), or n²(n+3)?",
+        "steps": [
+          "I: n, n+1, n+2 are consecutive → product contains multiple of 2 and of 3 → always ÷6 ✓",
+          "II: n=1 → 1×3×5=15. Not even → not ÷6. FAILS ✗",
+          "III: n=1 → 1²×4=4. Not ÷3 → not ÷6. FAILS ✗",
+          "Only expression I survives all n."
+        ],
+        "answer": "I only — consecutive integers guarantee both factors (2 and 3) are covered."
+      },
+      "traps": [
+        "Assuming gap-2 sequences (n, n+2, n+4) behave like consecutive — they don't; all can be odd",
+        "Checking only n=2 or n=3 (even/multiple of 3) — always test n=1 first",
+        "Thinking n²(n+3) covers ÷3 because of n+3 — fails when n≡1 or 2 (mod 3)",
+        "Confusing 'divisible by 6 for some n' with 'must be divisible by 6 for all n'"
+      ],
+      "solveSteps": [
+        "1. Factor 6 = 2×3; product must guarantee BOTH factors for ALL positive integers n",
+        "2. Check if factors are consecutive integers (gap=1) — if yes, guaranteed ÷6",
+        "3. If gap ≠ 1, test n=1 (odd) as counterexample for the factor of 2",
+        "4. For remaining, test n=1,2 to check divisibility by 3",
+        "5. 'Must' = universal — one fail kills the expression"
+      ]
+    }
+  },
+  "1306": {
+    "hint": "Find diameter via distance formula, halve for radius, then area = πr². Watch: radius ≠ diameter.",
+    "theory": {
+      "title": "Circle from Diameter Endpoints",
+      "icon": "⊙",
+      "summary": "When two points define a diameter, the distance formula gives diameter — radius is half that. Area = πr², not π(diameter)².",
+      "keyFacts": [
+        "Distance formula: d = √[(x₂−x₁)² + (y₂−y₁)²]",
+        "Diameter endpoints → diameter = distance between them",
+        "Radius = diameter / 2 (halve BEFORE squaring for area)",
+        "Area = πr² — never π(diameter)²",
+        "Midpoint of diameter = center: ((x₁+x₂)/2, (y₁+y₂)/2)",
+        "(Δx)² + (Δy)² = diameter² — useful shortcut for r²: r² = diameter²/4"
+      ],
+      "example": {
+        "problem": "A(−3, 4) and B(5, −2) are endpoints of a diameter. Find the circle's area.",
+        "steps": [
+          "Δx = 5−(−3) = 8, Δy = −2−4 = −6",
+          "Diameter = √(8² + 6²) = √(64+36) = √100 = 10",
+          "Radius = 10/2 = 5",
+          "Area = π(5)² = 25π"
+        ],
+        "answer": "25π"
+      },
+      "traps": [
+        "Using diameter as radius → area = π(10)² = 100π (off by 4×)",
+        "Forgetting to take square root: diameter² = 100, then treating 100 as diameter",
+        "Arithmetic slip on negatives: (−2−4) = −6, not +6 — both get squared so sign won't change answer, but miscalculation can",
+        "Computing √(64+36) as √64+√36 = 8+6 = 14 (can't split √ over addition)"
+      ],
+      "solveSteps": [
+        "1. Compute Δx and Δy between the two endpoints",
+        "2. Apply distance formula → diameter",
+        "3. Halve diameter → radius",
+        "4. Area = πr²",
+        "5. Sanity: area should be between π(smaller bound)² and π(larger bound)²"
+      ]
+    }
+  },
+  "1307": {
+    "hint": "Rewrite the given line as y=mx+b to read slope, flip and negate for ⊥ slope, then plug the given point into y−y₁=m(x−x₁) and set x=0.",
+    "theory": {
+      "title": "Perpendicular Lines & Y-Intercept",
+      "icon": "📐",
+      "summary": "Perpendicular lines have slopes that are negative reciprocals: if one slope is m, the other is −1/m. Use point-slope form to find the full equation, then set x = 0 for the y-intercept.",
+      "keyFacts": [
+        "Rewrite ax+by=c as y=mx+b to expose slope m",
+        "Perpendicular slope = −1/m (flip fraction, change sign)",
+        "Parallel slope = same m",
+        "Point-slope form: y − y₁ = m(x − x₁)",
+        "Y-intercept: substitute x = 0 after converting to slope-intercept form",
+        "Product of perpendicular slopes always equals −1"
+      ],
+      "example": {
+        "problem": "Line passes through (−2, 5) perpendicular to 3x − 4y = 8. Find y-intercept.",
+        "steps": [
+          "Rewrite: y = (3/4)x − 2 → slope = 3/4",
+          "Perpendicular slope = −4/3",
+          "Point-slope: y − 5 = −(4/3)(x + 2)",
+          "Expand: y = 5 − (4/3)x − 8/3",
+          "Set x = 0: y = 15/3 − 8/3 = 7/3"
+        ],
+        "answer": "7/3"
+      },
+      "traps": [
+        "Using original slope 3/4 instead of flipping and negating",
+        "Flipping without negating (giving 4/3 — only half the reciprocal)",
+        "Sign error when substituting negative x-coordinate: (x+2) not (x−2)",
+        "Adding instead of subtracting (4/3)(2) when evaluating at x=0 → gets 23/3"
+      ],
+      "solveSteps": [
+        "1. Rearrange given line to y = mx + b form; read slope m",
+        "2. Take negative reciprocal: m_⊥ = −1/m",
+        "3. Write point-slope equation through the given point",
+        "4. Simplify to y = m_⊥·x + b form",
+        "5. Set x = 0 to read y-intercept; watch signs carefully"
+      ]
+    }
+  },
+  "1308": {
+    "hint": "Set up slope formula with k in both coordinates AND as the slope value. Cross-multiply → quadratic. Solve and verify each root plugged back in.",
+    "theory": {
+      "title": "Self-Referential Slope — Variable in Coordinates",
+      "icon": "📐",
+      "summary": "When a variable appears in point coordinates AND equals the slope, set slope formula = that variable. Cross-multiplying produces a quadratic; both roots must be verified in the original equation.",
+      "keyFacts": [
+        "slope = (y₂ − y₁)/(x₂ − x₁) — always start here, never skip",
+        "If slope label = k and coordinates contain k, write (Δy)/(Δx) = k then cross-multiply",
+        "Cross-multiplying turns a rational equation into a polynomial — usually quadratic",
+        "Factor or use quadratic formula; expect 2 roots",
+        "VERIFY each root: substitute back into slope formula — check Δx ≠ 0 and slope = k",
+        "Both roots valid unless one makes the denominator 0 (undefined slope)"
+      ],
+      "example": {
+        "problem": "Line through (k, 3) and (−1, k) has slope k. Find all valid k.",
+        "steps": [
+          "Write slope: (k − 3)/(−1 − k) = k",
+          "Cross-multiply: k − 3 = k(−1 − k) = −k − k²",
+          "Collect all terms left: k² + 2k − 3 = 0",
+          "Factor: (k + 3)(k − 1) = 0  →  k = −3 or k = 1",
+          "Verify k = 1: slope = (1−3)/(−1−1) = −2/−2 = 1 ✓",
+          "Verify k = −3: slope = (−3−3)/(−1+3) = −6/2 = −3 ✓"
+        ],
+        "answer": "k = 1 or k = −3 (both roots satisfy the original equation)"
+      },
+      "traps": [
+        "Sign error on cross-multiply: k(−1 − k) = −k − k², not +k + k²",
+        "Forgetting to verify roots — one root could make denominator zero",
+        "Picking (−3 + 1)/2 = −1 as 'the answer' instead of reporting both roots",
+        "Confusing the quadratic k² + 2k − 3 = 0 with k² − 2k − 3 = 0 (wrong sign on 2k)"
+      ],
+      "solveSteps": [
+        "1. Write slope formula with the two given points",
+        "2. Set it equal to k (the slope label) and cross-multiply",
+        "3. Rearrange to standard quadratic ax² + bx + c = 0; factor or use formula",
+        "4. Substitute each root back into the original slope expression to verify",
+        "5. Report all roots that pass verification"
+      ]
+    }
+  },
+  "1309": {
+    "hint": "Set up one equation: copper from X + copper from Y = 50% of total. Let x = kg of Alloy X, then solve for x.",
+    "theory": {
+      "title": "Mixture Problems — Weighted Alloy Blend",
+      "icon": "⚗",
+      "summary": "Blend two alloys by tracking one component (copper). Set (copper in) = (target %) × (total mass). One equation, one unknown.",
+      "keyFacts": [
+        "Copper in final mix = sum of copper contributions from each alloy",
+        "Equation: c₁·m₁ + c₂·m₂ = c_target·(m₁ + m₂)",
+        "Only ONE component equation needed — the other (zinc) is redundant",
+        "Target % must lie between the two source percentages (sanity check)",
+        "If target closer to alloy A's %, final mix is heavier in alloy A",
+        "Rearrange: (c_target − c₂)/(c₁ − c_target) = m₂/m₁  (alligation shortcut)"
+      ],
+      "example": {
+        "problem": "Alloy X: 30% copper. Alloy Y: 60% copper. Mix x kg of X with 20 kg of Y to get 50% copper. Find x.",
+        "steps": [
+          "Copper from X: 0.30x",
+          "Copper from Y: 0.60 × 20 = 12",
+          "Total mass: x + 20",
+          "Set equal to target: 0.30x + 12 = 0.50(x + 20)",
+          "0.30x + 12 = 0.50x + 10  →  2 = 0.20x  →  x = 10",
+          "Check: (3 + 12) / 30 = 15/30 = 50% ✓"
+        ],
+        "answer": "10 kg"
+      },
+      "traps": [
+        "Forgetting to include both copper contributions before setting equal to target",
+        "Using zinc equation separately — unnecessary, gives same answer but wastes time",
+        "Target 50% is closer to Y's 60% → more Y than X in final mix; x < 20 is expected",
+        "Picking E (20 kg) — symmetric guess; check: gives only 45% copper"
+      ],
+      "solveSteps": [
+        "1. Assign variable: let x = unknown mass (kg)",
+        "2. Write copper equation: 0.30x + 0.60×20 = 0.50(x + 20)",
+        "3. Expand and isolate x",
+        "4. Sanity: target % between 30% and 60% ✓, answer closer to Y's side ✓",
+        "5. Verify by plugging back into copper fraction"
+      ]
+    }
+  },
+  "1310": {
+    "hint": "Set up salt-balance equation: salt_in + salt_in = salt_out. Or use alligation: ratio of volumes = opposite concentration gaps.",
+    "theory": {
+      "title": "Mixture Concentration — Weighted Average & Alligation",
+      "icon": "🧪",
+      "summary": "Mixing two solutions: total salt must balance. The target concentration is a weighted average pulled toward whichever solution contributes more volume.",
+      "keyFacts": [
+        "Salt balance: c₁V₁ + c₂V₂ = c_mix(V₁ + V₂)",
+        "Alligation shortcut: V₁/V₂ = (c₂ − c_mix)/(c_mix − c₁)",
+        "Ratio = opposite gap: each volume is proportional to the OTHER solution's distance from target",
+        "Target concentration must lie strictly between the two source concentrations",
+        "Adding more of the weaker solution pulls result closer to weak; more strong pulls toward strong",
+        "Verify: recompute final % from totals — catches algebra errors fast"
+      ],
+      "example": {
+        "problem": "Mix 20% and 50% salt solutions to get 30%. How many liters of 20% to add to 6 L of 50%?",
+        "steps": [
+          "Salt balance: 0.20x + 0.50(6) = 0.30(x + 6)",
+          "0.20x + 3 = 0.30x + 1.8",
+          "1.2 = 0.10x  →  x = 12",
+          "Alligation check: gaps are 30−20=10 and 50−30=20; ratio V₂₀/V₅₀ = 20/10 = 2, so x = 2×6 = 12 ✓",
+          "Verify: 2.4 + 3 = 5.4 salt in 18 L → 5.4/18 = 30% ✓"
+        ],
+        "answer": "12 liters"
+      },
+      "traps": [
+        "Using simple average (20+50)/2=35% — ignores unequal volumes",
+        "Flipping alligation ratio: V₁/V₂ = opposite gap, not same-side gap",
+        "Forgetting to include BOTH volumes in the denominator when verifying",
+        "Assuming equal volumes when question only fixes one side"
+      ],
+      "solveSteps": [
+        "1. Define x = unknown volume; write salt-in = salt-out equation",
+        "2. Expand and solve linear equation for x",
+        "3. Alligation shortcut: ratio = opposite concentration gaps from target",
+        "4. Sanity: final % must lie between the two source concentrations",
+        "5. Verify with actual totals if time permits"
+      ]
+    }
+  },
+  "1311": {
+    "hint": "Drain x liters of the mixture, THEN add x liters pure — track alcohol before and after each step, set equal to target concentration.",
+    "theory": {
+      "title": "Mixture Replacement — Drain & Refill",
+      "icon": "🧪",
+      "summary": "Draining removes solute proportionally; refilling with pure solute adds it back 1-for-1. Set up one equation: alcohol after both steps = target × total volume.",
+      "keyFacts": [
+        "Alcohol removed when draining x liters = (original %) × x",
+        "Alcohol added when refilling with pure = x liters (100%)",
+        "Net alcohol change = x − (original %)·x = x(1 − original %)",
+        "Equation: original alcohol + net change = target % × total volume",
+        "Total volume stays constant throughout (drain out = refill in)",
+        "Shortcut: x = V × (target% − original%) / (1 − original%)"
+      ],
+      "example": {
+        "problem": "40-liter tank, 25% alcohol. Drain x liters, refill with pure alcohol → 40% alcohol. Find x.",
+        "steps": [
+          "Initial alcohol: 0.25 × 40 = 10 L",
+          "Drain x liters → remove 0.25x alcohol; add x pure alcohol",
+          "Alcohol after: 10 − 0.25x + x = 10 + 0.75x",
+          "Set concentration: (10 + 0.75x)/40 = 0.40 → 10 + 0.75x = 16",
+          "0.75x = 6 → x = 8 liters",
+          "Check: 32 L × 25% = 8 L alcohol + 8 L pure = 16 L / 40 L = 40% ✓"
+        ],
+        "answer": "8 liters"
+      },
+      "traps": [
+        "Forgetting that drained liquid carries alcohol proportionally (not zero)",
+        "Using target% × x for alcohol removed instead of original% × x",
+        "Assuming volume changes — it doesn't; drain and refill keep total fixed",
+        "Trying x = 10: gives 17.5/40 = 43.75% ≠ 40% — off by one answer choice"
+      ],
+      "solveSteps": [
+        "1. Compute initial alcohol = original% × total volume",
+        "2. Write alcohol after swap: initial − (original%)·x + x",
+        "3. Set equal to target% × total volume",
+        "4. Solve for x",
+        "5. Verify by plugging x back in"
+      ]
+    }
+  },
+  "1312": {
+    "hint": "Expand (7y+3)² — the 7-divisible terms vanish. Remainder depends only on 3². Then reduce that result mod 7.",
+    "theory": {
+      "title": "Squaring Remainders — Modular Arithmetic",
+      "icon": "🔢",
+      "summary": "When squaring x = 7y + r, only the remainder r matters. Cross-terms are divisible by 7 and vanish; remainder of x² = remainder of r².",
+      "keyFacts": [
+        "x ≡ r (mod n)  ⟹  x² ≡ r² (mod n)",
+        "(7y + r)² = 49y² + 14yr + r²  — first two terms divisible by 7",
+        "Remainder of x² = remainder of r² divided by n",
+        "r² may itself exceed n — reduce again: if r²=9, mod 7 = 2",
+        "Remainder is ALWAYS in range [0, n−1] — never equals or exceeds divisor",
+        "Shortcut: just substitute the smallest valid x and compute directly"
+      ],
+      "example": {
+        "problem": "x = 7y + 3. What is the remainder when x² is divided by 7?",
+        "steps": [
+          "x ≡ 3 (mod 7)",
+          "x² ≡ 3² = 9 (mod 7)",
+          "9 = 7×1 + 2  →  9 mod 7 = 2",
+          "Verify: x=3 → x²=9, 9÷7 = 1 R 2 ✓",
+          "Verify: x=10 → x²=100, 100÷7 = 14 R 2 ✓"
+        ],
+        "answer": "2"
+      },
+      "traps": [
+        "Stopping at r²=9 and choosing 9 — remainder must be < divisor (7), so 9 is invalid",
+        "Taking remainder of x (which is 3) as the final answer — forgot to reduce r² mod 7",
+        "Thinking the 49y²+42y terms could affect remainder — they are all divisible by 7",
+        "Arithmetic mean trap: averaging 3 and 9 or other spurious shortcuts"
+      ],
+      "solveSteps": [
+        "1. Find r = remainder when x is divided by n (here r=3, n=7)",
+        "2. Compute r² (here 9)",
+        "3. Reduce r² mod n if r² ≥ n (9 mod 7 = 2)",
+        "4. Sanity-check: result must be in [0, n−1]",
+        "5. Plug in smallest valid x to verify numerically"
+      ]
+    }
+  },
+  "1313": {
+    "hint": "Check each statement alone before combining. Does n²=49 pin a unique value? Does 'negative' alone pin n? Only if both fail individually is C correct.",
+    "theory": {
+      "title": "DS — C-Trap Awareness: Square Roots & Sign",
+      "icon": "±",
+      "summary": "n²=k has TWO solutions (±√k). A sign constraint alone is infinite. Together they narrow to one value — a textbook C that isn't a trap.",
+      "keyFacts": [
+        "n²=49 → n=+7 OR n=−7 (never forget the negative root)",
+        "A sign constraint alone (positive/negative) is never sufficient for a specific value",
+        "C is correct only when NEITHER statement alone is sufficient but BOTH together are",
+        "C-trap: rushing to C when one statement actually IS sufficient alone",
+        "Always test each statement in isolation before combining",
+        "Even-powered equations always yield ≥2 solutions unless domain restricts"
+      ],
+      "example": {
+        "problem": "What is integer n? (1) n²=49  (2) n is negative",
+        "steps": [
+          "S1 alone: n²=49 → n=7 or n=−7. Two values → NOT sufficient",
+          "S2 alone: n<0 → n could be −1,−2,−3,… → NOT sufficient",
+          "Combined: n²=49 narrows to {7,−7}; n<0 eliminates 7 → n=−7 uniquely",
+          "Each alone fails; together sufficient → C"
+        ],
+        "answer": "C — neither statement alone pins n, but together they yield n=−7 uniquely"
+      },
+      "traps": [
+        "Assuming n²=49 → n=7 only (forgetting −7) and marking A",
+        "Rushing to C without verifying each statement fails individually",
+        "Thinking sign info is 'obvious' and skipping the S2-alone check",
+        "Confusing this with a C-trap: a real C-trap is when one statement secretly suffices"
+      ],
+      "solveSteps": [
+        "1. Test S1 alone: solve fully, count distinct values",
+        "2. Test S2 alone: can it pin a unique number?",
+        "3. Only if both fail → combine and retest",
+        "4. If together sufficient: C. If one was sufficient alone: A or B or D",
+        "5. Flag even-power equations — always suspect ± ambiguity"
+      ]
+    }
   }
 };
 
