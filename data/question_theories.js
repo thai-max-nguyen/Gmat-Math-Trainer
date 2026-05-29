@@ -30811,6 +30811,794 @@ const QUESTION_THEORIES = {
         "5. Flag even-power equations — always suspect ± ambiguity"
       ]
     }
+  },
+  "1314": {
+    "hint": "Statement (1) uses absolute value to constrain x's sign — test x≥0 and x<0 cases separately. A definitive NO is still sufficient.",
+    "theory": {
+      "title": "Absolute Value Sign Test — C-Trap",
+      "icon": "||",
+      "summary": "x + |x| = 0 is a sign detector: it equals 0 exactly when x ≤ 0. A DS question answered definitively NO is still SUFFICIENT — don't reflexively reach for both statements.",
+      "keyFacts": [
+        "If x ≥ 0: |x| = x, so x + |x| = 2x",
+        "If x < 0: |x| = −x, so x + |x| = 0 for ALL negative x",
+        "x + |x| = 0  ⟺  x ≤ 0  (zero included)",
+        "x² > 0 only tells you x ≠ 0; sign stays unknown",
+        "DS sufficiency: a definitive YES or definitive NO both count as sufficient",
+        "C-trap: statement 1 looks incomplete because it allows a range, but that range fully answers the yes/no question"
+      ],
+      "example": {
+        "problem": "Is x > 0?  (1) x + |x| = 0  (2) x² > 0",
+        "steps": [
+          "S1: split by sign. x≥0 → 2x=0 → x=0. x<0 → 0=0 → any negative x works.",
+          "So S1 constrains x to x≤0. Answer to 'is x>0?' is definitively NO.",
+          "Definitive NO = SUFFICIENT. Stop here — don't grab S2.",
+          "S2: x²>0 → x≠0. But x could be 2 (yes) or −2 (no). NOT sufficient."
+        ],
+        "answer": "A — statement 1 pins x≤0, giving a definitive NO to 'is x>0?'; statement 2 only excludes zero, leaving sign ambiguous"
+      },
+      "traps": [
+        "Thinking 'x could be 0 or negative' means insufficient — a range of values is fine if all give the same YES/NO answer",
+        "Grabbing both statements (C-trap) because S1 'doesn't give a unique value'",
+        "Forgetting x=0 satisfies S1 — but x=0 is still not positive, so NO holds",
+        "Misreading S2: x²>0 feels strong but only excludes zero"
+      ],
+      "solveSteps": [
+        "1. For yes/no DS: ask 'does this statement force a single answer (always YES or always NO)?'",
+        "2. S1: case-split on x≥0 and x<0 → both branches give x≤0 → always NO → SUFFICIENT",
+        "3. S2: find one YES example and one NO example (x=1 vs x=−1) → INSUFFICIENT",
+        "4. Answer A. Resist C-trap: sufficiency doesn't require a unique numeric value"
+      ]
+    }
+  },
+  "1315": {
+    "hint": "Rephrase |x−3|<5 as an interval first: (−2, 8). Each statement may cover one bound but leave the other open — find a counterexample for each.",
+    "theory": {
+      "title": "Absolute Value Inequalities in DS — Interval Rephrasing",
+      "icon": "📏",
+      "summary": "Strip the absolute value: |x−a|<b becomes a−b < x < a+b. A statement is sufficient only if it locks down BOTH bounds of that interval.",
+      "keyFacts": [
+        "|x − a| < b  ↔  a−b < x < a+b  (always rephrase first)",
+        "x² < k²  ↔  |x| < k  ↔  −k < x < k",
+        "A statement covering only one bound leaves the other open → insufficient",
+        "Test insufficiency: find ONE value inside the statement's range but outside the target interval",
+        "Combined statements may each supply one missing bound → answer C",
+        "Intersection logic: overlap the two ranges and check if result ⊆ target interval"
+      ],
+      "example": {
+        "problem": "Is |x−3| < 5?  (1) x² < 64  (2) x > −2",
+        "steps": [
+          "Rephrase target: |x−3|<5 → −2 < x < 8  (need BOTH bounds)",
+          "Stmt 1: x²<64 → −8<x<8. Try x = −5: satisfies stmt but −5 < −2, outside target. INSUFFICIENT.",
+          "Stmt 2: x > −2. Try x = 100: satisfies stmt but 100 > 8, outside target. INSUFFICIENT.",
+          "Combined: x > −2  AND  −8 < x < 8  →  −2 < x < 8. Exactly the target. SUFFICIENT."
+        ],
+        "answer": "C — neither statement alone enforces both bounds, but together they pin x to exactly (−2, 8)."
+      },
+      "traps": [
+        "Stmt 1 implies x<8 but NOT x>−2 — x=−5 is the killer counterexample",
+        "Stmt 2 implies x>−2 but NOT x<8 — x=100 breaks it",
+        "x²<64 does NOT imply x>0; negatives satisfy it too",
+        "Skipping the rephrase step leads to slow, error-prone case-checking"
+      ],
+      "solveSteps": [
+        "1. Rephrase: |x−a|<b → identify the two bounds (lower and upper)",
+        "2. Test Stmt 1: does its range guarantee BOTH bounds? If not, produce a counterexample.",
+        "3. Test Stmt 2: same — does it lock down both sides?",
+        "4. Combined: intersect both ranges; check if the intersection equals the target interval.",
+        "5. Score: A/B if one alone works; C if only together; D if each alone; E if together still fails."
+      ]
+    }
+  },
+  "1316": {
+    "hint": "Expand the inequality first: (x+y)²−(x−y)² factors via difference of squares. Rephrase what the question really asks before touching any statement.",
+    "theory": {
+      "title": "DS Rephrasing — Difference of Squares Simplification",
+      "icon": "✂️",
+      "summary": "Complex-looking inequalities often collapse to something simple. Factor (x+y)²−(x−y)² with difference of squares and the question becomes a sign check.",
+      "keyFacts": [
+        "(x+y)²−(x−y)² = [(x+y)+(x−y)][(x+y)−(x−y)] = (2x)(2y) = 4xy",
+        "So (x+y)² > (x−y)² ↔ xy > 0",
+        "xy > 0 iff x and y share the same sign (both + or both −)",
+        "Knowing only x > 0 leaves y's sign unknown → insufficient alone",
+        "Knowing only y > 0 leaves x's sign unknown → insufficient alone",
+        "Both x > 0 AND y > 0 → xy > 0 guaranteed → sufficient together"
+      ],
+      "example": {
+        "problem": "Is (x+y)² > (x−y)²? (1) x > 0  (2) y > 0",
+        "steps": [
+          "Subtract: (x+y)²−(x−y)² > 0",
+          "Factor via difference of squares: (2x)(2y) > 0 → 4xy > 0",
+          "Rephrased question: Is xy > 0?",
+          "Stmt 1 alone: x > 0 but y unknown → xy could be + or − → NO",
+          "Stmt 2 alone: y > 0 but x unknown → xy could be + or − → NO",
+          "Together: x > 0 and y > 0 → xy > 0 → YES → SUFFICIENT"
+        ],
+        "answer": "C — neither statement alone fixes the sign of xy, but both together guarantee x > 0 and y > 0, so xy > 0."
+      },
+      "traps": [
+        "Evaluating statements before simplifying — waste time and likely miss the insight",
+        "Thinking x > 0 alone is enough because the LHS 'looks bigger'",
+        "Forgetting xy > 0 also holds for x < 0 AND y < 0 — but neither stmt confirms that case",
+        "Confusing the rephrased question: it's about sign of xy, not magnitude of x or y"
+      ],
+      "solveSteps": [
+        "1. Rephrase: move everything to one side and factor — (x+y)²−(x−y)² = 4xy > 0?",
+        "2. Simplified question: Is xy > 0? (same sign?)",
+        "3. Test Stmt 1 alone: fixes sign of x, not y → try y=1 (yes) and y=−1 (no) → INSUFFICIENT",
+        "4. Test Stmt 2 alone: fixes sign of y, not x → same counterexample logic → INSUFFICIENT",
+        "5. Together: both positive → product positive → SUFFICIENT → answer C"
+      ]
+    }
+  },
+  "1317": {
+    "hint": "Check each statement alone: does it guarantee p/q terminates? Terminating decimal ↔ denominator (reduced) has only factors 2 and/or 5.",
+    "theory": {
+      "title": "Terminating Decimals — Denominator Prime Factors",
+      "icon": "🔢",
+      "summary": "p/q terminates iff its fully-reduced denominator has no prime factors other than 2 and 5. Any 3, 7, 11, … in the denominator creates a repeating block.",
+      "keyFacts": [
+        "Terminating ↔ reduced denominator = 2^a × 5^b (a,b ≥ 0)",
+        "Cancellation can only remove 2s and 5s — never introduces new primes",
+        "If q = 2^a × 5^b, then p/q terminates regardless of p",
+        "Any integer n = n/1, and 1 = 2^0 × 5^0 → integers always terminate",
+        "Repeating examples: 1/3, 1/6, 1/7 — denominator has prime ≠ 2,5",
+        "Terminating examples: 1/8 = 0.125, 3/20 = 0.15, 7/25 = 0.28"
+      ],
+      "example": {
+        "problem": "Is p/q a terminating decimal given (1) q = 2^a×5^b or (2) p divisible by q?",
+        "steps": [
+          "St.1: q is pure 2s and 5s. Canceling p/q only strips 2s/5s → reduced denom still 2^a×5^b → TERMINATES. Sufficient.",
+          "St.2: q | p means p/q = integer (whole number). Integers have implicit denom 1 = 2^0×5^0 → TERMINATES. Sufficient.",
+          "Each statement independently guarantees termination → answer D."
+        ],
+        "answer": "D — each statement alone is sufficient. Statement 1 controls the denominator's prime factors; statement 2 makes p/q an integer, which always terminates."
+      },
+      "traps": [
+        "C-trap: assuming you need both statements; statement 2 alone is fully sufficient",
+        "Forgetting that integers are terminating decimals (e.g., 4 = 4.000…)",
+        "Thinking cancellation could introduce a bad prime — it cannot, it only removes factors",
+        "Applying the terminating rule to p/q before reducing — rule requires reduced form, but st.1 is safe either way"
+      ],
+      "solveSteps": [
+        "1. Recall rule: p/q terminates ↔ fully-reduced denom = 2^a × 5^b only",
+        "2. Test St.1 alone: q = 2^a×5^b → denom has no other primes → sufficient",
+        "3. Test St.2 alone: q|p → p/q is an integer → integers always terminate → sufficient",
+        "4. Both alone ⇒ answer D (classic C-trap — resist assuming both are needed)",
+        "5. Sanity: does either statement leave ambiguity? No → confirm D"
+      ]
+    }
+  },
+  "1318": {
+    "hint": "Knowing a−b or a+b alone leaves sign ambiguity — test opposite-sign pairs. Ask: do BOTH statements together uniquely pin a and b (including their signs)?",
+    "theory": {
+      "title": "Absolute Value DS — Sign Ambiguity",
+      "icon": "|·|",
+      "summary": "|a| − |b| depends on the SIGNS of a and b, not just their arithmetic difference. A constraint on a−b or a+b alone rarely resolves sign ambiguity.",
+      "keyFacts": [
+        "Key: |a| − |b| ≠ a − b unless both variables share the same sign",
+        "To evaluate |x|, you must know x's sign — a sum/difference constraint leaves it open",
+        "One linear equation in two unknowns → ∞ solutions → sign-flip pairs almost always differ",
+        "Two independent linear equations → unique (a, b) → unique |a| − |b|",
+        "Substitution test: find two pairs satisfying the statement and check if |a|−|b| differs",
+        "Two statements together that form an independent 2×2 system always uniquely solve both variables"
+      ],
+      "example": {
+        "problem": "What is |a| − |b|? (1) a − b = 4  (2) a + b = 2",
+        "steps": [
+          "St(1) alone: (5,1)→|5|−|1|=4; (3,−1)→|3|−|1|=2; (−1,−5)→1−5=−4. Three values → NOT sufficient",
+          "St(2) alone: (3,−1)→2; (1,1)→0; (0,2)→−2. Different values → NOT sufficient",
+          "Together: a−b=4 and a+b=2 → add equations: 2a=6 → a=3, b=−1",
+          "Unique solution → |3|−|−1| = 3−1 = 2. Pinned."
+        ],
+        "answer": "C — both statements together uniquely determine a=3, b=−1, so |a|−|b|=2 is fixed"
+      },
+      "traps": [
+        "Assuming a−b=4 forces |a|−|b|=4 — only true if a,b both positive",
+        "Assuming |a−b| = |a|−|b| — FALSE when a and b have opposite signs",
+        "Stopping at one consistent example — always probe opposite-sign pairs",
+        "Overlooking that two independent linear equations fully solve for two unknowns"
+      ],
+      "solveSteps": [
+        "1. Flag absolute values → you need each variable's SIGN, not just a linear combo",
+        "2. Test St(1) alone: substitute sign-mixed pairs; if |a|−|b| varies → insufficient",
+        "3. Test St(2) alone: same sign-flip test",
+        "4. Test together: solve the 2×2 system; unique (a,b) → unique |a|−|b|",
+        "5. Confirm: once both variables are uniquely determined, any absolute-value expression is pinned"
+      ]
+    }
+  },
+  "1319": {
+    "hint": "Try pairs satisfying BOTH statements with mn>0 AND mn<0. If both exist, the answer is NOT C — keep testing before picking Together.",
+    "theory": {
+      "title": "C-Trap DS — Sign of a Product",
+      "icon": "±",
+      "summary": "mn < 0 only if m and n have opposite signs. Inequalities about differences and sums rarely pin individual signs — always stress-test combined statements with counterexample pairs.",
+      "keyFacts": [
+        "mn < 0 ⟺ exactly one of m, n is negative",
+        "m − n > 0 means m > n only — says nothing about individual signs",
+        "m² − n² = (m+n)(m−n) — factor first, then read what each piece implies",
+        "C-Trap pattern: both statements feel complementary yet together still leave the target ambiguous",
+        "Decisive DS move: find two examples satisfying ALL active conditions, one giving YES, one NO"
+      ],
+      "example": {
+        "problem": "Is mn negative? (1) m > n  (2) (m+n)(m−n) > 0",
+        "steps": [
+          "St1: m=3,n=2 → mn=6>0;  m=3,n=−2 → mn=−6<0. Insufficient.",
+          "St2: factor → (m+n)(m−n)>0. m=3,n=1 → mn=3>0;  m=3,n=−2 → (1)(5)=5>0 ✓ mn=−6<0. Insufficient.",
+          "Together: m>n forces m−n>0, so (m+n) must also be >0, i.e. m+n>0.",
+          "m=3,n=2: m+n=5>0 ✓  mn=6>0.   m=3,n=−2: m+n=1>0 ✓  mn=−6<0.",
+          "Both satisfy all conditions; mn sign still undetermined."
+        ],
+        "answer": "E — even combined, m=3,n=2 gives mn>0 while m=3,n=−2 gives mn<0; two valid outcomes"
+      },
+      "traps": [
+        "C-Trap: assuming combined statements must resolve — test examples before choosing C",
+        "m > n does NOT imply both positive; n can be negative and less than m",
+        "m+n > 0 still allows one negative value as long as |m| > |n|",
+        "Forgetting to factor m²−n² = (m+n)(m−n) before analyzing St2"
+      ],
+      "solveSteps": [
+        "1. Restate target: is exactly one of m, n negative?",
+        "2. Test St1 alone: try (both-positive) and (mixed-sign) pairs with m>n",
+        "3. Test St2 alone: factor to (m+n)(m−n)>0, test same pairs",
+        "4. Test Together: m>n → m−n>0, so m+n>0 required — find one mn>0 and one mn<0 example",
+        "5. Two valid examples with opposite results → E"
+      ]
+    }
+  },
+  "1320": {
+    "hint": "Rephrase: divisible by 12 means 4|k AND 3|k. Check each statement for those prime factors — then check lcm(4,6).",
+    "theory": {
+      "title": "Divisibility DS — LCM & Prime Factor Coverage",
+      "icon": "🔢",
+      "summary": "A number is divisible by n iff it contains all prime factors of n with sufficient multiplicity. Combining two divisibility conditions → take lcm, compare to target.",
+      "keyFacts": [
+        "12 = 2² × 3 — need two 2s AND one 3",
+        "4|k guarantees 2², but says nothing about 3",
+        "6|k guarantees 2¹ × 3, but only one 2 — not enough for 4",
+        "lcm(4, 6) = 12 — so k divisible by BOTH 4 and 6 → k divisible by 12",
+        "lcm(a,b) = a×b / gcd(a,b). Use this to test combined statements",
+        "DS decision flow: (1) alone → (2) alone → both together → plug counterexamples"
+      ],
+      "example": {
+        "problem": "Is integer k divisible by 12? (1) 4|k  (2) 6|k",
+        "steps": [
+          "12 = 2²×3. Need both 2² and 3 in k's factorization",
+          "Stmt 1: 4|k gives 2². k=8 has no factor 3 → 12∤8. NOT sufficient",
+          "Stmt 2: 6|k gives 2×3. k=6 has only one 2, not 2². 12∤6. NOT sufficient",
+          "Together: 4|k → k=4m. 6|k → 6|4m → 3|m → k=12m. OR: lcm(4,6)=12, so 12|k",
+          "Check: every multiple of both 4 and 6 is a multiple of lcm(4,6)=12 ✓"
+        ],
+        "answer": "C — together sufficient: lcm(4,6)=12 forces 12|k; neither alone guarantees both prime factor groups."
+      },
+      "traps": [
+        "Picking E: assuming you need an explicit 'divisible by 3' statement — but 6|k already gives the 3",
+        "Picking C for wrong reason: just because 4+6=10 'feels close' to 12",
+        "Forgetting lcm logic: 4 and 6 overlap on 2, so combined they cover 2²×3=12 exactly",
+        "Stmt 2 alone: 6|k doesn't force 4|k — counterexample k=6 kills it quickly"
+      ],
+      "solveSteps": [
+        "1. Factorize target: 12 = 2²×3",
+        "2. Test stmt 1 alone: does 4|k guarantee 3|k? Find counterexample if not",
+        "3. Test stmt 2 alone: does 6|k guarantee 2²|k? Find counterexample if not",
+        "4. Test both: compute lcm(4,6); if lcm = 12, together → sufficient",
+        "5. Pick answer: C if only together works, E only if counterexample survives both statements"
+      ]
+    }
+  },
+  "1351": {
+    "hint": "Fix Alice to remove rotational symmetry. Count Bob's valid seats. Arrange the rest. Don't multiply by extra rotations — you already fixed Alice.",
+    "theory": {
+      "title": "Circular Permutations with Positional Constraints",
+      "icon": "🔄",
+      "summary": "In a circular arrangement, one person is fixed to eliminate equivalent rotations — reducing n! to (n−1)!. Positional constraints (opposite, adjacent) then restrict where specific people can go before you count the rest.",
+      "keyFacts": [
+        "Circular permutations of n distinct people = (n−1)! (fix 1 person, arrange n−1)",
+        "Fixing a person does NOT multiply by n — that would re-introduce rotational duplicates",
+        "'Directly opposite' in a circle of n = exactly n/2 seats away (works only when n is even)",
+        "In a circle of 8: opposite seat is uniquely determined — exactly 1 valid seat for Bob",
+        "After fixing constrained people, multiply by the factorial of remaining free seats",
+        "Total check: 7! = 5040 total ÷ (fraction with constraint) should match 720"
+      ],
+      "example": {
+        "problem": "8 people at a circular table; Alice and Bob must sit exactly opposite. How many arrangements?",
+        "steps": [
+          "Fix Alice in any seat — eliminates rotational equivalence (1 way)",
+          "Bob must be 4 seats away from Alice — only 1 such seat in an 8-person circle",
+          "Remaining 6 people fill 6 seats freely: 6! = 720",
+          "Total: 1 × 1 × 720 = 720"
+        ],
+        "answer": "720"
+      },
+      "traps": [
+        "Using 8! or 7! without applying the constraint for Bob — overcounts by a factor of 7",
+        "Thinking 'opposite' gives 2 choices — in a circle, opposite is a single unique seat",
+        "Fixing BOTH Alice and Bob (dividing by 2 again) — only fix 1 person for circular symmetry",
+        "Confusing 'adjacent' constraint (2 choices) with 'opposite' constraint (1 choice)"
+      ],
+      "solveSteps": [
+        "1. Fix one constrained person (Alice) — handles circular symmetry",
+        "2. Count valid seats for the second constrained person (Bob): how many seats satisfy the condition?",
+        "3. Multiply by remaining free people arranged in remaining seats: r!",
+        "4. Sanity-check: result must be ≤ (n−1)! and a clean integer"
+      ]
+    }
+  },
+  "1352": {
+    "hint": "Fix one bead for rotation → (n−1)!/k! for identical beads → halve for flip. Before halving, verify no arrangement is its own mirror image.",
+    "theory": {
+      "title": "Necklace Counting — Circular + Reflection Symmetry",
+      "icon": "📿",
+      "summary": "Necklaces carry two symmetries: rotation (use (n−1)! base) and flip/reflection (divide by 2). Identical beads divide again by k!. Halving is valid only when zero arrangements are self-symmetric.",
+      "keyFacts": [
+        "Circular arrangements of n objects, k identical: (n−1)! / k!",
+        "Necklace (flip = same): divide circular count by 2 — only valid if 0 palindromic arrangements exist",
+        "Palindrome test: a reflection fixes an arrangement only if beads at mirror-paired positions are identical",
+        "For k identical + distinct beads: reflections require 3–4 pairs of identical beads — rarely satisfiable",
+        "If k < 2×(pairs needed) → 0 palindromes → safe to halve",
+        "Burnside rigorous formula: (1/2n) × Σ |Fix(g)| over all 2n symmetries"
+      ],
+      "example": {
+        "problem": "5 distinct + 3 identical red beads on a necklace where flip counts as same. How many distinct necklaces?",
+        "steps": [
+          "n=8 total, k=3 identical reds",
+          "Circular base = (8−1)!/3! = 7!/6 = 5040/6 = 840",
+          "Palindrome check (Type A axis through 2 beads): 3 remaining pairs need identical beads. Only 3 reds → at most 1 pair of RR; other 2 pairs have no identical bead. 0 palindromes.",
+          "Palindrome check (Type B axis through edge midpoints): needs 4 identical pairs. Impossible with 3 reds. 0 palindromes.",
+          "Necklace count = 840 / 2 = 420"
+        ],
+        "answer": "420"
+      },
+      "traps": [
+        "Using n! instead of (n−1)! — always fix one position in circular arrangements",
+        "Forgetting to divide by k! for identical beads — massive overcount",
+        "Halving without palindrome check — here it's safe, but must verify each time",
+        "Dividing by 2n (full dihedral order 16) instead of just 2 — wrong; only reflections add the ÷2 factor"
+      ],
+      "solveSteps": [
+        "1. Identify n total beads and k identical beads",
+        "2. Compute circular base = (n−1)! / k!",
+        "3. Palindrome test: for each reflection type, check if identical-bead pairs can fill all mirrored positions",
+        "4. If 0 palindromic arrangements → necklace count = base / 2",
+        "5. If palindromes exist → apply full Burnside sum over all dihedral symmetries"
+      ]
+    }
+  },
+  "1353": {
+    "hint": "Arrange the 7 non-S letters first, then count the 8 slots they create. Place 4 identical S's into those slots — use combinations, not permutations.",
+    "theory": {
+      "title": "Non-Adjacent Identical Objects — Gap/Slot Method",
+      "icon": "🔲",
+      "summary": "To prevent identical objects from touching, arrange everything else first, then slot the restricted objects into the gaps. k objects create k+1 gaps.",
+      "keyFacts": [
+        "k non-restricted letters create k+1 gaps (before, between, and after them)",
+        "Arrange k non-restricted letters with repeats: k! ÷ (n₁! · n₂! · …)",
+        "Place r identical restricted letters in gaps: C(k+1, r) — combination, not permutation",
+        "Total valid = (non-restricted arrangements) × C(k+1, r)",
+        "Identical restricted letters → C not P, since order among them doesn't matter",
+        "Gap method beats complementary (total − adjacent) when many identical letters exist"
+      ],
+      "example": {
+        "problem": "How many ways to arrange AABB so no two A's are adjacent?",
+        "steps": [
+          "Non-A letters: B, B → arrangements = 2!/2! = 1",
+          "2 B's create 3 gaps: _ B _ B _",
+          "Place 2 identical A's into 3 gaps: C(3,2) = 3",
+          "Total = 1 × 3 = 3",
+          "Verify: ABAB, ABBA, BABA — all valid ✓"
+        ],
+        "answer": "3 arrangements"
+      },
+      "traps": [
+        "Forgetting to divide by factorials for repeated non-restricted letters (I×4, P×2 in MISSISSIPPI)",
+        "Counting n gaps instead of n+1 — k letters create k+1 slots (ends count!)",
+        "Using P(k+1, r) instead of C(k+1, r) — identical letters make order irrelevant",
+        "Trying complementary (total − adjacent) instead of gap method — much harder with many repeats"
+      ],
+      "solveSteps": [
+        "1. Separate restricted letters (S's); note frequency of every repeated letter",
+        "2. Arrange the k non-restricted letters: k! ÷ (each repeated group's factorial)",
+        "3. k letters → k+1 gaps; choose r slots for the identical restricted letters: C(k+1, r)",
+        "4. Multiply: (non-restricted arrangements) × C(k+1, r)",
+        "5. Sanity check: result < unrestricted total = n! ÷ (all frequency factorials)"
+      ]
+    }
+  },
+  "1354": {
+    "hint": "Break 'at least 2 women' into exact cases: 2W+2M, 3W+1M, 4W+0M. Sum three separate C(n,r) products — don't forget the all-women case.",
+    "theory": {
+      "title": "Combinations with Minimum-Count Constraints",
+      "icon": "🧩",
+      "summary": "'At least k' means enumerate every valid exact count and sum them. Splitting into non-overlapping cases is safer than complement when the complement has many sub-cases.",
+      "keyFacts": [
+        "C(n,r) = n! / (r!(n−r)!) — order doesn't matter in committees",
+        "'At least k of type X' → split into exact-count cases: k, k+1, …, min(available, committee size)",
+        "Complement method: Total unrestricted − forbidden (fewer than k women). Use when forbidden cases are fewer.",
+        "Each case: C(women pool, women chosen) × C(men pool, men chosen)",
+        "Cases are mutually exclusive → just add them"
+      ],
+      "example": {
+        "problem": "Committee of 4 from 5M + 4W; at least 2 women. How many committees?",
+        "steps": [
+          "Case 2W+2M: C(4,2)×C(5,2) = 6×10 = 60",
+          "Case 3W+1M: C(4,3)×C(5,1) = 4×5 = 20",
+          "Case 4W+0M: C(4,4)×C(5,0) = 1×1 = 1",
+          "Total = 60+20+1 = 81"
+        ],
+        "answer": "81"
+      },
+      "traps": [
+        "Forgetting the 4W+0M case — it exists because all 4 women fit exactly in a 4-person committee",
+        "Using arithmetic mean or permutations (nPr) instead of combinations",
+        "Applying complement wrong: 'fewer than 2 women' means 0W or 1W, which is also two cases to compute",
+        "Double-counting by not keeping cases mutually exclusive"
+      ],
+      "solveSteps": [
+        "1. Identify constraint type: 'at least k' → case split (or complement if simpler)",
+        "2. List all valid (women, men) pairs that sum to committee size and satisfy constraint",
+        "3. Compute C(W_pool, w)×C(M_pool, m) for each pair",
+        "4. Sum all case totals",
+        "5. Sanity check: each case total < unrestricted total C(9,4)=126"
+      ]
+    }
+  },
+  "1355": {
+    "hint": "Condition on what the first draw could be (red OR blue), then weight each sub-case. P(A|B) = P(A∩B)/P(B). Build numerator case-by-case.",
+    "theory": {
+      "title": "Conditional Probability — Without Replacement",
+      "icon": "🎲",
+      "summary": "When the condition is given (e.g. 'first marble is NOT green'), split into all compatible sub-cases, compute joint probabilities, then divide by the conditioning event's probability.",
+      "keyFacts": [
+        "P(A|B) = P(A∩B) / P(B) — fundamental definition",
+        "Without replacement: pool shrinks by 1 after first draw",
+        "'First NOT green' means first is red OR blue — enumerate both sub-cases",
+        "Numerator = sum of P(each compatible sequence ending in desired outcome)",
+        "Denominator = P(conditioning event) = favorable first-draw count / total",
+        "Final division: (sum of joint probs) ÷ P(condition)"
+      ],
+      "example": {
+        "problem": "4 red, 3 blue, 5 green, 12 total. Draw 2 without replacement. Given 1st is NOT green, what is P(2nd is red)?",
+        "steps": [
+          "P(1st not green) = 7/12  (4 red + 3 blue)",
+          "Case 1 — 1st red, 2nd red: (4/12)×(3/11) = 12/132",
+          "Case 2 — 1st blue, 2nd red: (3/12)×(4/11) = 12/132",
+          "P(2nd red AND 1st not green) = 24/132 = 2/11",
+          "P(2nd red | 1st not green) = (2/11) ÷ (7/12) = (2×12)/(11×7) = 24/77"
+        ],
+        "answer": "24/77 ≈ 0.312  (note: question answer choices contain a discrepancy — the mathematically correct value is 24/77)"
+      },
+      "traps": [
+        "Skipping the denominator step — forgetting to divide by P(condition)",
+        "Treating draws as independent — pool shrinks after each draw without replacement",
+        "Counting only one sub-case (e.g. only red→red, forgetting blue→red)",
+        "Using total marbles (12) for second draw instead of 11"
+      ],
+      "solveSteps": [
+        "1. Identify the conditioning event B and compute P(B)",
+        "2. List ALL sequences satisfying 'B AND A' (every compatible first-draw type)",
+        "3. Compute each joint probability as product of sequential fractions",
+        "4. Sum the joint probabilities → P(A∩B)",
+        "5. Divide: P(A|B) = P(A∩B) / P(B); simplify fraction"
+      ]
+    }
+  },
+  "1356": {
+    "hint": "Given a defect, find which machine caused it. Apply Bayes: P(source|defect) = P(source)×P(defect|source) / P(defect total). Compute total defect rate first.",
+    "theory": {
+      "title": "Bayes' Theorem — Reverse Conditional Probability",
+      "icon": "🔄",
+      "summary": "We know the outcome (defective) and want to reverse-engineer the cause. Bayes inverts conditional probability: weight each source by how likely it was to produce the observed event.",
+      "keyFacts": [
+        "Bayes formula: P(B|defect) = P(B)×P(defect|B) / P(defect)",
+        "Total defect rate: P(defect) = Σ P(source_i)×P(defect|source_i) — law of total probability",
+        "Each source's share of defects = its volume × its defect rate",
+        "The source with higher defect rate need not dominate — volume matters too",
+        "Work with fractions or scale to 1000 items to avoid decimal errors",
+        "After solving, confirm all source probabilities sum to 1"
+      ],
+      "example": {
+        "problem": "Machine A: 60% of output, 2% defects. Machine B: 40% of output, 5% defects. Item is defective — probability it came from B?",
+        "steps": [
+          "Scale to 1000 items: A makes 600, B makes 400",
+          "Defects from A: 600×0.02 = 12; from B: 400×0.05 = 20",
+          "Total defects: 12 + 20 = 32",
+          "P(B|defect) = 20/32 = 5/8",
+          "Check: P(A|defect) = 12/32 = 3/8; 3/8 + 5/8 = 1 ✓"
+        ],
+        "answer": "5/8 — B contributes 20 of 32 total defects despite lower volume, because its defect rate (5%) is 2.5× higher."
+      },
+      "traps": [
+        "Using only defect rates (5%/7% = 5/7) — ignores production volume",
+        "Using only production shares (40%) — ignores defect rates",
+        "Picking the machine with the higher rate without weighing by volume",
+        "Forgetting to compute total P(defect) as the denominator"
+      ],
+      "solveSteps": [
+        "1. Identify: P(each source) and P(defect|each source)",
+        "2. Compute each source's defect contribution = P(source)×P(defect|source)",
+        "3. Sum all contributions → P(defect total)",
+        "4. Divide target source's contribution by P(defect total)",
+        "5. Sanity: all reverse-probabilities must sum to 1"
+      ]
+    }
+  },
+  "1357": {
+    "hint": "Use Bayes: P(disease|positive) = P(pos|disease)×P(disease) / P(positive). Compute P(positive) from BOTH branches before dividing.",
+    "theory": {
+      "title": "Bayes' Theorem — Conditional Probability Reversal",
+      "icon": "🔀",
+      "summary": "A positive test ≠ having the disease. Rare disease + imperfect test → most positives are false alarms, because the healthy population vastly outnumbers the sick.",
+      "keyFacts": [
+        "Bayes: P(A|B) = P(B|A)×P(A) / P(B)",
+        "P(positive) = P(pos|disease)×P(disease) + P(pos|no disease)×P(no disease)",
+        "False positive rate = 1 − true negative rate",
+        "Low base rate (rare disease) → most positives are false alarms even with accurate tests",
+        "Concrete population trick: scale to 10,000 people to avoid decimal errors",
+        "GCD-simplify the final fraction; check all answer choices' denominators carefully"
+      ],
+      "example": {
+        "problem": "Disease prevalence 1%. Test: 95% true-positive rate, 10% false-positive rate. Person tests positive — probability they have the disease?",
+        "steps": [
+          "Scale to 10,000 people: 100 have disease, 9,900 don't",
+          "True positives: 100 × 0.95 = 95",
+          "False positives: 9,900 × 0.10 = 990",
+          "Total positives: 95 + 990 = 1,085",
+          "P(disease|positive) = 95/1,085"
+        ],
+        "answer": "95/1085 ≈ 8.7% — a 95%-accurate test still yields mostly false positives when disease is rare"
+      },
+      "traps": [
+        "Equating test accuracy with posterior probability: 95% accuracy ≠ 95% chance of disease",
+        "Confusing P(pos|disease) with P(disease|pos) — these are NOT the same",
+        "Omitting the false-positive branch from the denominator entirely",
+        "Arithmetic slip: 0.0095 + 0.099 = 0.1085, not 0.1094 — causes wrong denominator"
+      ],
+      "solveSteps": [
+        "1. Identify three inputs: P(disease), P(pos|disease), P(pos|no disease)",
+        "2. Compute total P(positive) = P(pos|D)×P(D) + P(pos|¬D)×P(¬D)",
+        "3. Apply Bayes: P(D|pos) = P(pos|D)×P(D) / P(positive)",
+        "4. Convert result to fraction; find GCD and simplify",
+        "5. Match denominator carefully to answer choices — off-by-one in denominator is a planted trap"
+      ]
+    }
+  },
+  "1358": {
+    "hint": "Work inside-out: evaluate the innermost function first, substitute its result into the next shell, repeat. Never skip a layer.",
+    "theory": {
+      "title": "Function Composition — Inside-Out Evaluation",
+      "icon": "🔗",
+      "summary": "f(g(h(x))) means apply h first, feed output to g, feed that output to f. Each layer is a pure substitution — no shortcuts.",
+      "keyFacts": [
+        "(f∘g)(x) = f(g(x)): g runs first, f runs on g's output",
+        "Three-layer f(g(h(x))): compute h(x) → g(result) → f(result)",
+        "Order matters: f(g(x)) ≠ g(f(x)) in general",
+        "Each substitution is independent — finish one before starting next",
+        "Watch sign errors when squaring negative intermediate values"
+      ],
+      "example": {
+        "problem": "f(x) = 2x + 3, g(x) = x² − 1. Find f(g(f(2))).",
+        "steps": [
+          "Step 1 (innermost): f(2) = 2(2)+3 = 7",
+          "Step 2 (middle): g(7) = 7²−1 = 49−1 = 48",
+          "Step 3 (outer): f(48) = 2(48)+3 = 96+3 = 99"
+        ],
+        "answer": "99"
+      },
+      "traps": [
+        "Evaluating left-to-right instead of inside-out: f then g then f gives wrong answer",
+        "Forgetting to apply the outer function after the inner one is done",
+        "Arithmetic slip on squaring: (7)² = 49, not 47 or 51",
+        "Mixing up which function is f and which is g after multiple steps"
+      ],
+      "solveSteps": [
+        "1. Identify the innermost argument and evaluate it first",
+        "2. Substitute that result into the next outer function",
+        "3. Repeat outward until all shells are resolved",
+        "4. Double-check each arithmetic step — errors compound across layers",
+        "5. Verify: if choices are far apart, a sign or squaring error is likely the culprit"
+      ]
+    }
+  },
+  "1359": {
+    "hint": "Compose f with itself twice first — if you spot a pattern early, the third application is instant. Look for periodicity.",
+    "theory": {
+      "title": "Iterated Function Composition — Period Detection",
+      "icon": "🔁",
+      "summary": "Applying a function repeatedly can cycle back to x or to f(x). Spot the period after 2 applications to short-circuit the third.",
+      "keyFacts": [
+        "f(f(x)) = x means f is an involution (its own inverse) — period 2",
+        "For a period-2 function: odd compositions = f(x), even compositions = x",
+        "To find f(f(x)): substitute f(x) as the input, simplify numerator and denominator separately",
+        "When composing rational functions, combine fractions by multiplying top & bottom by the common denominator",
+        "Involution test: if f(f(x)) = x, then f³ = f¹, f⁴ = f⁰ = x, etc."
+      ],
+      "example": {
+        "problem": "f(x) = (x+1)/(x−1). Find f(f(f(x))).",
+        "steps": [
+          "Let u = f(x) = (x+1)/(x−1). Compute f(u) = (u+1)/(u−1).",
+          "Numerator: (x+1)/(x−1) + 1 = (x+1+x−1)/(x−1) = 2x/(x−1).",
+          "Denominator: (x+1)/(x−1) − 1 = (x+1−x+1)/(x−1) = 2/(x−1).",
+          "f(f(x)) = [2x/(x−1)] ÷ [2/(x−1)] = 2x/2 = x. Period = 2!",
+          "f(f(f(x))) = f(f(f(x))). Since f² = identity: f³ = f¹ = (x+1)/(x−1)."
+        ],
+        "answer": "(x+1)/(x−1) — f has period 2, so three applications = one application"
+      },
+      "traps": [
+        "Stopping at f(f(x)) = x and choosing 'x' — that's only 2 applications, not 3",
+        "Skipping simplification and guessing x as the pattern without checking the 3rd step",
+        "Forgetting to keep track of how many times f has been applied",
+        "Arithmetic error when adding/subtracting fractions in numerator vs denominator separately"
+      ],
+      "solveSteps": [
+        "1. Compute f(f(x)) by substituting f(x) into itself — simplify fully.",
+        "2. If f(f(x)) = x, the function is an involution with period 2.",
+        "3. Use the period: odd power → f(x), even power → x.",
+        "4. Conclude f(f(f(x))) = f(x) since 3 is odd.",
+        "5. Verify by plugging a simple value like x = 2 to confirm."
+      ]
+    }
+  },
+  "1360": {
+    "hint": "Two absolute values compared → square both sides (both non-negative, so direction preserved). Factor the resulting quadratic and test the parabola's sign.",
+    "theory": {
+      "title": "Absolute Value Inequalities — Square Both Sides",
+      "icon": "||",
+      "summary": "When comparing |A| > |B|, squaring both sides is safe because both are non-negative. This converts to a quadratic inequality solved by finding roots and checking the parabola's opening direction.",
+      "keyFacts": [
+        "If |A| > |B|, squaring gives A² > B² — direction preserved (both sides ≥ 0)",
+        "Move everything to one side → quadratic > 0 or < 0",
+        "Find roots via quadratic formula; roots are the boundary points",
+        "Parabola opens UP (positive x² coefficient) → positive OUTSIDE the roots",
+        "Parabola opens DOWN → positive BETWEEN the roots",
+        "Always verify with test points in each region"
+      ],
+      "example": {
+        "problem": "|2x − 5| > |x + 1|. Find all x.",
+        "steps": [
+          "Square both sides: (2x−5)² > (x+1)²",
+          "Expand: 4x²−20x+25 > x²+2x+1 → 3x²−22x+24 > 0",
+          "Solve 3x²−22x+24 = 0: x = [22 ± √(484−288)]/6 = [22 ± 14]/6",
+          "Roots: x = 6 and x = 4/3",
+          "Coefficient 3 > 0 → parabola opens up → positive outside roots",
+          "Solution: x < 4/3 or x > 6"
+        ],
+        "answer": "x < 4/3 or x > 6"
+      },
+      "traps": [
+        "Forgetting squaring is only safe when BOTH sides are non-negative (always true for absolute values)",
+        "Flipping inequality direction unnecessarily — squaring preserves '>' here",
+        "Choosing the BETWEEN region when the parabola opens up (that's where it's negative)",
+        "Confusing roots 4/3 and 6 — double-check with a test point like x = 0"
+      ],
+      "solveSteps": [
+        "1. Square both sides: |A| > |B| → A² > B²",
+        "2. Rearrange to standard form: (quadratic) > 0",
+        "3. Find roots using quadratic formula",
+        "4. Determine parabola direction (sign of x² coefficient)",
+        "5. Opens up → solution is outside roots; opens down → between roots",
+        "6. Verify with one test point per region"
+      ]
+    }
+  },
+  "1361": {
+    "hint": "Unfold |x² − 10| < 6 into a double inequality, then solve each side separately and INTERSECT — both bounds must hold at once. Count only integers strictly inside the resulting intervals.",
+    "theory": {
+      "title": "Absolute Value Inequality — Quadratic Squeeze",
+      "icon": "⊂",
+      "summary": "|f(x)| < k is a two-sided squeeze: −k < f(x) < k. Both sub-inequalities must hold simultaneously (AND logic), so you intersect — never union — the two solution sets.",
+      "keyFacts": [
+        "| f(x)| < k  ↔  −k < f(x) < k  — both sides active at once",
+        "Solve left (f(x) > −k) and right (f(x) < k) separately, then intersect",
+        "x² > c  →  x > √c  OR  x < −√c  (two outward rays)",
+        "x² < c  →  −√c < x < √c  (one bounded interval around 0)",
+        "Intersecting two outward rays with one middle interval → two short sub-intervals",
+        "Strict inequality (< not ≤) excludes boundary values — plug in each endpoint to verify"
+      ],
+      "example": {
+        "problem": "|x² − 10| < 6. Which integers satisfy this?",
+        "steps": [
+          "Unfold: −6 < x² − 10 < 6",
+          "Add 10 throughout: 4 < x² < 16",
+          "Left bound (x² > 4): x < −2 OR x > 2",
+          "Right bound (x² < 16): −4 < x < 4",
+          "Intersect: x ∈ (−4, −2) ∪ (2, 4)",
+          "Check integers in (−4, −2): only −3. In (2, 4): only 3. → 2 integers total"
+        ],
+        "answer": "2 integers: x = ±3  [Note: boundary integers ±2 and ±4 each give |f(x)| = 6, which fails strict <]"
+      },
+      "traps": [
+        "Using OR instead of AND between the two sub-inequalities — intersection, not union",
+        "Including endpoints: x = ±2 gives |4 − 10| = 6 (not < 6); x = ±4 gives |16 − 10| = 6 (not < 6)",
+        "Forgetting negative roots: x² > 4 yields two rays, not just x > 2",
+        "Conflating < with ≤ — the non-strict version adds {±2, ±4} and gives 6 integers, not the same problem"
+      ],
+      "solveSteps": [
+        "1. Unfold: rewrite |f(x)| < k as −k < f(x) < k",
+        "2. Isolate x² in the middle: produces a pair of bounds on x²",
+        "3. Convert each x² bound to x-intervals (outward rays or middle interval)",
+        "4. Intersect both results — keep only x satisfying BOTH simultaneously",
+        "5. List integers strictly inside each sub-interval; verify each boundary by direct substitution"
+      ]
+    }
+  },
+  "1362": {
+    "hint": "Glue the 3 consecutive friends into one block → 4 units at a round table. Circular formula first, then multiply by internal block arrangements.",
+    "theory": {
+      "title": "Circular Permutations — Block Constraint",
+      "icon": "🔄",
+      "summary": "Round table removes one degree of freedom: n objects give (n−1)! arrangements. When k people must stay consecutive, merge them into a single block, solve circular, then multiply by the block's internal arrangements.",
+      "keyFacts": [
+        "Circular permutations of n distinct objects = (n−1)!",
+        "Block technique: k consecutive people → treat as 1 unit → reduces problem to (n−k+1) entities",
+        "Internal arrangements of the block = k!",
+        "Total = (n−k+1−1)! × k! = (n−k)! × k!",
+        "Round table fixes one seat relative to others — that's why (n−1)! not n!",
+        "Clockwise ≠ counterclockwise unless stated; default GMAT = they are distinct"
+      ],
+      "example": {
+        "problem": "6 friends at a round table; Alice, Bob, Carol must sit consecutively. How many arrangements?",
+        "steps": [
+          "Merge ABC into one block → 4 entities: [ABC], D, E, F",
+          "Circular arrangements of 4 entities = (4−1)! = 3! = 6",
+          "Internal arrangements of ABC block = 3! = 6",
+          "Total = 6 × 6 = 36"
+        ],
+        "answer": "36"
+      },
+      "traps": [
+        "Using n! instead of (n−1)! for circular — overcounts by factor of n",
+        "Forgetting to multiply by internal block arrangements (k!)",
+        "Computing (6−1)! = 120 without applying the block reduction",
+        "Confusing 'consecutive' (adjacent arc) with 'not separated' — same thing at a round table"
+      ],
+      "solveSteps": [
+        "1. Identify constrained group (size k); merge into one block",
+        "2. Count remaining entities: m = n − k + 1",
+        "3. Circular arrangements of m entities = (m−1)!",
+        "4. Internal arrangements of block = k!",
+        "5. Multiply: (m−1)! × k!"
+      ]
+    }
+  },
+  "1363": {
+    "hint": "Saw both heads — now update: which coin TYPE is more likely? Use Bayes: weight each coin's prior by its chance of producing HH. Never just divide 6/10.",
+    "theory": {
+      "title": "Bayes' Theorem — Reverse Conditional Probability",
+      "icon": "🔄",
+      "summary": "Observing an outcome changes which cause is likely. Bayes lets you run probability backwards: given the evidence, how probable is each source?",
+      "keyFacts": [
+        "Bayes: P(A|B) = P(B|A)·P(A) / P(B)",
+        "Total probability: P(B) = P(B|A)·P(A) + P(B|Ā)·P(Ā)",
+        "Two-headed coin → P(HH) = 1; fair coin → P(HH) = (1/2)² = 1/4",
+        "Denominator = weighted sum over ALL possible sources",
+        "Posterior ≠ prior: evidence shifts the probability — always recompute",
+        "Higher P(HH|source) → that source gets more posterior weight"
+      ],
+      "example": {
+        "problem": "Box: 6 fair, 4 two-headed coins. Pick one, flip twice — both heads. P(coin is fair)?",
+        "steps": [
+          "Prior: P(fair)=3/5, P(2H)=2/5",
+          "Likelihoods: P(HH|fair)=1/4, P(HH|2H)=1",
+          "Total P(HH) = (3/5)(1/4) + (2/5)(1) = 3/20 + 8/20 = 11/20",
+          "Bayes numerator: P(fair)·P(HH|fair) = 3/5·1/4 = 3/20",
+          "P(fair|HH) = (3/20)/(11/20) = 3/11"
+        ],
+        "answer": "3/11 ≈ 0.273. (Note: answer choices in this problem contain a typo; correct value is 3/11.)"
+      },
+      "traps": [
+        "6/10 = 0.6 ignores the evidence entirely — that is the prior, not the posterior",
+        "Forgetting two-headed coin always produces heads makes the denominator wrong",
+        "Forgetting to include ALL coin types in the denominator P(HH)",
+        "Treating HH from a fair coin as equally likely as HH from a two-headed coin"
+      ],
+      "solveSteps": [
+        "1. Identify priors: P(each source)",
+        "2. Identify likelihoods: P(evidence | each source)",
+        "3. Compute P(evidence) = Σ P(evidence|source)·P(source)",
+        "4. Apply Bayes: P(source|evidence) = P(evidence|source)·P(source) / P(evidence)",
+        "5. Sanity check: all posterior probabilities sum to 1"
+      ]
+    }
   }
 };
 
