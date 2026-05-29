@@ -33173,6 +33173,796 @@ const QUESTION_THEORIES = {
         "5. Verify: multiply time × each rate, sum must equal exactly 1"
       ]
     }
+  },
+  "1463": {
+    "hint": "Test each statement alone with counterexamples, then combine. Key: are the two factors coprime? If gcd=1, their product gives the target divisor.",
+    "theory": {
+      "title": "Divisibility by Composite — Coprime Factor Test",
+      "icon": "🔢",
+      "summary": "To prove n divisible by a composite, check if its factor pair is coprime. Coprime factors multiply cleanly; shared factors require lcm, not product.",
+      "keyFacts": [
+        "n divisible by a AND b, gcd(a,b)=1 → n divisible by a×b",
+        "If factors share a common factor, use lcm(a,b) not a×b",
+        "12 = 4×3; gcd(4,3)=1 → div-by-4 AND div-by-3 ⟹ div-by-12",
+        "Counterexample method: find one YES and one NO to prove insufficiency",
+        "DS 'C trap': both together correct, but always verify neither alone works first"
+      ],
+      "example": {
+        "problem": "Is n divisible by 12? S1: n div by 4. S2: n div by 3.",
+        "steps": [
+          "S1 alone: n=4 → 4/12 NO; n=12 → 12/12 YES. Two outcomes → insufficient",
+          "S2 alone: n=3 → 3/12 NO; n=12 → 12/12 YES. Two outcomes → insufficient",
+          "Both: need div by 4 AND 3. gcd(4,3)=1, so lcm=4×3=12",
+          "Any n div by both 4 and 3 must be div by 12. Sufficient.",
+          "Answer: C"
+        ],
+        "answer": "C — neither statement alone pins the answer, but together gcd(4,3)=1 guarantees divisibility by 4×3=12"
+      },
+      "traps": [
+        "Assuming S1 (div by 4) implies div by 12 — it doesn't; n=4 is a counterexample",
+        "Forgetting to test S1 and S2 alone before concluding C",
+        "Using product instead of lcm when factors share a common factor (e.g., 6 and 4 → lcm=12, not 24)",
+        "Choosing E because 'more info needed' without recognizing coprime factors suffice together"
+      ],
+      "solveSteps": [
+        "1. Factor the target: 12 = 4×3",
+        "2. Test S1 alone: find YES and NO counterexamples → insufficient",
+        "3. Test S2 alone: find YES and NO counterexamples → insufficient",
+        "4. Combine: check gcd(4,3)=1 → coprime → product = lcm = 12 → sufficient",
+        "5. Answer C; note the trap is skipping step 2/3 and assuming S1 alone works"
+      ]
+    }
+  },
+  "1464": {
+    "hint": "Rephrase first: since y > 0, is x/y > 1 the same as asking whether x > y? Then test each statement independently.",
+    "theory": {
+      "title": "DS Inequalities — Rephrase the Question",
+      "icon": "⚖",
+      "summary": "In DS inequality problems, divide both sides by a known-positive quantity to rewrite the target question in simpler form. Then test each statement against that simplified form.",
+      "keyFacts": [
+        "If y > 0, then x/y > 1 ↔ x > y (safe to multiply both sides by y)",
+        "Always simplify the target question BEFORE evaluating statements",
+        "For insufficiency: find ONE counterexample where statement holds but answer flips",
+        "x > y − 2 is strictly weaker than x > y — it does NOT imply x > y",
+        "x − y > 0 is algebraically identical to x > y — directly answers the rephrased question",
+        "Both-positive constraint matters: rules out y < 0 sign-flip concerns"
+      ],
+      "example": {
+        "problem": "x and y positive. Is x/y > 1? (1) x > y − 2  (2) x − y > 0",
+        "steps": [
+          "Rephrase: y > 0, so x/y > 1 ↔ x > y",
+          "Test S1: x=1, y=2 → 1 > 0 ✓ but x/y=0.5 < 1. Counterexample found → NOT sufficient",
+          "Test S1 other way: x=3, y=2 → x/y=1.5 > 1. Different answer → S1 insufficient",
+          "Test S2: x − y > 0 → x > y exactly. x > y with y > 0 → x/y > 1 always. No escape.",
+          "S2 alone sufficient"
+        ],
+        "answer": "B — statement 2 directly gives x > y, which is the rephrased question; statement 1 allows x < y (counterexample kills it)"
+      },
+      "traps": [
+        "Forgetting to rephrase: testing x/y > 1 directly is harder than testing x > y",
+        "Assuming S1 'almost' implies S2, so both together must be needed — S2 alone is enough",
+        "Thinking S2 needs S1 to 'confirm' — never combine when one alone is sufficient",
+        "Overthinking large y: if x > y and both positive, x/y > 1 with zero exceptions"
+      ],
+      "solveSteps": [
+        "1. Rephrase target: multiply/divide by known-sign quantities to simplify",
+        "2. Test S1 alone: find one YES-case and one NO-case — if both exist, insufficient",
+        "3. Test S2 alone: does it logically force a single answer? Here x > y → x/y > 1 always",
+        "4. If one statement sufficient, answer is A or B — identify which one",
+        "5. Pick B: S2 alone sufficient, S1 alone not sufficient"
+      ]
+    }
+  },
+  "1465": {
+    "hint": "Rewrite x²>x as x(x−1)>0 first, then test each statement. Watch the 0<x<1 trap before concluding S1 is enough.",
+    "theory": {
+      "title": "Quadratic Inequality — Sign Analysis",
+      "icon": "📐",
+      "summary": "x²>x doesn't just mean 'x is positive.' Factor to x(x−1)>0 and find WHICH regions satisfy it: x>1 or x<0.",
+      "keyFacts": [
+        "x²>x  ↔  x²−x>0  ↔  x(x−1)>0",
+        "Product positive → BOTH factors same sign",
+        "Region 1: x>1 (both pos) ✓  Region 2: x<0 (both neg) ✓  Region 3: 0<x<1 → NO",
+        "x=0 or x=1: product=0, not strictly positive",
+        "DS: a statement is sufficient only if it forces the answer to YES for ALL values in its range, or NO for ALL — no exceptions allowed",
+        "0<x<1 is the classic trap zone: positive but squared is SMALLER"
+      ],
+      "example": {
+        "problem": "Is x(x−1) > 0? Given (1) x>0, (2) x>1.",
+        "steps": [
+          "Factor: x²>x → x(x−1)>0",
+          "Solution set: x>1 OR x<0",
+          "S1: x>0 includes 0<x<1 (product negative → NO) and x>2 (→ YES). Two answers → NOT sufficient",
+          "S2: x>1 means x>0 and x−1>0, so product always positive → always YES. Sufficient"
+        ],
+        "answer": "B — statement 2 pins the answer to YES for every x in its range; statement 1 straddles the boundary 0<x<1 where the answer flips"
+      },
+      "traps": [
+        "'x positive → x² larger' is FALSE for fractions: 0.5²=0.25<0.5",
+        "S1 feels sufficient because positives 'should' satisfy it — test x=0.5 to kill this",
+        "If problem said 'positive integer,' S1 WOULD be sufficient (integers skip the 0<x<1 zone)",
+        "Forgetting x<0 also satisfies the inequality — relevant if statements bounded below"
+      ],
+      "solveSteps": [
+        "1. Rearrange: x²>x → x(x−1)>0",
+        "2. Identify sign regions: x<0, 0<x<1, x>1",
+        "3. Test each statement: does it force ALL values into YES-only or NO-only region?",
+        "4. S1 (x>0): spans both 0<x<1 (NO) and x>1 (YES) → INSUFFICIENT",
+        "5. S2 (x>1): entire range is YES-only → SUFFICIENT → answer B"
+      ]
+    }
+  },
+  "1466": {
+    "hint": "Expand (x+y)² = x² + 2xy + y². Each statement gives ONE piece — check whether either piece alone pins all three terms.",
+    "theory": {
+      "title": "Algebraic Identity — (x+y)² Expansion",
+      "icon": "🔢",
+      "summary": "(x+y)² expands to x² + 2xy + y², requiring BOTH the sum-of-squares AND the cross-product. Neither piece alone completes the picture.",
+      "keyFacts": [
+        "(x+y)² = x² + 2xy + y² — the cross term 2xy is easy to forget",
+        "(x−y)² = x² − 2xy + y²",
+        "x² + y² = (x+y)² − 2xy — rearrange to isolate what's missing",
+        "For DS: count unknowns in the target expression vs what each statement provides",
+        "Two separate statements each missing one ingredient → C is the candidate",
+        "Always verify: combined statements give a UNIQUE numeric answer"
+      ],
+      "example": {
+        "problem": "x² + y² = 20 and xy = 6. What is (x+y)²?",
+        "steps": [
+          "Write the identity: (x+y)² = x² + 2xy + y²",
+          "Substitute x² + y² = 20",
+          "Substitute 2xy = 2(6) = 12",
+          "(x+y)² = 20 + 12 = 32"
+        ],
+        "answer": "32"
+      },
+      "traps": [
+        "S1 alone: (x+y)² = 20 + 2xy — xy unknown, so infinitely many values possible",
+        "S2 alone: (x+y)² = x²+y²+12 — sum-of-squares unknown, still indeterminate",
+        "Assuming x²+y² alone is 'basically the same' as (x+y)² — it is not",
+        "Forgetting the factor of 2 in 2xy — writing xy instead of 2xy"
+      ],
+      "solveSteps": [
+        "1. Expand target: (x+y)² = x² + 2xy + y²",
+        "2. Identify the two ingredients needed: x²+y² and xy",
+        "3. S1 gives x²+y²=20 but not xy — insufficient alone",
+        "4. S2 gives xy=6 but not x²+y² — insufficient alone",
+        "5. Combined: both ingredients known → unique value 32 → C"
+      ]
+    }
+  },
+  "1467": {
+    "hint": "Terminating decimal ↔ denominator (in lowest terms) has only 2s and 5s as prime factors. Check if q's factorization settles the question alone.",
+    "theory": {
+      "title": "Terminating Decimals — Denominator Prime Factors",
+      "icon": "🔢",
+      "summary": "A fraction terminates iff its fully-reduced denominator has no prime factors besides 2 and 5. Numerator is irrelevant to termination — only the denominator's primes matter.",
+      "keyFacts": [
+        "p/q terminates ↔ q (after canceling common factors with p) = 2^a × 5^b only",
+        "8 = 2³ → p/8 always terminates (any p); denominator stays a power of 2 after reduction",
+        "Prime factors 3, 7, 11, 13… in denominator → non-terminating repeating decimal",
+        "Canceling shared factors can only REMOVE 2s or 5s from denominator — never add 3,7,…",
+        "Knowing p alone tells you nothing — termination depends entirely on the reduced denominator",
+        "DS check: S1 fixes q; S2 fixes p — which side drives termination?"
+      ],
+      "example": {
+        "problem": "Is p/q a terminating decimal if q = 8?",
+        "steps": [
+          "8 = 2³ — only prime factor is 2",
+          "Any shared factor between p and 8 is a power of 2",
+          "After canceling: denominator = 2^k for some k ≥ 0",
+          "2^k denominator → fraction = integer × 5^(3−k) / 1000 → always terminates",
+          "Conclusion: q = 8 is sufficient regardless of p"
+        ],
+        "answer": "Yes — p/8 always terminates"
+      },
+      "traps": [
+        "Thinking p matters: e.g., 'what if p = 7?' — numerator never causes non-termination",
+        "Worrying that common factors break S1 — canceling from 2³ leaves 2^k, still terminating",
+        "Assuming S2 helps: p = 3 with q = 7 gives 3/7 = 0.428571… (non-terminating)",
+        "Forgetting to reduce first: 6/12 = 1/2 terminates, even though 12 has factor 3"
+      ],
+      "solveSteps": [
+        "1. Recall the rule: terminates ↔ reduced denominator = 2^a × 5^b only",
+        "2. Test S1: does fixing q alone determine whether all prime factors are 2s/5s?",
+        "3. Test S2: does fixing p alone determine the denominator's prime factors?",
+        "4. If S1 pins q to a 2-and-5-only form → sufficient regardless of p",
+        "5. If S2 leaves q free → can pick q with factor 3 or 7 → insufficient"
+      ]
+    }
+  },
+  "1468": {
+    "hint": "Identify which side is opposite angle B, then ask: do the statements pin down whether B > 60° — or just rank the angles without anchoring them?",
+    "theory": {
+      "title": "Triangle Side-Angle Order + DS Sufficiency",
+      "icon": "📐",
+      "summary": "In any triangle, larger angle faces longer side. Knowing angle order (B > C) still leaves B anywhere from just-above-C to near-180°; a threshold question needs more than a ranking.",
+      "keyFacts": [
+        "Longer side ↔ larger opposite angle (side-angle inequality)",
+        "Angle B is opposite side AC; angle A opposite BC; angle C opposite AB",
+        "Ranking angles tells you ORDER, not absolute size — B > C doesn't force B > 60°",
+        "Three angles sum to 180°; if A is huge, both B and C can be well under 60°",
+        "DS threshold question: need to show ALL valid triangles satisfy (or all fail) the condition",
+        "Construct two valid examples — one where B > 60°, one where B ≤ 60° — to prove insufficiency"
+      ],
+      "example": {
+        "problem": "Triangle ABC. Is angle B > 60°? (1) AB < BC  (2) AC > AB",
+        "steps": [
+          "Translate sides to angles: AB<BC → angle C < angle A; AC>AB → angle B > angle C",
+          "Both together: A > C and B > C, i.e. C is the smallest angle",
+          "Try A=80°, B=59°, C=41°: B < 60° — conditions met (C smallest) ✓",
+          "Try A=40°, B=100°, C=40°: B > 60° — conditions met (C tied-smallest) ✓",
+          "Both cases satisfy (1)+(2) yet B straddles 60° → not pinned down"
+        ],
+        "answer": "E — combined statements only rank C as smallest; B can be above or below 60°"
+      },
+      "traps": [
+        "Confusing angle ORDER (B > C) with absolute threshold (B > 60°)",
+        "Assuming equilateral baseline makes all near-60° — extreme triangles break this",
+        "Statement (1) says nothing about B directly; don't equate AB < BC with a B-constraint",
+        "Two inequalities together feeling like 'surely enough' — always build a counterexample"
+      ],
+      "solveSteps": [
+        "1. Map each side to its opposite angle: AC↔B, BC↔A, AB↔C",
+        "2. Translate each statement into an angle inequality",
+        "3. For DS sufficiency, try to build one triangle with B > 60° AND one with B ≤ 60° that satisfy the statement(s)",
+        "4. If both examples exist, statement is NOT sufficient",
+        "5. Repeat for combined — if still two examples exist, answer is E"
+      ]
+    }
+  },
+  "1469": {
+    "hint": "Find critical points, draw sign chart. For each statement ask: does x land in ONLY one region — always YES, always NO, or both?",
+    "theory": {
+      "title": "Quadratic Inequality — Sign Chart & DS Sufficiency",
+      "icon": "📊",
+      "summary": "(x−a)(x−b)>0 has a positive product when both factors share a sign. Plot critical points on a number line, test each region, then check if the statement locks x into exactly one region.",
+      "keyFacts": [
+        "Critical points: set each factor = 0 → x = 3 and x = −2",
+        "(x−3)(x+2) > 0 when x < −2 OR x > 3 (both factors negative or both positive)",
+        "(x−3)(x+2) < 0 when −2 < x < 3 (factors opposite sign)",
+        "DS sufficiency: statement is sufficient if EVERY value it allows gives the SAME YES/NO answer",
+        "'Some YES, some NO' from one statement → NOT sufficient",
+        "Boundary values (x = −2, x = 3) give product = 0 → answer is NO (not strictly positive)"
+      ],
+      "example": {
+        "problem": "Is (x−3)(x+2) > 0? (1) x < −2  (2) x is a negative integer",
+        "steps": [
+          "Critical points: x = 3 and x = −2. Three regions: x<−2, −2<x<3, x>3",
+          "Region x<−2: both factors negative → product positive (YES)",
+          "Region −2<x<3: factors opposite sign → product negative (NO)",
+          "Region x>3: both factors positive → product positive (YES)",
+          "S1: x<−2 locks x into the first region only → always YES → SUFFICIENT",
+          "S2: negative integers include −1 (gives NO) and −3 (gives YES) → NOT sufficient"
+        ],
+        "answer": "A — statement 1 pins x into x<−2 where product is always positive; statement 2 straddles the boundary at x=−2, yielding both YES and NO."
+      },
+      "traps": [
+        "Forgetting x=−2 itself gives product 0 (not >0), so S2 includes a NO case there too",
+        "Thinking S1 is not sufficient because it doesn't cover the x>3 solution — DS only needs definitive YES or NO, not all solutions",
+        "Assuming 'negative integer' restricts enough — it still spans both sides of x=−2",
+        "Sign error: testing x=−1 in (x−3)(x+2): (−4)(1)=−4<0, which is NO, not YES"
+      ],
+      "solveSteps": [
+        "1. Find critical points: solve each factor = 0",
+        "2. Draw number line, mark regions, test sign in each",
+        "3. Identify where expression is >0 (solution set)",
+        "4. Statement 1: does it force x into ONE consistent YES or ONE consistent NO region?",
+        "5. Statement 2: does ANY allowed value give YES and ANY other give NO? If so, NOT sufficient"
+      ]
+    }
+  },
+  "1470": {
+    "hint": "Each statement gives 1 equation in 2 unknowns — alone, infinitely many solutions. Ask: do BOTH together form a solvable system?",
+    "theory": {
+      "title": "DS — System of Equations: Fraction from Constraints",
+      "icon": "🔵",
+      "summary": "A fraction requires a ratio, not just a difference. One linear equation with two unknowns leaves infinite solutions; you need n independent equations for n unknowns.",
+      "keyFacts": [
+        "Fraction r/(r+b) is ONE value — but needs BOTH r and b pinned",
+        "One equation, two unknowns → infinitely many solutions → insufficient",
+        "Two independent linear equations, two unknowns → unique solution → sufficient",
+        "'Difference' constraint (b − r = k) ≠ ratio constraint — distinct unknowns remain",
+        "'Percentage after change' gives one equation — looks powerful, but check unknowns",
+        "DS sufficiency test: can you get a single numeric answer? Not just narrow it down."
+      ],
+      "example": {
+        "problem": "Jar has r red, b blue. Is r/(r+b) determinable? S1: b−r=12. S2: adding 6 red makes red exactly 40%.",
+        "steps": [
+          "S1 alone: b=r+12 → fraction = r/(2r+12). Any r works: r=3→1/6, r=6→1/4. NOT sufficient.",
+          "S2 alone: (r+6)/(r+b+6)=0.4 → 3r−2b=−18. Two unknowns, one eq → infinite solutions. NOT sufficient.",
+          "Together: b=r+12 (from S1) into 3r−2b=−18 → 3r−2(r+12)=−18 → r=6, b=18",
+          "Fraction = 6/24 = 1/4. Unique answer. SUFFICIENT."
+        ],
+        "answer": "C — neither statement alone pins both variables, but together they form a 2×2 system with a unique solution"
+      },
+      "traps": [
+        "S2 looks sufficient — a percentage constraint feels 'precise' but still has 2 unknowns",
+        "Assuming S1 gives ratio info — it gives difference, not proportion",
+        "Forgetting to verify independence: two equations must not be scalar multiples of each other",
+        "Stopping after finding one valid pair instead of checking if other pairs also satisfy"
+      ],
+      "solveSteps": [
+        "1. Define variables and what the question actually asks (a ratio needs both numerator and denominator)",
+        "2. Test S1 alone: count equations vs unknowns; find 2 valid solutions → NOT sufficient",
+        "3. Test S2 alone: translate the percentage condition to algebra; count equations vs unknowns → NOT sufficient",
+        "4. Combine: substitute S1 into S2 → unique values for all unknowns → sufficient",
+        "5. Answer C — classic 'each gives one constraint, together close the system'"
+      ]
+    }
+  },
+  "1551": {
+    "hint": "Find each worker type's individual daily rate first (group rate ÷ headcount), then multiply by new team headcount before combining.",
+    "theory": {
+      "title": "Combined Work Rate — Mixed Worker Types",
+      "icon": "⚙",
+      "summary": "When two worker types have different efficiencies, convert each group's info into a per-worker daily rate, then sum all workers' rates for the mixed team. Time = 1 / combined rate.",
+      "keyFacts": [
+        "Total work W = (# workers) × (days) for whichever group finishes the job alone",
+        "Per-worker rate = 1/W  (fraction of job per worker per day)",
+        "New team rate = (count of type A) × rateA + (count of type B) × rateB",
+        "Time = 1 / team rate  (where total job = 1)",
+        "Both types can have identical per-worker rates even when group sizes and days differ",
+        "Never add the two GROUP rates directly — those rates assume original headcounts"
+      ],
+      "example": {
+        "problem": "4 Type-A workers finish a job in 6 days; 3 Type-B workers finish it in 4 days. A team of 2A + 3B: how many days?",
+        "steps": [
+          "Total work (A): 4 × 6 = 24 worker-days → per A-worker rate = 1/24 job/day",
+          "Total work (B): 3 × 4 = 12 worker-days → per B-worker rate = 1/12 job/day",
+          "Team rate: 2×(1/24) + 3×(1/12) = 1/12 + 3/12 = 4/12 = 1/3 job/day",
+          "Time = 1 ÷ (1/3) = 3 days"
+        ],
+        "answer": "3 days"
+      },
+      "traps": [
+        "Adding group rates directly (1/10 + 1/8) — those rates only apply to original headcounts",
+        "Skipping per-worker step; group rate × new headcount gives wrong result",
+        "Assuming the two worker types must have different individual rates — they can be equal",
+        "Forgetting to multiply per-worker rate by the actual number of that type on the new team"
+      ],
+      "solveSteps": [
+        "1. Compute total work for each type: W = (# workers) × (days)",
+        "2. Per-worker daily rate for each type = 1/W",
+        "3. New team rate = (# type-A on team) × rateA + (# type-B on team) × rateB",
+        "4. Time = 1 / new team rate",
+        "5. Sanity check: time should be less than either group working alone with original size"
+      ]
+    }
+  },
+  "1552": {
+    "hint": "Add all rates first, then divide total work by combined rate. Watch units — answer choices mix hours and minutes.",
+    "theory": {
+      "title": "Combined Work Rate — Multiple Machines",
+      "icon": "⚙",
+      "summary": "When machines run simultaneously, rates add directly. Total time = total output ÷ combined rate. The unit-conversion step (hours → minutes) is where most errors occur.",
+      "keyFacts": [
+        "Combined rate = sum of individual rates (same units required)",
+        "Time = Total work ÷ Combined rate",
+        "Rate × Time = Work — rearrange as needed",
+        "Convert to target units LAST: hours × 60 = minutes",
+        "Trap: dividing total work by ONE machine's rate instead of combined rate",
+        "Trap: forgetting ×60 conversion or applying it incorrectly (×36, ×30, etc.)"
+      ],
+      "example": {
+        "problem": "Machines produce 300, 200, 100 widgets/hr respectively. Job = 3,600 widgets. How many minutes for all three running together?",
+        "steps": [
+          "Combined rate = 300 + 200 + 100 = 600 widgets/hr",
+          "Time = 3,600 ÷ 600 = 6 hours",
+          "Convert: 6 hours × 60 min/hr = 360 minutes"
+        ],
+        "answer": "360 minutes"
+      },
+      "traps": [
+        "Using only one machine's rate — e.g. 3600 ÷ 300 = 12 hrs (ignores Y and Z)",
+        "Forgetting to convert hours → minutes and picking the 'hours' answer",
+        "Partial conversion: 6 × 36 = 216 — multiplying by wrong factor",
+        "Halving the correct answer (180) — a phantom ×2 error"
+      ],
+      "solveSteps": [
+        "1. List all rates in same units (widgets/hr)",
+        "2. Sum rates → combined rate",
+        "3. Time (hours) = total work ÷ combined rate",
+        "4. Check what units the question asks for",
+        "5. If minutes needed: multiply hours × 60"
+      ]
+    }
+  },
+  "1553": {
+    "hint": "Find each worker's individual rate first: group rate ÷ group size. Then scale to the actual workers used and sum.",
+    "theory": {
+      "title": "Work Rates — Per-Worker Scaling",
+      "icon": "🖌",
+      "summary": "A group's rate belongs to the group, not the individual. Divide out to get the per-worker rate, then multiply back up for whatever mix you actually use.",
+      "keyFacts": [
+        "Per-worker rate = (1 job) / (group size × days to finish)",
+        "Combined rate of mixed team = sum of each worker's individual rate",
+        "Time to finish = 1 / combined rate",
+        "Rate scales linearly with workers: 3 workers do 3× one worker's rate",
+        "Always convert to per-worker rate before changing group composition",
+        "Units: jobs per day — keep them consistent throughout"
+      ],
+      "example": {
+        "problem": "6 painters finish a house in 4 days. 4 painters finish it in 8 days. 3 from the first group and 2 from the second work together. How long?",
+        "steps": [
+          "Per-painter rate (group 1): 1 job / (6 × 4) = 1/24 job/day",
+          "Per-painter rate (group 2): 1 job / (4 × 8) = 1/32 job/day",
+          "3 from group 1: 3 × 1/24 = 1/8 job/day",
+          "2 from group 2: 2 × 1/32 = 1/16 job/day",
+          "Combined: 1/8 + 1/16 = 2/16 + 1/16 = 3/16 job/day",
+          "Time = 1 ÷ (3/16) = 16/3 ≈ 5.3 days → closest answer: 5"
+        ],
+        "answer": "≈ 5.3 days (answer B)"
+      },
+      "traps": [
+        "Using the group's total days as if the subgroup works at the same speed — it doesn't",
+        "Dividing days by number of workers instead of multiplying rates",
+        "Forgetting to convert each group to per-worker rate before summing",
+        "Picking the original group A time (4 days) because 'faster group dominates'"
+      ],
+      "solveSteps": [
+        "1. Per-worker rate = 1 / (group_size × group_days) for each group",
+        "2. Multiply per-worker rate × actual workers used from each group",
+        "3. Sum all sub-team rates → combined rate R",
+        "4. Time = 1 / R",
+        "5. Sanity: answer must be between the two groups' original times (4–8 here)"
+      ]
+    }
+  },
+  "1554": {
+    "hint": "Net rate = sum of fill rates MINUS drain rate. Convert each to fraction of tank per hour, find LCD, combine with correct signs.",
+    "theory": {
+      "title": "Combined Work Rates — Pipes & Cisterns",
+      "icon": "🚰",
+      "summary": "Each pump contributes a fraction of the job per hour. Fill pumps add; drain pumps subtract. Sum the signed rates, then invert for total time.",
+      "keyFacts": [
+        "Rate = 1 / time (fraction of job per hour)",
+        "Net rate = Σ(fill rates) − Σ(drain rates)",
+        "Time to complete = 1 / net rate",
+        "Find LCD to add fractions cleanly",
+        "Drain pump makes net rate smaller → longer time than fill-only scenario",
+        "If net rate > 1, job finishes in under 1 hour"
+      ],
+      "example": {
+        "problem": "Pump A fills in 6 hr, Pump B fills in 4 hr, Pump C drains in 12 hr. All run simultaneously on empty tank. Time to fill?",
+        "steps": [
+          "Rates: A = 1/6, B = 1/4, C = −1/12 (drain)",
+          "LCD = 12: convert → 2/12 + 3/12 − 1/12",
+          "Net rate = 4/12 = 1/3 tank/hr",
+          "Time = 1 ÷ (1/3) = 3 hours"
+        ],
+        "answer": "3 hours"
+      },
+      "traps": [
+        "Adding all three rates as positive — ignoring that C drains → gets 1/2, time = 2 hr (too fast)",
+        "Forgetting C entirely → 1/6 + 1/4 = 5/12, time ≈ 2.4 hr",
+        "Treating drain rate as slowing fill without subtracting properly",
+        "Inverting the wrong quantity — time = 1/rate, not rate itself"
+      ],
+      "solveSteps": [
+        "1. Assign each machine a rate = 1/time; give drain pumps a negative sign",
+        "2. Find LCD and express all rates with same denominator",
+        "3. Sum all signed rates to get net rate",
+        "4. Time = 1 / net rate",
+        "5. Sanity check: answer must be less than the fastest fill pump alone"
+      ]
+    }
+  },
+  "1555": {
+    "hint": "Find LCM of the three numbers first, then check divisibility by 4. The LCM itself may already satisfy the 'NOT divisible by 4' constraint.",
+    "theory": {
+      "title": "LCM with Exclusion Constraint",
+      "icon": "🔢",
+      "summary": "LCM gives the smallest number divisible by all listed factors. Adding a 'NOT divisible by X' constraint means verify the LCM first — it often already passes.",
+      "keyFacts": [
+        "LCM(a,b,c) = product of highest powers of all prime factors across a, b, c",
+        "6=2×3, 10=2×5, 15=3×5 → LCM=2¹×3¹×5¹=30",
+        "Divisible by 4 requires at least 2² in prime factorization",
+        "30 has only 2¹ → NOT divisible by 4 ✓",
+        "Multiples of LCM: 30, 60, 90, 120… — each successive multiple may or may not be divisible by 4",
+        "60=30×2 → gains a second factor of 2 → 2²×3×5 → divisible by 4 ✗"
+      ],
+      "example": {
+        "problem": "Smallest positive integer divisible by 6, 10, and 15 but NOT by 4?",
+        "steps": [
+          "Prime factor each: 6=2×3, 10=2×5, 15=3×5",
+          "LCM = take highest power of each prime: 2¹×3¹×5¹ = 30",
+          "Check 30 ÷ 4 = 7.5 → not divisible ✓",
+          "Verify: 30÷6=5 ✓, 30÷10=3 ✓, 30÷15=2 ✓",
+          "30 satisfies all conditions — stop here"
+        ],
+        "answer": "30"
+      },
+      "traps": [
+        "Jumping to 60 because 'bigger feels safer' — 60÷4=15, fails the constraint",
+        "Thinking the constraint means you must add 4 to the LCM set (LCM of 4,6,10,15=60) — wrong, 'NOT divisible by 4' excludes 4, not includes",
+        "Forgetting to verify the LCM itself before checking larger multiples",
+        "Assuming all answer choices are valid multiples of LCM — 90 and 150 aren't multiples of 30×2=60 but are multiples of 30; check each against the 'NOT÷4' rule separately"
+      ],
+      "solveSteps": [
+        "1. Factor each number into primes",
+        "2. Build LCM from highest prime powers",
+        "3. Check LCM against the exclusion constraint (÷4 here)",
+        "4. If LCM passes → done. If fails → next multiple of LCM, repeat",
+        "5. Verify the winning number divides cleanly by all required divisors"
+      ]
+    }
+  },
+  "1556": {
+    "hint": "GCD = 12 exactly means 12 divides n AND n/12 shares no common factor with 36/12 = 3. Find the choice where n/12 is NOT a multiple of 3.",
+    "theory": {
+      "title": "Exact GCD Conditions — Prime Factor Pinning",
+      "icon": "🔢",
+      "summary": "GCD(n, m) = k means k divides both AND the leftovers n/k and m/k share no common factor. Use this to test 'exactly k' vs 'at least k'.",
+      "keyFacts": [
+        "GCD(n, m) = k ⟺ k | n AND k | m AND GCD(n/k, m/k) = 1",
+        "'GCD is AT LEAST k' only requires k | n and k | m",
+        "'GCD is EXACTLY k' additionally requires GCD(n/k, m/k) = 1",
+        "36 = 2² × 3²; 12 = 2² × 3; so 36/12 = 3",
+        "n/12 must be coprime with 3 — i.e., n/12 not divisible by 3",
+        "Multiples of 36 automatically give GCD ≥ 36, violating the constraint"
+      ],
+      "example": {
+        "problem": "GCD(n, 36) = 12. Does n = 72 qualify?",
+        "steps": [
+          "72 / 12 = 6; 36 / 12 = 3",
+          "GCD(6, 3) = 3 ≠ 1",
+          "So GCD(72, 36) = 12 × 3 = 36, not 12",
+          "72 fails — it is a multiple of 36, pushing GCD too high"
+        ],
+        "answer": "No. n = 72 gives GCD = 36, not 12."
+      },
+      "traps": [
+        "Any multiple of 12 satisfies 'at least 12' — but not necessarily 'exactly 12'",
+        "Multiples of 36 (like 72) look like multiples of 12 but inflate the GCD to 36",
+        "Forgetting to check the reduced ratio GCD(n/k, m/k) = 1 is the core miss",
+        "Extra prime factors in n (like the 5 in 60) are harmless if they aren't shared with m"
+      ],
+      "solveSteps": [
+        "1. Factor both numbers: 36 = 2² × 3², 12 = 2² × 3",
+        "2. Confirm 12 | n (n is a multiple of 12)",
+        "3. Compute n/12 and m/12 = 36/12 = 3",
+        "4. Check GCD(n/12, 3) = 1 — n/12 must NOT be divisible by 3",
+        "5. Any n/12 coprime to 3 works; n = 72 → n/12 = 6, fails; n = 60 → n/12 = 5, passes"
+      ]
+    }
+  },
+  "1557": {
+    "hint": "Divisible by BOTH → find LCM first. Then count multiples of that LCM in the range using floor division: ⌊high/LCM⌋ − ⌈low/LCM⌉ + 1.",
+    "theory": {
+      "title": "LCM & Counting Multiples in a Range",
+      "icon": "∩",
+      "summary": "'Divisible by A and B' means divisible by LCM(A,B), not GCD or A×B. Count multiples in [low,high] via floor/ceiling division — don't list them one by one.",
+      "keyFacts": [
+        "LCM(a,b) = a×b / GCD(a,b)",
+        "Divisible by BOTH a and b ↔ divisible by LCM(a,b)",
+        "Multiples of k in [L,H]: count = ⌊H/k⌋ − ⌈L/k⌉ + 1",
+        "Equivalently: find smallest multiple ≥ L and largest ≤ H, count via (largest−smallest)/k + 1",
+        "LCM(6,8): 6=2×3, 8=2³ → LCM=2³×3=24 (NOT 12, NOT 48)",
+        "GCD(6,8)=2 → LCM=6×8/2=24"
+      ],
+      "example": {
+        "problem": "How many integers in [100,300] are divisible by both 6 and 8?",
+        "steps": [
+          "Step 1: LCM(6,8) = 6×8/GCD(6,8) = 48/2 = 24",
+          "Step 2: Smallest multiple of 24 ≥ 100: ⌈100/24⌉=5 → 5×24=120",
+          "Step 3: Largest multiple of 24 ≤ 300: ⌊300/24⌋=12 → 12×24=288",
+          "Step 4: Count = 12−5+1 = 8",
+          "Verify: 120,144,168,192,216,240,264,288 — 8 values ✓"
+        ],
+        "answer": "8 multiples (choice A)"
+      },
+      "traps": [
+        "Using LCM=12 (forgetting 8=2³ dominates) → overcounts to ~17",
+        "Using A×B=48 instead of LCM=24 → undercounts",
+        "Off-by-one: forgetting +1 in (last index − first index + 1)",
+        "Listing manually and miscounting instead of using the formula"
+      ],
+      "solveSteps": [
+        "1. 'Divisible by A AND B' → compute LCM(A,B) = A×B/GCD(A,B)",
+        "2. Find first multiple of LCM ≥ lower bound: ⌈L/LCM⌉ × LCM",
+        "3. Find last multiple of LCM ≤ upper bound: ⌊H/LCM⌋ × LCM",
+        "4. Count = (last index − first index) + 1",
+        "5. Sanity-check: verify first and last multiples are in range"
+      ]
+    }
+  },
+  "1558": {
+    "hint": "Recall the universal identity linking GCD and LCM of any two integers — no calculation needed once you see it.",
+    "theory": {
+      "title": "GCD × LCM Identity",
+      "icon": "🔢",
+      "summary": "For any two positive integers, GCD(x,y) × LCM(x,y) = x × y, always. This identity holds because prime factors are simply redistributed, not created or destroyed.",
+      "keyFacts": [
+        "GCD(x,y) × LCM(x,y) = x × y — universal identity, no exceptions",
+        "GCD takes the MIN exponent of each shared prime",
+        "LCM takes the MAX exponent of every prime across both numbers",
+        "Min-exp + Max-exp = sum of exponents → product preserved",
+        "Identity holds even when x and y share no common factors (GCD = 1, LCM = xy)",
+        "Corollary: LCM(x,y) = xy / GCD(x,y)"
+      ],
+      "example": {
+        "problem": "x = 2³×3²×5, y = 2²×3×7. Find GCD(x,y) × LCM(x,y).",
+        "steps": [
+          "Recall identity: GCD×LCM = x×y for any two positive integers",
+          "GCD = 2^min(3,2) × 3^min(2,1) = 2²×3 = 12",
+          "LCM = 2^max(3,2) × 3^max(2,1) × 5 × 7 = 2³×3²×5×7 = 2520",
+          "Check: 12 × 2520 = 30,240 = 360 × 84 = x×y ✓",
+          "By identity, answer = xy — no arithmetic required"
+        ],
+        "answer": "xy"
+      },
+      "traps": [
+        "2xy — misremembering a factor of 2 in the identity; there is none",
+        "xy/2 — wrongly 'removing' the GCD's factor of 2 from the product",
+        "Computing GCD and LCM fully then multiplying — wastes 90 seconds; the identity skips all that",
+        "Assuming identity only works when GCD = 1 — it works universally"
+      ],
+      "solveSteps": [
+        "1. Recognize GCD × LCM appears → apply identity immediately",
+        "2. GCD(x,y) × LCM(x,y) = x × y, always",
+        "3. Answer is xy — no factoring or arithmetic needed",
+        "4. Sanity: GCD takes mins, LCM takes maxes; min+max = original exponents → product preserved"
+      ]
+    }
+  },
+  "1559": {
+    "hint": "Find slope from 2 given points, build the line equation, then plug each choice's x in — the one whose y matches is ON the line.",
+    "theory": {
+      "title": "Line Through Two Points — Equation & Verification",
+      "icon": "📐",
+      "summary": "Any line is fully defined by two points. Find slope → write equation → substitute candidates. Don't guess; plug in.",
+      "keyFacts": [
+        "Slope: m = (y₂ − y₁) / (x₂ − x₁) — order must match in numerator and denominator",
+        "Point-slope form: y − y₁ = m(x − x₁)",
+        "Slope-intercept form: y = mx + b — solve for b by substituting one known point",
+        "A point (a, b) lies on line iff b = m·a + c (satisfies the equation)",
+        "Sign errors in slope are the #1 trap — double-check with both original points",
+        "On GMAT, pick first answer choice that satisfies, but verify you haven't mis-computed b"
+      ],
+      "example": {
+        "problem": "Line passes through (2, 5) and (−1, −1). Which point also lies on it?",
+        "steps": [
+          "Slope: m = (−1 − 5) / (−1 − 2) = −6 / −3 = 2",
+          "Use point (2, 5): y − 5 = 2(x − 2) → y = 2x + 1",
+          "Verify with (−1, −1): 2(−1)+1 = −1 ✓",
+          "Test (0, 1): 2(0)+1 = 1 ✓ — lies on line",
+          "Test (1, 2): 2(1)+1 = 3 ≠ 2 ✗ — does NOT lie on line"
+        ],
+        "answer": "(0, 1) — satisfies y = 2x + 1"
+      },
+      "traps": [
+        "Computing slope as +6/+3 = 2 but then getting b wrong (y = 2x − 1) → (1, 2) looks correct",
+        "Forgetting to verify b with both given points before testing choices",
+        "Stopping after finding one valid choice without realizing the question asks for the first valid one in order",
+        "Mis-subtracting negatives in slope formula — write out numerator and denominator separately"
+      ],
+      "solveSteps": [
+        "1. Compute slope: m = (y₂ − y₁) / (x₂ − x₁), track signs carefully",
+        "2. Substitute one given point into y = mx + b, solve for b",
+        "3. Verify equation with the OTHER given point to catch arithmetic errors",
+        "4. For each answer choice, plug x → compute y → compare to given y",
+        "5. Pick first choice where computed y = given y"
+      ]
+    }
+  },
+  "1560": {
+    "hint": "Two-step coordinate problem: find midpoint M first with the midpoint formula, THEN apply the distance formula from M to C.",
+    "theory": {
+      "title": "Midpoint + Distance Formula — Two-Step Coordinate Geometry",
+      "icon": "📐",
+      "summary": "Midpoint splits a segment into equal halves using coordinate averages. Distance between any two points uses the Pythagorean theorem on coordinate differences.",
+      "keyFacts": [
+        "Midpoint M of (x₁,y₁)→(x₂,y₂): M = ((x₁+x₂)/2, (y₁+y₂)/2)",
+        "Distance d between (x₁,y₁) and (x₂,y₂): d = √[(x₂−x₁)² + (y₂−y₁)²]",
+        "If Δx = 0 or Δy = 0, distance collapses to |Δy| or |Δx| — no square root needed",
+        "Always find the midpoint coordinates BEFORE computing any downstream distance",
+        "Two points sharing same x-coordinate → vertical segment, distance = |y₂−y₁|"
+      ],
+      "example": {
+        "problem": "A(1,3) and B(7,11). M is midpoint of AB. Find distance from M to C(4,3).",
+        "steps": [
+          "Midpoint M = ((1+7)/2, (3+11)/2) = (4, 7)",
+          "Distance MC: Δx = 4−4 = 0, Δy = 7−3 = 4",
+          "d = √(0² + 4²) = √16 = 4",
+          "M and C share x=4 → purely vertical → distance = |7−3| = 4 ✓"
+        ],
+        "answer": "4 (choice A)"
+      },
+      "traps": [
+        "Skipping midpoint — computing distance from A or B to C directly gives wrong point",
+        "Midpoint formula: AVERAGE the coordinates, don't subtract them",
+        "When Δx=0, distance is just |Δy| — no need for full Pythagorean expansion",
+        "Confusing distance AB (=10) with distance MC — these are unrelated segments"
+      ],
+      "solveSteps": [
+        "1. Apply midpoint formula: M = ((x_A+x_B)/2, (y_A+y_B)/2)",
+        "2. Write down M's coordinates explicitly before moving on",
+        "3. Compute Δx and Δy from M to target point C",
+        "4. If one delta is 0, distance = |other delta|; else d = √(Δx²+Δy²)",
+        "5. Sanity-check: result should be a clean number on GMAT hard problems"
+      ]
+    }
+  },
+  "1561": {
+    "hint": "Perpendicular slope = negative reciprocal. Build line q with that slope through (6,2), then set y = 0 to find x-intercept.",
+    "theory": {
+      "title": "Perpendicular Lines & X-Intercept",
+      "icon": "⊥",
+      "summary": "Two lines are perpendicular when their slopes multiply to −1. Flip the fraction and negate: slope 3/4 → perpendicular slope −4/3. Then build the line equation and solve for the intercept.",
+      "keyFacts": [
+        "Perpendicular slopes: m₁ × m₂ = −1, so m₂ = −1/m₁",
+        "Negative reciprocal: flip the fraction, change the sign",
+        "Point-slope form: y − y₁ = m(x − x₁)",
+        "X-intercept: set y = 0 and solve for x",
+        "Y-intercept: set x = 0 and solve for y",
+        "Parallel lines have equal slopes; perpendicular lines have negative-reciprocal slopes"
+      ],
+      "example": {
+        "problem": "Line p has slope 2/3. Line q is perpendicular to p and passes through (3, 1). Find the x-intercept of q.",
+        "steps": [
+          "Perpendicular slope: m_q = −1/(2/3) = −3/2",
+          "Point-slope: y − 1 = −(3/2)(x − 3)",
+          "Expand: y = −(3/2)x + 9/2 + 1 = −(3/2)x + 11/2",
+          "Set y = 0: (3/2)x = 11/2 → x = 11/3"
+        ],
+        "answer": "x-intercept = 11/3"
+      },
+      "traps": [
+        "Using the given point's x-coordinate (e.g. 6) as the x-intercept — the point is ON the line, not the intercept",
+        "Forgetting to negate when taking the reciprocal (getting 4/3 instead of −4/3)",
+        "Solving for y-intercept but reporting it as x-intercept",
+        "Arithmetic slip when multiplying both sides to clear fractions"
+      ],
+      "solveSteps": [
+        "1. Find perpendicular slope: negate and flip → if p has slope a/b, q has slope −b/a",
+        "2. Write point-slope equation for q using the given point",
+        "3. Simplify to slope-intercept form y = mx + b",
+        "4. Set y = 0, solve for x — that is the x-intercept",
+        "5. Sanity-check: x-intercept should NOT equal the given point's x-coordinate unless y-coord was 0"
+      ]
+    }
+  },
+  "1562": {
+    "hint": "Count (x,y) with x²+y²<25. For each integer x, find how many integers y satisfy y²<25−x². Watch strictly-inside: < not ≤.",
+    "theory": {
+      "title": "Lattice Points Inside a Circle",
+      "icon": "⊙",
+      "summary": "A lattice point lies strictly inside a circle iff x²+y²<r². Enumerate by column: for each integer x, count integers y where y²<r²−x².",
+      "keyFacts": [
+        "Strictly inside: x²+y²<r² (boundary points excluded)",
+        "On circle: x²+y²=r² — NOT counted for 'strictly inside'",
+        "For each x, valid y: integers with |y|<√(r²−x²)",
+        "x values range: integers with x²<r², i.e. |x|≤r−1 when r is integer",
+        "Use symmetry: x and −x yield identical y-counts → compute once, double",
+        "Count of integers y with y²<k = 2·floor(√(k−ε))+1 (the odd-count trick)"
+      ],
+      "example": {
+        "problem": "Radius 5 circle at origin. Count strictly interior lattice points.",
+        "steps": [
+          "x=0: y²<25 → |y|≤4 → 9 points",
+          "x=±1: y²<24 → |y|≤4 → 9 each → 18",
+          "x=±2: y²<21 → |y|≤4 → 9 each → 18",
+          "x=±3: y²<16 → |y|≤3 → 7 each → 14",
+          "x=±4: y²<9 → |y|≤2 → 5 each → 10",
+          "Total: 9+18+18+14+10 = 69"
+        ],
+        "answer": "69"
+      },
+      "traps": [
+        "Using ≤ instead of < includes the 12 points on the circle (x²+y²=25)",
+        "9×9=81 grid counts all x,y∈{−4…4} without the circle constraint",
+        "Radius 5 → 25 points is a nonsense shortcut with no basis",
+        "Missing that x=±5 are on the circle, giving y²<0 — impossible, 0 points"
+      ],
+      "solveSteps": [
+        "1. Set up condition: x²+y²<r²",
+        "2. Find x range: integers with |x|<r (x=±r land on circle, excluded)",
+        "3. For each x, compute k=r²−x²; valid y count = 2·⌊√(k−ε)⌋+1",
+        "4. Apply symmetry: sum column x and −x together (double if x≠0)",
+        "5. Add all columns; do NOT add boundary-point corrections"
+      ]
+    }
   }
 };
 
