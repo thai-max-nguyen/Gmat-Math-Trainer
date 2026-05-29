@@ -25858,6 +25858,47 @@ const QUESTION_THEORIES = {
       ]
     }
   },
+  "1019": {
+    "hint": "Check each statement: does b>0 alone guarantee Q2 passage for ALL slopes? Does m>0 alone guarantee it for ALL intercepts?",
+    "theory": {
+      "title": "Line Through Quadrant II — Slope & Intercept Logic",
+      "icon": "📐",
+      "summary": "A line y=mx+b passes through Q2 (x<0, y>0) based on where it crosses the axes. The y-intercept b pins whether the line must enter Q2 regardless of slope.",
+      "keyFacts": [
+        "Q2 condition: line has a point with x<0 and y>0",
+        "y-intercept b>0 → line crosses y-axis above origin → always extends into Q2 (for any slope)",
+        "If m>0 and b>0: x-intercept = −b/m < 0, line passes Q3→Q2→Q1",
+        "If m<0 and b>0: line passes Q2→Q4 — still hits Q2",
+        "If m=0 and b>0: horizontal line y=b>0 spans Q1 and Q2",
+        "m>0 alone insufficient: negative b can push line entirely below Q2"
+      ],
+      "example": {
+        "problem": "y = mx + b, m>0. Does the line pass through Q2?",
+        "steps": [
+          "Try m=1, b=1: line y=x+1, x-intercept at −1, passes Q2 ✓",
+          "Try m=1, b=−5: line y=x−5, crosses x-axis at 5, never enters Q2 ✗",
+          "So m>0 alone: NOT sufficient",
+          "Now try b=2, m=−3: y=−3x+2, at x=−1 y=5>0 → Q2 ✓",
+          "Try b=2, m=0: y=2, horizontal, all of Q1+Q2 ✓",
+          "b>0 works for any slope → SUFFICIENT"
+        ],
+        "answer": "B — statement 2 (b>0) guarantees Q2 passage for every possible slope; statement 1 (m>0) fails when b is negative."
+      },
+      "traps": [
+        "Assuming m>0 means the line 'goes up into Q2' — slope alone doesn't fix quadrant passage",
+        "Forgetting m=0 case: a horizontal line y=b>0 still passes through Q2",
+        "Testing only one example per statement and concluding sufficiency",
+        "Confusing x-intercept with y-intercept when checking which quadrant is entered"
+      ],
+      "solveSteps": [
+        "1. Identify DS goal: does the line have ANY point (x<0, y>0)?",
+        "2. Test Stmt 1 (m>0) alone: pick b=1 (yes Q2) and b=−100 (no Q2) → NOT sufficient",
+        "3. Test Stmt 2 (b>0) alone: check all three slope cases (m>0, m<0, m=0) — all enter Q2 → SUFFICIENT",
+        "4. No need to combine — answer is B",
+        "5. Key insight: b>0 pins the y-axis crossing above origin, forcing the line into Q2 no matter its tilt"
+      ]
+    }
+  },
   "1020": {
     "hint": "Factor x³−x completely, then draw a sign chart. Check each statement: does it pin the sign of the product, or leave ambiguity?",
     "theory": {
@@ -26086,6 +26127,760 @@ const QUESTION_THEORIES = {
         "3. Only-A = |A| − |A∩B| ; Only-B = |B| − |A∩B|",
         "4. Verify: Only-A + Only-B + Both + Neither = Total",
         "5. If a given datum contradicts IE result, flag it as extraneous and trust the algebra"
+      ]
+    }
+  },
+  "1056": {
+    "hint": "Use 3-set inclusion-exclusion: |A∪B∪C| = singles − pairs + triple. Subtract from total for 'none'. Watch sign on the triple — it adds back.",
+    "theory": {
+      "title": "Three-Set Inclusion-Exclusion",
+      "icon": "∩",
+      "summary": "Adding three sets double-counts pair overlaps and triple-counts the center. Inclusion-exclusion corrects: add singles, subtract pairs, add back triple.",
+      "keyFacts": [
+        "|A∪B∪C| = |A|+|B|+|C| − |A∩B| − |A∩C| − |B∩C| + |A∩B∩C|",
+        "'Speaks none' = Total − |A∪B∪C|",
+        "Pair counts (e.g. 'both French and German') include the triple-overlap people — do NOT subtract triple again from pairs",
+        "The +triple at the end compensates for subtracting it three times in the pair step",
+        "Venn diagram: 7 regions. Center = all three. Outer ring = none.",
+        "Double-check: sum all 7 regions should equal |A∪B∪C|"
+      ],
+      "example": {
+        "problem": "300 employees. French=150, German=120, Spanish=100. F∩G=60, F∩S=40, G∩S=30. All three=20. How many speak none?",
+        "steps": [
+          "Apply inclusion-exclusion: 150+120+100 = 370",
+          "Subtract pair overlaps: 370 − 60 − 40 − 30 = 240",
+          "Add back triple: 240 + 20 = 260 speak at least one language",
+          "None = 300 − 260 = 40"
+        ],
+        "answer": "40 employees speak none of the three languages"
+      },
+      "traps": [
+        "Forgetting to add back the triple — gives 240 → 60 none (off by 20)",
+        "Subtracting the triple from each pair first (the given pair numbers already include the triple)",
+        "Computing 300 − (sum of all given numbers) without applying inclusion-exclusion",
+        "Miscounting sign: pairs subtract, triple adds"
+      ],
+      "solveSteps": [
+        "1. Write formula: |A∪B∪C| = A+B+C − AB − AC − BC + ABC",
+        "2. Plug in all given values (use numbers exactly as stated)",
+        "3. Compute step by step; watch the +ABC at the end",
+        "4. None = Total − |A∪B∪C|",
+        "5. Sanity: none must be ≥ 0 and ≤ total"
+      ]
+    }
+  },
+  "1057": {
+    "hint": "Divide the two given terms to eliminate a and isolate a power of r. Solve r, back-solve a, then apply the geometric sum formula.",
+    "theory": {
+      "title": "Geometric Sequences — Solving for r, a, and Sum",
+      "icon": "📐",
+      "summary": "In a geometric sequence each term = previous × r. Dividing any two terms cancels a, giving a pure power of r you can solve directly.",
+      "keyFacts": [
+        "nth term: aₙ = a·r^(n−1)",
+        "Dividing two terms: aₘ/aₙ = r^(m−n) — a cancels cleanly",
+        "Sum of n terms: Sₙ = a(rⁿ − 1)/(r − 1)  when r ≠ 1",
+        "When r = 2: Sₙ = a(2ⁿ − 1)",
+        "Gap between known term indices = exponent on r after division",
+        "Always check: divide higher-index term by lower-index term → positive exponent"
+      ],
+      "example": {
+        "problem": "3rd term = 12, 6th term = 96 in a geometric sequence. Find sum of first 8 terms.",
+        "steps": [
+          "Divide: a₆/a₃ = ar⁵/ar² = r³ = 96/12 = 8 → r = 2",
+          "Back-solve a: ar² = 12 → a·4 = 12 → a = 3",
+          "S₈ = 3·(2⁸ − 1)/(2 − 1) = 3·(256 − 1)/1 = 3·255",
+          "S₈ = 765"
+        ],
+        "answer": "765"
+      },
+      "traps": [
+        "Using r = 8 directly without taking the cube root (gap of 3 indices, not 1)",
+        "Plugging n = 8 into aₙ formula instead of the sum formula",
+        "Off-by-one: 3rd term uses exponent r², not r³",
+        "Forgetting to divide by (r−1) in the sum formula"
+      ],
+      "solveSteps": [
+        "1. Identify indices of given terms; compute their difference k",
+        "2. Divide larger term by smaller: result = rᵏ → solve for r",
+        "3. Plug r back into one known term equation to find a",
+        "4. Apply Sₙ = a(rⁿ − 1)/(r − 1) with n = target count",
+        "5. Simplify: compute rⁿ first, then multiply by a"
+      ]
+    }
+  },
+  "1058": {
+    "hint": "Back-solve from the middle choice: find x that makes x+11 a perfect square — that collapses both radical layers to clean arithmetic immediately.",
+    "theory": {
+      "title": "Nested Radicals — Square-Twice Method",
+      "icon": "√",
+      "summary": "Unwrap nested radicals by squaring twice: first to expose the inner radical, second to eliminate it. Each squaring can introduce extraneous roots — verify every candidate in the original equation.",
+      "keyFacts": [
+        "√(A + √B) = k  →  square once: A + √B = k²",
+        "Isolate inner radical: √B = k² − A  (constraint: k² − A ≥ 0)",
+        "Square again: B = (k² − A)²  →  solve resulting quadratic",
+        "Every squaring step can create extraneous roots — always verify in original",
+        "Back-solve shortcut: try choices that make the innermost expression a perfect square first",
+        "Perfect-square inner radical collapses the entire chain to single-step arithmetic"
+      ],
+      "example": {
+        "problem": "√(x + √(x + 11)) = 3. Find x.",
+        "steps": [
+          "Square both sides: x + √(x+11) = 9",
+          "Isolate inner radical: √(x+11) = 9 − x  (requires x ≤ 9)",
+          "Square again: x + 11 = (9−x)² = 81 − 18x + x²",
+          "Rearrange: x² − 19x + 70 = 0  →  (x−5)(x−14) = 0",
+          "x = 14 violates x ≤ 9 constraint — discard as extraneous",
+          "Verify x = 5: √(5 + √16) = √(5+4) = √9 = 3 ✓"
+        ],
+        "answer": "x = 5"
+      },
+      "traps": [
+        "Accepting both roots of the quadratic without checking the domain constraint from step 2",
+        "Stopping after the first squaring — the equation still contains a radical",
+        "Picking a choice at random instead of scanning for one that yields a perfect-square inner expression",
+        "Forgetting that squaring √(x+11) = 9−x requires 9−x ≥ 0, not just x+11 ≥ 0"
+      ],
+      "solveSteps": [
+        "1. Square both sides once to expose the inner radical",
+        "2. Isolate the remaining radical; note the domain constraint (RHS must be ≥ 0)",
+        "3. Square again and rearrange into a standard polynomial",
+        "4. Solve the polynomial for all roots",
+        "5. Substitute every root into the original — keep only those that satisfy it exactly"
+      ]
+    }
+  },
+  "1059": {
+    "hint": "Find AB first with distance formula. Right angle at B means AB and BC are the two equal legs — don't confuse legs with hypotenuse.",
+    "theory": {
+      "title": "Isosceles Right Triangle — Coordinate Geometry",
+      "icon": "📐",
+      "summary": "Right angle at vertex B means AB and BC are the two legs; AC is the hypotenuse. Isosceles forces the two legs equal, so BC = AB — compute one to get both.",
+      "keyFacts": [
+        "Distance formula: d = √((x₂−x₁)²+(y₂−y₁)²)",
+        "Right angle at B → legs = AB and BC; hypotenuse = AC (opposite right angle)",
+        "Isosceles right triangle: the TWO LEGS are equal → AB = BC",
+        "Leg : Leg : Hypotenuse ratio = 1 : 1 : √2",
+        "Hypotenuse = leg × √2; leg = hypotenuse / √2",
+        "Always identify WHICH sides are legs vs hypotenuse before applying isosceles condition"
+      ],
+      "example": {
+        "problem": "A(1,3), B(7,11), C(x,y) form an isosceles right triangle, right angle at B. Find BC.",
+        "steps": [
+          "Compute AB: √((7−1)²+(11−3)²) = √(36+64) = √100 = 10",
+          "Right angle at B → AB and BC are legs, AC is hypotenuse",
+          "Isosceles condition applies to the two equal legs: AB = BC",
+          "Therefore BC = 10",
+          "Hypotenuse AC = 10√2 (sanity check: 10² + 10² = 200 = (10√2)² ✓"
+        ],
+        "answer": "BC = 10"
+      },
+      "traps": [
+        "Applying isosceles to the hypotenuse instead of the legs (the hypotenuse is never equal to a leg)",
+        "Confusing which vertex holds the right angle — it determines which sides are legs",
+        "Computing hypotenuse AC instead of leg BC",
+        "Using 45-45-90 ratio backwards: leg = hyp/√2, not hyp × √2"
+      ],
+      "solveSteps": [
+        "1. Compute the known leg: distance formula on the two given points",
+        "2. Identify which sides are legs (touch the right-angle vertex)",
+        "3. Apply isosceles: the two legs are equal → unknown leg = known leg",
+        "4. Sanity check: hypotenuse should equal leg × √2"
+      ]
+    }
+  },
+  "1060": {
+    "hint": "Work top-down on the tower. Units digit of 3^N cycles period 4 — reduce each exponent mod 4 at every level before touching the next.",
+    "theory": {
+      "title": "Units Digit Cyclicity — Power Towers",
+      "icon": "🔄",
+      "summary": "Units digit of any power repeats in a short cycle. For nested towers like a^(b^c), work from the innermost exponent outward — each level only needs the exponent mod (cycle length).",
+      "keyFacts": [
+        "Units digit of 3^n cycles: 3, 9, 7, 1 (period 4) — position = n mod 4",
+        "Mod-4 map: 1→3, 2→9, 3→7, 0→1 (divisible by 4 gives units digit 1)",
+        "3^(odd) ≡ 3 (mod 4);  3^(even) ≡ 1 (mod 4) — use this to reduce tower levels",
+        "Power tower rule: evaluate top exponent first, then reduce each level mod 4",
+        "Other common cycles: 2,4,6,8 → period 4; 5 → always 5; 6 → always 6; 7,9,3,1 → period 4"
+      ],
+      "example": {
+        "problem": "What is the units digit of 3^(3^(3^3))?",
+        "steps": [
+          "Start at top: 3^3 = 27",
+          "Next level: units digit of 3^27 → need 27 mod 4 = 3 → position 3 in cycle = 7",
+          "Bottom level: units digit of 3^(3^27) → need 3^27 mod 4",
+          "27 is odd → 3^(odd) ≡ 3 (mod 4), so 3^27 ≡ 3 (mod 4)",
+          "Exponent ≡ 3 (mod 4) → position 3 in cycle → units digit = 7"
+        ],
+        "answer": "7"
+      },
+      "traps": [
+        "Computing 3^27 literally — exponents are astronomically large; only mod 4 matters",
+        "Working bottom-up instead of top-down — you must start at the innermost power",
+        "Treating mod 4 = 0 as position 0 (no such slot) — it maps to position 4, units digit 1",
+        "Reusing arithmetic-mean shortcut from other problems — cyclicity is its own framework"
+      ],
+      "solveSteps": [
+        "1. Find the base digit's cycle (3 → 3,9,7,1; period = 4)",
+        "2. Identify the full tower structure; work from the TOP exponent down",
+        "3. Reduce each exponent mod 4 to find its cycle position",
+        "4. For reducing 3^N mod 4: N odd → result 3; N even → result 1",
+        "5. Map final mod-4 value to cycle position (1→3, 2→9, 3→7, 0→1)"
+      ]
+    }
+  },
+  "1061": {
+    "hint": "S₂₀ = 10(a₁₀ + a₁₁). Check each statement: does it pin both middle terms, or leave a free variable?",
+    "theory": {
+      "title": "Arithmetic Sequence Sum — Middle-Term Shortcut",
+      "icon": "∑",
+      "summary": "Sum of first n terms = n × (average of first and last). For even n, that average equals the average of the two middle terms — a powerful shortcut for DS.",
+      "keyFacts": [
+        "Sₙ = (n/2)(a₁ + aₙ) — always",
+        "S₂₀ = 10(a₁ + a₂₀) = 10(a₁₀ + a₁₁) — symmetric pairing",
+        "aₖ + aₙ₊₁₋ₖ = a₁ + aₙ (constant for all k) — symmetry property",
+        "aₙ = a₁ + (n−1)d — general term",
+        "Two unknowns (a₁ and d) fully define any arithmetic sequence",
+        "DS rule: sufficiency needs a UNIQUE yes/no answer, not just one example"
+      ],
+      "example": {
+        "problem": "Is S₂₀ > 0 for an AP? (1) 10th term = 5. (2) d = −1.",
+        "steps": [
+          "Rewrite: S₂₀ = 10(a₁₀ + a₁₁) = 10(a₁₀ + a₁₀ + d) = 10(2·5 + d) with stmt 1",
+          "Stmt 1 alone: S₂₀ = 10(10 + d). If d = 0 → 100 > 0; if d = −20 → −100 < 0. NOT sufficient",
+          "Stmt 2 alone: S₂₀ = 20a₁ − 190. If a₁ = 100 → positive; if a₁ = 1 → negative. NOT sufficient",
+          "Together: a₁₀ = 5, d = −1 → a₁ = 5 − 9(−1) = 14. S₂₀ = 20(14) − 190 = 90 > 0. SUFFICIENT"
+        ],
+        "answer": "C — neither statement alone pins both a₁ and d; together they uniquely determine a₁ = 14, giving S₂₀ = 90 > 0"
+      },
+      "traps": [
+        "Stmt 1 gives ONE middle term, not the sum — d is still free",
+        "Thinking a₁₀ = 5 'centers' the sequence so the sum must be positive (false — d shifts a₁₁)",
+        "Forgetting S₂₀ has TWO free variables; one equation per statement → need both",
+        "Using Sₙ = n·a_{n/2} (works for odd n only) — for even n use the two-middle-term form"
+      ],
+      "solveSteps": [
+        "1. Rewrite target: S₂₀ = 10(a₁₀ + a₁₁) — identify what must be known",
+        "2. Stmt 1: fixes a₁₀ = 5 but a₁₁ = 5 + d still free → try d = 0 (positive) vs d = −20 (negative) → INSUFFICIENT",
+        "3. Stmt 2: fixes d = −1 but a₁ (hence a₁₀) still free → try large a₁ vs small a₁ → INSUFFICIENT",
+        "4. Together: two equations, two unknowns → unique a₁ and d → compute S₂₀ → unique sign → SUFFICIENT",
+        "5. Answer: C"
+      ]
+    }
+  },
+  "1062": {
+    "hint": "Convert ratio x:y to fraction x/(x+y), then test >60%. A definitive 'No' still counts as sufficient — don't require a 'Yes'.",
+    "theory": {
+      "title": "Mixture Ratio → Fraction + DS Boundary Test",
+      "icon": "🧪",
+      "summary": "Ratio x:y means alcohol fraction = x/(x+y). For DS sufficiency, 'exactly 60%' yields a definitive No to 'more than 60%' — that is sufficient.",
+      "keyFacts": [
+        "Ratio a:b → fraction = a/(a+b), not a/b",
+        "Sufficient = any definitive answer (Yes OR No) — 'exactly at boundary' = definitive No",
+        "Adding liquid changes totals: new ratio ≠ old ratio unless equal amounts added",
+        "If fraction depends on an unknown variable, statement is insufficient",
+        "For boundary questions ('>60%'), test if the statement pins the value or leaves a range"
+      ],
+      "example": {
+        "problem": "Alcohol:water = x:y. Is alcohol > 60% of mixture? (1) x=3, y=2. (2) Adding 10 L water gives 1:1 ratio.",
+        "steps": [
+          "St.1: fraction = 3/(3+2) = 3/5 = 60.0% exactly",
+          "Question asks STRICTLY more than 60% → answer is definitively No → sufficient",
+          "St.2: Let original alcohol = A, water = W. After +10L: A/(W+10) = 1/1 → A = W+10",
+          "Fraction = A/(A+W) = (W+10)/(2W+10); depends on W — unknown",
+          "W=5 → 15/20=75%>60%; W=25 → 35/60≈58%<60% → two outcomes → not sufficient"
+        ],
+        "answer": "A — statement 1 pins fraction at exactly 60%, a definitive No; statement 2 leaves W free, giving both Yes and No outcomes"
+      },
+      "traps": [
+        "Thinking 'No' answer means insufficient — a definitive No IS sufficient in DS",
+        "Confusing ratio x:y with fraction x/y (denominator is x+y, not y)",
+        "Assuming statement 2 fixes the mixture composition — it only links A and W, leaving one degree of freedom",
+        "Boundary value (exactly 60%) feels like 'almost Yes' — test the strict inequality carefully"
+      ],
+      "solveSteps": [
+        "1. Convert ratio x:y → fraction = x/(x+y) for the part-to-whole test",
+        "2. Statement 1: plug in numbers, compute fraction, compare to 60% strictly — any definite answer suffices",
+        "3. Statement 2: set up equation from new ratio, express fraction in terms of remaining unknowns",
+        "4. If unknowns remain, try two numeric cases that give different Yes/No answers to confirm insufficiency",
+        "5. If both statements still needed, combine — otherwise record which alone is sufficient"
+      ]
+    }
+  },
+  "1063": {
+    "hint": "Statement 1 gives two parabola facts — check whether together they guarantee no x-axis crossing. Statement 2 gives only two points — ask if that pins all three coefficients and the sign.",
+    "theory": {
+      "title": "Quadratic Sign — Parabola Always Positive?",
+      "icon": "∩",
+      "summary": "A quadratic f(x) = ax²+bx+c is always positive iff the parabola opens upward (a>0) AND never touches the x-axis (discriminant < 0). Both conditions together are necessary and sufficient.",
+      "keyFacts": [
+        "f(x) > 0 for all x ⟺ a > 0 AND b²−4ac < 0",
+        "Discriminant b²−4ac < 0 → no real roots → parabola stays one side of x-axis",
+        "a > 0 alone: parabola opens up but may dip below axis if it has real roots",
+        "a < 0 with no real roots → always NEGATIVE (opens down)",
+        "Two points on a parabola fix only 2 of 3 coefficients (a, b, c) — underdetermined",
+        "Vertex = −b/(2a); min value = c − b²/(4a) for upward parabola"
+      ],
+      "example": {
+        "problem": "f(x) = ax²+bx+c. Is f(x) > 0 for all real x? (1) a > 0 and b²−4ac < 0. (2) f(0)=5 and f(1)=8.",
+        "steps": [
+          "S1: a>0 means parabola opens upward; b²−4ac<0 means no real roots",
+          "Upward parabola with no x-intercepts must lie entirely above x-axis → f(x)>0 always. SUFFICIENT.",
+          "S2: f(0)=5 → c=5; f(1)=8 → a+b+5=8 → a+b=3",
+          "Try a=1,b=2,c=5: disc=4−20<0 → always positive",
+          "Try a=−2,b=5,c=5: f(10)=−200+50+5<0 → NOT always positive. NOT SUFFICIENT."
+        ],
+        "answer": "A — statement 1 pins both the direction and the no-root condition, which together are exactly the criterion for always-positive. Statement 2 leaves a free, so sign is undetermined."
+      },
+      "traps": [
+        "Thinking a>0 alone is enough — parabola could still cross x-axis if disc ≥ 0",
+        "Assuming two function values uniquely determine a quadratic — they give 2 equations for 3 unknowns",
+        "Forgetting a<0 + disc<0 means always NEGATIVE, not positive — both conditions needed together",
+        "Confusing disc<0 (no real roots) with disc=0 (one root, touches axis — NOT strictly positive)"
+      ],
+      "solveSteps": [
+        "1. Recall criterion: f(x)>0 always ⟺ a>0 AND b²−4ac<0",
+        "2. S1: check both sub-conditions directly — both given → SUFFICIENT",
+        "3. S2: count equations vs unknowns — 2 points give 2 equations, 3 unknowns → a undetermined",
+        "4. For S2, try a>0 example (positive) and a<0 example (eventually negative) to show insufficiency",
+        "5. Answer A"
+      ]
+    }
+  },
+  "1064": {
+    "hint": "Rewrite stmt 1 as (x−3)²<2 → |x−3|<√2. Compare to the target threshold 2. For stmt 2 find a value inside |x|<5 that violates the target and one that satisfies it.",
+    "theory": {
+      "title": "Absolute Value Inequalities — Distance & Completing the Square",
+      "icon": "📏",
+      "summary": "|x − k| < r means x is within r units of k on the number line. To decode a quadratic inequality, complete the square — you may find it is secretly an absolute value condition.",
+      "keyFacts": [
+        "| x − k | < r  ↔  k − r < x < k + r  (distance-from-k interpretation)",
+        "Complete the square: x²−6x+7 = (x−3)²−2, so (x−3)²<2 → |x−3|<√2",
+        "Tighter bound is sufficient: if |x−3|<√2 and √2<2, then |x−3|<2 guaranteed",
+        "For DS: find one Yes-witness and one No-witness to prove NOT sufficient",
+        "Target interval 1<x<5; counter-example needs x outside [1,5] yet inside stmt 2's range",
+        "√2 ≈ 1.414 — always less than 2, making stmt 1 strictly stronger than the target"
+      ],
+      "example": {
+        "problem": "Is |x−3|<2? (1) x²−6x+7<0  (2) |x|<5",
+        "steps": [
+          "Target: |x−3|<2 ↔ 1<x<5",
+          "Stmt 1: x²−6x+7<0 → (x−3)²−2<0 → (x−3)²<2 → |x−3|<√2≈1.41",
+          "Since √2<2, any x satisfying stmt 1 automatically satisfies target → SUFFICIENT",
+          "Stmt 2: |x|<5 → −5<x<5; try x=1.5: |1.5−3|=1.5<2 → YES",
+          "Try x=−4: |−4−3|=7>2 → NO; both values inside stmt 2 → NOT SUFFICIENT"
+        ],
+        "answer": "A — statement 1 forces |x−3|<√2, a tighter constraint than the target threshold of 2, so the answer is always Yes. Statement 2 spans −5<x<5 which straddles the target boundary."
+      },
+      "traps": [
+        "Forgetting to complete the square — raw quadratic looks unrelated to |x−3|",
+        "Thinking |x|<5 is strong because it has large numbers — range must be entirely inside 1<x<5",
+        "Not checking both a Yes and a No case for stmt 2 before calling it insufficient",
+        "Confusing √2≈1.41 with 2 — must verify √2<2 to confirm the implication holds"
+      ],
+      "solveSteps": [
+        "1. Convert target: |x−3|<2 ↔ 1<x<5",
+        "2. Stmt 1 — complete the square → (x−3)²<2 → |x−3|<√2 < 2 → always Yes → SUFFICIENT",
+        "3. Stmt 2 — find counterexample: x=−4 gives |x−3|=7>2 → No; x=2 gives Yes → NOT SUFFICIENT",
+        "4. Conclusion: stmt 1 alone decides; stmt 2 alone cannot",
+        "5. DS answer: A"
+      ]
+    }
+  },
+  "1065": {
+    "hint": "Range constrains minimum possible SD. Find the tightest set given range+mean, compute its SD — if that floor already exceeds 3, the statement settles it.",
+    "theory": {
+      "title": "Standard Deviation — Range Bound & DS Sufficiency",
+      "icon": "σ",
+      "summary": "Range constrains how spread a set must be. Given fixed mean and range, minimum SD is achieved when all interior values equal the mean — that floor may already answer the DS question.",
+      "keyFacts": [
+        "SD = √(Σ(xᵢ − μ)² / n) — always measures spread around the mean",
+        "Range = max − min — only two values determine it, interior values can vary",
+        "Minimum SD given range R, mean μ, size n: pack all interior values at μ → min Var = [(min−μ)² + (max−μ)²] / n",
+        "For DS 'Is SD > k?': need BOTH a SD>k set AND a SD≤k set to call a statement INSUFFICIENT",
+        "SD = 0 only when all values identical; one element at mean leaves others unconstrained",
+        "Large range forces a large SD floor — interior clustering cannot collapse it below that floor"
+      ],
+      "example": {
+        "problem": "5-element set, mean = 10, range = 20. What is the minimum possible SD?",
+        "steps": [
+          "Min-SD config: set interior three values = mean → {0, 10, 10, 10, 20}",
+          "Min Var = [(0−10)² + (20−10)²] / 5 = (100 + 100) / 5 = 40",
+          "Min SD = √40 ≈ 6.32",
+          "Any other interior arrangement only increases variance → SD ≥ 6.32 > 3 always"
+        ],
+        "answer": "A — statement 1 pins SD ≥ √40 ≈ 6.32 > 3 for every valid set, so it is sufficient alone. Statement 2 (one element = mean) leaves the other four unconstrained: cluster them at 10 → SD ≈ 0; spread them to ±20 → SD large. Two opposite outcomes → not sufficient."
+      },
+      "traps": [
+        "Testing only one numerical example per statement — insufficiency requires showing both YES and NO are achievable",
+        "Thinking 'range is big so SD must be big' without computing the actual floor",
+        "With one element at the mean, assuming the set is balanced — the other four can all equal 9.9, making SD tiny",
+        "Confusing range/√n as the SD bound — derive from first principles each time; the exact floor depends on where the mean falls relative to min/max"
+      ],
+      "solveSteps": [
+        "1. For each statement independently, try to build a set satisfying it with SD > 3 AND a set with SD ≤ 3.",
+        "2. For a range constraint: compute min SD by placing all interior values at the mean, then Var = [(min−μ)² + (max−μ)²] / n.",
+        "3. If min SD already exceeds the threshold, no arrangement can go below it → statement is sufficient.",
+        "4. For 'one element = mean': check whether the remaining elements can freely cluster near μ (low SD) or spread far (high SD).",
+        "5. Combine: if one statement is sufficient and the other is not, the answer is A or B accordingly."
+      ]
+    }
+  },
+  "1066": {
+    "hint": "Trace the recurrence forward or find the closed form. Each statement may pin k independently — check sufficiency of each alone before combining.",
+    "theory": {
+      "title": "Recursive Sequences — Closed-Form & Back-Solving",
+      "icon": "🔁",
+      "summary": "A linear recurrence a(n) = 2·a(n−1) − 1 has a clean closed form. Knowing any single term lets you recover k and predict all terms.",
+      "keyFacts": [
+        "Recurrence a(n) = 2·a(n−1) − 1 solves to a(n) = (k−1)·2^(n−1) + 1",
+        "Fixed point: set a(n) = a(n−1) → value = 1 (sequence collapses to 1 if k=1)",
+        "Knowing any term a(m) gives one equation in k — always uniquely solvable",
+        "For DS: a statement is sufficient if it uniquely determines the YES/NO answer",
+        "Back-solving: a(3) = (k−1)·4 + 1 = 5 → k = 2, same as knowing k directly",
+        "Trace-forward check: a(1)=2, a(2)=3, a(3)=5, a(4)=9, a(5)=17 ✓"
+      ],
+      "example": {
+        "problem": "Sequence: a(1)=k, a(n)=2·a(n−1)−1. Is a(5)=17? (1) k=2  (2) a(3)=5",
+        "steps": [
+          "Closed form: a(n) = (k−1)·2^(n−1) + 1",
+          "a(5) = (k−1)·16 + 1 = 17 iff k = 2",
+          "Stmt 1: k=2 directly → a(5)=17. Sufficient.",
+          "Stmt 2: a(3)=5 → (k−1)·4+1=5 → k=2 → a(5)=17. Sufficient.",
+          "Either statement alone pins k=2 → answer is YES."
+        ],
+        "answer": "D — each statement independently forces k = 2, making a(5) = 17 determinate."
+      },
+      "traps": [
+        "Tracing term-by-term without finding closed form — slow and error-prone for a(5)",
+        "Assuming statement 2 is weaker because it gives a middle term, not a(1)",
+        "Forgetting DS asks if EACH statement alone is sufficient before testing both",
+        "Miscounting: 2^(n−1) at n=5 is 2^4=16, not 2^5=32"
+      ],
+      "solveSteps": [
+        "1. Derive closed form or trace sequence symbolically in k",
+        "2. Write condition a(5)=17 as equation in k; find what k must be",
+        "3. Test Statement 1: does it fix k? → sufficient or not",
+        "4. Test Statement 2: does it fix k (even indirectly)? → sufficient or not",
+        "5. Conclude A/B/C/D/E based on individual sufficiency results"
+      ]
+    }
+  },
+  "1067": {
+    "hint": "Rewrite profit as 0.2c. Question becomes: is c > 250? Check each statement against that threshold — a definitive 'No' is still sufficient.",
+    "theory": {
+      "title": "DS — Profit Markup + Yes/No Sufficiency",
+      "icon": "💰",
+      "summary": "A yes/no DS question is answered whenever a statement forces one outcome for ALL allowed values. A firm 'No' is just as sufficient as a firm 'Yes'.",
+      "keyFacts": [
+        "Profit (markup) = markup% × cost. At 20% markup: profit = 0.2c",
+        "Selling price = cost + profit = 1.2c",
+        "Rephrase target: profit > 50 ↔ 0.2c > 50 ↔ c > 250",
+        "Sufficient = every valid value in the range gives the SAME yes/no answer",
+        "Inequality statement sufficient when its range sits entirely on one side of threshold",
+        "Watch: answer field may have typo — always trust the worked explanation"
+      ],
+      "example": {
+        "problem": "20% markup store. Did profit exceed $50? (1) cost > $200. (2) selling price < $300.",
+        "steps": [
+          "Profit = 0.2c; target: is c > 250?",
+          "Stmt 1: c > 200. Try c=201 → profit=$40.2 (No); c=300 → profit=$60 (Yes). Two answers → NOT sufficient.",
+          "Stmt 2: 1.2c < 300 → c < 250. Every allowed c gives 0.2c < 50 → always No.",
+          "One answer (always No) → SUFFICIENT.",
+          "Stmt 1 alone fails; Stmt 2 alone suffices."
+        ],
+        "answer": "B — statement 2 pins c < 250 so profit < $50 for every possible value; definitive No."
+      },
+      "traps": [
+        "Thinking 'No' answers aren't sufficient — a consistent No is fully sufficient",
+        "Using c > 200 and assuming that's close enough to 250 — the gap (200–250) straddles the threshold",
+        "Confusing selling price with profit when deriving the inequality",
+        "Picking C because both statements are given — always test each alone first"
+      ],
+      "solveSteps": [
+        "1. Convert profit question to pure algebra: profit = 0.2c; threshold c = 250",
+        "2. Test Stmt 1 range against threshold: does it straddle 250? If yes → insufficient",
+        "3. Test Stmt 2 range: 1.2c < 300 → c < 250, entirely below threshold → always No → sufficient",
+        "4. Stmt 2 alone sufficient → answer B",
+        "5. Confirm: never need both when one already locks in one outcome"
+      ]
+    }
+  },
+  "1068": {
+    "hint": "Removable discontinuity exists iff numerator also = 0 at x = q. Check statement 1: does p = q² guarantee that AND pin the limit to x+q?",
+    "theory": {
+      "title": "Removable Discontinuity — Factor & Cancel",
+      "icon": "∅",
+      "summary": "A rational function has a removable discontinuity (hole) at x = a when both numerator and denominator share factor (x − a). Cancel it to find the limit value.",
+      "keyFacts": [
+        "Removable discontinuity at x = a requires: numerator = 0 AND denominator = 0 at x = a",
+        "Factor numerator to expose shared (x − a) factor, then cancel",
+        "After cancellation, limit as x → a = simplified expression evaluated at a",
+        "f(x) = (x²−q²)/(x−q) = (x+q)(x−q)/(x−q) = x+q  (x ≠ q)",
+        "Limit at x = q is then q + q = 2q — the 'filled' hole value",
+        "DS focus: sufficient = statement uniquely determines YES or NO to the question"
+      ],
+      "example": {
+        "problem": "Is f(x) = (x²−p)/(x−q) defined with removable discontinuity equal to x+q at x = q?",
+        "steps": [
+          "At x = q: denominator = 0, so f undefined unless numerator also = 0",
+          "Numerator at x = q: q² − p. Set = 0 → p = q²",
+          "With p = q²: f(x) = (x²−q²)/(x−q) = (x+q)(x−q)/(x−q) = x+q for x ≠ q",
+          "Limit as x → q: q + q = 2q",
+          "x + q evaluated at x = q also = 2q ✓ — YES, condition holds"
+        ],
+        "answer": "A — statement 1 (p = q²) guarantees numerator = 0 at x = q, enabling cancellation; limit = 2q = x+q|_{x=q}. Statement 2 (q ≠ 0) says nothing about p."
+      },
+      "traps": [
+        "Assuming removable discontinuity always exists — it only exists if numerator is also 0 at the bad point",
+        "Confusing the limit (2q) with 'q+q' phrasing — they are the same thing here, not a contradiction",
+        "Statement 2 (q ≠ 0) sounds constraining but provides zero info about p",
+        "Thinking both statements needed — once p = q² is known, q's value is irrelevant"
+      ],
+      "solveSteps": [
+        "1. Identify the bad point: x = q makes denominator = 0",
+        "2. Removable discontinuity condition: numerator must also = 0 at x = q → q² − p = 0 → p = q²",
+        "3. Test Statement 1: p = q² → condition met, factor and cancel → limit = 2q = q+q. Answer YES. SUFFICIENT",
+        "4. Test Statement 2: q ≠ 0 → no info on p → can't verify condition. NOT SUFFICIENT",
+        "5. Answer A"
+      ]
+    }
+  },
+  "1069": {
+    "hint": "Factor n³−n first. If the result is ALWAYS divisible by 6 for any positive integer, each restricting statement is automatically sufficient — ask 'is the answer definitively yes for every n in this subset?'",
+    "theory": {
+      "title": "Consecutive Integers & Divisibility — The Always-True DS Trap",
+      "icon": "🔢",
+      "summary": "(n−1)·n·(n+1) is the product of 3 consecutive integers, which always contains a multiple of 2 and a multiple of 3, so it is ALWAYS divisible by 6. When the answer is 'always yes', any sufficiently narrow statement is sufficient.",
+      "keyFacts": [
+        "n³−n = n(n²−1) = (n−1)n(n+1) — three consecutive integers",
+        "Any k consecutive integers contain a multiple of k (guaranteed)",
+        "3 consecutive integers → always divisible by 2 AND by 3 → divisible by 6",
+        "Divisible by 6 ⟺ divisible by both 2 and 3 (since gcd(2,3)=1)",
+        "DS trap: if the underlying property holds for ALL positive integers, every statement restricting to a subset yields a definitive 'Yes' → each is sufficient",
+        "Answer is D when both statements independently confirm the same always-true result"
+      ],
+      "example": {
+        "problem": "Is (n−1)·n·(n+1) divisible by 6 for positive integer n?",
+        "steps": [
+          "Factor: n³−n = (n−1)n(n+1)",
+          "Three consecutive integers — one must be even → divisible by 2",
+          "Three consecutive integers — one must be ≡ 0 (mod 3) → divisible by 3",
+          "lcm(2,3)=6, and 2 and 3 both divide the product → divisible by 6",
+          "Works for n=1: 0·1·2=0 ✓; n=2: 1·2·3=6 ✓; n=5: 4·5·6=120 ✓"
+        ],
+        "answer": "Always divisible by 6 — holds for every positive integer n"
+      },
+      "traps": [
+        "Thinking the odd/prime condition is necessary — it is not; divisibility holds universally",
+        "Forgetting n=1: (0)(1)(2)=0, and 0 is divisible by any nonzero integer",
+        "Trying to test specific values per statement instead of recognizing the universal truth",
+        "Confusing 'statement narrows the set' with 'statement is needed' — narrowing to a subset of an always-true property still gives 'Yes'"
+      ],
+      "solveSteps": [
+        "1. Factor the expression: n³−n = (n−1)n(n+1)",
+        "2. Ask: is this ALWAYS divisible by 6 for any positive integer n?",
+        "3. Confirm: 3 consecutive integers → guaranteed multiple of 2 and multiple of 3 → divisible by 6",
+        "4. Since answer is universally 'Yes', each statement (restricting to a subset) individually confirms 'Yes'",
+        "5. Each statement alone is sufficient → answer is D"
+      ]
+    }
+  },
+  "1070": {
+    "hint": "Mean>12 iff total sum>84. For each statement, try to find two valid lists — one with sum>84 and one with sum≤84.",
+    "theory": {
+      "title": "Mean vs Median — DS Sufficiency via Counterexample",
+      "icon": "⚖",
+      "summary": "Median fixes only the middle value; mean depends on ALL values. In DS, prove insufficiency by constructing two valid configurations with opposite answers.",
+      "keyFacts": [
+        "7 distinct integers, median = 4th smallest value",
+        "Mean > median iff total sum > 7 × median",
+        "Split list into: 3 below, median, 3 above — each segment is independent",
+        "To prove INSUFFICIENT: find two valid lists, one giving YES and one giving NO",
+        "Sum of top 3 alone doesn't determine sum of bottom 3 — they are decoupled",
+        "Knowing max constrains only the ceiling of the top 3, not the bottom 3"
+      ],
+      "example": {
+        "problem": "7 distinct integers, median 12. Sum of top 3 = 60. Is mean > 12?",
+        "steps": [
+          "Mean > 12 iff total sum > 84",
+          "Total = (bottom 3) + 12 + 60 = (bottom 3) + 72",
+          "Need bottom 3 sum > 12 for YES, ≤ 12 for NO",
+          "YES case: bottom 3 = {5,7,8} → sum=20 → total=92 → mean>12 ✓",
+          "NO case: bottom 3 = {1,2,3} → sum=6 → total=78 → mean<12 ✓",
+          "Both valid → Statement 2 alone NOT sufficient"
+        ],
+        "answer": "E — neither statement pins the bottom-3 sum, so mean vs median stays undetermined even combined"
+      },
+      "traps": [
+        "Assuming a large top value forces the mean up — the bottom values can still drag it down",
+        "Confusing 'sum of top 3 is large' with 'mean must be large'",
+        "Forgetting that both statements together still leave bottom 3 free to vary",
+        "Thinking median=12 implies mean≈12"
+      ],
+      "solveSteps": [
+        "1. Translate: mean>12 ↔ total sum > 7×12 = 84",
+        "2. Partition: total = (sum of bottom 3) + 12 + (sum of top 3)",
+        "3. For each statement, identify which segment remains free",
+        "4. Construct YES and NO examples by varying the free segment",
+        "5. If both examples exist → INSUFFICIENT; repeat for combined statements"
+      ]
+    }
+  },
+  "1101": {
+    "hint": "Set up one acid-balance equation: acid_in_A + acid_in_B = acid_in_mixture. Let x = liters of the stronger solution, then (total − x) is the weaker.",
+    "theory": {
+      "title": "Mixture Problems — Weighted Average / Alligation",
+      "icon": "🧪",
+      "summary": "Mixing two solutions of different concentrations must conserve total solute. Set acid-in + acid-in = acid-out; one variable pins everything.",
+      "keyFacts": [
+        "Acid balance: C₁·V₁ + C₂·V₂ = C_final·V_total",
+        "Volumes add: V₁ + V₂ = V_total (use to eliminate one variable)",
+        "Alligation shortcut: parts of A : parts of B = (C_B − C_final) : (C_final − C_A)",
+        "Alligation ratio gives relative parts → scale to actual volume by multiplying by V_total / (sum of parts)",
+        "Final concentration always lies strictly between C_A and C_B",
+        "Whichever solution is closer in concentration to the target contributes the larger volume"
+      ],
+      "example": {
+        "problem": "Mix 25% acid (A) and 60% acid (B) to make 140 L of 45% acid. How many liters of B?",
+        "steps": [
+          "Let x = liters of B → (140 − x) = liters of A",
+          "Acid equation: 0.25(140 − x) + 0.60x = 0.45(140)",
+          "Expand: 35 − 0.25x + 0.60x = 63",
+          "0.35x = 28 → x = 80",
+          "Alligation check: ratio B:A = (45−25):(60−45) = 20:15 = 4:3 → B = 4/7 × 140 = 80 ✓"
+        ],
+        "answer": "80 liters of Solution B"
+      },
+      "traps": [
+        "Using concentrations as percents without converting (0.25 not 25) — decimals work; raw percents break the equation",
+        "Mixing up which variable is the stronger vs weaker solution",
+        "Forgetting V_total − x = the other volume — setting up two separate unknowns unnecessarily",
+        "Picking the answer closest to 50% of 140 (70) — alligation pulls toward the solution nearer the target, not the midpoint"
+      ],
+      "solveSteps": [
+        "1. Identify: two concentrations C₁, C₂ and target C_final; total volume V_total",
+        "2. Let x = volume of one solution (usually the stronger); other = V_total − x",
+        "3. Write acid balance: C₁(V_total − x) + C₂·x = C_final·V_total",
+        "4. Solve for x",
+        "5. Verify: x must be between 0 and V_total, and C_final must lie between C₁ and C₂"
+      ]
+    }
+  },
+  "1102": {
+    "hint": "Add individual rates, subtract from combined rate to isolate C. Work with fractions: 1/C = 1/total − 1/A − 1/B.",
+    "theory": {
+      "title": "Combined Work Rate — Isolating One Machine",
+      "icon": "⚙",
+      "summary": "Each machine contributes a fraction of the job per hour. Rates add linearly, so subtract known rates from the combined rate to find the unknown.",
+      "keyFacts": [
+        "Rate = 1/time (fraction of job per hour)",
+        "Combined rate: 1/A + 1/B + 1/C = 1/T",
+        "Isolate unknown: 1/C = 1/T − 1/A − 1/B",
+        "Find LCM of all denominators before subtracting fractions",
+        "Time = 1/rate once you have the rate"
+      ],
+      "example": {
+        "problem": "A, B, C together finish in 4 hr. A alone: 12 hr, B alone: 18 hr. C alone = ?",
+        "steps": [
+          "Rates: A=1/12, B=1/18, Combined=1/4",
+          "1/C = 1/4 − 1/12 − 1/18",
+          "LCM(4,12,18) = 36",
+          "1/C = 9/36 − 3/36 − 2/36 = 4/36 = 1/9",
+          "C = 9 hours"
+        ],
+        "answer": "9 hours"
+      },
+      "traps": [
+        "Averaging times (12+18+4)/3 — WRONG. Times don't add; rates do",
+        "Forgetting to subtract BOTH known machines from combined rate",
+        "Arithmetic error on LCM — list multiples of largest number (18) until divisible by 4 and 12",
+        "1/C gives rate; flip it to get time"
+      ],
+      "solveSteps": [
+        "1. Write rate equation: 1/A + 1/B + 1/C = 1/T",
+        "2. Rearrange: 1/C = 1/T − 1/A − 1/B",
+        "3. Find LCM of all denominators",
+        "4. Subtract fractions carefully",
+        "5. Flip result to get C's time"
+      ]
+    }
+  },
+  "1103": {
+    "hint": "Don't track the bird's legs — find total collision time (gap ÷ closing speed), then multiply by bird speed. The zig-zag is a trap.",
+    "theory": {
+      "title": "Bird Between Trains — Ignore the Zig-Zag",
+      "icon": "🐦",
+      "summary": "Tracking every reversal leads to an infinite series. Key insight: the bird flies for exactly as long as the trains take to meet. Total time × bird speed = total bird distance.",
+      "keyFacts": [
+        "Closing speed of two trains moving toward each other = speed₁ + speed₂",
+        "Collision time = gap ÷ closing speed",
+        "Bird distance = bird speed × collision time (ignore reversals entirely)",
+        "The zig-zag detail is a red herring — never needed",
+        "This works because bird is always flying; only total time matters",
+        "Classic GMAT bait: tempt solver to sum an infinite geometric series"
+      ],
+      "example": {
+        "problem": "Trains 480 km apart, closing at 160 km/h (90+70). Bird at 200 km/h flies back and forth until they collide. How far does the bird fly?",
+        "steps": [
+          "Closing speed = 90 + 70 = 160 km/h",
+          "Collision time = 480 ÷ 160 = 3 hours",
+          "Bird flies entire 3 hours at 200 km/h",
+          "Bird distance = 200 × 3 = 600 km",
+          "No need to find individual legs — answer follows directly"
+        ],
+        "answer": "600 km (bird speed × collision time)"
+      },
+      "traps": [
+        "Attempting to sum each leg of the bird's path — infinite series, unnecessary",
+        "Forgetting closing speed = sum of both train speeds",
+        "Using only one train's speed for the denominator",
+        "Mixing up which speed belongs to the bird vs. the trains"
+      ],
+      "solveSteps": [
+        "1. Identify gap and both train speeds",
+        "2. Closing speed = train₁ speed + train₂ speed",
+        "3. Collision time = gap ÷ closing speed",
+        "4. Bird distance = bird speed × collision time",
+        "5. Never compute individual bird legs"
+      ]
+    }
+  },
+  "1104": {
+    "hint": "Return trip splits distance equally — use harmonic mean 2ab/(a+b), NOT (a+b)/2. Then compute % difference vs outbound speed as the base.",
+    "theory": {
+      "title": "Split-Distance Average Speed — Harmonic Mean & Percent Difference",
+      "icon": "⏱",
+      "summary": "When equal distance is covered at two speeds, the average is the harmonic mean — always less than the arithmetic mean. Trap: 40 and 80 average arithmetically to 60, tempting a 0% answer.",
+      "keyFacts": [
+        "Equal distance segments → avg speed = 2ab / (a + b) (harmonic mean)",
+        "Equal time segments → avg speed = (a + b) / 2 (arithmetic mean)",
+        "Harmonic mean < arithmetic mean — pulls toward slower speed",
+        "Harmonic mean of 40 & 80: 2(40)(80)/(120) = 160/3 ≈ 53.3 mph",
+        "% A less than B = (B − A) / B × 100 — divide by the BASE (outbound speed)",
+        "If two speeds are symmetric around X, harmonic mean is STILL less than X"
+      ],
+      "example": {
+        "problem": "Return trip: first half of distance at 40 mph, second half at 80 mph. Outbound was 60 mph. What percent less is the return average speed?",
+        "steps": [
+          "Let one-way distance = 2d, so each half = d",
+          "Time first half: d/40 hr; time second half: d/80 hr",
+          "Total return time = d/40 + d/80 = 2d/80 + d/80 = 3d/80",
+          "Return avg speed = 2d ÷ (3d/80) = 160/3 ≈ 53.3 mph",
+          "% less than 60: (60 − 160/3) / 60 = (20/3)/60 = 1/9 ≈ 11.1%"
+        ],
+        "answer": "≈11.1% — harmonic mean of 40 & 80 is 160/3 ≈ 53.3 mph, not 60"
+      },
+      "traps": [
+        "(40+80)/2 = 60 = outbound → 0% difference — WRONG; arithmetic mean only applies for equal time",
+        "40 and 80 look symmetric around 60, but harmonic mean still pulls below 60",
+        "Dividing by return speed (53.3) instead of outbound speed (60) inflates the percent",
+        "Skipping the percent step and reporting the raw speed difference (6.67 mph)"
+      ],
+      "solveSteps": [
+        "1. Check what is equal: same distance both halves → use harmonic mean",
+        "2. Compute return avg: 2(40)(80)/(40+80) = 160/3 ≈ 53.3 mph",
+        "3. Find difference: 60 − 53.3 = 6.67 mph",
+        "4. Compute percent: 6.67/60 × 100 ≈ 11.1% (outbound speed is the base)",
+        "5. Sanity: result must be between 40 and 80, closer to 40 — 53.3 ✓"
       ]
     }
   }
