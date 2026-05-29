@@ -35533,6 +35533,910 @@ const QUESTION_THEORIES = {
         "5. Answer D"
       ]
     }
+  },
+  "1683": {
+    "hint": "For each statement, ask: does this GUARANTEE all prime exponents in t are even? Even exponents ↔ perfect square ↔ integer square root.",
+    "theory": {
+      "title": "Perfect Squares — Even Exponents Rule",
+      "icon": "√",
+      "summary": "A positive integer is a perfect square if and only if every prime in its factorization appears an even number of times. This is the definition, not a coincidence.",
+      "keyFacts": [
+        "Perfect square ↔ ALL prime exponents even (e.g. 36 = 2²·3² ✓, 12 = 2²·3¹ ✗)",
+        "√(p₁^a · p₂^b · …) is integer ⟺ all a, b, … are even",
+        "4^k = (2²)^k = 2^(2k) — exponent 2k is always even for any integer k",
+        "DS rule: each statement tested INDEPENDENTLY; prove sufficient or find counterexample",
+        "Trap: a statement that looks 'obvious' is not therefore wrong — it may be exactly sufficient"
+      ],
+      "example": {
+        "problem": "Is √t an integer, given t is a positive integer?",
+        "steps": [
+          "Restate goal: √t ∈ ℤ ⟺ t is a perfect square ⟺ all prime exponents even",
+          "Test statement: t = 4^k = 2^(2k). Exponent 2k is even for every positive integer k → perfect square → sufficient",
+          "Test statement: 'all prime exponents even' is the literal definition of perfect square → √t is integer → sufficient",
+          "Both statements independently guarantee t is a perfect square",
+          "No need to combine — each alone closes the question"
+        ],
+        "answer": "D — both statements independently sufficient; each pins t as a perfect square via the even-exponent criterion"
+      },
+      "traps": [
+        "Assuming statement 2 is 'too obvious' and must have a loophole — it doesn't; it IS the definition",
+        "Forgetting to check each statement in isolation before considering both together",
+        "Thinking 4^k only works for specific k values — 2k is even for ALL positive integers k",
+        "Conflating 'even number' with 'even exponent' — the exponents must be even, not the prime bases"
+      ],
+      "solveSteps": [
+        "1. Rephrase target: √t ∈ ℤ ⟺ t is perfect square ⟺ all prime exponents in t are even",
+        "2. Test S1 alone: rewrite in prime form, check if exponents are guaranteed even",
+        "3. Test S2 alone: read carefully — does it directly invoke the perfect-square criterion?",
+        "4. If each alone suffices → answer D; if only one → A or B; if neither alone but together → C",
+        "5. Sanity: pick a concrete k (e.g. k=2) to confirm S1, pick a sample number for S2"
+      ]
+    }
+  },
+  "1684": {
+    "hint": "Each statement gives N a factor of 3 AND a factor of 5 — check whether each alone guarantees divisibility by 15 before combining.",
+    "theory": {
+      "title": "DS Divisibility — Substituting the Multiplier",
+      "icon": "🔢",
+      "summary": "When a variable is defined as a product, substitute the multiplier's constraint all the way through. A statement that looks like it provides only one prime factor may already embed both.",
+      "keyFacts": [
+        "N divisible by 15 ⟺ N divisible by both 3 AND 5",
+        "If N = a × b, then N inherits all prime factors of a and b",
+        "'x divisible by 5' means x = 5k → substitute: N = 3(5k) = 15k",
+        "Chain substitution: apply every given constraint before judging sufficiency",
+        "DS trap: symmetric-looking statements that each secretly encode the full condition look like (C) but are actually (D)",
+        "EACH statement alone is sufficient → answer D"
+      ],
+      "example": {
+        "problem": "Is positive integer N divisible by 15? (1) N = 3x, x divisible by 5. (2) N = 5y, y divisible by 3.",
+        "steps": [
+          "Stmt 1: x divisible by 5 → x = 5m → N = 3(5m) = 15m → N divisible by 15. Sufficient.",
+          "Stmt 2: y divisible by 3 → y = 3m → N = 5(3m) = 15m → N divisible by 15. Sufficient.",
+          "Both alone work → D"
+        ],
+        "answer": "D — each statement independently forces N = 15m, so each alone is sufficient."
+      },
+      "traps": [
+        "Choosing (C): thinking stmt 1 gives only the factor 3 and stmt 2 gives only the factor 5, so you need both — but substitution shows each already contains both factors",
+        "Stopping at N = 3x without substituting x's constraint",
+        "Forgetting divisibility by 15 requires BOTH 3 and 5 as prime factors"
+      ],
+      "solveSteps": [
+        "1. Identify the target: is 15 | N? → need 3 and 5 both divide N",
+        "2. For each statement, substitute ALL given constraints (chain down to integers)",
+        "3. Stmt 1: x = 5m → N = 15m → YES, sufficient",
+        "4. Stmt 2: y = 3m → N = 15m → YES, sufficient",
+        "5. Both sufficient independently → answer D"
+      ]
+    }
+  },
+  "1685": {
+    "hint": "Check each statement alone: does knowing just that value guarantee a×b has p² as a factor? Watch for hidden repeated primes in the factorization.",
+    "theory": {
+      "title": "Divisibility by a Prime Square — Spotting p²",
+      "icon": "🔢",
+      "summary": "A product is divisible by p² if at least one factor already carries p² in its prime factorization. You don't need both factors — one is enough.",
+      "keyFacts": [
+        "'Divisible by square of a prime' means p² | n for some prime p (4, 8, 9, 25, …)",
+        "Factor a number: if any prime appears twice or more, that prime² divides it",
+        "If a alone contains p², then a×b contains p² for ANY positive integer b",
+        "15 = 3×5 — no repeated primes → by itself contributes no prime square",
+        "12 = 2²×3 — already has 2² → 12×(anything) is divisible by 4",
+        "DS rule: test edge cases — find one YES and one NO to prove INSUFFICIENT"
+      ],
+      "example": {
+        "problem": "If a and b are positive integers, is a×b divisible by the square of some prime?",
+        "steps": [
+          "Test Statement 1: a = 12 = 2² × 3",
+          "2² appears in a → a×b = 2²×3×b — always divisible by 4, any b",
+          "Statement 1: SUFFICIENT",
+          "Test Statement 2: b = 15 = 3×5 (no repeated prime)",
+          "a=1 → a×b=15 → NOT divisible by any prime square (NO)",
+          "a=4 → a×b=60=2²×3×5 → divisible by 4 (YES)",
+          "Two outcomes → Statement 2: INSUFFICIENT"
+        ],
+        "answer": "A — Statement 1 alone is sufficient: 12 already contains 2², forcing a×b to be divisible by 4 regardless of b."
+      },
+      "traps": [
+        "Thinking both statements needed because 15 'adds more primes' — irrelevant if 12 alone settles it",
+        "Missing that 12 = 2×2×3 has a REPEATED prime factor (2 appears twice)",
+        "Assuming b=15 alone could force a prime square — it can't without knowing a",
+        "Choosing D because '12 also has distinct primes that pair with 15' — wrong logic"
+      ],
+      "solveSteps": [
+        "1. Prime-factorize each statement's number fully",
+        "2. Statement 1: does factorization contain any prime ≥ twice? If yes → a alone guarantees p² in a×b → SUFFICIENT",
+        "3. Statement 2: factorize b; if no repeated prime, test a=1 (no prime square) vs a=4 (has 2²) → two different answers → INSUFFICIENT",
+        "4. Conclude A"
+      ]
+    }
+  },
+  "1701": {
+    "hint": "Net rate = sum of fill rates MINUS drain rate. Find each pipe's fraction of tank per hour, combine, then invert.",
+    "theory": {
+      "title": "Combined Work Rates — Pipes & Drains",
+      "icon": "🚰",
+      "summary": "Each pipe does a fraction of the job per hour. Combine fill rates by adding, subtract drain rates. Time = 1 / net_rate.",
+      "keyFacts": [
+        "Rate = 1/T where T is time to complete the job alone",
+        "Multiple workers: net rate = sum of all individual rates",
+        "Drain (opposing) rates are SUBTRACTED from fill rates",
+        "Time to finish = 1 / net_rate (when net_rate fills 1 whole job)",
+        "LCD method: convert all fractions to same denominator before adding",
+        "Net rate must be positive — if drain exceeds fill, tank never fills"
+      ],
+      "example": {
+        "problem": "Pipe A fills in 6 hr, Pipe B in 4 hr, Pipe C drains in 12 hr. All open. Time to fill?",
+        "steps": [
+          "Rates: A = 1/6, B = 1/4, C = −1/12 (drain)",
+          "LCD = 12: 2/12 + 3/12 − 1/12 = 4/12",
+          "Net rate = 1/3 tank per hour",
+          "Time = 1 ÷ (1/3) = 3 hours"
+        ],
+        "answer": "3 hours"
+      },
+      "traps": [
+        "Forgetting to subtract the drain rate — biggest trap, gives 4 hr instead of 3",
+        "Averaging pipe times arithmetically instead of combining rates",
+        "Using LCD wrong — add numerators only after converting to common denominator",
+        "Inverting before combining: find net rate FIRST, then take reciprocal"
+      ],
+      "solveSteps": [
+        "1. Assign each pipe a rate: fill = +1/T, drain = −1/T",
+        "2. Find LCD of all denominators",
+        "3. Sum all rates over LCD to get net rate",
+        "4. If net rate > 0, time = 1 / net_rate",
+        "5. Sanity: answer must be less than the fastest fill pipe alone"
+      ]
+    }
+  },
+  "1702": {
+    "hint": "Set up: acid in + acid in = acid out. Total volume = x + 40, not just 40. Solve 0.30x + 0.70(40) = 0.50(x + 40).",
+    "theory": {
+      "title": "Mixture Problems — Weighted Average Equation",
+      "icon": "⚗",
+      "summary": "Mixing two solutions means total acid is conserved. Build one equation: (conc₁)(vol₁) + (conc₂)(vol₂) = (target conc)(total vol). Total vol = vol₁ + vol₂.",
+      "keyFacts": [
+        "Acid in solution 1 + Acid in solution 2 = Acid in mixture",
+        "Total volume = V₁ + V₂ (not just one component)",
+        "c₁V₁ + c₂V₂ = c_target(V₁ + V₂)",
+        "Target concentration must lie between c₁ and c₂",
+        "Lever rule shortcut: V₁/V₂ = (c₂ − c_target)/(c_target − c₁)",
+        "Higher-concentration solution contributes more per liter → need less of it"
+      ],
+      "example": {
+        "problem": "Mix 30% acid with 40 L of 70% acid to get 50% acid. How many liters of 30% solution?",
+        "steps": [
+          "Let x = liters of 30% solution",
+          "Acid equation: 0.30x + 0.70(40) = 0.50(x + 40)",
+          "0.30x + 28 = 0.50x + 20",
+          "8 = 0.20x",
+          "x = 40 L"
+        ],
+        "answer": "40 liters"
+      },
+      "traps": [
+        "Writing 0.50(40) instead of 0.50(x + 40) — total volume grows when you add x",
+        "Forgetting to include x in total volume on right side",
+        "Lever shortcut sign error: use (higher − target) over (target − lower)",
+        "50% is exactly midway between 30% and 70% → equal volumes — sanity check"
+      ],
+      "solveSteps": [
+        "1. Identify two concentrations and one known volume",
+        "2. Write: c₁·x + c₂·V₂ = c_target·(x + V₂)",
+        "3. Expand and collect x terms on one side",
+        "4. Solve for x",
+        "5. Sanity check: target closer to which end? That solution should be larger volume"
+      ]
+    }
+  },
+  "1703": {
+    "hint": "Train Y closes a fixed gap at the DIFFERENCE of speeds (30 mph), not at Y's full speed. Find the head-start distance first, then divide by closing speed.",
+    "theory": {
+      "title": "Catch-Up Problems — Closing Speed",
+      "icon": "🚂",
+      "summary": "When one mover chases another, only the speed DIFFERENCE matters. The faster object closes the gap at (v_fast − v_slow) mph, regardless of absolute speeds.",
+      "keyFacts": [
+        "Head-start distance = v_slow × head-start time",
+        "Closing speed = v_fast − v_slow (relative speed)",
+        "Time to catch up = head-start distance ÷ closing speed",
+        "Same direction → subtract speeds; opposite direction → add speeds",
+        "Once closing speed found, absolute speeds are irrelevant to catch-up time"
+      ],
+      "example": {
+        "problem": "Train X leaves at 60 mph. Train Y leaves 2 hrs later at 90 mph, same direction. When does Y catch X?",
+        "steps": [
+          "Head-start distance: 60 × 2 = 120 miles",
+          "Closing speed: 90 − 60 = 30 mph",
+          "Time to close gap: 120 ÷ 30 = 4 hours",
+          "Check: after 4 hr Y travels 360 mi; X travels 120 + 60×4 = 360 mi ✓"
+        ],
+        "answer": "4 hours after Y departs"
+      },
+      "traps": [
+        "Dividing head-start by Y's full speed (120/90 ≈ 1.33) — ignores that X keeps moving",
+        "Answering 2 hours — confusing the head-start time with the catch-up time",
+        "Using arithmetic mean of speeds instead of difference",
+        "Forgetting to compute head-start distance before dividing"
+      ],
+      "solveSteps": [
+        "1. Compute head-start distance = slower speed × time gap between departures",
+        "2. Compute closing speed = faster speed − slower speed",
+        "3. Time to catch = head-start distance ÷ closing speed",
+        "4. Verify: both trains reach the same total distance from origin at that moment"
+      ]
+    }
+  },
+  "1704": {
+    "hint": "Find required selling price from profit %, then back-calculate marked price using discount %. Two-step chain: cost → sell → mark.",
+    "theory": {
+      "title": "Marked Price, Discount & Profit — Chain Method",
+      "icon": "🏷",
+      "summary": "Marked price and selling price are different. A discount reduces the marked price to the selling price; profit is measured against cost. Always anchor the chain at cost first.",
+      "keyFacts": [
+        "Selling price = Cost × (1 + profit%): lock the sell target first",
+        "Selling price = Marked price × (1 − discount%): discount works on marked price",
+        "Marked price = Selling price / (1 − discount%)",
+        "Profit% is ALWAYS on cost, not on marked price",
+        "Mark-up% and discount% are NOT symmetric — a 25% discount ≠ 25% markup cancels out",
+        "Chain: Cost →×(1+profit%)→ Sell →÷(1−discount%)→ Mark"
+      ],
+      "example": {
+        "problem": "Cost $120, want 20% profit after a 25% discount on marked price. Find marked price.",
+        "steps": [
+          "Required sell = 120 × 1.20 = $144",
+          "Discount relation: 0.75 × M = 144",
+          "M = 144 / 0.75 = $192"
+        ],
+        "answer": "$192"
+      },
+      "traps": [
+        "Using 20% discount instead of 25%: 144/0.80 = $180 — wrong discount",
+        "Adding markup directly to cost: 120 × 1.50 = $180 — confuses markup % with discount %",
+        "Forgetting profit is on cost, not marked price",
+        "Assuming discount% and profit% cancel: they don't — they apply to different bases"
+      ],
+      "solveSteps": [
+        "1. Compute required selling price: Cost × (1 + profit%)",
+        "2. Set up discount equation: Marked × (1 − discount%) = Selling price",
+        "3. Solve for Marked price = Selling price ÷ (1 − discount%)",
+        "4. Verify: apply discount to your marked price and confirm profit% vs cost"
+      ]
+    }
+  },
+  "1705": {
+    "hint": "Set ages 10 yrs ago as 3k and 5k, then add 10 to each for today's ratio. Solve for k first, then find Bob's current age.",
+    "theory": {
+      "title": "Age Problems — Ratio with Time Shift",
+      "icon": "🕰",
+      "summary": "When a ratio changes over time, let past ages = ratio multiples, then shift forward. Both ages increase by the same number of years.",
+      "keyFacts": [
+        "If ratio is a:b, set ages = ak and bk (same k for both)",
+        "After t years: ages become (ak+t) and (bk+t)",
+        "Set new ratio equation and solve for k",
+        "Both ages shift by same t — never shift only one",
+        "Final answer = calculated age expression, not k itself",
+        "Cross-multiply to clear ratio fractions cleanly"
+      ],
+      "example": {
+        "problem": "10 yrs ago Alice:Bob = 3:5. Today Alice:Bob = 5:7. Find Bob's age today.",
+        "steps": [
+          "Let Alice 10 yrs ago = 3k, Bob 10 yrs ago = 5k",
+          "Today: Alice = 3k+10, Bob = 5k+10",
+          "Set up: (3k+10)/(5k+10) = 5/7",
+          "Cross-multiply: 7(3k+10) = 5(5k+10) → 21k+70 = 25k+50",
+          "4k = 20 → k = 5",
+          "Bob today = 5(5)+10 = 35"
+        ],
+        "answer": "35"
+      },
+      "traps": [
+        "Forgetting to add t to BOTH ages — shifting only one breaks the equation",
+        "Solving for k and stopping — k is not the answer",
+        "Reading off Alice's age instead of Bob's",
+        "Using (3k)/(5k) = 5/7 — the ratio of the multiples never changes, so k cancels and you get contradiction"
+      ],
+      "solveSteps": [
+        "1. Assign past ages as ratio multiples: a·k and b·k",
+        "2. Write today's ages: add elapsed years to each",
+        "3. Set equal to today's ratio; cross-multiply",
+        "4. Solve for k",
+        "5. Plug k back into the specific age asked (double-check which person)"
+      ]
+    }
+  },
+  "1706": {
+    "hint": "First draw already happened — update the bag before computing. Without replacement means the sample space shrinks by 1.",
+    "theory": {
+      "title": "Conditional Probability — Without Replacement",
+      "icon": "🎱",
+      "summary": "When draws are without replacement, each draw changes the bag. Conditional probability requires updating the sample space after every draw.",
+      "keyFacts": [
+        "P(A|B) = P(A and B) / P(B) — definition of conditional probability",
+        "Without replacement: remove the drawn item before computing next probability",
+        "Sample space shrinks by 1 each draw (denominator drops)",
+        "Favorable outcomes also update if a matching item was removed",
+        "With replacement: sample space resets — draws are independent",
+        "Conditional given first draw = just compute as if you're at that state already"
+      ],
+      "example": {
+        "problem": "Bag: 4 red, 6 blue. Two draws without replacement. Given first is red, probability second is also red?",
+        "steps": [
+          "Given: first draw is red — treat this as the new starting state",
+          "Updated bag: 3 red, 6 blue, 9 total",
+          "P(second red | first red) = 3/9",
+          "Simplify: 1/3"
+        ],
+        "answer": "1/3"
+      },
+      "traps": [
+        "Using original ratio 4/10 = 2/5 — ignores that one red was already removed",
+        "Using 4/9 — correct denominator but forgot to subtract from numerator too",
+        "Treating draws as independent (with-replacement logic) when problem says without replacement",
+        "Forgetting to reduce both numerator AND denominator after the first draw"
+      ],
+      "solveSteps": [
+        "1. Identify: without replacement → sample space changes each draw",
+        "2. Apply the given condition: physically remove that marble from the bag",
+        "3. Recount remaining favorable outcomes and total marbles",
+        "4. Compute P = updated favorable / updated total",
+        "5. Sanity: denominator should be original total minus number of draws already made"
+      ]
+    }
+  },
+  "1707": {
+    "hint": "Both sets are evenly spaced by 2 — compare the deviations from each mean, not the raw values. SD measures spread, not size.",
+    "theory": {
+      "title": "Standard Deviation — Translation Invariance",
+      "icon": "📏",
+      "summary": "Shifting every element by a constant changes the mean but NOT the standard deviation. SD measures spread around the mean, and a rigid shift preserves all deviations.",
+      "keyFacts": [
+        "SD = measure of spread around the mean — NOT absolute size of values",
+        "Add constant k to every element → mean shifts by k, SD unchanged",
+        "Multiply every element by k → SD scales by |k|, mean scales by k",
+        "Two sets with identical spacing have identical SD regardless of where they sit on the number line",
+        "Evenly spaced sets: deviations from mean are symmetric ±d, ±2d, … — same pattern → same SD",
+        "Variance = average of squared deviations; shifting doesn't change any deviation"
+      ],
+      "example": {
+        "problem": "Set A = {2, 4, 6, 8, 10}, Set B = {12, 14, 16, 18, 20}. Same or different SD?",
+        "steps": [
+          "Mean A = 30/5 = 6; deviations: −4, −2, 0, +2, +4",
+          "Mean B = 80/5 = 16; deviations: −4, −2, 0, +2, +4",
+          "Squared deviations identical: 16, 4, 0, 4, 16",
+          "SD_A = SD_B = √(40/5) = √8 ≈ 2.83",
+          "Note: B = A + 10 (constant shift), so means differ but spread is preserved"
+        ],
+        "answer": "Same SD, different means"
+      },
+      "traps": [
+        "Larger numbers ≠ larger spread — B's values are bigger but deviations from its mean are identical to A's",
+        "Same SD does NOT imply same mean — translation moves mean, not spread",
+        "Students compute SD for only one set and assume the other differs",
+        "Confusing range with SD — both sets have range 8, which is a clue they match"
+      ],
+      "solveSteps": [
+        "1. Compute mean of each set",
+        "2. List deviations (value − mean) for each set",
+        "3. If deviation lists match, SDs are equal — no arithmetic needed",
+        "4. Check if one set is a constant shift of the other (B = A + c) — instant SD equality",
+        "5. Confirm means differ (or match) to pick the correct answer statement"
+      ]
+    }
+  },
+  "1708": {
+    "hint": "'At least 2 women' = sum of exactly-2, exactly-3, exactly-4 cases. OR use complement: Total − (0W) − (1W). Don't stop at just the first case.",
+    "theory": {
+      "title": "'At Least' Combinations — Case Split vs Complement",
+      "icon": "🧮",
+      "summary": "'At least k' means k, k+1, k+2, … up to the max. Sum each valid case using C(n,r), or subtract the forbidden cases from the total.",
+      "keyFacts": [
+        "C(n,r) = n! / (r!(n−r)!) — order doesn't matter",
+        "'At least k' → sum cases from k to max, OR use complement: Total − (cases with fewer than k)",
+        "Complement saves steps when forbidden cases are fewer",
+        "Multiply independent group picks: C(women,w) × C(men,m) for each case",
+        "Total unrestricted committees of size r from n = C(n,r)",
+        "Always label cases (exactly 2W, exactly 3W, …) to avoid double-count"
+      ],
+      "example": {
+        "problem": "Committee of 4 from 5 men + 4 women; at least 2 women. How many committees?",
+        "steps": [
+          "Total unrestricted: C(9,4) = 126",
+          "Complement — fewer than 2 women:",
+          "  0 women: C(4,0)×C(5,4) = 1×5 = 5",
+          "  1 woman: C(4,1)×C(5,3) = 4×10 = 40",
+          "Forbidden = 5 + 40 = 45",
+          "At least 2 women = 126 − 45 = 81"
+        ],
+        "answer": "81 (direct sum: 60 + 20 + 1 = 81; complement gives same result)"
+      },
+      "traps": [
+        "Counting only 'exactly 2 women' (60) — ignores 3W and 4W cases",
+        "Forgetting C(5,0) = 1, not 0 — the all-women committee exists",
+        "Mixing up which group is women vs men in C(n,r)",
+        "Using addition where multiplication is needed across groups"
+      ],
+      "solveSteps": [
+        "1. Check group sizes and committee size; write out valid (women, men) splits",
+        "2. For each split, compute C(women pool, w) × C(men pool, m)",
+        "3. Sum all valid cases — or use complement if forbidden cases are simpler",
+        "4. Verify: total must be ≤ C(total pool, committee size)",
+        "5. Sanity-check each C(n,r): n ≥ r, else term = 0"
+      ]
+    }
+  },
+  "1709": {
+    "hint": "Find each group's TOTAL score (avg × count), subtract to isolate the unknown group's total, then divide by that group's count.",
+    "theory": {
+      "title": "Weighted Average — Back-Solving a Missing Group",
+      "icon": "⚖",
+      "summary": "When overall average and one subgroup's average are known, convert everything to totals. Totals add linearly; averages do not.",
+      "keyFacts": [
+        "Group total = average × count  (the fundamental bridge)",
+        "Overall total = overall average × total count",
+        "Missing group total = overall total − known group total",
+        "Missing group average = missing group total / missing group count",
+        "Weighted avg pulls toward the LARGER group — sanity-check direction",
+        "Girls > class avg because boys drag it down; girls must compensate"
+      ],
+      "example": {
+        "problem": "30 students, class avg 72. 12 boys avg 65. What is girls' avg?",
+        "steps": [
+          "Girls = 30 − 12 = 18",
+          "Class total = 30 × 72 = 2160",
+          "Boys total = 12 × 65 = 780",
+          "Girls total = 2160 − 780 = 1380",
+          "Girls avg = 1380 / 18 = 76.67 ≈ 77"
+        ],
+        "answer": "77 (round 76.67 to nearest integer — do NOT truncate)"
+      },
+      "traps": [
+        "Truncating 76.67 → 76 instead of rounding → 77",
+        "Using (65 + x)/2 = 72 — wrong: groups are unequal size",
+        "Forgetting to compute number of girls (30 − 12 = 18)",
+        "Mixing up which group is 12 vs 18"
+      ],
+      "solveSteps": [
+        "1. Find unknown group count = total − known group count",
+        "2. Compute overall total = overall avg × total count",
+        "3. Compute known group total = known avg × known count",
+        "4. Subtract: unknown group total = overall total − known group total",
+        "5. Divide: unknown avg = unknown total / unknown count; round correctly"
+      ]
+    }
+  },
+  "1710": {
+    "hint": "Exactly k successes in n trials → binomial: C(n,k)·p^k·(1−p)^(n−k). Don't forget the combinations factor — it's the most-missed piece.",
+    "theory": {
+      "title": "Binomial Probability — Exactly k Successes",
+      "icon": "🎲",
+      "summary": "When n independent trials each have probability p of success, P(exactly k successes) = C(n,k)·p^k·(1−p)^(n−k). The C(n,k) counts the arrangements — skip it and your answer is too small.",
+      "keyFacts": [
+        "P(exactly k of n) = C(n,k) · p^k · (1−p)^(n−k)",
+        "C(n,k) = n! / (k!(n−k)!) — number of ways to choose which k trials succeed",
+        "C(3,2) = 3, C(4,2) = 6, C(5,2) = 10 — memorize small values",
+        "P(at least k) = sum of P(exactly k) + P(exactly k+1) + … — don't confuse with exactly",
+        "Trials must be independent for binomial to apply",
+        "p + (1−p) = 1 always; double-check complement probability"
+      ],
+      "example": {
+        "problem": "Rain probability each day = 0.4. What is P(rain on exactly 2 of next 3 days)?",
+        "steps": [
+          "n=3 trials, k=2 successes, p=0.4, (1−p)=0.6",
+          "C(3,2) = 3 (RRN, RNR, NRR — 3 arrangements)",
+          "p^k = (0.4)² = 0.16",
+          "(1−p)^(n−k) = (0.6)¹ = 0.6",
+          "P = 3 × 0.16 × 0.6 = 3 × 0.096 = 0.288"
+        ],
+        "answer": "0.288"
+      },
+      "traps": [
+        "Forgetting C(n,k): (0.4)²×(0.6) = 0.096 — off by factor of 3",
+        "Confusing 'exactly 2' with 'at least 2': P(≥2) = 0.288 + 0.064 = 0.352",
+        "Using wrong complement: (1−p) must match the non-success outcome",
+        "Multiplying all three probabilities without choosing which days rain"
+      ],
+      "solveSteps": [
+        "1. Identify n (trials), k (target successes), p (success probability)",
+        "2. Compute C(n,k) — the arrangement count",
+        "3. Compute p^k and (1−p)^(n−k) separately",
+        "4. Multiply all three: C(n,k)·p^k·(1−p)^(n−k)",
+        "5. Verify: 'exactly k' not 'at least k' — re-read the question"
+      ]
+    }
+  },
+  "1711": {
+    "hint": "Test statement alone first: pick n=1 and n=3 to show S1 alone flips. Then ask if S1+S2 together pin the answer — 9|n implies 3|n.",
+    "theory": {
+      "title": "Divisibility of a Sum — Multiples of 3",
+      "icon": "➗",
+      "summary": "If both terms share a common factor k, their sum is also divisible by k. One term divisible by 3 tells you nothing about the sum without knowing the other term's residue mod 3.",
+      "keyFacts": [
+        "If 3|a and 3|b, then 3|(a+b) — always",
+        "If 3|a but 3∤b, then 3∤(a+b) — always",
+        "9|n ⟹ 3|n (divisibility is inherited by all factors)",
+        "To test sufficiency: find two cases that give YES and NO — that kills the statement",
+        "DS sum-divisibility: need mod-3 residue of BOTH terms to conclude"
+      ],
+      "example": {
+        "problem": "Are integers m and n such that m divisible by 3 and n divisible by 9 guarantee 3|(m+n)?",
+        "steps": [
+          "S1 alone: m=3, n=1 → m+n=4, not div by 3 (NO); m=3, n=3 → m+n=6, div by 3 (YES). Insufficient.",
+          "S2 alone: n=9, m=1 → m+n=10, not div by 3 (NO); n=9, m=3 → m+n=12, div by 3 (YES). Insufficient.",
+          "Together: 3|m and 9|n → 3|n. Both m and n are multiples of 3.",
+          "m = 3a, n = 3b for some integers a,b → m+n = 3(a+b). Always divisible by 3.",
+          "Sufficient together."
+        ],
+        "answer": "C — neither statement alone fixes the residue of the unknown term, but together both terms are confirmed multiples of 3, so their sum must be too."
+      },
+      "traps": [
+        "Assuming S1 alone is enough because m is 'clearly divisible' — ignores n's unknown residue",
+        "Forgetting 9|n ⟹ 3|n (S2 silently gives you 3|n, but not 3|m)",
+        "Choosing D — each statement alone leaves the other variable free to break divisibility",
+        "Not testing a counterexample: always plug in one YES case and one NO case per statement"
+      ],
+      "solveSteps": [
+        "1. Test S1 alone: hold m=3, vary n (n=1 gives NO, n=3 gives YES) → Insufficient",
+        "2. Test S2 alone: hold n=9, vary m (m=1 gives NO, m=3 gives YES) → Insufficient",
+        "3. Combine: S1 gives 3|m; S2 gives 9|n → 3|n",
+        "4. Both terms multiples of 3 → sum = 3a+3b = 3(a+b) → always divisible by 3",
+        "5. Answer C — together sufficient, neither alone is"
+      ]
+    }
+  },
+  "1712": {
+    "hint": "If x+y (or x−y) is odd, what does that force about the parities of x and y? One parity combo makes xy even — check each statement alone.",
+    "theory": {
+      "title": "Even/Odd Parity — Sum/Difference Rules",
+      "icon": "⚖",
+      "summary": "The parity of a sum or difference locks in the parities of the operands. Odd sum or odd difference forces one even + one odd — making their product even.",
+      "keyFacts": [
+        "E+E=E, O+O=E, E+O=O — sum is odd ↔ operands have opposite parity",
+        "Same rule for difference: E−O=O, O−E=O, E−E=E, O−O=E",
+        "Opposite parity (one even, one odd) → product is always EVEN",
+        "Even × anything = even",
+        "If x+y odd → one of {x,y} even → xy even",
+        "If x−y odd → one of {x,y} even → xy even"
+      ],
+      "example": {
+        "problem": "x and y are integers; x+y is odd. Is xy even?",
+        "steps": [
+          "Odd sum requires one even, one odd (only E+O=O works)",
+          "So one of x,y is even",
+          "Even × odd = even",
+          "xy is definitely even",
+          "Statement alone answers the question"
+        ],
+        "answer": "Yes, xy is even"
+      },
+      "traps": [
+        "Thinking you need BOTH statements — each one independently forces opposite parity",
+        "Forgetting x−y odd has same parity implication as x+y odd",
+        "Assuming odd×odd or even×even — those give even or odd sums, not odd",
+        "Choosing C when each statement alone is fully sufficient"
+      ],
+      "solveSteps": [
+        "1. For each statement alone: list parity combos that satisfy it",
+        "2. Odd sum or odd difference → exactly one even, one odd",
+        "3. One even operand → product even → statement sufficient",
+        "4. Test statement 2 same way — same logic applies",
+        "5. Both alone sufficient → answer D"
+      ]
+    }
+  },
+  "1713": {
+    "hint": "Statement (1) matches the definition of prime exactly. For (2), test a counterexample: can a composite number dodge all primes below 10?",
+    "theory": {
+      "title": "Primality — Definition as DS Sufficiency",
+      "icon": "🔢",
+      "summary": "A prime has EXACTLY two distinct factors: 1 and itself. When a DS statement restates the definition verbatim, it is immediately sufficient — no algebra needed.",
+      "keyFacts": [
+        "Prime definition: exactly 2 factors (1 and itself)",
+        "1 is NOT prime — it has only 1 factor",
+        "Composite numbers can avoid small primes: 11² = 121 is not divisible by 2,3,5,7 yet is not prime",
+        "A number passes the 'not divisible by primes < √n' screen only if ALL primes up to √n are tested",
+        "DS trap: a statement that sounds restrictive may still leave multiple cases (prime AND composite)",
+        "Sufficient = one unique YES or one unique NO — ambiguity in either direction = insufficient"
+      ],
+      "example": {
+        "problem": "Is positive integer p prime? (1) p has exactly two factors. (2) p is not divisible by any prime less than 10.",
+        "steps": [
+          "S1: factor count = 2 → only possibility is {1, p} → p is prime by definition → definitive YES → sufficient",
+          "S2: primes < 10 are 2,3,5,7 → p not divisible by any of them",
+          "Test p = 11 (prime) → YES",
+          "Test p = 121 = 11² (composite, not divisible by 2,3,5,7) → NO",
+          "Two different answers → S2 insufficient"
+        ],
+        "answer": "A — statement 1 matches the definition of prime exactly and alone determines the answer; statement 2 allows both prime (11) and composite (121) values."
+      },
+      "traps": [
+        "Choosing D: assuming 'not divisible by 2,3,5,7' forces primality — 121 kills this",
+        "Forgetting p=1 as a counterexample for S2 (1 has only 1 factor, not prime, not divisible by 2,3,5,7)",
+        "Conflating 'passes small-prime divisibility test' with 'is prime' — only works if primes up to √p are all tested",
+        "Ignoring that the question stem gives p > 0 but does not exclude p = 1"
+      ],
+      "solveSteps": [
+        "1. Restate what 'prime' means: exactly 2 factors",
+        "2. S1: count factors directly — if statement says exactly 2, answer is definitively YES → sufficient",
+        "3. S2: list primes < 10 (2,3,5,7) and try to find a composite not divisible by any of them",
+        "4. Counterexample found (121) → S2 gives YES and NO → insufficient",
+        "5. Answer A"
+      ]
+    }
+  },
+  "1714": {
+    "hint": "Three consecutive even integers always contribute at least three factors of 2 — check whether statement 1 alone guarantees divisibility by 8 (=2³). Statement 2: test a counterexample before deciding.",
+    "theory": {
+      "title": "Consecutive Even Integers — Guaranteed Factor of 8",
+      "icon": "2³",
+      "summary": "Any three consecutive even integers multiply to a multiple of 8. Each supplies at least one factor of 2, and one of three consecutive evens always supplies an extra factor — giving 2³ minimum.",
+      "keyFacts": [
+        "Three consecutive even integers: 2k, 2k+2, 2k+4 = 2(k), 2(k+1), 2(k+2)",
+        "Product = 8·k(k+1)(k+2) — factor of 8 is explicit, regardless of k",
+        "Among any 3 consecutive integers k, k+1, k+2, one is divisible by 3 (bonus, not needed here)",
+        "Divisible by 8 ⟺ product has ≥ 3 factors of 2",
+        "DS sufficiency test: plug in edge cases (small k, k=0, k negative) — factor of 8 survives all",
+        "Statement 2 — average even — does not constrain whether integers are even/odd; counterexample sinks it"
+      ],
+      "example": {
+        "problem": "Are abc divisible by 8 if a, b, c are consecutive even integers?",
+        "steps": [
+          "Let a=2k, b=2k+2, c=2k+4 (any three consecutive evens)",
+          "Factor out 2 from each: product = 2k·2(k+1)·2(k+2)",
+          "= 8·k(k+1)(k+2)",
+          "8 is an explicit factor → divisible by 8 for ANY integer k",
+          "Check k=0: 0·2·4=0, divisible ✓  k=1: 2·4·6=48 ✓  k=−1: −2·0·2=0 ✓"
+        ],
+        "answer": "A — statement 1 alone is sufficient; 8 is always an explicit factor of three consecutive even integers."
+      },
+      "traps": [
+        "Thinking statement 2 is strong because 'average even' feels restrictive — it isn't; non-even integers can average to an even number",
+        "Forgetting to factor all three 2s out algebraically — the 2³ is invisible until you write 2k·2(k+1)·2(k+2)",
+        "Choosing D without finding a counterexample for statement 2 (e.g. a=1, b=7, c=4 → avg=4, product=28, not divisible by 8)",
+        "Assuming 'divisible by 8' requires all three to be multiples of 8 — only three factors of 2 total are needed"
+      ],
+      "solveSteps": [
+        "1. Statement 1: write consecutive evens as 2k, 2k+2, 2k+4 and multiply — 8 falls out explicitly → Sufficient",
+        "2. Statement 2: construct a counterexample — find integers with even average whose product is NOT divisible by 8 (e.g. 1,7,4) → Insufficient",
+        "3. Since S1 sufficient and S2 not: answer is A",
+        "4. DS habit: algebraic proof for 'always true'; single counterexample for 'not always true'"
+      ]
+    }
+  },
+  "1715": {
+    "hint": "Each divisor (14, 21) is a multiple of 7. Ask: can you extract the mod-7 remainder from each statement alone?",
+    "theory": {
+      "title": "Remainder Inheritance — Multiples of the Divisor",
+      "icon": "🔢",
+      "summary": "If m is a multiple of k, then n mod m uniquely determines n mod k. Decompose the remainder using the smaller divisor to read off the answer.",
+      "keyFacts": [
+        "n = mq + r  →  n mod k = (mq mod k + r mod k) mod k",
+        "If k | m (k divides m), then mq mod k = 0 — only r matters",
+        "n mod 14 = 5  →  n mod 7 = 5 mod 7 = 5  (since 14 = 2×7)",
+        "n mod 21 = 12  →  n mod 7 = 12 mod 7 = 5  (since 21 = 3×7)",
+        "Remainder r from larger modulus m gives r mod k when k | m",
+        "DS rule: each statement alone sufficient → answer is D"
+      ],
+      "example": {
+        "problem": "What is n mod 7, given n mod 21 = 12?",
+        "steps": [
+          "Write n = 21q + 12",
+          "Factor: 21q = 7(3q) — divisible by 7, contributes 0 to remainder",
+          "Decompose 12: 12 = 7×1 + 5",
+          "So n = 7(3q+1) + 5  →  n mod 7 = 5"
+        ],
+        "answer": "5 — the remainder 12 from mod-21 breaks into one full 7 plus leftover 5"
+      },
+      "traps": [
+        "Assuming you need both statements — trap answer (C); each works independently",
+        "Forgetting to reduce r mod k when r ≥ k (e.g. 12 mod 7 = 5, not 12)",
+        "Thinking different moduli (14 vs 21) must give conflicting info — they agree when both are multiples of 7",
+        "Mixing up 'divisor is multiple of 7' with 'remainder is multiple of 7'"
+      ],
+      "solveSteps": [
+        "1. For each statement, write n = mq + r",
+        "2. Check: is m a multiple of 7? If yes, mq contributes 0 to n mod 7",
+        "3. Reduce r mod 7 to get the remainder",
+        "4. If statement pins a unique remainder → sufficient",
+        "5. Both statements sufficient independently → answer D"
+      ]
+    }
+  },
+  "1716": {
+    "hint": "Each statement alone gives 2 values of x → 2 values of x². Ask: does combining leave exactly ONE x in the intersection?",
+    "theory": {
+      "title": "Absolute Value + Quadratic DS — Intersection of Solution Sets",
+      "icon": "∩",
+      "summary": "Both |expr| = k and a quadratic typically yield two x-solutions. In DS, 'both together sufficient' means the intersection of both solution sets collapses to exactly one x — pinning x².",
+      "keyFacts": [
+        "|A| = k splits into A = k and A = −k; solve both branches separately",
+        "Quadratic ax² + bx + c = 0 → factor or quadratic formula; up to 2 roots",
+        "x² is uniquely determined only if exactly ONE x satisfies both statements",
+        "Two x-values give the same x² only if they are ±mirrors (e.g. x = 3 and x = −3)",
+        "DS intersection logic: list solution sets from (1) and (2), keep common elements only",
+        "Each statement giving two distinct x² values → insufficient; check whether combined they narrow to one"
+      ],
+      "example": {
+        "problem": "What is x²?\n(1) |x + 1| = 4\n(2) x² − x − 6 = 0",
+        "steps": [
+          "St(1): x + 1 = 4 → x = 3; x + 1 = −4 → x = −5. Two xs → x² = 9 or 25. Insufficient.",
+          "St(2): (x − 3)(x + 2) = 0 → x = 3 or x = −2. Two xs → x² = 9 or 4. Insufficient.",
+          "Together: intersection of {3, −5} ∩ {3, −2} = {3}. Exactly one x survives.",
+          "x = 3 → x² = 9. Uniquely determined."
+        ],
+        "answer": "C — each statement alone leaves two possible x² values; combined, the intersection yields exactly one x, pinning x² = 9."
+      },
+      "traps": [
+        "Jumping to D because both statements 'look like' they constrain x strongly — check x², not just x",
+        "Missing that two different xs can share the same x² if they are ±mirrors",
+        "Skipping intersection check: always list both solution sets explicitly",
+        "Assuming a jointly inconsistent system is automatically E — GMAT intends the intersection logic"
+      ],
+      "solveSteps": [
+        "1. Solve statement (1) fully — list every x-value",
+        "2. Solve statement (2) fully — list every x-value",
+        "3. For each solution set, compute x² for each x; if unique → that statement alone is sufficient",
+        "4. If neither alone: take intersection of both x-sets",
+        "5. One x in intersection → x² pinned → C; empty or multiple distinct x² values → E"
+      ]
+    }
+  },
+  "1717": {
+    "hint": "Factor each inequality completely, map the sign regions on a number line, then find the INTERSECTION. Check if a negative x still survives both.",
+    "theory": {
+      "title": "Polynomial Inequality Sign Analysis — Number Line Method",
+      "icon": "📊",
+      "summary": "To solve a factored polynomial inequality, mark the zeros on a number line and test the sign in each interval. Combining DS statements means intersecting solution sets — not just eyeballing them.",
+      "keyFacts": [
+        "Factor completely: move everything to one side, factor, find zeros",
+        "Zeros divide the number line into intervals — test one point per interval",
+        "Sign alternates at each simple root (odd multiplicity); stays same at even-multiplicity root",
+        "Intersection of two solution sets: a value must satisfy BOTH simultaneously",
+        "x(x−1)(x+1) > 0 is positive on (−1,0) ∪ (1,∞)",
+        "x(x−1) > 0 is positive on (−∞,0) ∪ (1,∞)"
+      ],
+      "example": {
+        "problem": "Is x > 0? (1) x³ > x  (2) x² > x",
+        "steps": [
+          "S1: x³−x > 0 → x(x−1)(x+1) > 0. Zeros: −1, 0, 1. Sign test → positive on (−1,0) ∪ (1,∞). x=−0.5 works → x can be negative. Insufficient.",
+          "S2: x²−x > 0 → x(x−1) > 0. Zeros: 0, 1. Positive on (−∞,0) ∪ (1,∞). x=−2 works → x can be negative. Insufficient.",
+          "Together: intersect (−1,0)∪(1,∞) ∩ (−∞,0)∪(1,∞) = (−1,0)∪(1,∞).",
+          "x=−0.5 satisfies BOTH and is negative. x=2 satisfies both and is positive.",
+          "Answer is still not deterministic — together insufficient."
+        ],
+        "answer": "E — even combined, x=−0.5 satisfies both statements yet x<0, so we cannot conclude x>0"
+      },
+      "traps": [
+        "Assuming 'more constraints' eliminates all negative x — carefully compute the intersection",
+        "Forgetting x=−0.5 is in (−1,0), which survives both solution sets",
+        "Confusing x(x−1)(x+1)>0 with x>0, x>1, x>−1 each separately",
+        "Declaring C because two insufficient statements 'feel like they should work together'"
+      ],
+      "solveSteps": [
+        "1. For each statement: move terms to one side, factor completely, find all zeros",
+        "2. Plot zeros on number line, test sign in each interval, write the solution set",
+        "3. Each statement alone: does its solution set force x>0? If mixed signs → insufficient",
+        "4. Together: compute the INTERSECTION of both solution sets explicitly",
+        "5. Test a negative value in the intersection — if it survives, answer is E"
+      ]
+    }
+  },
+  "1718": {
+    "hint": "DS asks for a specific expression's value — check if a statement directly pins that expression (possibly via scaling), not the individual variables.",
+    "theory": {
+      "title": "Expression Sufficiency — Scalar Multiples",
+      "icon": "⚡",
+      "summary": "When DS asks for the value of an expression like 3x+2y, you only need to pin THAT combination — not x and y separately. A statement that is a scalar multiple of the target expression is immediately sufficient.",
+      "keyFacts": [
+        "Target is an expression, not individual variables — you need its value, not theirs",
+        "If statement = k·(target expression) = constant → sufficient (divide by k)",
+        "Two equations, two unknowns → usually sufficient, BUT only if they are not multiples of each other",
+        "Statement that shares some variables with target ≠ sufficient unless it fully constrains the target combo",
+        "DS trap: a statement that looks 'different' may just be a rescaled version of what you need",
+        "Always substitute two different (x,y) pairs to prove insufficiency"
+      ],
+      "example": {
+        "problem": "What is 3x + 2y? (1) 6x + 4y = 20 (2) x + y = 4",
+        "steps": [
+          "Statement (1): factor → 2(3x + 2y) = 20 → 3x + 2y = 10. One unique value. Sufficient.",
+          "Statement (2): try x=2,y=2 → 3(2)+2(2)=10; try x=0,y=4 → 3(0)+2(4)=8. Two different values. Insufficient.",
+          "Statement (2) has 1 equation, 2 unknowns, and the ratio of coefficients (1:1) ≠ target ratio (3:2) → cannot pin 3x+2y.",
+          "Together: (1) already sufficient alone — stop here."
+        ],
+        "answer": "A — statement (1) is exactly 2×(3x+2y)=20, giving 3x+2y=10 directly; statement (2) yields multiple values"
+      },
+      "traps": [
+        "Thinking you need to solve for x and y individually — you don't, just the expression",
+        "Seeing two equations and two unknowns in (1)+(2) and choosing D — (1) is already sufficient",
+        "Assuming x+y=4 can be manipulated into 3x+2y by multiplying: 3(x+y)=12 gives 3x+3y=12 ≠ 3x+2y",
+        "Missing the scalar-multiple relationship: 6x+4y is just 2·(3x+2y)"
+      ],
+      "solveSteps": [
+        "1. Identify the target expression (e.g., 3x+2y) — this is what must be pinned to a single value",
+        "2. For each statement: check if it is a scalar multiple of the target → if yes, divide and done",
+        "3. If not a scalar multiple: test two (x,y) pairs that satisfy the statement — if they give different target values, insufficient",
+        "4. If both statements needed together: verify the system is independent (non-parallel lines) and actually pins the target",
+        "5. Answer A if only (1) works, B if only (2), D if both alone, C if only together, E if neither"
+      ]
+    }
+  },
+  "1719": {
+    "hint": "f(k) gives one equation in a, b, c. Count distinct equations from each statement — does the combination pin 4a+2b+c uniquely?",
+    "theory": {
+      "title": "Quadratic DS — System of Equations Trap",
+      "icon": "ƒ",
+      "summary": "f(x) = ax²+bx+c has 3 unknowns. Each function value is one linear equation. Two equations usually under-determine a,b,c — but the target f(2) may still be uniquely pinned. Always solve for the expression, not just the variables.",
+      "keyFacts": [
+        "f(k) = value → one linear equation: a·k²+ b·k + c = value",
+        "3 unknowns need 3 independent equations to fully determine a,b,c",
+        "But DS asks for f(2), not a,b,c — f(2) may be unique even when a,b,c aren't",
+        "f(0) = c directly: free one-variable constraint, easiest to extract",
+        "f(−k) and f(k) together: add → eliminates b; subtract → eliminates a and c",
+        "Never assume 'under-determined system → f(target) is unknown' — always compute"
+      ],
+      "example": {
+        "problem": "f(x) = ax²+bx+c. What is f(2)?\n(1) f(0)=5, f(1)=8\n(2) f(−1)=4, f(1)=8",
+        "steps": [
+          "Stmt (1): c=5; a+b+c=8 → a+b=3. f(2)=4a+2b+5=2a+11 — depends on a. INSUFFICIENT.",
+          "Stmt (2): subtract: 2b=4→b=2; add: 2a+2c=12→a+c=6. f(2)=3a+10 — depends on a. INSUFFICIENT.",
+          "Together: c=5 from (1); a+c=6 from (2) → a=1. Now a=1, b=2, c=5 fully known.",
+          "f(2)=4(1)+2(2)+5=13. Unique. SUFFICIENT together."
+        ],
+        "answer": "C — neither statement alone pins f(2), but combined they yield a unique value for all three coefficients."
+      },
+      "traps": [
+        "'2 equations, 3 unknowns → always insufficient' — wrong; the target expression may still be unique",
+        "Stopping at 'depends on a' for stmt (2) and not testing the combination",
+        "Missing that f(0)=c is an immediate one-variable win — easiest constraint in any quadratic DS",
+        "Assuming combined statements are redundant because stmt (2) looks 'symmetric' and powerful"
+      ],
+      "solveSteps": [
+        "1. Translate each function value into a linear equation in a, b, c",
+        "2. Stmt alone: reduce to f(2)=4a+2b+c in simplest form — unique number or still free?",
+        "3. If both alone insufficient, combine all equations and solve the system",
+        "4. Compute f(2) numerically — unique value → C; still a free parameter → E",
+        "5. Always extract f(0)=c first — it eliminates one unknown immediately"
+      ]
+    }
+  },
+  "1720": {
+    "hint": "Test a value <1 for each statement. One statement has a counterexample; the other forces x>1 for ALL positives — find which.",
+    "theory": {
+      "title": "Exponential Inequalities — Root & Power Tests",
+      "icon": "🔢",
+      "summary": "x^x > x doesn't pin x above 1 — fractional bases can satisfy it too. x^(1/x) > 1 is tighter: it forces the base itself above 1.",
+      "keyFacts": [
+        "For base b > 1: b^(positive exponent) > 1 always",
+        "For 0 < b < 1: b^(positive exponent) < 1 always",
+        "For b = 1: b^(any exponent) = 1, never > 1",
+        "x^(1/x) > 1 ⟺ x > 1 (for x > 0) — equivalent statement",
+        "x^x > x satisfied by x = 0.5: 0.5^0.5 ≈ 0.707 > 0.5 — does NOT require x > 1",
+        "DS sufficiency: must hold for ALL values satisfying the statement, not just one test"
+      ],
+      "example": {
+        "problem": "Is x > 1? (1) x^x > x  (2) x^(1/x) > 1",
+        "steps": [
+          "Test S1 with x=2: 4 > 2 ✓ suggests x>1 might work",
+          "Test S1 with x=0.5: 0.707 > 0.5 ✓ — counterexample! x=0.5 < 1, so S1 insufficient",
+          "Test S2 with x=0.5: 0.5^2 = 0.25 > 1? NO — so x<1 fails S2",
+          "For S2, if x>1: base>1 with positive exponent → result>1 ✓; if x=1: result=1, not >1; if 0<x<1: base<1 → result<1. S2 exactly pins x>1"
+        ],
+        "answer": "B — statement 2 alone is sufficient; x^(1/x) > 1 holds if and only if x > 1. Statement 1 is satisfied by x = 0.5, a counterexample."
+      },
+      "traps": [
+        "Testing only x=2 for S1 and concluding sufficient — always probe values 0<x<1",
+        "Assuming x is an integer; problem implies positive reals",
+        "Forgetting x=1 case: 1^(1/1)=1, not >1, so x=1 is excluded by S2",
+        "Confusing x^x > x with x^(1/x) > 1 — they have different solution sets"
+      ],
+      "solveSteps": [
+        "1. For each statement, ask: can I find x ≤ 1 that satisfies it?",
+        "2. S1: try x=0.5 → 0.5^0.5 ≈ 0.707 > 0.5 ✓ — counterexample found, insufficient",
+        "3. S2: reason by case — base > 1 vs base ≤ 1 vs base = 1",
+        "4. S2: all three cases show x^(1/x) > 1 iff x > 1 — sufficient",
+        "5. Answer B"
+      ]
+    }
   }
 };
 
