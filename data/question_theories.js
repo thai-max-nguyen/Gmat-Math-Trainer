@@ -34751,6 +34751,788 @@ const QUESTION_THEORIES = {
         "5. Combine: both inputs present → unique answer. Choose C."
       ]
     }
+  },
+  "1583": {
+    "hint": "Each statement gives one equation in two unknowns — check whether that pins the total. Need 2 independent equations to solve for 2 unknowns.",
+    "theory": {
+      "title": "DS — Two-Variable Systems: Relative vs. Absolute",
+      "icon": "⚙",
+      "summary": "One relationship between two unknowns leaves infinitely many solutions. A difference and a ratio together form a solvable 2×2 system — pin both variables, get the total.",
+      "keyFacts": [
+        "2 unknowns require 2 independent equations to get a unique solution",
+        "Additive difference (P = Q + 120) and multiplicative ratio (P = 3Q) are independent — neither is a multiple of the other",
+        "Each statement alone constrains a LINE of solutions; together they intersect at one point",
+        "DS sufficiency test: can you get a SINGLE numeric answer? A range = insufficient",
+        "Classic trap: one ratio statement feels powerful but still leaves scale undetermined",
+        "Combine by substitution: set the two expressions for P equal, solve for Q, then find P+Q"
+      ],
+      "example": {
+        "problem": "Store sells items X and Y. What is total revenue X+Y? (1) X is $80 more than Y. (2) X is 4 times Y.",
+        "steps": [
+          "S1 alone: X = Y+80 → total = 2Y+80. Y unknown → infinitely many totals. NOT sufficient",
+          "S2 alone: X = 4Y → total = 5Y. Y unknown → infinitely many totals. NOT sufficient",
+          "Both: set Y+80 = 4Y → 3Y = 80 → Y = 80/3... wait, use 2Y: 2Y=80 → Y=40",
+          "X = 4(40) = 160, total = 200. Unique answer → SUFFICIENT",
+          "Answer: C"
+        ],
+        "answer": "C — neither statement alone fixes the scale; together the two equations uniquely determine both variables and thus the total"
+      },
+      "traps": [
+        "D trap: each statement feels like it 'describes' revenue, but a ratio or difference alone never pins absolute values",
+        "E trap: two equations in two unknowns always solve unless they are dependent (same line) — check independence, don't assume unsolvable",
+        "Don't stop at 'I can write an equation' — ask 'does this equation yield ONE numeric answer?'",
+        "Ratio (multiplicative) and difference (additive) are always independent — they can't be multiples of each other"
+      ],
+      "solveSteps": [
+        "1. Name unknowns, write the question as an expression (P+Q=?)",
+        "2. Test S1 alone: one equation, two unknowns → can total take multiple values? If yes, insufficient",
+        "3. Test S2 alone: same check — does it pin a unique total?",
+        "4. Combine S1+S2: substitute to eliminate one variable; if unique solution emerges → C",
+        "5. Confirm independence: ratio ≠ scalar multiple of difference → system is non-degenerate → unique solution guaranteed"
+      ]
+    }
+  },
+  "1584": {
+    "hint": "For DS: does either statement alone pin the sign of mn? Recall sign(a/b) = sign(a·b) — that identity may settle this instantly.",
+    "theory": {
+      "title": "Sign of Product vs. Sign of Ratio",
+      "icon": "±",
+      "summary": "mn < 0 iff m and n have opposite signs. The ratio m/n carries the exact same sign information as the product mn — so one can substitute for the other.",
+      "keyFacts": [
+        "mn < 0 ⟺ m and n have OPPOSITE signs (one pos, one neg)",
+        "sign(m/n) = sign(m·n) for all nonzero m, n — division and multiplication share the same sign rule",
+        "m + n < 0 does NOT reveal relative signs: both could be negative (mn > 0) or the neg term could dominate (mn < 0)",
+        "m/n < 0 DIRECTLY implies opposite signs → mn < 0, sufficient on its own",
+        "DS flow: as soon as one statement pins a yes/no uniquely, stop — don't default to C"
+      ],
+      "example": {
+        "problem": "Is mn negative? (1) m + n < 0  (2) m/n < 0",
+        "steps": [
+          "Statement 1: try m=−3, n=−1 → sum=−4<0, mn=3>0 (NO). Try m=−5, n=2 → sum=−3<0, mn=−10<0 (YES). Two outcomes → NOT sufficient.",
+          "Statement 2: m/n < 0 requires numerator and denominator to have opposite signs.",
+          "Opposite signs → mn < 0. No counterexample possible (n≠0 is guaranteed for m/n to exist).",
+          "Statement 2 alone is sufficient."
+        ],
+        "answer": "B — statement 2 pins opposite signs → mn < 0 definitively; statement 1 allows both signs of mn"
+      },
+      "traps": [
+        "Assuming m+n<0 forces one to be positive — both can be negative, making mn positive",
+        "Picking C reflexively when S1 looks related — S2 already settles it alone",
+        "Forgetting sign(a/b) = sign(ab): ratio and product carry identical sign information",
+        "Assuming n could be 0 in S2 — division m/n existing requires n≠0, which is implicit"
+      ],
+      "solveSteps": [
+        "1. Restate target: is mn < 0? ↔ do m and n have opposite signs?",
+        "2. Test S1 (m+n<0): find two number pairs with same sum-sign but different product-signs — if possible, insufficient.",
+        "3. Test S2 (m/n<0): apply sign rule — ratio negative ↔ opposite signs ↔ product negative. Sufficient.",
+        "4. Since S2 alone suffices and S1 alone does not, answer is B.",
+        "5. Sanity: never need both statements when one already gives a unique yes/no."
+      ]
+    }
+  },
+  "1585": {
+    "hint": "For DS: test each statement alone. Watch for statements that merely restate what the problem already told you — those are tautologies and give zero info.",
+    "theory": {
+      "title": "Consecutive Integers — Tautological Statements in DS",
+      "icon": "🔢",
+      "summary": "Consecutive integers are fully parameterized by one unknown. A DS statement that only restates a built-in property of the setup adds zero information and cannot be sufficient alone.",
+      "keyFacts": [
+        "Consecutive integers: b = a+1, c = a+2 — one variable controls all three",
+        "Sum of 3 consecutive integers = 3b (middle term × count) — elegant shortcut",
+        "If sum = S and count = n, middle = S/n for any odd-count consecutive sequence",
+        "A DS statement is 'tautological' if it's always true given the problem setup — it constrains nothing",
+        "Tautological statement → NOT sufficient, even if the statement looks like real info",
+        "Statement that pins unique value → SUFFICIENT; range of values → NOT sufficient"
+      ],
+      "example": {
+        "problem": "a, b, c are consecutive integers. What is b? (1) a+b+c=42  (2) c−a=2",
+        "steps": [
+          "Express all in terms of b: a=b−1, c=b+1",
+          "S1: (b−1)+b+(b+1)=42 → 3b=42 → b=14. Unique value → SUFFICIENT",
+          "S2: c−a=(b+1)−(b−1)=2. This is ALWAYS 2 for any consecutive triple. Zero new info",
+          "S2 alone: b could be 1, 7, 100 — infinitely many solutions → NOT sufficient",
+          "Answer: A"
+        ],
+        "answer": "A — statement 1 pins b=14 uniquely; statement 2 is a tautology baked into the consecutive-integer definition"
+      },
+      "traps": [
+        "Trap C: thinking both together are needed — S2 is redundant, so combining can't improve on S1",
+        "Trap D: assuming S2 is 'real' info because c−a=2 looks like a constraint — it isn't",
+        "Confusing 'statement is true' with 'statement is sufficient' — tautologies are always true but never sufficient",
+        "Forgetting sum-of-consecutive shortcut: sum = n × middle, so middle = sum/n instantly"
+      ],
+      "solveSteps": [
+        "1. Parameterize: express all unknowns in terms of one variable (use b as anchor for middle)",
+        "2. Test S1 alone: substitute, solve, check for unique value",
+        "3. Test S2 alone: substitute and simplify — if result is identity (e.g., 2=2), it's a tautology",
+        "4. Tautology → S2 adds nothing → eliminate B, C, D",
+        "5. S1 sufficient + S2 not sufficient → answer is A"
+      ]
+    }
+  },
+  "1666": {
+    "hint": "Split into cases: exactly 2W, 3W, 4W — or use complement (total minus 0W and 1W). Sum all valid cases.",
+    "theory": {
+      "title": "Combinatorics — At Least / Complement Method",
+      "icon": "🧮",
+      "summary": "'At least k' problems split into exhaustive cases OR use complement: subtract the forbidden counts from the total. Both must give the same answer.",
+      "keyFacts": [
+        "C(n,r) = n! / (r!(n-r)!) — choose r from n, order irrelevant",
+        "At least k women = sum of cases: exactly k, k+1, … up to max available",
+        "Complement: valid = C(total, size) − (0 women cases) − (1 woman cases) − …",
+        "Mixed-group committee: C(women pool, w) × C(men pool, m) for each case",
+        "Always verify: direct sum == complement answer"
+      ],
+      "example": {
+        "problem": "Select 4-person committee from 5M + 4W with at least 2W. How many ways?",
+        "steps": [
+          "Exactly 2W: C(4,2)×C(5,2) = 6×10 = 60",
+          "Exactly 3W: C(4,3)×C(5,1) = 4×5 = 20",
+          "Exactly 4W: C(4,4)×C(5,0) = 1×1 = 1",
+          "Direct total = 60+20+1 = 81",
+          "Check via complement: C(9,4)=126; 0W=C(5,4)=5; 1W=C(4,1)×C(5,3)=40; 126−45=81 ✓"
+        ],
+        "answer": "81"
+      },
+      "traps": [
+        "Stopping at exactly-2W gives 60 — the most common wrong answer",
+        "Forgetting the exactly-4W case (only 1 way but it counts)",
+        "Using permutations (order matters) instead of combinations (committee = unordered)",
+        "Complement arithmetic slip: 126−45 ≠ 71 or 91"
+      ],
+      "solveSteps": [
+        "1. Identify min/max women in a valid committee",
+        "2. List all valid (W, M) splits: (2,2), (3,1), (4,0)",
+        "3. For each split: C(4,W)×C(5,M)",
+        "4. Sum all cases — OR use complement: C(9,4) minus invalid splits",
+        "5. Cross-check both methods if time allows"
+      ]
+    }
+  },
+  "1667": {
+    "hint": "Count BAD (adjacent) arrangements and subtract from total. Treat the pair as a block → 5! × 2. Don't forget both orders (AB and BA).",
+    "theory": {
+      "title": "Restricted Arrangements — Complementary Counting",
+      "icon": "🚫",
+      "summary": "When 'must NOT be together' is the constraint, count the opposite (must BE together) and subtract from total. Glue the restricted pair into one block, count, then multiply by their internal orderings.",
+      "keyFacts": [
+        "Total unrestricted: n! for n distinct people in a row",
+        "Adjacent pair trick: glue pair → (n−1) entities, arranged (n−1)! ways",
+        "Multiply by 2: the pair can be in 2 internal orders (AB or BA)",
+        "Valid = Total − Adjacent = n! − 2·(n−1)!",
+        "For 6 people: 720 − 2·120 = 720 − 240 = 480",
+        "Complementary counting: easier to count the forbidden case, then subtract"
+      ],
+      "example": {
+        "problem": "6 people in a row. Two specific people must NOT be adjacent. How many arrangements?",
+        "steps": [
+          "Total: 6! = 720",
+          "Treat the forbidden pair as one block → 5 entities",
+          "Arrange 5 entities: 5! = 120",
+          "Pair has 2 internal orders (AB, BA): 120 × 2 = 240",
+          "Valid = 720 − 240 = 480"
+        ],
+        "answer": "480"
+      },
+      "traps": [
+        "Forgetting the ×2 for AB vs BA internal order → 720−120=600 (trap D)",
+        "Dividing by 2 instead of subtracting → 360 (trap B)",
+        "Using total 720 unchanged, ignoring the restriction (trap E)",
+        "Trying to count valid arrangements directly — far harder than complementary approach"
+      ],
+      "solveSteps": [
+        "1. Compute total arrangements: n!",
+        "2. Count forbidden: glue restricted pair into 1 block → (n−1)! arrangements",
+        "3. Multiply forbidden by 2 for the pair's internal order",
+        "4. Valid = total − forbidden",
+        "5. Check: answer should be less than total and greater than half (restriction isn't too severe)"
+      ]
+    }
+  },
+  "1668": {
+    "hint": "Fix one person to kill rotational symmetry. 'Directly opposite' on a 5-seat table pins the second person to exactly 1 seat. Count what's left free.",
+    "theory": {
+      "title": "Circular Permutations — Fix & Restrict",
+      "icon": "🔄",
+      "summary": "Circular arrangements divide by rotational copies: (n−1)! base. Each 'fixed' constraint removes another degree of freedom and multiplies by 1 instead of the full remaining count.",
+      "keyFacts": [
+        "Circular perm of n people = (n−1)! (fix one person, arrange the rest)",
+        "Each added positional constraint (X must sit opposite Y) multiplies by 1, not free choices",
+        "On a 5-seat round table, 'directly opposite' = exactly 1 defined seat (no true midpoint → 1 interpretation used)",
+        "After fixing 2 people, remaining (n−2) people arrange in (n−2)! ways",
+        "Trap seat: don't confuse 2 candidate 'opposite' seats with 2 free choices — the constraint picks one"
+      ],
+      "example": {
+        "problem": "5 people at a round table; A and B must sit directly opposite. How many distinct arrangements?",
+        "steps": [
+          "Fix A (removes rotational symmetry): 1 way",
+          "B must sit 'opposite' A — exactly 1 seat qualifies: 1 way",
+          "3 remaining people fill 3 remaining seats: 3! = 6",
+          "Total = 1 × 1 × 6 = 6"
+        ],
+        "answer": "6"
+      },
+      "traps": [
+        "Using 5! = 120 — ignores circular symmetry (fix one person first)",
+        "Giving CFO 2 choices for 'opposite' → 2×3! = 12 — over-counts; the constraint defines exactly 1 seat",
+        "Using 4! = 24 — fixes CEO but forgets CFO is also constrained",
+        "(n−1)! = 4! = 24 is the UNCONSTRAINED circular count; the opposite constraint cuts it to 6"
+      ],
+      "solveSteps": [
+        "1. Fix the higher-ranked constrained person (CEO) — eliminates rotational duplicates",
+        "2. Count seats available to the second constrained person (CFO opposite = 1 seat)",
+        "3. Multiply remaining free people in remaining seats: 3! = 6",
+        "4. Total = 1 × 1 × 6 = 6",
+        "5. Sanity: answer < (n−1)! = 24 ✓ (constraint must reduce count)"
+      ]
+    }
+  },
+  "1669": {
+    "hint": "List every valid (engineer, analyst) split summing to 5, compute C(4,e)×C(6,a) for each, then add. Check both lower bounds before including a split.",
+    "theory": {
+      "title": "Combinations with Two-Group Restrictions",
+      "icon": "🔢",
+      "summary": "When picking from two distinct groups with per-group minimums, enumerate every valid split and multiply within-group combinations, then sum. One missed or wrongly excluded split changes the answer.",
+      "keyFacts": [
+        "Valid split: (e, a) where e+a = team size, e ≥ min_e, a ≥ min_a",
+        "Ways per split = C(E_pool, e) × C(A_pool, a)",
+        "Total = Σ of ways across all valid splits",
+        "Complement: C(n,k) − invalid splits is faster when few splits are invalid",
+        "Key values: C(6,4)=15, C(6,3)=20, C(6,2)=15, C(4,1)=4, C(4,2)=6, C(4,3)=4",
+        "Impossible splits (need more than pool size) auto-excluded — list them anyway to avoid forgetting"
+      ],
+      "example": {
+        "problem": "Choose 5 from 4 engineers + 6 analysts, ≥1 engineer and ≥2 analysts. How many teams?",
+        "steps": [
+          "List all (e,a) with e+a=5: (1,4),(2,3),(3,2),(4,1),(5,0)",
+          "Exclude (4,1): a=1 < 2. Exclude (5,0): only 4 engineers exist. Valid: (1,4),(2,3),(3,2)",
+          "(1E,4A): C(4,1)×C(6,4) = 4×15 = 60",
+          "(2E,3A): C(4,2)×C(6,3) = 6×20 = 120",
+          "(3E,2A): C(4,3)×C(6,2) = 4×15 = 60",
+          "Total = 60+120+60 = 240"
+        ],
+        "answer": "240 — sum of three valid splits after excluding compositions that violate ≥2 analyst constraint"
+      },
+      "traps": [
+        "Including (4E,1A) — violates a≥2, must be cut",
+        "Using C(10,5)=252 as the answer without accounting for constraints",
+        "Complement shortcut: forgetting to subtract BOTH invalid types (0-engineer teams AND 1-analyst teams)",
+        "Mixing C(6,4)=15 with C(6,3)=20 — write the split explicitly before plugging in"
+      ],
+      "solveSteps": [
+        "1. List all (e,a) pairs summing to team size",
+        "2. Cross out any split violating either minimum or exceeding a pool",
+        "3. For each surviving split compute C(E_pool,e) × C(A_pool,a)",
+        "4. Sum all products",
+        "5. Sanity: result must be less than C(total pool, team size)"
+      ]
+    }
+  },
+  "1670": {
+    "hint": "Count each letter's frequency in the word, then divide 7! by the factorial of each repeated letter's count.",
+    "theory": {
+      "title": "Permutations with Repeated Elements",
+      "icon": "🔠",
+      "summary": "When a set has identical items, arrangements that differ only by swapping identical pieces are NOT distinct. Divide total factorial by each repeated-letter factorial to eliminate duplicates.",
+      "keyFacts": [
+        "Distinct arrangements of n items with repeats: n! / (a! × b! × c! …)",
+        "Every repeated letter gets its own factorial in the denominator",
+        "Letters appearing once contribute 1! = 1 — safe to ignore in computation",
+        "Spell out letter frequencies BEFORE computing — one missed repeat = wrong answer",
+        "7! = 5040; memorize: 6!=720, 5!=120, 4!=24, 3!=6, 2!=2"
+      ],
+      "example": {
+        "problem": "How many distinct 7-letter arrangements of MINIMUM?",
+        "steps": [
+          "Inventory: M×3, I×2, N×1, U×1",
+          "Formula: 7! / (3! × 2! × 1! × 1!)",
+          "Numerator: 5040",
+          "Denominator: 6 × 2 × 1 × 1 = 12",
+          "5040 / 12 = 420"
+        ],
+        "answer": "420"
+      },
+      "traps": [
+        "Forgetting to divide by 2! for the two I's → get 840 (only divided by 3! for M)",
+        "Treating unique letters as repeated — dividing by 2! for N or U → get 210",
+        "Dividing by one combined factorial instead of separate ones per letter",
+        "Not inventorying all letters first — easy to miscount in a long word"
+      ],
+      "solveSteps": [
+        "1. Write out the word and tally each letter's frequency",
+        "2. Write the formula: n! / (freq1! × freq2! × …) for ALL repeated letters",
+        "3. Compute numerator: n!",
+        "4. Compute denominator: multiply each frequency factorial",
+        "5. Divide and match — if answer not in choices, recheck the inventory"
+      ]
+    }
+  },
+  "1671": {
+    "hint": "First ball already drawn — update the bag. New count matters. Conditional probability = favorable remaining / total remaining.",
+    "theory": {
+      "title": "Conditional Probability — Updated Sample Space",
+      "icon": "🎱",
+      "summary": "P(B|A) = P(A and B) / P(A). Practically: given A happened, shrink the universe. Recalculate with the new, smaller pool.",
+      "keyFacts": [
+        "P(B|A) = P(A∩B) / P(A) — formal definition",
+        "Without replacement: remove drawn item before computing next probability",
+        "New denominator = original total − items already drawn",
+        "New numerator = original count of target − target items already drawn",
+        "Conditional ≠ independent: removing one ball changes ALL future probabilities",
+        "Trap magnet: students use original total or original proportion instead of updated counts"
+      ],
+      "example": {
+        "problem": "Bag: 4 red, 3 blue, 2 green (9 total). Draw 2 without replacement. Given first is red, P(second is red)?",
+        "steps": [
+          "First draw is red → remove 1 red from bag",
+          "Updated bag: 3 red, 3 blue, 2 green = 8 balls total",
+          "P(second red | first red) = 3 red remaining / 8 total remaining",
+          "= 3/8"
+        ],
+        "answer": "3/8"
+      },
+      "traps": [
+        "4/9 — uses original red proportion, ignores that one red was already removed",
+        "3/9 = 1/3 — correct numerator (3 reds left) but wrong denominator (should be 8, not 9)",
+        "4/8 = 1/2 — forgets numerator drops too when a red is removed",
+        "Treating draws as independent when problem says 'without replacement'"
+      ],
+      "solveSteps": [
+        "1. Identify what event is given (the condition)",
+        "2. Remove the given draw from the bag — update BOTH numerator and denominator",
+        "3. Count favorable outcomes in the updated pool",
+        "4. Divide: favorable remaining / total remaining",
+        "5. Check traps: did you reduce both the count AND the total?"
+      ]
+    }
+  },
+  "1672": {
+    "hint": "Given bicycle ownership, restrict sample space to bicycle owners only. Apply P(A|B) = P(A∩B)/P(B). The numerator is the overlap, not either marginal.",
+    "theory": {
+      "title": "Conditional Probability — Restricted Sample Space",
+      "icon": "🎯",
+      "summary": "P(A|B) shrinks the universe to only B-outcomes. The question becomes: among bicycle owners, what fraction also own a car?",
+      "keyFacts": [
+        "P(A|B) = P(A∩B) / P(B) — divide overlap by the given condition",
+        "'Given B' means B is now 100% of the sample space",
+        "P(A∩B) = P(A) + P(B) − P(A∪B) — use when overlap not given directly",
+        "P(A|B) ≠ P(B|A) — conditional probability is NOT symmetric",
+        "If A and B are independent: P(A|B) = P(A) — knowing B tells you nothing",
+        "Always check: is the given condition the denominator?"
+      ],
+      "example": {
+        "problem": "40% own car, 30% own bicycle, 15% own both. Given a resident owns a bicycle, what is P(also owns car)?",
+        "steps": [
+          "Identify: P(car∩bike) = 0.15, P(bike) = 0.30",
+          "Apply formula: P(car|bike) = P(car∩bike)/P(bike)",
+          "= 0.15 / 0.30",
+          "= 0.50 = 1/2"
+        ],
+        "answer": "1/2"
+      },
+      "traps": [
+        "Using P(A∪B) = 0.55 as denominator instead of P(B) = 0.30 — gives 15/55 ≈ 1/4",
+        "Dividing overlap by P(car) = 0.40 instead of P(bike) — reverses the condition",
+        "Using arithmetic on raw percentages without isolating the given condition",
+        "Thinking independence: P(car|bike) ≠ P(car) = 0.40 here because they overlap"
+      ],
+      "solveSteps": [
+        "1. Identify P(A∩B) — the overlap (both conditions true)",
+        "2. Identify P(B) — the given condition (denominator)",
+        "3. Compute P(A|B) = P(A∩B)/P(B)",
+        "4. Sanity: result must be between 0 and 1, and ≥ P(A∩B)"
+      ]
+    }
+  },
+  "1673": {
+    "hint": "Use Bayes: P(A|defective) = P(def∩A) / P(def total). Compute each machine's share of defects, then divide. Watch which machine the question asks about.",
+    "theory": {
+      "title": "Conditional Probability — Bayes' Theorem",
+      "icon": "🔄",
+      "summary": "A defective item was produced somewhere — Bayes tells you which source is most likely given the defect. Prior output shares get updated by each source's defect rate.",
+      "keyFacts": [
+        "Bayes: P(A|D) = P(D|A)·P(A) / P(D)",
+        "Law of total probability: P(D) = P(D|A)·P(A) + P(D|B)·P(B)",
+        "Joint prob of source + event: P(D∩A) = P(D|A)·P(A)",
+        "Denominator = ALL paths to the event, not just one source",
+        "High-output machine can still produce fewer defects if its defect rate is low enough",
+        "Posterior (after seeing defect) ≠ prior (raw output share)"
+      ],
+      "example": {
+        "problem": "Machine A: 60% of output, 5% defect rate. Machine B: 40% output, 10% defect rate. A defective item is picked. P(from A)?",
+        "steps": [
+          "P(def ∩ A) = 0.05 × 0.60 = 0.030",
+          "P(def ∩ B) = 0.10 × 0.40 = 0.040",
+          "P(defective) = 0.030 + 0.040 = 0.070",
+          "P(A | defective) = 0.030 / 0.070 = 3/7"
+        ],
+        "answer": "3/7"
+      },
+      "traps": [
+        "4/7 = P(B|defective) — right math, wrong machine",
+        "3/8: denominator 0.030+0.050 mixes defect prob with defect rate — never add those",
+        "Using raw output share 0.60 ignores how defect rates shift the posterior",
+        "Adding defect rates (5%+10%) without weighting by output share"
+      ],
+      "solveSteps": [
+        "1. Compute joint: P(D∩each source) = defect_rate × output_share",
+        "2. Sum all joints → total P(D) via law of total probability",
+        "3. Divide target machine's joint by P(D)",
+        "4. Verify: P(A|D) + P(B|D) = 1 as sanity check"
+      ]
+    }
+  },
+  "1674": {
+    "hint": "Multiply shrinking conditional probabilities: each draw reduces both aces left AND deck size. Never treat draws-without-replacement as independent.",
+    "theory": {
+      "title": "Conditional Probability — Dependent Draws Without Replacement",
+      "icon": "🃏",
+      "summary": "Without replacement, each draw changes the deck. Chain P(A) × P(B|A) × P(C|A∩B) — numerator and denominator both shrink.",
+      "keyFacts": [
+        "P(all k events) = P(E₁) × P(E₂|E₁) × P(E₃|E₁∩E₂) × …",
+        "Without replacement: each draw removes one card from deck AND from target group",
+        "With replacement: draws are independent → multiply same fraction k times",
+        "P(k specific cards in order) = (target)(target−1)…/ (52)(51)…",
+        "24/132600 simplifies by dividing both by 24 → 1/5525"
+      ],
+      "example": {
+        "problem": "Draw 3 cards without replacement. P(all 3 are aces)?",
+        "steps": [
+          "P(1st ace) = 4/52 — 4 aces in 52 cards",
+          "P(2nd ace | 1st was ace) = 3/51 — one ace gone, deck shrinks by 1",
+          "P(3rd ace | first two aces) = 2/50 — two aces gone",
+          "Multiply: (4×3×2)/(52×51×50) = 24/132600",
+          "Simplify: 24/132600 = 1/5525"
+        ],
+        "answer": "1/5525"
+      },
+      "traps": [
+        "(1/13)³ = 1/2197 — treats each draw as independent (with-replacement logic)",
+        "3/52 — sums probabilities instead of multiplying",
+        "Forgetting denominator shrinks: using 52 for all three draws",
+        "Forgetting numerator shrinks: using 4 for all three ace counts"
+      ],
+      "solveSteps": [
+        "1. Confirm: with or without replacement? Without → dependent events",
+        "2. Write conditional chain: P(E₁) × P(E₂|E₁) × P(E₃|E₁∩E₂)",
+        "3. Numerator: count remaining targets each step (4, 3, 2…)",
+        "4. Denominator: count remaining deck each step (52, 51, 50…)",
+        "5. Multiply across, then simplify the fraction"
+      ]
+    }
+  },
+  "1675": {
+    "hint": "'At least 2' → use complement: 1 − P(0 heads) − P(1 head). Direct counting is slower and error-prone.",
+    "theory": {
+      "title": "At-Least Probability — Complement Method",
+      "icon": "🪙",
+      "summary": "'At least k' means k or more successes. Fastest path: subtract the small complement (fewer than k) from 1 rather than summing many cases.",
+      "keyFacts": [
+        "P(at least k) = 1 − P(0) − P(1) − … − P(k−1)",
+        "P(exactly r heads in n flips) = C(n,r) × (1/2)^n",
+        "C(n,0) = 1, C(n,1) = n — memorize these for speed",
+        "For fair coin: all 2^n outcomes equally likely → P = favourable / 2^n",
+        "Complement shrinks work: 'at least 2' needs only 2 subtractions vs 4 additions"
+      ],
+      "example": {
+        "problem": "Fair coin flipped 5 times. P(at least 2 heads)?",
+        "steps": [
+          "Total outcomes = 2^5 = 32",
+          "P(0 heads) = C(5,0)/32 = 1/32",
+          "P(1 head) = C(5,1)/32 = 5/32",
+          "Complement = 1/32 + 5/32 = 6/32",
+          "P(at least 2) = 1 − 6/32 = 26/32 = 13/16"
+        ],
+        "answer": "13/16"
+      },
+      "traps": [
+        "Direct sum (P2+P3+P4+P5) is correct but slow — complement is 4× faster",
+        "13/32 = P(exactly 2 or 3 heads) — forgetting to include 4- and 5-head cases",
+        "1/2 treats 5 flips as a single flip — ignores combinatorics entirely",
+        "Forgetting to subtract BOTH P(0) and P(1) — dropping one term is the classic slip"
+      ],
+      "solveSteps": [
+        "1. Spot 'at least k' → plan complement: 1 − P(<k)",
+        "2. List complement cases: 0 heads, 1 head (everything below the threshold)",
+        "3. Compute each: C(n,r) × (1/2)^n",
+        "4. Sum complement, subtract from 1",
+        "5. Simplify fraction and match answer choices"
+      ]
+    }
+  },
+  "1676": {
+    "hint": "Factor 12 = 2²×3. Ask what prime factors each statement guarantees — then check if together they cover all of 12's requirements.",
+    "theory": {
+      "title": "Divisibility by LCM — Prime Factor Coverage",
+      "icon": "🔢",
+      "summary": "To prove divisibility by N, you need every prime factor of N (with full multiplicity). Two statements can pool different prime factors to cover N together.",
+      "keyFacts": [
+        "n divisible by k ↔ k's prime factorization is a subset of n's prime factorization",
+        "12 = 2² × 3 — needs BOTH 2² AND 3",
+        "LCM rule: if n divisible by a AND b, then n divisible by LCM(a,b)",
+        "LCM(6,4) = 12 — so divisibility by both 6 and 4 forces divisibility by 12",
+        "Watch multiplicity: 6 gives one 2, but 12 needs two 2s — 4 supplies the second",
+        "DS pattern: each statement alone leaves a gap; together they fill all gaps → C"
+      ],
+      "example": {
+        "problem": "Is positive integer n divisible by 12? (1) n divisible by 6. (2) n divisible by 4.",
+        "steps": [
+          "Factor target: 12 = 2² × 3",
+          "Statement 1: 6 = 2×3 — guarantees one 2 and one 3, but NOT 2². Counter: n=6 (no), n=12 (yes) → insufficient",
+          "Statement 2: 4 = 2² — guarantees 2², but no factor of 3. Counter: n=4 (no), n=12 (yes) → insufficient",
+          "Together: n has 2² (from stmt 2) AND 3 (from stmt 1) → n divisible by 2²×3 = 12",
+          "Verify via LCM: LCM(6,4)=12, so divisible by both ⟹ divisible by 12 ✓"
+        ],
+        "answer": "C — neither statement alone covers all prime factors of 12, but together they do"
+      },
+      "traps": [
+        "Picking E: '6+4=10, not 12' — wrong; divisibility doesn't add, it pools prime factors",
+        "Ignoring multiplicity: 6 has only one 2, but 12 needs two — statement 1 alone insufficient",
+        "Assuming overlap makes them redundant — here overlap on '2' is exactly what makes them jointly sufficient",
+        "Forgetting to test a counter-example for each statement alone before combining"
+      ],
+      "solveSteps": [
+        "1. Factor the target number into primes (12 = 2²×3)",
+        "2. For each statement alone: list guaranteed prime factors, find a counter-example if any factor is missing → insufficient",
+        "3. Combine: union the prime factors from both statements (with max multiplicity)",
+        "4. If union covers target's full factorization → sufficient → answer C",
+        "5. LCM shortcut: LCM(stmt1 divisor, stmt2 divisor) = target → answer C"
+      ]
+    }
+  },
+  "1677": {
+    "hint": "Test each statement alone. For (2): if 4k is a perfect square, what does that force about every prime's exponent in k?",
+    "theory": {
+      "title": "Perfect Squares & Prime Factorization",
+      "icon": "🔲",
+      "summary": "A perfect square has every prime factor with an even exponent. Multiplying or dividing k by a perfect square shifts exponents by even amounts — and that constraint is reversible.",
+      "keyFacts": [
+        "n is a perfect square ↔ every prime in its factorization has an even exponent",
+        "k/4 = m² (integer) → k = 4m² = (2m)² — product of two perfect squares is a perfect square",
+        "4k = n² → 4 | n² → 2 | n → let n = 2p → k = p²",
+        "Prime-exponent view: 4k = 2²·k. For all exponents even, exponent of 2 in k must be even AND all other primes even → k is a perfect square",
+        "Multiplying a perfect square by 4 (= 2²) is reversible: the result is a perfect square iff the original is",
+        "Test with numbers: k=9 → 4·9=36=6² ✓; k=3 → 4·3=12, not a perfect square ✓"
+      ],
+      "example": {
+        "problem": "Is positive integer k a perfect square? (1) k/4 is a perfect square. (2) 4k is a perfect square.",
+        "steps": [
+          "Stmt (1): k/4 = m² → k = 4m² = (2m)². Product of perfect squares is a perfect square. SUFFICIENT.",
+          "Stmt (2): 4k = n². Since 4 | 4k, we have 4 | n², so 2 | n. Let n = 2p → 4k = 4p² → k = p². SUFFICIENT.",
+          "Prime-exponent check for (2): 2²·k must have all even exponents → exponent of 2 in k must be even; all other primes in k must already be even → k is a perfect square.",
+          "Both statements independently sufficient."
+        ],
+        "answer": "D — each statement alone forces k to be a perfect square via airtight prime-exponent arguments."
+      },
+      "traps": [
+        "Stmt (2) trap: '4 is a perfect square, so 4k could be one without k being one' — wrong; the constraint forces k's exponents to all be even",
+        "Forgetting n must be even in Stmt (2): 4 | n² → 2 | n, so n = 2p is required for k to be an integer",
+        "Assuming only Stmt (1) works because Stmt (2) 'adds' a perfect square factor rather than 'removes' one"
+      ],
+      "solveSteps": [
+        "1. Recall: perfect square ↔ all prime exponents even",
+        "2. Stmt (1): k/4 = m² → k = (2m)² — directly a perfect square. Sufficient.",
+        "3. Stmt (2): 4k = n² → 4 | n² → n even → n = 2p → k = p². Sufficient.",
+        "4. Both sufficient independently → answer D",
+        "5. Quick number-check Stmt (2): k=16 → 64=8² ✓; k=2 → 8, not square ✓ — confirms non-perfect-square k fails"
+      ]
+    }
+  },
+  "1678": {
+    "hint": "Both statements say the same thing: prime SET of q ⊆ prime SET of p. But divisibility also needs matching EXPONENTS. Try p=6, q=4 to test.",
+    "theory": {
+      "title": "Divisibility — Prime Factors vs. Prime Exponents",
+      "icon": "🔢",
+      "summary": "Sharing the same set of prime factors is NOT enough for divisibility. Each prime in q must appear in p with at least as high an exponent. This is the exponent trap.",
+      "keyFacts": [
+        "p/q is integer ⟺ for every prime r: exponent of r in q ≤ exponent of r in p",
+        "Prime FACTOR SET overlap ≠ divisibility — exponents also must hold",
+        "q = 4 = 2² needs p to have 2² at minimum; p = 6 = 2¹×3 fails",
+        "Both DS statements here say identical things: primes of q ⊆ primes of p",
+        "DS trap: two statements that look different but carry same information → often E",
+        "Counterexample technique: find small p, q where primes match but exponents don't"
+      ],
+      "example": {
+        "problem": "p = 6, q = 4. Is p/q an integer?",
+        "steps": [
+          "Prime factors of q = {2}; prime factors of p = {2, 3}",
+          "Set condition: {2} ⊆ {2, 3} ✓ — both DS statements satisfied",
+          "Check exponents: q = 2², p = 2¹ × 3",
+          "Exponent of 2 in p (=1) < exponent of 2 in q (=2) ✗",
+          "p/q = 6/4 = 1.5 — NOT an integer despite both statements holding"
+        ],
+        "answer": "E — both statements are equivalent (prime-set containment only) and share the same counterexample: p=6, q=4 satisfies both yet p/q is not an integer"
+      },
+      "traps": [
+        "Choosing C: assuming both statements together add new info — they don't, they say the same thing",
+        "Believing 'p divisible by every prime factor of q' means p divisible by q — FALSE unless exponents also match",
+        "Forgetting that 4 = 2² requires TWO factors of 2, not just one",
+        "Skipping the counterexample check after verifying the prime-set condition"
+      ],
+      "solveSteps": [
+        "1. Parse each statement: what exactly do they guarantee? (prime SET containment only)",
+        "2. Ask: are statements 1 and 2 saying the same thing? If yes, A=B → E is likely",
+        "3. Construct minimal counterexample: pick q with a repeated prime (q=4=2²), p with that prime once (p=6)",
+        "4. Verify counterexample satisfies both statements yet fails p/q ∈ ℤ",
+        "5. Conclude E — neither alone nor together is sufficient"
+      ]
+    }
+  },
+  "1679": {
+    "hint": "Test odd and even for each statement separately. One statement always gives the same parity result — that is the trap, not a gift.",
+    "theory": {
+      "title": "Parity Rules — Squares, Cubes & Consecutive Integers",
+      "icon": "🔢",
+      "summary": "Squaring preserves parity: odd²=odd, even²=even. A product of any 3 consecutive integers is ALWAYS even — so 'always even' proves nothing about n's parity.",
+      "keyFacts": [
+        "odd × odd = odd; even × even = even — parity preserved under multiplication",
+        "n² odd ⟹ n must be odd (contrapositive: n even ⟹ n² even)",
+        "n(n−1)(n+1) = product of 3 consecutive integers — always divisible by 2 (and by 6)",
+        "A statement that is ALWAYS true for ALL integers is insufficient — it eliminates no cases",
+        "DS rule: 'sufficient' means exactly one answer (YES or NO), not 'sometimes yes'",
+        "Consecutive-integer products contain at least one even factor by the pigeonhole principle"
+      ],
+      "example": {
+        "problem": "Is integer n odd? (1) n² is odd (2) n³ − n is even",
+        "steps": [
+          "St.1: n=odd → n²=odd ✓; n=even → n²=even. So n² odd forces n odd. SUFFICIENT.",
+          "St.2: Factor: n³−n = n(n−1)(n+1) — three consecutive integers.",
+          "n=3 (odd): 3·2·4=24 even ✓; n=4 (even): 4·3·5=60 even ✓",
+          "Statement 2 is TRUE for ALL integers — it tells us nothing about parity. INSUFFICIENT."
+        ],
+        "answer": "A — statement 1 alone pins n as odd; statement 2 is vacuously true for every integer"
+      },
+      "traps": [
+        "Choosing D: 'n³−n even' SOUNDS restrictive but holds for odd AND even n",
+        "Forgetting to test the even case for statement 1 (easy confirm: even²=even, so n² odd → n can't be even)",
+        "Confusing 'the result is even' with 'n must be even' — the cause-effect runs the other way",
+        "Treating an always-true statement as informative — always-true = zero information"
+      ],
+      "solveSteps": [
+        "1. Translate each statement into a parity constraint on n.",
+        "2. St.1: plug odd and even — does one case violate the condition? Yes → sufficient.",
+        "3. St.2: factor into consecutive integers. Recognize the product is always even.",
+        "4. 'Always true' means both odd and even n satisfy it → insufficient.",
+        "5. Answer: first statement alone is sufficient."
+      ]
+    }
+  },
+  "1680": {
+    "hint": "Statement 1 locks the prime base set exactly. For Statement 2: test 6 (2 primes) vs 30 (3 primes) — both satisfy. Ask: does each statement pin ONE answer?",
+    "theory": {
+      "title": "Prime Factorization — Distinct Prime Count",
+      "icon": "🔢",
+      "summary": "Counting DISTINCT prime factors means counting unique primes in the factorization, ignoring exponents. 2^5 × 3^2 has 2 distinct primes, not 7.",
+      "keyFacts": [
+        "Distinct prime factors = number of unique primes in the prime factorization",
+        "Exponents are irrelevant to the COUNT of distinct primes: 2^10 × 3 still has 2",
+        "If x = p1^a × p2^b × ... × pk^z, distinct prime count = k",
+        "Divisible by 6 means 2 and 3 are factors — but extra prime factors may exist",
+        "'x < N and divisible by m' rarely pins prime count — larger composites can sneak in",
+        "DS rule: sufficiency = one unique numeric answer, not 'approximately'"
+      ],
+      "example": {
+        "problem": "x is a positive integer. x = 2^a × 3^b, a and b positive integers. How many distinct prime factors?",
+        "steps": [
+          "Prime factorization contains only 2 and 3 (both appear since a,b ≥ 1)",
+          "No other prime can divide x by definition of the form",
+          "Distinct prime set = {2, 3} — exactly 2",
+          "Statement pins a unique count → sufficient"
+        ],
+        "answer": "2 distinct prime factors"
+      },
+      "traps": [
+        "Counting exponents instead of distinct bases: 2^3 × 3^2 → '5 primes' is WRONG",
+        "Assuming 'divisible by 6 and small' rules out extra prime factors — 30, 42, 66 all qualify",
+        "Choosing D because Statement 2 'seems restrictive' — always probe boundary cases",
+        "Forgetting a, b must be POSITIVE integers locks both 2 and 3 into the factorization"
+      ],
+      "solveSteps": [
+        "1. For each statement: list ALL values x could take",
+        "2. Count distinct primes for each candidate x",
+        "3. If all candidates give the same count → sufficient; if not → insufficient",
+        "4. Statement 1: form 2^a × 3^b forces exactly {2,3} — done",
+        "5. Statement 2: test 6 (2 primes) and 30 (3 primes) — different counts → insufficient → A"
+      ]
+    }
+  },
+  "1681": {
+    "hint": "Factor 24 = 2³×3 first. Ask: does each statement alone supply ALL required prime factors? Then check both together.",
+    "theory": {
+      "title": "Divisibility by Factoring — DS Combined Sufficiency",
+      "icon": "🔢",
+      "summary": "To guarantee divisibility by N, mn must collectively supply every prime power in N's factorization. Split the requirement across statements, then check if they plug all gaps together.",
+      "keyFacts": [
+        "24 = 2³ × 3 — two independent prime requirements",
+        "mn divisible by 24 iff mn supplies at least 2³ AND at least 3¹",
+        "If statements cover disjoint prime factors that together equal N, BOTH together are sufficient",
+        "LCM(a,b) = product when gcd(a,b)=1 (coprime) — no overlap, no double-counting",
+        "DS trap: think 'what's MISSING from this statement?' not 'what does it give?'",
+        "Counterexample technique: find one YES case and one NO case to prove insufficiency"
+      ],
+      "example": {
+        "problem": "Is mn divisible by 24? (1) m divisible by 8. (2) n divisible by 3.",
+        "steps": [
+          "Factor target: 24 = 2³ × 3. Need both 2³ and 3 in mn.",
+          "Stmt 1 alone: m has 2³ but n=1 → mn=8, not ÷24. n=3 → mn=24, ÷24. Two outcomes → INSUFFICIENT.",
+          "Stmt 2 alone: n has 3 but m=1 → mn=3, not ÷24. m=8 → mn=24, ÷24. Two outcomes → INSUFFICIENT.",
+          "Together: mn carries 2³ (from m) and 3 (from n). Since gcd(8,3)=1, LCM(8,3)=24. mn always ÷24. SUFFICIENT."
+        ],
+        "answer": "C — neither statement alone covers both prime requirements; together they do with no overlap"
+      },
+      "traps": [
+        "Choosing E: thinking some m,n combo could fail — impossible because 8 and 3 are coprime, so their factors never conflict",
+        "Forgetting to check the factor you DON'T see: stmt 1 gives 2³ but says nothing about 3",
+        "Assuming m or n could be 0 — GMAT DS divisibility questions implicitly assume nonzero integers unless stated",
+        "Confusing 'divisible by 8 AND 3' with 'divisible by 8×3' — only valid here because gcd(8,3)=1"
+      ],
+      "solveSteps": [
+        "1. Prime-factor the target: 24 = 2³ × 3",
+        "2. Map each statement to which prime powers it guarantees in mn",
+        "3. Test each statement alone: find a YES and a NO counterexample → insufficient",
+        "4. Combine: check if the two statements together cover ALL prime factors of 24 with no gaps",
+        "5. If coprime factors are split across statements and together they equal the target → answer C"
+      ]
+    }
+  },
+  "1682": {
+    "hint": "For each statement, test parity cases exhaustively. Ask: can r+s be odd? If no case produces odd sum, statement is sufficient.",
+    "theory": {
+      "title": "Parity Sufficiency — Exhaustive Case Testing",
+      "icon": "⚖",
+      "summary": "Even/odd questions live or die by case exhaustion. List ALL parity combinations, check each. If the target parity is forced in every case, the statement is sufficient.",
+      "keyFacts": [
+        "odd + odd = even; even + even = even; odd + even = ODD",
+        "odd × odd = odd; even × anything = even",
+        "r/s = integer → r = s × k. Parity of r inherits from parity of s × k",
+        "s² has same parity as s: odd² = odd, even² = even",
+        "2 is the ONLY even prime — always test s=2 as a special case when s is prime",
+        "DS sufficiency: sufficient = same answer (yes/no) for ALL valid cases"
+      ],
+      "example": {
+        "problem": "r, s positive integers. Is r+s even? (1) r/s is an odd integer. (2) s is prime, r = s².",
+        "steps": [
+          "Stmt 1: r = s×(odd). Case A: s odd → r = odd×odd = odd → r+s = odd+odd = even ✓",
+          "Case B: s even → r = even×odd = even → r+s = even+even = even ✓ → always even → Sufficient",
+          "Stmt 2: r = s². Case A: s=2 (only even prime) → r=4, r+s=6 even ✓",
+          "Case B: s = odd prime → r = odd² = odd → r+s = odd+odd = even ✓ → always even → Sufficient"
+        ],
+        "answer": "D — both statements independently force r+s to be even in every parity case"
+      },
+      "traps": [
+        "Thinking stmt (2) fails because s=2 makes r even — still r+s=even, so it's sufficient",
+        "Forgetting 2 is the only even prime; if you skip s=2, you get the wrong sufficiency verdict",
+        "Stopping at one example (e.g. s=3) without testing s=2 → incomplete case check",
+        "Confusing 'r/s is odd integer' with 'r and s are odd' — r could be even if s is even"
+      ],
+      "solveSteps": [
+        "1. Identify the target: is r+s even? → need both same parity",
+        "2. Stmt 1: write r = s×k (k odd). Test s odd vs s even — both yield same-parity r+s",
+        "3. Stmt 2: r = s². Test s=2 (even prime) AND s = odd prime — both yield same-parity r+s",
+        "4. Each stmt forces 'yes' in every case → each is sufficient alone",
+        "5. Answer D"
+      ]
+    }
   }
 };
 
