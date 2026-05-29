@@ -27667,6 +27667,791 @@ const QUESTION_THEORIES = {
         "5. Check: result should lie between the two given values (9 < 29 < 49) ✓"
       ]
     }
+  },
+  "1159": {
+    "hint": "n mod 7 = 4 → scale the remainder: 3n mod 7 = (3 × 4) mod 7. Compute 12 mod 7, not 12 itself.",
+    "theory": {
+      "title": "Remainder Scaling — Multiply the Remainder",
+      "icon": "≡",
+      "summary": "When you multiply a number by k, its remainder scales by k too — then reduce mod m. No need to find n; just operate on the remainder directly.",
+      "keyFacts": [
+        "n ≡ r (mod m)  →  kn ≡ kr (mod m)  (congruence is multiplicative)",
+        "After scaling, reduce: if kr ≥ m, compute kr mod m (subtract m repeatedly)",
+        "n = 7q + r → kn = 7(kq) + kr; only kr mod 7 matters — the 7kq part vanishes",
+        "(a·b) mod m = [(a mod m)·(b mod m)] mod m — apply mod at any step",
+        "Pick a concrete n satisfying the condition to verify: n=4 → 3n=12, 12÷7=1 r 5",
+        "Result must be in [0, m−1]; if kr = m exactly, remainder = 0"
+      ],
+      "example": {
+        "problem": "n divided by 7 leaves remainder 4. What remainder does 3n leave when divided by 7?",
+        "steps": [
+          "Write n ≡ 4 (mod 7)",
+          "Multiply both sides by 3: 3n ≡ 3×4 = 12 (mod 7)",
+          "Reduce 12 mod 7: 12 − 7 = 5",
+          "So 3n ≡ 5 (mod 7) → remainder is 5"
+        ],
+        "answer": "5"
+      },
+      "traps": [
+        "Keeping remainder as 4 unchanged — multiplying n scales the remainder",
+        "Reporting 12 as the answer — must reduce mod 7 after scaling",
+        "Trying to find n first instead of scaling the remainder directly",
+        "Applying mod to 3 separately: 3 mod 7 = 3 is correct but combining step is still needed"
+      ],
+      "solveSteps": [
+        "1. Write the given congruence: n ≡ r (mod m)",
+        "2. Multiply both sides by k: kn ≡ kr (mod m)",
+        "3. Reduce kr: subtract m until result is in [0, m−1]",
+        "4. That final value is the remainder of kn divided by m"
+      ]
+    }
+  },
+  "1160": {
+    "hint": "Strip the absolute value into a compound inequality, solve for x, then COUNT only the integers strictly inside the range.",
+    "theory": {
+      "title": "Absolute Value Inequalities — Compound & Integer Count",
+      "icon": "📏",
+      "summary": "|ax + b| < c unpacks to a symmetric compound inequality. Solve the two-sided chain, then list integers strictly inside — don't include the endpoints.",
+      "keyFacts": [
+        "|expr| < c  ↔  −c < expr < c  (strict — endpoints excluded)",
+        "Solve the chain: add/subtract, then divide — keep direction since c > 0",
+        "Integers strictly between a and b (non-integers): list them, count carefully",
+        "Endpoint trap: −1 < x < 4 does NOT include −1 or 4",
+        "Integer count in (a, b) = floor(b−1) − ceil(a) + 1 when endpoints are integers",
+        "Always verify by plugging boundary values back in"
+      ],
+      "example": {
+        "problem": "|2x − 3| < 5 — how many integers satisfy?",
+        "steps": [
+          "Unpack: −5 < 2x − 3 < 5",
+          "Add 3 throughout: −2 < 2x < 8",
+          "Divide by 2: −1 < x < 4",
+          "Integers strictly inside: {0, 1, 2, 3}",
+          "Count = 4"
+        ],
+        "answer": "4 integers (x = 0, 1, 2, 3)"
+      },
+      "traps": [
+        "Including endpoints: −1 and 4 are NOT solutions (strict inequality)",
+        "Counting −1 through 4 inclusive gives 6 — off by 2",
+        "Forgetting to divide the full chain by the coefficient of x",
+        "Misreading −1 < x as x ≥ −1; it means x > −1, so 0 is the first integer"
+      ],
+      "solveSteps": [
+        "1. Unpack: |expr| < c → −c < expr < c",
+        "2. Isolate x with algebra across all three parts",
+        "3. Identify the open interval (a, b)",
+        "4. List integers strictly inside — skip endpoints",
+        "5. Count the list"
+      ]
+    }
+  },
+  "1161": {
+    "hint": "Neither statement alone pins down divisibility by 12. Check if combining them forces LCM = 12. Don't just add the two divisors — use LCM logic.",
+    "theory": {
+      "title": "Divisibility by LCM — Combining Factor Conditions",
+      "icon": "🔢",
+      "summary": "Knowing k is divisible by two numbers doesn't mean k is divisible by their product. The binding constraint is the LCM, not the product.",
+      "keyFacts": [
+        "12 = 2² × 3  →  requires factor of 4 AND factor of 3",
+        "LCM(a, b) = smallest number divisible by both a and b",
+        "If k div by a AND k div by b, then k div by LCM(a, b)",
+        "LCM(4, 6) = 12 because 4=2², 6=2×3 → LCM=2²×3=12",
+        "4×6=24 ≠ LCM when factors overlap — product rule only works for coprime numbers",
+        "DS flow: test YES and NO examples to probe each statement alone, then combine"
+      ],
+      "example": {
+        "problem": "Is k divisible by 12? (1) k div by 4. (2) k div by 6.",
+        "steps": [
+          "12 = 4 × 3 = 2² × 3 — need both 4 and 3 as factors",
+          "Stmt 1 alone: k=4 → not div 12 (NO); k=12 → div 12 (YES). Insufficient.",
+          "Stmt 2 alone: k=6 → not div 12 (NO); k=12 → div 12 (YES). Insufficient.",
+          "Both together: k div by 4 AND by 6 → k div by LCM(4,6)=12. Always YES.",
+          "LCM(4,6): 4=2², 6=2×3 → LCM=2²×3=12 ✓"
+        ],
+        "answer": "C — neither statement alone is sufficient, but together they force LCM(4,6)=12, guaranteeing divisibility by 12"
+      },
+      "traps": [
+        "Thinking 4+6=10 or 4×6=24 instead of LCM(4,6)=12",
+        "Assuming 'divisible by 6' implies divisible by 12 (6 is missing the factor of 4)",
+        "Assuming 'divisible by 4' implies divisible by 12 (4 is missing the factor of 3)",
+        "Guessing D because both statements 'feel' strong — always test counterexamples"
+      ],
+      "solveSteps": [
+        "1. Factor the target: 12 = 2² × 3. What prime factors are needed?",
+        "2. Test each statement alone — find one YES and one NO example to prove insufficiency",
+        "3. Combine: list prime factors guaranteed by each statement",
+        "4. Compute LCM of the two given divisors — if LCM = 12, together they are sufficient",
+        "5. Answer C if each alone fails but together they cover all prime factors of 12"
+      ]
+    }
+  },
+  "1162": {
+    "hint": "Factor x²−y² = (x+y)(x−y) and list all positive-integer factor pairs of 15. Check each statement alone before combining.",
+    "theory": {
+      "title": "Difference of Squares — Factor Pair Enumeration",
+      "icon": "🔢",
+      "summary": "x²−y² factors as (x+y)(x−y). To find integer solutions, list factor pairs of the constant and solve the resulting 2×2 system for each pair.",
+      "keyFacts": [
+        "x²−y² = (x+y)(x−y) — always factor before anything else",
+        "For positive integers, (x+y) and (x−y) must both be positive, so x > y",
+        "Factor pairs of 15: {15,1} and {5,3} (with both factors same parity so x,y are integers)",
+        "Two linear equations (sum + difference) uniquely determine x and y: x=(S+D)/2, y=(S−D)/2",
+        "A single linear equation like x+y=k yields infinitely many positive-integer solutions",
+        "Combining sum and product/difference equations often pins the unique solution"
+      ],
+      "example": {
+        "problem": "x and y are positive integers. (1) x+y=15. (2) x²−y²=15. Find x.",
+        "steps": [
+          "Stmt 1 alone: x+y=15 → (1,14),(2,13),…,(14,1). Many solutions. Not sufficient.",
+          "Stmt 2 alone: (x+y)(x−y)=15. Pairs: {15,1}→x=8,y=7; {5,3}→x=4,y=1. Two solutions. Not sufficient.",
+          "Both together: x+y=15 forces (x+y)(x−y)=15 → 15·(x−y)=15 → x−y=1",
+          "x+y=15 and x−y=1 → x=8, y=7. Unique. Sufficient."
+        ],
+        "answer": "C — neither statement alone pins x (both allow multiple positive-integer solutions), but together x+y=15 collapses x²−y² to one factor pair, giving x=8 uniquely"
+      },
+      "traps": [
+        "Forgetting x²−y² factors — trying to solve as a standalone quadratic is slow and error-prone",
+        "Missing the second factor pair (5,3)→x=4 when testing Statement 2 alone — concluding B too early",
+        "Assuming x>y without checking: (x+y) and (x−y) must share same parity for x,y to be integers",
+        "Thinking Statement 1 alone is sufficient because 15 looks like a 'small' number"
+      ],
+      "solveSteps": [
+        "1. Test Stmt 1: count positive-integer pairs summing to 15 — more than one → not sufficient",
+        "2. Test Stmt 2: factor x²−y²=(x+y)(x−y)=15; list all factor pairs of 15 with x+y>x−y>0",
+        "3. For each pair solve x=(S+D)/2, y=(S−D)/2; check both are positive integers",
+        "4. If multiple valid pairs → Stmt 2 alone not sufficient",
+        "5. Combine: substitute x+y from Stmt 1 into factored form; one factor is fixed → unique x−y → unique x"
+      ]
+    }
+  },
+  "1163": {
+    "hint": "Statement (1) invokes the Pythagorean converse directly. Ask: does that alone answer the yes/no? Then test statement (2) independently.",
+    "theory": {
+      "title": "Right Triangle — Pythagorean Converse (DS)",
+      "icon": "📐",
+      "summary": "The Pythagorean theorem runs both ways: a²+b²=c² ↔ right triangle. Knowing c is longest side says nothing about the angle size.",
+      "keyFacts": [
+        "Pythagorean theorem: a²+b²=c² iff angle opposite c = 90°",
+        "Converse is also true — the equation alone proves right angle, no other info needed",
+        "Every triangle has a longest side — that fact alone is not special",
+        "Acute triangle: a²+b² > c²   Obtuse: a²+b² < c²   Right: a²+b² = c²",
+        "DS yes/no: sufficient = statement forces answer to always-YES or always-NO"
+      ],
+      "example": {
+        "problem": "Sides a, b, c. Is triangle ABC a right triangle? (1) a²+b²=c²  (2) c is longest side",
+        "steps": [
+          "S1: a²+b²=c² is the exact definition of right triangle by Pythagorean converse → always YES → SUFFICIENT",
+          "S2: In any triangle the longest side exists. Scalene 3-4-6: longest side 6, not right. Scalene 3-4-5: longest side 5, IS right → S2 gives both YES and NO → NOT SUFFICIENT",
+          "S1 alone decides → answer A"
+        ],
+        "answer": "A — statement (1) alone is sufficient; statement (2) alone is not"
+      },
+      "traps": [
+        "Thinking you need c to be labeled 'hypotenuse' before applying the theorem — the equation suffices",
+        "Assuming 'longest side' implies 90° — it only means the largest angle is opposite c, not that it equals 90°",
+        "Combining statements unnecessarily when S1 already settles the question",
+        "Forgetting the converse: Pythagorean theorem works in BOTH directions"
+      ],
+      "solveSteps": [
+        "1. Evaluate S1 alone: does a²+b²=c² conclusively answer 'right triangle?' — yes, by converse",
+        "2. Mark S1 SUFFICIENT; eliminate B, C, E",
+        "3. Evaluate S2 alone: can a triangle have a longest side and NOT be right? Counterexample: 3-4-6 → yes → NOT sufficient",
+        "4. Eliminate D",
+        "5. Answer: A"
+      ]
+    }
+  },
+  "1164": {
+    "hint": "Set up r and b as unknowns. Ask: does each statement alone pin the fraction r/(r+b), or do you need both equations together?",
+    "theory": {
+      "title": "DS — Two Unknowns, Two Equations",
+      "icon": "🔵",
+      "summary": "When a problem has two unknowns, one equation leaves a family of solutions. Sufficiency requires pinning BOTH variables — either via two independent equations or a single constraint that fixes the ratio directly.",
+      "keyFacts": [
+        "Two unknowns (r, b) need 2 independent equations to find unique values",
+        "A ratio constraint (e.g., r−k : b = 1:3) gives 1 equation — not enough alone",
+        "A total constraint (r+b = N) gives 1 equation — not enough alone",
+        "Together: substitute one into the other → unique r and b → unique fraction",
+        "DS goal: can you find the fraction? You don't need to compute it — just confirm uniqueness",
+        "Watch for 'after removal' setups: (r−k)/b = p/q rewrites as qr − qk = pb"
+      ],
+      "example": {
+        "problem": "Jar has r red, b blue. What fraction are red? (1) Remove 4 red → ratio red:blue = 1:3. (2) Total marbles = 28.",
+        "steps": [
+          "S1 only: (r−4)/b = 1/3 → b = 3r−12. Fraction = r/(4r−12). Plug r=8 → 8/20=2/5; r=12 → 12/36=1/3. Multiple answers — NOT sufficient.",
+          "S2 only: r+b=28. No ratio info — infinitely many (r,b) pairs. NOT sufficient.",
+          "Both: b=3r−12 and r+b=28 → r+(3r−12)=28 → 4r=40 → r=10, b=18",
+          "Fraction = 10/28 = 5/14. Unique answer — SUFFICIENT."
+        ],
+        "answer": "C — neither statement alone pins the fraction, but together they form a 2-equation system with a unique solution."
+      },
+      "traps": [
+        "S1 looks powerful because it gives a ratio — but it still leaves r free, yielding different fractions",
+        "Assuming S2 (total=28) combined with 'some ratio' is somehow implied — it isn't",
+        "Forgetting to subtract k before forming the ratio: (r−4)/b not r/b",
+        "Computing the fraction when you only need to confirm it's unique"
+      ],
+      "solveSteps": [
+        "1. Name unknowns: r = red, b = blue. Target = r/(r+b).",
+        "2. Test S1: translate ratio after removal into equation. Check if fraction is unique or parametric.",
+        "3. Test S2: total equation alone — does it fix r and b separately? Almost never without a ratio.",
+        "4. Test both together: substitute to get one equation in one unknown → unique solution = SUFFICIENT.",
+        "5. Mark C if each alone fails but together they uniquely determine the target."
+      ]
+    }
+  },
+  "1165": {
+    "hint": "Mean fixes the SUM, not the middle value — test extreme distributions. Consecutive evens: mean = median = middle term — does knowing mean pin the sequence?",
+    "theory": {
+      "title": "Median vs. Mean — When Constraints Lock a Set",
+      "icon": "📊",
+      "summary": "Mean pins the total sum, not the middle value. But in a consecutive (arithmetic) sequence, mean always equals median — so pairing mean with 'consecutive' structure can uniquely pin the set.",
+      "keyFacts": [
+        "Mean fixes sum = n × mean; many different medians can share the same sum",
+        "For ANY arithmetic sequence, mean = median = middle term",
+        "Consecutive even integers n, n+2, n+4, n+6, n+8: median = mean = n+4",
+        "Knowing mean of a consecutive-even set → solve for n → unique sequence → unique median",
+        "DS test: does the constraint produce ONE unique value, or a range?",
+        "Extreme-case test for sufficiency: find two valid sets with different medians"
+      ],
+      "example": {
+        "problem": "Five distinct positive integers have mean 10. Are they consecutive even? What is their median?",
+        "steps": [
+          "Stmt 1 alone: sum = 50. Try {1,2,3,4,40} → median 3; try {8,9,10,11,12} → median 10. Different medians → NOT sufficient",
+          "Stmt 2 alone: n, n+2, n+4, n+6, n+8. Median = n+4, but n = 2 gives median 6, n = 6 gives median 10. NOT sufficient",
+          "Both: consecutive evens → mean = n+4. Set mean = 10 → n+4 = 10 → n = 6",
+          "Sequence: 6, 8, 10, 12, 14. Median = 10. Unique value → SUFFICIENT"
+        ],
+        "answer": "C — neither alone pins the median, but together the consecutive-even structure forces mean = median and the given mean locks n = 6, giving a unique set and unique median of 10."
+      },
+      "traps": [
+        "Mean = 10 does NOT force median = 10 — extreme outliers can shift the middle value far from mean",
+        "Consecutive even integers alone don't fix the set — the starting value n is still free",
+        "Forgetting that for arithmetic sequences, mean = median (conflating the two properties)",
+        "Marking D because each statement 'seems informative' without testing whether the value is unique"
+      ],
+      "solveSteps": [
+        "1. Stmt 1: Sum = 50 fixed. Build two valid sets with different medians to prove insufficiency",
+        "2. Stmt 2: Write the general consecutive-even form; show n is free → median not pinned",
+        "3. Combined: use consecutive-even property (mean = middle term = n+4), set equal to 10 → n = 6",
+        "4. Verify unique set: {6,8,10,12,14} — exactly one sequence satisfies both constraints",
+        "5. Median of unique set = 10 → answer is determined → choose C"
+      ]
+    }
+  },
+  "1166": {
+    "hint": "Factor each inequality and map signs on a number line. Ask: does each statement alone lock in the sign of x? One does, one doesn't.",
+    "theory": {
+      "title": "Polynomial Inequality — Sign Analysis on Number Line",
+      "icon": "📊",
+      "summary": "Solving x³ > x or x² < x means factoring, finding zeros, then testing sign in each interval. The number line approach never fails.",
+      "keyFacts": [
+        "Move all terms to one side: f(x) > 0, then factor completely",
+        "Find zeros (roots) — they are the interval boundaries",
+        "Test one value per interval to determine sign (+ or −)",
+        "x² < x → x(x−1) < 0 → both factors have opposite signs → 0 < x < 1",
+        "x³ > x → x(x−1)(x+1) > 0 → positive in (−1,0) ∪ (1,∞) — two disjoint regions",
+        "DS goal: does the statement force x into a region where the answer is definitively YES or NO?"
+      ],
+      "example": {
+        "problem": "Is x > 0? Given x² < x.",
+        "steps": [
+          "Rearrange: x² − x < 0",
+          "Factor: x(x − 1) < 0",
+          "Zeros at x = 0 and x = 1",
+          "Test intervals: x<0 → (−)(−)=+ NOT < 0; 0<x<1 → (+)(−)=− < 0 ✓; x>1 → (+)(+)=+ NOT < 0",
+          "Solution: 0 < x < 1 → x is strictly positive"
+        ],
+        "answer": "x > 0 is definitively YES"
+      },
+      "traps": [
+        "Forgetting x = 0 and x = 1 are NOT included (strict inequality)",
+        "Assuming x³ > x means x > 1 — misses the (−1, 0) region entirely",
+        "Thinking both statements together are needed when statement 2 alone suffices",
+        "Skipping sign-interval testing and guessing based on intuition"
+      ],
+      "solveSteps": [
+        "1. Move all terms to one side, factor completely, list all roots",
+        "2. Draw number line with roots as boundaries; test one point per interval",
+        "3. Identify which intervals satisfy the inequality",
+        "4. Ask: does the solution set force a definitive answer to the DS question?",
+        "5. Statement 2 → 0 < x < 1, so x > 0 always → SUFFICIENT; answer B"
+      ]
+    }
+  },
+  "1167": {
+    "hint": "Both statements encode same-parity info — test both-even vs both-odd cases before combining. Does same parity guarantee mn is even?",
+    "theory": {
+      "title": "Parity & Product — Same-Parity Trap",
+      "icon": "⚖",
+      "summary": "Sum or difference of two integers is even iff they share parity (both even or both odd). Same parity does NOT guarantee an even product — odd×odd is odd.",
+      "keyFacts": [
+        "even ± even = even; odd ± odd = even; mixed = odd",
+        "m+n even ↔ m and n have same parity",
+        "m−n even ↔ m and n have same parity (identical info to m+n even)",
+        "even × even = even; odd × odd = ODD — product depends on which parity",
+        "Two statements can together add zero new info if they are logically equivalent",
+        "DS: if both cases (both-even, both-odd) survive all statements → answer E"
+      ],
+      "example": {
+        "problem": "m and n integers. m+n even and m−n even. Is mn even?",
+        "steps": [
+          "m+n even → same parity: both even OR both odd",
+          "m−n even → same conclusion: same parity (no new info)",
+          "Case A: m=2, n=4 → mn=8 (even) ✓",
+          "Case B: m=3, n=5 → mn=15 (odd) ✗",
+          "Both cases satisfy both statements → cannot determine → E"
+        ],
+        "answer": "E — both statements say same parity but same parity allows odd×odd; no statement eliminates that case"
+      },
+      "traps": [
+        "Thinking m+n even AND m−n even together add extra constraint — they are logically identical",
+        "Assuming even sum → even product (odd+odd=even but odd×odd=odd)",
+        "Forgetting to test both-odd case after correctly spotting same-parity rule",
+        "Choosing C because 'two statements must help more than one'"
+      ],
+      "solveSteps": [
+        "1. Decode each statement: even sum/difference → same parity (both even or both odd)",
+        "2. Check if Statement 1 alone decides: both-even gives mn even, both-odd gives mn odd → insufficient",
+        "3. Check if Statement 2 alone decides: identical parity conclusion → still insufficient",
+        "4. Combine: statements are logically equivalent — no new info, same two cases remain",
+        "5. Both cases survive → answer E"
+      ]
+    }
+  },
+  "1168": {
+    "hint": "Each half covers equal distance → harmonic mean formula needs only the two speeds. Ask: does each statement alone let you compute avg speed?",
+    "theory": {
+      "title": "Average Speed — Harmonic Mean (DS)",
+      "icon": "🚂",
+      "summary": "When two speeds cover equal distances, average speed = 2v₁v₂/(v₁+v₂). The actual distance cancels — only the speeds matter.",
+      "keyFacts": [
+        "Avg speed = total distance ÷ total time (always start here)",
+        "Equal-distance halves → harmonic mean: 2v₁v₂/(v₁+v₂)",
+        "Actual distance is irrelevant when segments are equal fractions of total",
+        "Harmonic mean < arithmetic mean — result pulls toward slower speed",
+        "DS: if formula needs only the given values, extra info is superfluous"
+      ],
+      "example": {
+        "problem": "Train covers first half of trip at 60 mph, second half at 90 mph. What is average speed?",
+        "steps": [
+          "Let total distance = 2d (each half = d)",
+          "Time first half = d/60; time second half = d/90",
+          "Total time = d/60 + d/90 = 3d/180 + 2d/180 = 5d/180",
+          "Avg speed = 2d ÷ (5d/180) = 2d × 180/5d = 360/5 = 72 mph",
+          "Shortcut: 2(60)(90)/(60+90) = 10800/150 = 72 ✓  (d cancels)"
+        ],
+        "answer": "72 mph — distance not needed; speeds alone determine the answer"
+      },
+      "traps": [
+        "(60+90)/2 = 75 mph — arithmetic mean, wrong when distances are equal",
+        "Thinking statement 2 helps — distance cancels in the harmonic mean formula",
+        "Assuming you need total distance to find average speed — you don't when halves are equal",
+        "Confusing equal-distance rule with equal-time rule (equal time → arithmetic mean)"
+      ],
+      "solveSteps": [
+        "1. DS: test each statement alone first",
+        "2. Statement 1: two speeds for equal-distance halves → harmonic mean 2v₁v₂/(v₁+v₂) → single numeric answer → SUFFICIENT",
+        "3. Statement 2: distance only, zero speed info → infinite avg-speed values possible → NOT sufficient",
+        "4. Conclude: statement 1 alone suffices, statement 2 alone does not"
+      ]
+    }
+  },
+  "1194": {
+    "hint": "f(a) = f(b) with a ≠ b → the parabola is symmetric. Find the axis of symmetry and use it — do not solve for a and b individually.",
+    "theory": {
+      "title": "Parabola Symmetry — Equal Outputs, Different Inputs",
+      "icon": "⛰",
+      "summary": "A parabola's axis of symmetry means two distinct x-values can share the same y-value. If f(a) = f(b) and a ≠ b, then a and b are mirror images about that axis — their average IS the axis.",
+      "keyFacts": [
+        "For f(x) = ax² + bx + c, axis of symmetry = x = −b/(2a)",
+        "If f(a) = f(b) and a ≠ b → a and b symmetric about axis → (a+b)/2 = axis → a+b = 2·axis",
+        "Algebraic route: f(a) = f(b) → a²−b² = 4(a−b) → (a−b)(a+b) = 4(a−b); divide by (a−b) since a≠b",
+        "Completing the square reveals vertex: x²−4x+7 = (x−2)²+3 → vertex at x=2",
+        "Dividing by (a−b) is valid ONLY because a ≠ b is given — always check this condition"
+      ],
+      "example": {
+        "problem": "f(x) = x²−4x+7. If f(a) = f(b) and a ≠ b, find a+b.",
+        "steps": [
+          "Axis of symmetry: x = −(−4)/(2·1) = 2",
+          "a and b symmetric about x=2 → (a+b)/2 = 2 → a+b = 4",
+          "Algebra check: a²−4a = b²−4b → (a−b)(a+b) = 4(a−b) → a+b = 4 ✓"
+        ],
+        "answer": "4"
+      },
+      "traps": [
+        "Trying to find individual values of a and b — unnecessary and impossible with one equation",
+        "Picking answer 7 because it appears as the constant in f(x)",
+        "Forgetting to check a ≠ b before dividing — dividing by zero is invalid",
+        "Thinking 'cannot be determined' because two unknowns exist — symmetry fixes the sum uniquely"
+      ],
+      "solveSteps": [
+        "1. Identify axis of symmetry: x = −b/(2a) for f(x) = ax²+bx+c",
+        "2. Recognize f(a)=f(b), a≠b → a and b are mirror points about the axis",
+        "3. Therefore a+b = 2 × (axis of symmetry)",
+        "4. Alternatively: set f(a)=f(b), factor (a−b) from both sides, cancel since a≠b",
+        "5. Sanity: the sum is determined uniquely even though individual values are not"
+      ]
+    }
+  },
+  "1195": {
+    "hint": "Drop a perpendicular from center O to chord AB — it bisects AB. Then apply Pythagorean theorem in the right triangle formed.",
+    "theory": {
+      "title": "Chord-Distance: Perpendicular from Center",
+      "icon": "⊙",
+      "summary": "The perpendicular from a circle's center to any chord always bisects that chord, creating a right triangle with the radius as hypotenuse.",
+      "keyFacts": [
+        "Perpendicular from center bisects the chord: AM = BM = AB/2",
+        "Radius to chord endpoint is the hypotenuse: OA = r",
+        "Right triangle: OM² + (AB/2)² = r²",
+        "Distance OM = √(r² − (AB/2)²)",
+        "Longer chord → smaller OM (chord closer to center); diameter has OM = 0"
+      ],
+      "example": {
+        "problem": "Circle radius 10, chord length 16, M is midpoint of chord. Find distance from center to M.",
+        "steps": [
+          "OM ⊥ AB, so AM = 16/2 = 8",
+          "Right triangle OMA: OA = 10 (radius), AM = 8",
+          "10² = OM² + 8²",
+          "OM² = 100 − 64 = 36",
+          "OM = 6"
+        ],
+        "answer": "6"
+      },
+      "traps": [
+        "Using AB = 16 instead of half-chord AM = 8 in the Pythagorean equation",
+        "Forgetting the perpendicular bisects — treating M as non-special point",
+        "Confusing OM with OA (the radius)",
+        "Skipping the right-triangle setup and guessing OM = r − chord/2"
+      ],
+      "solveSteps": [
+        "1. Draw OM perpendicular to AB — this bisects AB, giving half-chord = AB/2",
+        "2. Identify right triangle: legs OM and (AB/2), hypotenuse = radius r",
+        "3. Apply Pythagorean theorem: OM² = r² − (AB/2)²",
+        "4. Solve and sanity-check: OM < r, and longer chords yield smaller OM"
+      ]
+    }
+  },
+  "1196": {
+    "hint": "a/b > 1 is NOT the same as a > b — the sign of b flips the comparison. Test both-positive and both-negative cases before concluding.",
+    "theory": {
+      "title": "Dividing Inequalities — Sign of Denominator Changes Everything",
+      "icon": "÷",
+      "summary": "a/b > 1 cannot be simplified to a > b without knowing b's sign. When both are negative, a > b does NOT imply a/b > 1 — the ratio is a positive fraction below 1.",
+      "keyFacts": [
+        "a/b > 1 ⟺ (a−b)/b > 0 — rewrite to expose sign structure",
+        "(a−b)/b > 0 when: a > b AND b > 0, OR a < b AND b < 0",
+        "a > b alone says nothing about b's sign",
+        "ab > 0 (same sign) alone says nothing about which is larger",
+        "Multiplying/dividing an inequality by a negative number flips the direction",
+        "DS: 'both together' can still be E if cases split YES and NO"
+      ],
+      "example": {
+        "problem": "Is a/b > 1? (1) a > b  (2) ab > 0",
+        "steps": [
+          "Rewrite target: (a−b)/b > 0 — need numerator and denominator same sign",
+          "Stmt 1 alone: a=3,b=2 → 1.5>1 YES; a=3,b=−1 → −3>1 NO. Not sufficient.",
+          "Stmt 2 alone: a=3,b=2 → YES; a=2,b=3 → 0.67 NO. Not sufficient.",
+          "Both together — Case 1 (both positive, a>b): a/b > 1 ✓",
+          "Both together — Case 2 (both negative, a>b): a=−1,b=−2 → a>b, ab=2>0, but a/b=0.5<1 ✗",
+          "Two opposite answers survive both statements — not sufficient."
+        ],
+        "answer": "E — both-positive yields YES, both-negative yields NO; combined statements still underdetermined."
+      },
+      "traps": [
+        "a > b → a/b > 1 only when b > 0; fails entirely for negative b",
+        "'Same sign AND a > b' sounds conclusive but both-negative case inverts the ratio",
+        "Stopping analysis once both statements are combined without actually testing negatives",
+        "Treating the algebraic rewrite as optional — it is the only safe path"
+      ],
+      "solveSteps": [
+        "1. Rewrite a/b > 1 as (a−b)/b > 0 to make sign analysis explicit",
+        "2. List conditions that satisfy it: (a>b, b>0) OR (a<b, b<0)",
+        "3. Test each statement alone — seek one YES and one NO counterexample",
+        "4. If both alone insufficient, test combined — try both-positive then both-negative cases",
+        "5. If contradicting outcomes survive both statements → answer is E"
+      ]
+    }
+  },
+  "1201": {
+    "hint": "Count divisible by 3 OR 5 via inclusion-exclusion, then subtract from total. Don't forget inclusive range adds +1.",
+    "theory": {
+      "title": "Inclusion-Exclusion — Counting Divisibility",
+      "icon": "∩",
+      "summary": "To count integers divisible by neither A nor B: find |A∪B| via inclusion-exclusion, then subtract from total. Forgetting to subtract overlap double-counts.",
+      "keyFacts": [
+        "Inclusive count: high − low + 1 (always add 1)",
+        "Count divisible by k in [a,b]: floor(b/k) − floor((a−1)/k)",
+        "Inclusion-exclusion: |A∪B| = |A| + |B| − |A∩B|",
+        "A∩B = divisible by LCM(A,B)",
+        "Neither = Total − |A∪B|",
+        "LCM(3,5) = 15 since gcd(3,5)=1"
+      ],
+      "example": {
+        "problem": "How many integers in [100, 200] are divisible by neither 3 nor 5?",
+        "steps": [
+          "Total: 200 − 100 + 1 = 101",
+          "Div by 3: floor(200/3) − floor(99/3) = 66 − 33 = 33",
+          "Div by 5: floor(200/5) − floor(99/5) = 40 − 19 = 21",
+          "Div by 15: floor(200/15) − floor(99/15) = 13 − 6 = 7",
+          "Div by 3 or 5: 33 + 21 − 7 = 47",
+          "Neither: 101 − 47 = 54"
+        ],
+        "answer": "54"
+      },
+      "traps": [
+        "Range 100–200 has 101 integers, not 100 — inclusive means +1",
+        "Forgetting to subtract LCM overlap overcounts by 7",
+        "Using floor(200/k) − floor(100/k) loses the 100 endpoint — use floor(99/k) or floor((a−1)/k)",
+        "Counting only one of the two conditions and subtracting"
+      ],
+      "solveSteps": [
+        "1. Compute total: high − low + 1",
+        "2. Count divisible by each prime factor using floor(b/k) − floor((a−1)/k)",
+        "3. Count divisible by LCM for the overlap",
+        "4. Apply inclusion-exclusion: |A| + |B| − |A∩B|",
+        "5. Subtract from total for 'neither' count"
+      ]
+    }
+  },
+  "1202": {
+    "hint": "Solve each absolute value separately, then intersect the two solution sets. Watch for the union in the second inequality.",
+    "theory": {
+      "title": "Absolute Value Inequalities — Intersection of Solution Sets",
+      "icon": "∩",
+      "summary": "Absolute value inequalities split into two cases. When two constraints must BOTH hold, the answer is their intersection, not their union.",
+      "keyFacts": [
+        "|A| < k  →  −k < A < k  (single interval)",
+        "| A| > k  →  A > k  OR  A < −k  (two disjoint rays)",
+        "Intersection of a bounded interval with a union of rays: test each ray separately",
+        "If a ray does not overlap the interval, that piece vanishes — it contributes nothing",
+        "Draw a number line: mark both solution sets, shade the overlap only",
+        "< means 'near zero'; > means 'far from zero'"
+      ],
+      "example": {
+        "problem": "|2x − 3| < 7 and |x + 1| > 2. Find all x satisfying both.",
+        "steps": [
+          "Solve first: −7 < 2x−3 < 7  →  −2 < x < 5",
+          "Solve second: x+1 > 2 or x+1 < −2  →  x > 1 or x < −3",
+          "Intersect (−2, 5) with (x > 1): overlap is 1 < x < 5",
+          "Intersect (−2, 5) with (x < −3): no overlap (−3 is outside −2..5)",
+          "Final: 1 < x < 5"
+        ],
+        "answer": "1 < x < 5"
+      },
+      "traps": [
+        "Forgetting that > yields a UNION of two rays, not an interval",
+        "Including −2 < x < 1 — that region satisfies the first but FAILS the second",
+        "Assuming both rays of the second inequality produce non-empty intersections — always check",
+        "Solving correctly but forgetting to intersect (reporting the union of all pieces)"
+      ],
+      "solveSteps": [
+        "1. Solve |A| < k as single interval: −k < A < k",
+        "2. Solve |B| > k as two rays: B > k OR B < −k",
+        "3. Intersect the interval with each ray independently",
+        "4. Discard any ray piece that doesn't overlap the interval",
+        "5. Report only surviving overlap(s)"
+      ]
+    }
+  },
+  "1203": {
+    "hint": "Write n = 7q + 5, then compute 3n and divide by 7. Or use modular arithmetic: multiply both sides of the congruence by 3, then reduce mod 7.",
+    "theory": {
+      "title": "Remainder Arithmetic — Scaling Congruences",
+      "icon": "🔢",
+      "summary": "Remainders scale linearly: if n leaves remainder r mod m, then kn leaves remainder k·r mod m (reduced back into range 0 to m−1). Multiply the remainder, then reduce.",
+      "keyFacts": [
+        "n ≡ r (mod m) means n = qm + r for some integer q",
+        "kn ≡ k·r (mod m) — multiply both sides by k, then reduce",
+        "Reduce: if k·r ≥ m, subtract multiples of m until 0 ≤ result < m",
+        "Equivalently: remainder of k·r ÷ m equals the final answer",
+        "Works for sums too: (a+b) mod m = [(a mod m) + (b mod m)] mod m",
+        "Remainder always in range [0, m−1] — if you get m or higher, keep subtracting m"
+      ],
+      "example": {
+        "problem": "n divided by 7 gives remainder 5. Find the remainder when 3n is divided by 7.",
+        "steps": [
+          "Write n = 7q + 5",
+          "3n = 3(7q + 5) = 21q + 15",
+          "21q is divisible by 7, so only 15 matters",
+          "15 ÷ 7 = 2 remainder 1  (since 15 = 2×7 + 1)",
+          "Remainder = 1"
+        ],
+        "answer": "1"
+      },
+      "traps": [
+        "Multiplying 3 × 5 = 15 then stopping — 15 is NOT the remainder; must reduce mod 7",
+        "Taking 15 mod 5 instead of mod 7 — always use the original divisor",
+        "Thinking the remainder scales exactly: 3 × 5 = 15 ≠ 3 × (5 mod 7) misread",
+        "Forgetting remainder must be less than divisor — 15 > 7 so reduction is mandatory"
+      ],
+      "solveSteps": [
+        "1. Express n = 7q + r using given remainder r",
+        "2. Multiply entire expression by the scalar k",
+        "3. Isolate the non-divisible part: k·r",
+        "4. Reduce k·r by dividing by 7 and taking the remainder",
+        "5. Verify: 0 ≤ answer < 7"
+      ]
+    }
+  },
+  "1204": {
+    "hint": "Drop a perpendicular from center to chord — it bisects the chord. Use half-chord length in Pythagorean theorem, not the full chord.",
+    "theory": {
+      "title": "Chord Distance — Perpendicular Bisector",
+      "icon": "⊙",
+      "summary": "The perpendicular from a circle's center to any chord bisects that chord. This creates a right triangle with legs = half-chord and distance-to-chord, hypotenuse = radius.",
+      "keyFacts": [
+        "Perpendicular from center → chord always bisects the chord (half-chord = chord/2)",
+        "Right triangle: (half-chord)² + d² = r²  →  d = √(r² − (chord/2)²)",
+        "Longer chord = closer to center; diameter = distance 0",
+        "If chord length = radius, the resulting triangle is a 30-60-90",
+        "d = 0 only when chord is a diameter"
+      ],
+      "example": {
+        "problem": "Circle radius 10, chord length 12. Distance from center to chord?",
+        "steps": [
+          "Perpendicular from O bisects chord → half-chord = 12/2 = 6",
+          "Right triangle: legs 6 and d, hypotenuse 10",
+          "d² + 6² = 10²",
+          "d² = 100 − 36 = 64",
+          "d = 8"
+        ],
+        "answer": "8"
+      },
+      "traps": [
+        "Using full chord (12) instead of half-chord (6) → d² = 100 − 144 (impossible)",
+        "Using 12 as one leg → d² = 144 − 100 = 44 → √44 (sucker answer D)",
+        "Forgetting to square-root at the end → leaving answer as 64",
+        "Confusing 'distance to chord' with 'length of arc'"
+      ],
+      "solveSteps": [
+        "1. Draw perpendicular from O to chord — it bisects chord",
+        "2. Half-chord = chord ÷ 2",
+        "3. Set up: d² + (half-chord)² = r²",
+        "4. Solve for d",
+        "5. Sanity: d must be < r and > 0"
+      ]
+    }
+  },
+  "1205": {
+    "hint": "Net rate = fill rate − drain rate. If negative, tank drains. Divide starting volume by |net rate| to get time to empty.",
+    "theory": {
+      "title": "Combined Fill-Drain Rate",
+      "icon": "🚿",
+      "summary": "When a filler and drainer run simultaneously, compute net rate = fill rate − drain rate. Negative net rate means the tank is losing fluid; divide the current volume by |net rate| to find time to empty.",
+      "keyFacts": [
+        "Fill rate = 1 / (hrs to fill full tank from empty)",
+        "Drain rate = 1 / (hrs to drain full tank)",
+        "Net rate = fill rate − drain rate (negative → draining, positive → filling)",
+        "Time to empty = starting volume ÷ |net rate|",
+        "Time to fill = remaining capacity ÷ net rate (only if net rate > 0)",
+        "Starting volume ≠ 1 — read the fraction given; don't assume full tank"
+      ],
+      "example": {
+        "problem": "Pump A fills a tank in 8 hr; Pump B drains it in 4 hr. Both run with tank 1/3 full. How long until empty?",
+        "steps": [
+          "Fill rate A = 1/8 per hr; drain rate B = 1/4 per hr",
+          "Net rate = 1/8 − 1/4 = 1/8 − 2/8 = −1/8 per hr (net drain)",
+          "Volume to remove = 1/3 of tank",
+          "Time = (1/3) ÷ (1/8) = (1/3) × 8 = 8/3 hr"
+        ],
+        "answer": "8/3 hours"
+      },
+      "traps": [
+        "Adding rates instead of subtracting: filler and drainer oppose each other — net = fill − drain",
+        "Using 1 (full tank) as starting volume instead of the given fraction (1/3)",
+        "Forgetting the sign: negative net rate means draining, not filling faster",
+        "Dividing by the wrong rate — use |net rate|, not an individual pump's rate"
+      ],
+      "solveSteps": [
+        "1. Write each rate as fraction-of-tank per hour: rate = 1 / time",
+        "2. Net rate = fill rate − drain rate; note the sign",
+        "3. If net rate < 0: tank drains. Identify starting volume (fraction given)",
+        "4. Time to empty = starting volume / |net rate|",
+        "5. Sanity: result must be positive; if net rate is positive the tank never empties"
+      ]
+    }
+  },
+  "1206": {
+    "hint": "Scale multiplies BOTH mean and SD by |c|; a constant shift changes mean only — SD is shift-blind. Track mean and SD separately.",
+    "theory": {
+      "title": "Linear Transformations of a Data Set",
+      "icon": "📐",
+      "summary": "Multiplying every element by c scales the mean and SD by |c|. Adding/subtracting a constant shifts the mean but leaves SD untouched — spread doesn't change when you slide the whole set.",
+      "keyFacts": [
+        "New mean = c × (old mean) + d",
+        "New SD = |c| × (old SD)  — shift d has ZERO effect on SD",
+        "New variance = c² × (old variance)",
+        "Shift alone (c=1): mean changes, SD unchanged",
+        "Scale alone (d=0): both mean and SD scale by |c|",
+        "SD measures spread between elements — uniform shift preserves all gaps"
+      ],
+      "example": {
+        "problem": "Set S = {2,4,6,8,10}. Each element ×3 then −4. What happens to mean and SD?",
+        "steps": [
+          "Old mean = (2+4+6+8+10)/5 = 6",
+          "New mean = 3×6 − 4 = 14",
+          "Old variance = [(−4)²+(−2)²+0²+2²+4²]/5 = 40/5 = 8 → SD = 2√2",
+          "Shift −4 does NOT touch SD: new SD = 3 × 2√2 = 6√2",
+          "Conclusion: mean = 3×(old mean) − 4; SD = 3×(old SD)"
+        ],
+        "answer": "New mean = 3×(old mean) − 4; new SD = 3×(old SD)"
+      },
+      "traps": [
+        "Subtracting 4 from the SD — constant shifts never change spread",
+        "Saying mean is simply 3× old mean while forgetting the −4 shift",
+        "Thinking variance and SD transform the same way (variance scales by c², SD by |c|)",
+        "Applying the shift to SD because it was applied to every element"
+      ],
+      "solveSteps": [
+        "1. Identify c (multiplier) and d (additive shift)",
+        "2. New mean = c×(old mean) + d",
+        "3. New SD = |c|×(old SD) — ignore d entirely",
+        "4. Evaluate each answer choice against both results",
+        "5. Trap-check: confirm shift was NOT applied to SD"
+      ]
+    }
+  },
+  "1207": {
+    "hint": "Place boys first → count gaps between them → slot girls into gaps. C(gaps, girls) × girls! is the key move.",
+    "theory": {
+      "title": "Non-Adjacent Arrangement — Gap Method",
+      "icon": "🪑",
+      "summary": "To keep items apart, place the unrestricted group first, then count the gaps created. Only those gaps are valid slots for the restricted group.",
+      "keyFacts": [
+        "Place unrestricted group (n items) first: n! ways",
+        "n items in a row create n+1 gaps: _ X _ X _ X _ X _",
+        "Choose k gaps from those n+1: C(n+1, k)",
+        "Arrange restricted group in chosen gaps: k!",
+        "Total = n! × C(n+1, k) × k!",
+        "This guarantees no two restricted items share a slot"
+      ],
+      "example": {
+        "problem": "4 boys and 3 girls in a row of 7 chairs — no two girls adjacent. How many arrangements?",
+        "steps": [
+          "Arrange 4 boys: 4! = 24",
+          "4 boys create 5 gaps: _ B _ B _ B _ B _",
+          "Choose 3 of 5 gaps for girls: C(5,3) = 10",
+          "Arrange 3 girls in those 3 gaps: 3! = 6",
+          "Total: 24 × 10 × 6 = 1440"
+        ],
+        "answer": "1440"
+      },
+      "traps": [
+        "7! = 5040 ignores the constraint entirely",
+        "6! = 720 treats 6 items as if one group is fixed — wrong model",
+        "Forgetting to multiply by k! — choosing gaps ≠ arranging people in them",
+        "Counting gaps wrong: n boys → n+1 gaps, not n-1"
+      ],
+      "solveSteps": [
+        "1. Identify restricted group (girls) and unrestricted group (boys)",
+        "2. Arrange boys first: boys! ways",
+        "3. Count gaps created: boys + 1",
+        "4. Choose gaps for girls: C(boys+1, girls)",
+        "5. Arrange girls in chosen gaps: girls! — multiply all three together"
+      ]
+    }
   }
 };
 
