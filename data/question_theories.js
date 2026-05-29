@@ -29236,6 +29236,792 @@ const QUESTION_THEORIES = {
         "5. Answer B"
       ]
     }
+  },
+  "1251": {
+    "hint": "'At least 2 women' → try complement: subtract 0-woman + 1-woman cases from total C(9,4). Count by case if complement is messier.",
+    "theory": {
+      "title": "'At Least' Combinatorics — Direct vs Complement",
+      "icon": "🧩",
+      "summary": "'At least k' means k, k+1, … up to max. Complement method: subtract 'fewer than k' from total. Pick whichever side has fewer cases.",
+      "keyFacts": [
+        "C(n,r) = n! / (r!(n-r)!) — order does NOT matter for committees",
+        "'At least k' = Total − (cases with 0 through k−1 of that group)",
+        "Direct: sum each valid sub-case separately",
+        "Complement: C(total,size) − sum of forbidden sub-cases",
+        "Mixed group: multiply choices from each sub-pool — C(women,w)×C(men,m)",
+        "Always verify: all sub-cases must be mutually exclusive and exhaustive"
+      ],
+      "example": {
+        "problem": "Committee of 4 from 5 men + 4 women; at least 2 women. How many committees?",
+        "steps": [
+          "Total unrestricted: C(9,4) = 126",
+          "Complement = 'fewer than 2 women' = 0 women + 1 woman",
+          "0 women: C(4,0)×C(5,4) = 1×5 = 5",
+          "1 woman: C(4,1)×C(5,3) = 4×10 = 40",
+          "At least 2 women = 126 − (5+40) = 81"
+        ],
+        "answer": "81"
+      },
+      "traps": [
+        "Adding up sub-cases and missing the exactly-4-women case (all 4 women, 0 men)",
+        "Using arithmetic mean or wrong formula when groups have different sizes",
+        "Forgetting to multiply both sub-pool choices: C(women,w) AND C(men,m)",
+        "Stopping at 'exactly 2 + exactly 3' and ignoring the exactly-4 case"
+      ],
+      "solveSteps": [
+        "1. Count complement cases: 0 women and 1 woman on a 4-person committee",
+        "2. 0 women: C(4,0)×C(5,4); 1 woman: C(4,1)×C(5,3)",
+        "3. Total forbidden = 5 + 40 = 45",
+        "4. Answer = C(9,4) − 45 = 126 − 45 = 81",
+        "5. Sanity: 81 < 126 ✓, and answer closer to total than to 0 makes sense with 4 women available"
+      ]
+    }
+  },
+  "1252": {
+    "hint": "Divisible by 6 needs BOTH 2 and 3. Check each statement: does it guarantee evenness? divisibility by 3? Watch the n²÷4 trap.",
+    "theory": {
+      "title": "Divisibility by 6 — Factor Decomposition & n² Trap",
+      "icon": "🔢",
+      "summary": "6 = 2 × 3, so n divisible by 6 requires n divisible by BOTH 2 and 3. Each statement covers only one factor — the trap is assuming n²÷4 implies n÷4.",
+      "keyFacts": [
+        "n divisible by 6 ⟺ n divisible by 2 AND by 3",
+        "n² divisible by 4 ⟺ n is even (NOT n divisible by 4): if n=2k, n²=4k²",
+        "If n is odd, n² is odd — never divisible by 4 (contrapositive confirms n must be even)",
+        "n divisible by 3 says nothing about parity (n=3 is odd, n=6 is even)",
+        "DS 'Together': combine what each statement guarantees — no overlapping info needed"
+      ],
+      "example": {
+        "problem": "Is integer n divisible by 6? (1) n÷3 (2) n²÷4",
+        "steps": [
+          "S1 alone: n=3 → 3÷6? No. n=6 → 6÷6? Yes. Two outcomes → Insufficient",
+          "S2 alone: n²÷4 ⟹ n even. But n=2 → 2÷6? No. n=6 → Yes. Two outcomes → Insufficient",
+          "Together: S1 gives 3|n, S2 gives 2|n. Both hold → 6|n → Sufficient",
+          "Verify trap: n=2 satisfies S2 but not S1. n=3 satisfies S1 but not S2. Neither alone pins it."
+        ],
+        "answer": "C — neither statement alone is sufficient, but together they guarantee divisibility by both 2 and 3, hence by 6"
+      },
+      "traps": [
+        "n²÷4 does NOT mean n÷4 — it only means n is even (n=2 works, n=4 also works)",
+        "Assuming S1 (div by 3) somehow implies even — it does not",
+        "Forgetting to test a counterexample for each statement alone before jumping to C",
+        "Thinking 'n even' from S2 is a weak condition — it fully closes the 2-factor gap when combined"
+      ],
+      "solveSteps": [
+        "1. Factor the target: 6 = 2×3 → need evidence of BOTH factors",
+        "2. Test S1 alone: gives 3|n, find n that fails (n=3) and n that works (n=6) → Insufficient",
+        "3. Test S2 alone: decode n²÷4 → n must be even; find n=2 (fails) and n=6 (works) → Insufficient",
+        "4. Combine: S1 secures factor 3, S2 secures factor 2 → product 6|n → Sufficient → C",
+        "5. Sanity: no single statement covered both prime factors alone"
+      ]
+    }
+  },
+  "1253": {
+    "hint": "Substitute u = 1/x and v = 1/y to turn two fractional equations into a clean linear system, then solve by addition/elimination.",
+    "theory": {
+      "title": "Systems with Reciprocal Substitution",
+      "icon": "🔄",
+      "summary": "When equations contain 1/x and 1/y as units, treat them as new variables. One substitution converts a messy fractional system into a straightforward linear one.",
+      "keyFacts": [
+        "Let u = 1/x, v = 1/y — every term becomes linear immediately",
+        "Add the two equations to eliminate v; subtract to eliminate u",
+        "LCD for adding fractions: find LCM of denominators, convert, then add",
+        "After solving for u, flip to get x: u = 4/15 → x = 15/4",
+        "Never mix up: solving for u ≠ solving for x — always flip at the end",
+        "Check: both original equations should be satisfied by your (x, y)"
+      ],
+      "example": {
+        "problem": "1/x + 1/y = 1/3 and 1/x − 1/y = 1/5. Find x.",
+        "steps": [
+          "Let u = 1/x, v = 1/y → system: u+v = 1/3, u−v = 1/5",
+          "Add equations: 2u = 1/3 + 1/5 = 5/15 + 3/15 = 8/15",
+          "u = 4/15",
+          "1/x = 4/15 → x = 15/4",
+          "Verify: subtract equations → 2v = 1/3 − 1/5 = 2/15 → v = 1/15 → y = 15"
+        ],
+        "answer": "15/4"
+      },
+      "traps": [
+        "Forgetting to flip: u = 4/15 means x = 15/4, NOT x = 4/15",
+        "Solving for v (→ y = 15) then reporting y as the answer for x",
+        "LCD arithmetic error: 1/3 + 1/5 = 2/8 instead of 8/15",
+        "Treating 1/x as x directly — gives integer answers that seem clean but are wrong"
+      ],
+      "solveSteps": [
+        "1. Substitute: u = 1/x, v = 1/y to linearize",
+        "2. Add or subtract equations to isolate one variable",
+        "3. Find LCM of denominators; add/subtract fractions carefully",
+        "4. Solve for u, then flip: x = 1/u",
+        "5. Verify by plugging back into both originals"
+      ]
+    }
+  },
+  "1254": {
+    "hint": "Multiply every element by k → SD scales by |k|. Add/subtract constant → SD unchanged. Ask: does the transform stretch or shift the spread?",
+    "theory": {
+      "title": "Standard Deviation — Scale vs. Shift Transforms",
+      "icon": "📏",
+      "summary": "SD measures spread around the mean. Shifting all values by a constant moves the mean but leaves gaps unchanged. Scaling all values by k stretches every gap by |k|.",
+      "keyFacts": [
+        "SD(aX + b) = |a| × SD(X) — constant b vanishes entirely",
+        "Var(aX + b) = a² × Var(X) — variance scales by a², not a",
+        "Adding/subtracting constant: mean shifts, SD unchanged",
+        "Multiplying by k: mean scales by k, SD scales by |k|",
+        "SD is always non-negative — use absolute value of multiplier",
+        "Variance trap: multiplier squared applies to variance, not SD"
+      ],
+      "example": {
+        "problem": "Set A = {2,4,6,8,10}. Each element multiplied by 3 then minus 5. What happens to SD?",
+        "steps": [
+          "SD(A): mean=6, deviations = −4,−2,0,2,4, SD = √8 ≈ 2.83",
+          "Multiply by 3: deviations become −12,−6,0,6,12 → SD triples",
+          "Subtract 5: every value shifts down 5, mean shifts, deviations unchanged",
+          "SD(B) = 3 × SD(A)",
+          "Verify: Var(A)=8, Var(B)=9×8=72, SD(B)=√72=3√8 ✓"
+        ],
+        "answer": "3 × SD(A)"
+      },
+      "traps": [
+        "Applying −5 to SD: subtraction is a location shift, not a spread change",
+        "Multiplying SD by 9 (= 3²): that rule applies to variance, not SD",
+        "Thinking both operations combine multiplicatively on SD",
+        "Forgetting |k| — a negative multiplier still scales SD by its absolute value"
+      ],
+      "solveSteps": [
+        "1. Identify the linear transform: new = a·x + b",
+        "2. SD scales only by |a| — ignore b completely",
+        "3. If b only (no multiplier): SD unchanged",
+        "4. If multiplier a: SD(new) = |a| × SD(old)",
+        "5. Variance trap check: if answer choices include a², that applies to variance not SD"
+      ]
+    }
+  },
+  "1257": {
+    "hint": "Exactly two = each pairwise overlap MINUS the triple-counters. Pairwise overlaps INCLUDE those in all three — strip them out first.",
+    "theory": {
+      "title": "Three-Set Venn Diagram — Exactly-Two Count",
+      "icon": "⭕",
+      "summary": "Inclusion-exclusion counts everyone who qualifies for multiple sets, but 'exactly two' strips out the triple-overlap. Each pairwise region must be purged of its all-three members.",
+      "keyFacts": [
+        "Inclusion-exclusion: |A∪B∪C| = |A|+|B|+|C| − |AB| − |BC| − |AC| + |ABC|",
+        "Exactly-two total = (|AB|−|ABC|) + (|BC|−|ABC|) + (|AC|−|ABC|)",
+        "Shorthand: exactly two = (sum of pairwise) − 3·|ABC|",
+        "Exactly one: use |A∪B∪C| − exactly-two − exactly-three",
+        "|AB| as given includes those also in C — ALWAYS subtract |ABC| to isolate the pairwise-only region",
+        "Exactly three = |ABC| unchanged — no subtraction needed"
+      ],
+      "example": {
+        "problem": "80 soccer, 70 basketball, 60 tennis; pairwise: S∩B=30, B∩T=25, S∩T=20; all three=10. How many play exactly two sports?",
+        "steps": [
+          "Exactly S∩B only = 30 − 10 = 20",
+          "Exactly B∩T only = 25 − 10 = 15",
+          "Exactly S∩T only = 20 − 10 = 10",
+          "Exactly two total = 20 + 15 + 10 = 45",
+          "Shortcut: (30+25+20) − 3(10) = 75 − 30 = 45 ✓"
+        ],
+        "answer": "45"
+      },
+      "traps": [
+        "Summing pairwise overlaps directly (30+25+20=75) — each still contains the all-three group",
+        "Subtracting |ABC| once (75−10=65) instead of three times — you must remove it from EACH pair",
+        "Confusing 'at least two' (= exactly-two + exactly-three) with 'exactly two'",
+        "Applying inclusion-exclusion to find the union when the question only needs the exactly-two region"
+      ],
+      "solveSteps": [
+        "1. Identify given: individual sets, pairwise overlaps, all-three overlap",
+        "2. For each pairwise region: exactly-two contribution = pairwise − all-three",
+        "3. Sum the three exactly-two contributions",
+        "4. Shortcut check: sum-of-pairwise − 3·all-three",
+        "5. Sanity: result < sum-of-pairwise; result + exactly-three ≤ union size"
+      ]
+    }
+  },
+  "1258": {
+    "hint": "Test parity combos: (odd,odd),(even,even),(odd,even). For each statement ask: does it force same parity, or allow mixed? One statement does, one does not.",
+    "theory": {
+      "title": "Even/Odd — Parity Preservation & DS Sufficiency",
+      "icon": "⚖",
+      "summary": "Squaring preserves parity: even² = even, odd² = odd. So p²+q² even ↔ p and q share parity ↔ p+q even. Product even only forces ≥1 even, leaving parity ambiguous.",
+      "keyFacts": [
+        "p+q even iff p, q same parity (both even OR both odd)",
+        "p×q even iff AT LEAST ONE is even — allows mixed parity",
+        "n² is even iff n is even; n² is odd iff n is odd (squaring never changes parity)",
+        "p²+q² even iff p², q² same parity iff p, q same parity",
+        "For DS: 'sufficient' means every consistent case gives the SAME yes/no answer",
+        "Counterexample kills sufficiency: find one YES case and one NO case"
+      ],
+      "example": {
+        "problem": "p and q are integers. Is p+q even? (1) pq is even. (2) p²+q² is even.",
+        "steps": [
+          "Stat (1): pq even → at least one factor is even",
+          "Case A: p=2, q=4 → pq=8 even, p+q=6 even (YES)",
+          "Case B: p=2, q=3 → pq=6 even, p+q=5 odd (NO)",
+          "Two outcomes → Stat (1) INSUFFICIENT",
+          "Stat (2): p²+q² even → p² and q² same parity → p and q same parity → p+q even (always YES) → SUFFICIENT"
+        ],
+        "answer": "B — statement 2 alone is sufficient because squaring preserves parity, making p²+q² even a logically equivalent condition to p+q even; statement 1 only guarantees ≥1 even factor, which allows mixed parity."
+      },
+      "traps": [
+        "pq even looks strong but only guarantees one even — the other can still be odd",
+        "Thinking 'at least one even means their sum behaves predictably' — it does not",
+        "Forgetting to test the (odd, odd) case for statement 1 — both odd gives pq odd, so it's excluded, but (even, odd) and (even, even) both satisfy pq even with different sums",
+        "p²+q² even does NOT require both to be even — (odd²+odd²) = even also satisfies it"
+      ],
+      "solveSteps": [
+        "1. Reframe target: p+q even ↔ p and q have same parity",
+        "2. For each statement, enumerate the three parity combos: (E,E), (O,O), (E,O)",
+        "3. Check which combos satisfy the statement, then check if p+q is consistently even or odd across those",
+        "4. If all satisfying combos give same answer → SUFFICIENT; if mixed → INSUFFICIENT",
+        "5. Use squaring parity rule: n² even ↔ n even — this makes Stat (2) directly equivalent to the target"
+      ]
+    }
+  },
+  "1261": {
+    "hint": "Use complementary counting: total circular arrangements minus arrangements where couple IS adjacent. Treat adjacent pair as one unit for the subtraction.",
+    "theory": {
+      "title": "Circular Arrangements — Complementary Counting",
+      "icon": "🔄",
+      "summary": "Fix one person to remove rotational symmetry: n people → (n−1)! circular arrangements. For restrictions, subtract the bad cases rather than counting good ones directly.",
+      "keyFacts": [
+        "Circular arrangements of n people = (n−1)! (fix one seat to kill rotational duplicates)",
+        "Treat glued pair as 1 unit → reduces n items to n−1 items around circle",
+        "Adjacent pair as unit: (n−2)! circular arrangements × 2! internal swaps",
+        "Complementary: non-adjacent = total − adjacent",
+        "Formula: (n−1)! − 2·(n−2)!  for one forbidden adjacent pair",
+        "For n=8: 7! − 2·6! = 5040 − 1440 = 3600"
+      ],
+      "example": {
+        "problem": "8 people including one couple seated at round table; couple must NOT be adjacent. How many arrangements?",
+        "steps": [
+          "Total circular: (8−1)! = 7! = 5040",
+          "Glue couple into 1 unit → 7 units in circle: (7−1)! = 6! = 720",
+          "Couple can swap within unit: ×2 → 1440 adjacent arrangements",
+          "Non-adjacent = 5040 − 1440 = 3600"
+        ],
+        "answer": "3,600"
+      },
+      "traps": [
+        "Forgetting to subtract → picking 5040 (total, not restricted)",
+        "Multiplying couple unit by 2! but forgetting it: 5040−720=4320",
+        "Using 8! instead of 7! for circular total → inflated base",
+        "Dividing 8! by 8 gives same as 7! — but arithmetic errors here yield 5760"
+      ],
+      "solveSteps": [
+        "1. Count total circular arrangements: (n−1)!",
+        "2. Count BAD (adjacent) cases: glue pair → (n−2)! × 2",
+        "3. Subtract: answer = (n−1)! − 2·(n−2)!",
+        "4. Verify: result must be less than total and positive",
+        "5. For n=8: 5040 − 1440 = 3600"
+      ]
+    }
+  },
+  "1262": {
+    "hint": "Factor — don't divide. For each statement ask: does it force x>0 always, or allow both positive AND negative x?",
+    "theory": {
+      "title": "Polynomial Inequalities — Factor, Don't Divide",
+      "icon": "⚠",
+      "summary": "Dividing both sides of an inequality by x is a fatal trap: if x<0 the sign flips. Always move all terms to one side and factor instead.",
+      "keyFacts": [
+        "Never divide an inequality by a variable — factor it",
+        "x(x−1)>0 → both factors same sign → x<0 or x>1",
+        "x²(x−1)>0 → x²≥0 always, so need x²>0 (x≠0) AND x−1>0 → x>1",
+        "x²>0 for any x≠0 — it cannot make the product negative",
+        "DS YES/NO: sufficient only if statement forces ONE consistent answer (always YES or always NO)",
+        "Test boundary values: negatives, fractions, numbers >1"
+      ],
+      "example": {
+        "problem": "Is x>0? (1) x²>x  (2) x³>x²",
+        "steps": [
+          "Stmt 1: x²−x>0 → x(x−1)>0 → x<0 or x>1. x=−1 satisfies (NO), x=2 satisfies (YES). Two outcomes → INSUFFICIENT",
+          "Stmt 2: x³−x²>0 → x²(x−1)>0. Since x²≥0, need x²>0 AND x−1>0",
+          "x²>0 means x≠0; x−1>0 means x>1. Combined: x>1",
+          "x>1 always means x>0 → always YES → SUFFICIENT"
+        ],
+        "answer": "B — statement 2 forces x>1, guaranteeing x>0; statement 1 permits both x<0 and x>1"
+      },
+      "traps": [
+        "Dividing x²>x by x to get x>1 — illegal if x<0, sign would flip",
+        "Thinking x²>0 implies something about sign of x — it only tells you x≠0",
+        "Stmt 1 'looks strong' with a squared term, but allows negatives",
+        "Forgetting to test negative values when checking sufficiency"
+      ],
+      "solveSteps": [
+        "1. Move all terms to one side: rewrite as expression > 0",
+        "2. Factor completely — pull out common factors first (e.g. x²)",
+        "3. Determine sign conditions for each factor independently",
+        "4. List all x ranges satisfying the inequality",
+        "5. Check: does the range always answer YES, always NO, or both? If both → INSUFFICIENT"
+      ]
+    }
+  },
+  "1264": {
+    "hint": "Given first is red → update the box: 1 red removed. Count what remains, then find P(red | updated box). Don't use original totals.",
+    "theory": {
+      "title": "Conditional Probability — Without-Replacement Update",
+      "icon": "🎱",
+      "summary": "When a draw is given as already happened, remove that marble before computing the next probability. The sample space shrinks — both numerator and denominator change.",
+      "keyFacts": [
+        "P(A|B) = P(A∩B) / P(B) — formal definition",
+        "Without replacement: each draw changes the population for the next",
+        "Given first draw = red → remove 1 red: new box has (r−1) red, b blue, n−1 total",
+        "P(second red | first red) = (r−1)/(n−1) — NOT r/n",
+        "P(both red) ≠ P(second red | first red): joint ≠ conditional",
+        "Conditional probability always conditions on a REDUCED sample space"
+      ],
+      "example": {
+        "problem": "Box: 4 red, 6 blue. Draw 2 without replacement. Given first is red, what is P(second is also red)?",
+        "steps": [
+          "First draw given as red → remove it from box",
+          "Updated box: 3 red, 6 blue = 9 total",
+          "P(second red | first red) = 3/9 = 1/3",
+          "Check: does NOT equal original 4/10 — denominator shrank"
+        ],
+        "answer": "1/3"
+      },
+      "traps": [
+        "Using original total 10 as denominator → 3/10 (forgot one marble left the box)",
+        "Using 4/10 — ignoring that the red drawn reduces BOTH red count and total",
+        "Confusing P(both red) = (4/10)(3/9) = 2/15 with the conditional probability asked",
+        "Adding marbles instead of subtracting: thinking 3 red out of 12 → 1/4"
+      ],
+      "solveSteps": [
+        "1. Identify what is given (the condition) — that event already occurred",
+        "2. Update the box: remove the given marble(s) from both color count and total",
+        "3. Write P(target event) over the updated sample space",
+        "4. Simplify fraction and check it lies in (0,1)",
+        "5. Verify you answered conditional probability, not joint probability"
+      ]
+    }
+  },
+  "1266": {
+    "hint": "Chain the ratios in order: find B from C first, then apply A:B. Don't shortcut A directly to C.",
+    "theory": {
+      "title": "Compound Ratios — Chaining Proportions",
+      "icon": "🔗",
+      "summary": "A compound ratio links two or more separate ratio relationships. Solve each link in sequence; skipping a step or misidentifying which two quantities are being compared creates a cascade error.",
+      "keyFacts": [
+        "If X:Y = a:b and Y = k×Z, find Y numerically first, then apply X:Y",
+        "'25% more than' means multiply by 1.25, not add 25 to the ratio",
+        "A:B = 3:4 means A = (3/4)×B — always apply the ratio to the correct reference quantity",
+        "Compound ratio: A/C = (A/B)×(B/C) — can multiply fractions, but find each piece clearly",
+        "Never apply a ratio meant for one pair to a different pair (A:B ≠ A:C unless B=C)"
+      ],
+      "example": {
+        "problem": "A:B = 3:4. B produces 25% more than C. C produces 120 units/hr. Find A.",
+        "steps": [
+          "Step 1 — Find B: B = 1.25 × 120 = 150",
+          "Step 2 — Apply A:B ratio: A = (3/4) × 150",
+          "Step 3 — A = 112.5 units/hr",
+          "Check: A:B = 112.5:150 = 3:4 ✓"
+        ],
+        "answer": "112.5 units/hr"
+      },
+      "traps": [
+        "Applying A:B = 3:4 directly to C (120) gives 90 — wrong pair",
+        "Reporting B's output (150) as A's — confusing which machine is asked",
+        "Computing B = 120×(4/3) instead of 120×1.25 — inverting or misreading the % relationship",
+        "Assuming A = C because the numbers feel balanced — round-number anchor bias"
+      ],
+      "solveSteps": [
+        "1. Identify the chain: which quantities are directly linked?",
+        "2. Resolve each link bottom-up: start from the known quantity (C)",
+        "3. Compute B from C using the percentage relationship",
+        "4. Apply the A:B ratio to B (not C) to get A",
+        "5. Sanity-check: verify A:B matches the given ratio"
+      ]
+    }
+  },
+  "1269": {
+    "hint": "Assign signs FIRST: fill pipes positive, drain pipes negative. Compute net rate. If net ≤ 0, the tank never fills — no time formula needed.",
+    "theory": {
+      "title": "Combined Pipe Rates — Net Rate & Sign Discipline",
+      "icon": "🚰",
+      "summary": "Multiple pipes work simultaneously by adding their rates algebraically. A drain pipe subtracts. Net rate zero or negative means the tank never fills — no arithmetic shortcut can rescue a wrong sign.",
+      "keyFacts": [
+        "Rate of each pipe = ±1/(hours to fill or drain alone)",
+        "Fill pipe: + rate. Drain pipe: − rate. Never mix signs.",
+        "Net rate = sum of all individual rates (signed)",
+        "If net rate ≤ 0: tank never fills (or drains if negative and starts full)",
+        "Time to fill = 1 / net rate ONLY when net rate > 0",
+        "LCM method: multiply each rate × LCM to get units/hr, then sum — keep signs!"
+      ],
+      "example": {
+        "problem": "Pipe A fills in 6 hr, Pipe B drains in 4 hr, Pipe C fills in 12 hr. All open, tank empty. When full?",
+        "steps": [
+          "Rates: A = +1/6, B = −1/4, C = +1/12",
+          "Common denominator 12: A = +2/12, B = −3/12, C = +1/12",
+          "Net = (2 − 3 + 1)/12 = 0/12 = 0",
+          "Net rate = 0 → tank level never changes",
+          "Started empty → tank never fills"
+        ],
+        "answer": "The tank never fills — net rate is exactly zero."
+      },
+      "traps": [
+        "Forgetting the minus sign on drain pipe → false positive net rate",
+        "Adding all rates as positives: 1/6 + 1/4 + 1/12 = 6/12 = 1/2 → bogus answer 2 hr",
+        "Applying time = 1/rate when net rate is zero or negative → division by zero or negative time",
+        "Rushing to pick the smallest plausible number instead of checking sign of net rate first"
+      ],
+      "solveSteps": [
+        "1. Label each pipe: fill = positive rate, drain = negative rate",
+        "2. Write each rate as ±1/t fraction",
+        "3. Sum all rates over a common denominator (keep signs)",
+        "4. If net rate ≤ 0, answer is 'never fills' — stop here",
+        "5. If net rate > 0, time = 1 / net rate"
+      ]
+    }
+  },
+  "1271": {
+    "hint": "Express n ≡ r (mod 7), then apply the same mod to 3n+5 directly. Distribute mod over addition and multiplication separately.",
+    "theory": {
+      "title": "Modular Arithmetic — Remainder Algebra",
+      "icon": "🔢",
+      "summary": "When you know n mod m, you can find (an + b) mod m by scaling and shifting the remainder, then reducing. No need to find n itself.",
+      "keyFacts": [
+        "n ≡ r (mod m) means n = mk + r for some integer k",
+        "(an + b) mod m = (a·r + b) mod m — substitute remainder for n",
+        "Multiply first: (a·r) mod m, then add b, then reduce again",
+        "If result ≥ m, subtract m until result is in [0, m−1]",
+        "Works for any linear expression: an + b, or even sums of remainders",
+        "Remainders are closed under +, −, × but NOT ÷"
+      ],
+      "example": {
+        "problem": "n divided by 7 gives remainder 4. Find the remainder when 3n + 5 is divided by 7.",
+        "steps": [
+          "n ≡ 4 (mod 7)",
+          "3n ≡ 3 × 4 = 12 (mod 7)",
+          "12 mod 7 = 5, so 3n ≡ 5 (mod 7)",
+          "3n + 5 ≡ 5 + 5 = 10 (mod 7)",
+          "10 mod 7 = 3"
+        ],
+        "answer": "3"
+      },
+      "traps": [
+        "Stopping at 3n mod 7 = 5 and ignoring the +5 → gives 5 (wrong)",
+        "Distributing incorrectly: 3(n+5) mod 7 = 3×9 mod 7 → gives 6 (wrong)",
+        "Forgetting to reduce after adding: 5+5=10, must subtract 7 once",
+        "Computing n mod 7 correctly but then using n's full value instead of remainder"
+      ],
+      "solveSteps": [
+        "1. Read off remainder: n ≡ r (mod 7)",
+        "2. Substitute into expression: compute a·r + b numerically",
+        "3. Reduce result mod 7: subtract 7 repeatedly until in [0, 6]",
+        "4. Verify: pick concrete n with that remainder (e.g. n = 4 or 11) and test"
+      ]
+    }
+  },
+  "1272": {
+    "hint": "Ask: does EACH statement alone guarantee the line enters Q1 (x>0, y>0)? Think about what slope sign implies for a line extending to ±∞.",
+    "theory": {
+      "title": "Line Through Q1 — Slope & Intercept Logic",
+      "icon": "📐",
+      "summary": "A line y=mx+b passes through Q1 if it has any points with x>0 and y>0. Positive slope guarantees this regardless of b, because the line extends infinitely to the upper-right.",
+      "keyFacts": [
+        "Q1: x>0 AND y>0 simultaneously",
+        "m>0 → line rises left-to-right, extends to (+∞,+∞) → ALWAYS hits Q1",
+        "m=0 → horizontal; enters Q1 only if b>0",
+        "m<0 → line falls left-to-right; enters Q1 only if b>0",
+        "b alone (y-intercept) is insufficient without knowing slope direction",
+        "For DS: test boundary cases (m=0, m<0, b=0) to break statements"
+      ],
+      "example": {
+        "problem": "Does y = mx + b pass through Q1? (1) m > 0  (2) b < 0",
+        "steps": [
+          "Q1 requires some (x,y) with x>0, y>0",
+          "Stmt 1: m>0 → as x→+∞, y→+∞, so line must cross Q1 regardless of b. Even y=x−1000 passes through Q1 at x=1001. SUFFICIENT.",
+          "Stmt 2: b<0 → y-intercept below x-axis. If m>0: line enters Q1. If m=0: y=b<0 always, never Q1. If m<0: y=−x−1 stays in Q3/Q4 for x>0. INSUFFICIENT."
+        ],
+        "answer": "A — statement 1 alone is sufficient; positive slope forces the line into Q1 at large x regardless of intercept."
+      },
+      "traps": [
+        "Thinking b<0 blocks Q1 entry — slope sign is the deciding factor",
+        "Thinking m>0 needs b>0 too — b is irrelevant when slope is positive",
+        "Forgetting lines extend infinitely — testing only the y-intercept region",
+        "Confusing 'line crosses x-axis in Q1' with 'line passes through Q1'"
+      ],
+      "solveSteps": [
+        "1. Define the target: does any point (x,y) on the line satisfy x>0 and y>0?",
+        "2. Test stmt 1: if m>0, line goes to (+∞,+∞) — Q1 guaranteed. Mark S.",
+        "3. Test stmt 2: try m=1,b=−1 (enters Q1) vs m=−1,b=−1 (never enters Q1). Two answers → NOT sufficient.",
+        "4. Stmt 1 sufficient, stmt 2 not → Answer A."
+      ]
+    }
+  },
+  "1274": {
+    "hint": "Vieta's formulas link coefficients to roots directly. For x²+bx+c=0: sum = −b, product = c. Apply to the given equation before solving anything.",
+    "theory": {
+      "title": "Vieta's Formulas — Roots from Coefficients",
+      "icon": "🔢",
+      "summary": "For ax²+bx+c=0, sum of roots = −b/a and product = c/a. No need to factor or use the quadratic formula when Vieta's applies.",
+      "keyFacts": [
+        "ax²+bx+c=0 → sum of roots = −b/a",
+        "ax²+bx+c=0 → product of roots = c/a",
+        "For monic x²+bx+c: sum = −b, product = c (a=1 so denominators vanish)",
+        "Sign on sum: it's −b, NOT b — the negative sign bites frequently",
+        "discriminant b²−4ac > 0 required for two distinct real roots",
+        "These hold for ANY two roots r,s: r+s = −b/a, r·s = c/a"
+      ],
+      "example": {
+        "problem": "x² − 5x + k = 0 has two distinct real roots and their product is 6. Find k and the sum of the roots.",
+        "steps": [
+          "Monic form: a=1, b=−5, c=k",
+          "Product of roots = c/a = k/1 = k. Given product = 6 → k = 6",
+          "Sum of roots = −b/a = −(−5)/1 = 5",
+          "Verify: x²−5x+6 = (x−2)(x−3) → roots 2,3. Sum=5 ✓, Product=6 ✓",
+          "Discriminant: 25−24 = 1 > 0 → two distinct real roots ✓"
+        ],
+        "answer": "k = 6, sum = 5"
+      },
+      "traps": [
+        "Sum = −b, not b. With b=−5, sum = −(−5) = +5, not −5",
+        "Product = c/a, not −c/a. Misremembering the sign gives k = −6",
+        "Swapping formulas: using the x-coefficient as product and constant as sum",
+        "The problem giving product separately doesn't affect the sum — sum comes from b alone"
+      ],
+      "solveSteps": [
+        "1. Identify a, b, c from the equation",
+        "2. Apply product = c/a to find any unknown constant",
+        "3. Apply sum = −b/a (watch the negative sign on b)",
+        "4. Verify: factor or check discriminant > 0 for distinct real roots",
+        "5. Match both values to the answer choice — trap choices isolate one correct value with a wrong partner"
+      ]
+    }
+  },
+  "1277": {
+    "hint": "Find both radii from the square's side: inscribed circle r = s/2, circumscribed circle R = s√2/2. Compare AREAS, not radii.",
+    "theory": {
+      "title": "Concentric Circles — Square as Bridge",
+      "icon": "◎",
+      "summary": "A square links two circles: one inside (radius = half-side), one outside (radius = half-diagonal). Their area ratio is always 1/2, independent of the square's size.",
+      "keyFacts": [
+        "Circle circumscribed around square: R = s√2/2 (half the diagonal)",
+        "Circle inscribed in square: r = s/2 (half the side)",
+        "Radius ratio r/R = (s/2)/(s√2/2) = 1/√2",
+        "Area ratio = (r/R)² = (1/√2)² = 1/2 — universal constant",
+        "Area ratio ≠ radius ratio: squaring 1/√2 gives 1/2, not 1/√2",
+        "Diagonal of square with side s = s√2 (Pythagorean identity)"
+      ],
+      "example": {
+        "problem": "Square side 10 inscribed in a circle; a circle inscribed inside the same square. Find ratio of smaller circle area to larger circle area.",
+        "steps": [
+          "Diagonal = 10√2 → R = 5√2 → large area = π(5√2)² = 50π",
+          "Side = 10 → r = 5 → small area = π(5)² = 25π",
+          "Ratio = 25π/50π = 1/2",
+          "General proof: r²/R² = (s/2)²/(s√2/2)² = (s²/4)/(s²/2) = 1/2 always"
+        ],
+        "answer": "1/2 — the ratio is 1/2 for ANY square, since both radii scale with s and cancel."
+      },
+      "traps": [
+        "Reporting radius ratio 1/√2 instead of area ratio (choice B)",
+        "Confusing inscribed-circle-to-SQUARE area (π/4) with inscribed-to-circumscribed ratio (choice C)",
+        "Forgetting to square the radius ratio when converting to area ratio",
+        "Assuming answer depends on the specific side length — it doesn't"
+      ],
+      "solveSteps": [
+        "1. Identify which circle is which: circumscribed (around square) uses diagonal; inscribed (in square) uses side",
+        "2. Compute R = s√2/2 and r = s/2",
+        "3. Form area ratio = πr²/πR² = r²/R²",
+        "4. Substitute: (s/2)²/(s√2/2)² = 1/2",
+        "5. Confirm: area ratio must be less than 1 and between 0 and 1 — sanity check passes"
+      ]
+    }
+  },
+  "1278": {
+    "hint": "Statement 2 factors into a perfect square — check how many distinct x-values it produces, then ask whether |x−3| is unique for each statement.",
+    "theory": {
+      "title": "Perfect Square Trinomials — Unique Roots in DS",
+      "icon": "🟦",
+      "summary": "A perfect square trinomial (x−a)² = 0 has exactly ONE solution. That uniqueness is what makes a DS statement sufficient when you need a single value.",
+      "keyFacts": [
+        "x²−2ax+a² = (x−a)² — recognize by: middle coeff = −2×(√leading×√constant)",
+        "(x−a)² = 0 → x = a, one solution only (double root collapses to one value)",
+        "x² = k → x = ±√k, TWO solutions (unless k = 0)",
+        "DS 'value' question: need ONE unique answer — two cases = INSUFFICIENT",
+        "|x−3| depends on x: different x-values can give different absolute values",
+        "Perfect square trinomials are GMAT bait to test whether you spot the collapse"
+      ],
+      "example": {
+        "problem": "What is |x−3|? (1) x²=9  (2) x²−6x+9=0",
+        "steps": [
+          "St(1): x²=9 → x=3 or x=−3",
+          "x=3: |3−3|=0; x=−3: |−3−3|=6 → two answers → INSUFFICIENT",
+          "St(2): x²−6x+9 = (x−3)² = 0 → x=3 only",
+          "|3−3| = 0, unique → SUFFICIENT"
+        ],
+        "answer": "B — statement 2 pins x=3 uniquely via perfect square; statement 1 leaves two x-values giving different |x−3| results"
+      },
+      "traps": [
+        "Seeing x²=9 and writing x=3 only (forgetting x=−3)",
+        "Assuming |x−3| is the same for x=3 and x=−3 — it is NOT (0 vs 6)",
+        "Using quadratic formula on x²−6x+9 and missing the double-root collapse",
+        "Thinking both statements are needed when St(2) alone is sufficient"
+      ],
+      "solveSteps": [
+        "1. For each statement, solve for ALL possible x-values",
+        "2. For each x-value, compute |x−3|",
+        "3. If ALL x-values give the SAME |x−3|, statement is SUFFICIENT",
+        "4. If any two x-values give different |x−3|, statement is INSUFFICIENT",
+        "5. Check: does the quadratic factor as a perfect square? If yes, one root only"
+      ]
+    }
+  },
+  "1280": {
+    "hint": "Set up 0.30x + 0.70(200−x) = 0.45(200), or use alligation: ratio A:B = (70−45):(45−30) = 25:15. Closer to 30% means MORE of A.",
+    "theory": {
+      "title": "Mixture Problems — Alligation Method",
+      "icon": "⚗",
+      "summary": "When mixing two solutions to hit a target concentration, the ratio of quantities is the INVERSE of the distances from the target. Closer to your source = more of that source.",
+      "keyFacts": [
+        "Algebra: c₁x + c₂(T−x) = c_target·T, solve for x",
+        "Alligation ratio: parts of A : parts of B = (c₂ − c_target) : (c_target − c₁)",
+        "Note the inversion — A's share uses B's distance from target",
+        "Final quantity: A = [ratio_A / (ratio_A + ratio_B)] × total",
+        "Target must lie strictly between c₁ and c₂ — else impossible",
+        "Result closer to whichever source is closer to target concentration"
+      ],
+      "example": {
+        "problem": "Mix 30% and 70% alcohol to make 200 L of 45% solution. How many liters of the 30% solution?",
+        "steps": [
+          "Alligation distances: |45−30| = 15 (A's gap), |70−45| = 25 (B's gap)",
+          "Ratio A:B = 25:15 = 5:3 (each source gets the OTHER's gap)",
+          "Total parts = 5+3 = 8",
+          "A's volume = (5/8)×200 = 125 L",
+          "Verify: 0.30(125)+0.70(75) = 37.5+52.5 = 90 = 0.45×200 ✓"
+        ],
+        "answer": "125 L of Solution A"
+      },
+      "traps": [
+        "Inverting ratio: using A's own gap (15) for A's share → gives 75, which is B's quantity",
+        "Assuming 1:1 split → 100 L each (only valid if target = midpoint 50%)",
+        "Confusing which letter (A or B) the ratio portion belongs to",
+        "Forgetting to divide ratio portion by total parts before multiplying by volume"
+      ],
+      "solveSteps": [
+        "1. Identify c₁, c₂, c_target, and total volume T",
+        "2. Compute gaps: gap_A = c_target−c₁, gap_B = c₂−c_target",
+        "3. Alligation ratio A:B = gap_B : gap_A (inverted!)",
+        "4. A's volume = [gap_B/(gap_A+gap_B)] × T",
+        "5. Sanity check: weighted sum of concentrations = c_target × T"
+      ]
+    }
+  },
+  "1282": {
+    "hint": "DS: test each statement alone. Statement (1) matches a famous definition exactly — ask if that pins the answer. Statement (2) only eliminates small factors; can you build a counterexample from larger primes?",
+    "theory": {
+      "title": "Prime Definition — Exactly Two Divisors",
+      "icon": "🔢",
+      "summary": "A prime has exactly two positive divisors: 1 and itself. This is the definition, not a consequence — knowing divisor count is knowing primality directly.",
+      "keyFacts": [
+        "Prime ↔ exactly 2 positive divisors: 1 and itself (definition, not a theorem)",
+        "1 is NOT prime — it has only ONE divisor",
+        "Composite numbers have 3+ divisors",
+        "Eliminating small prime factors does NOT guarantee primality (e.g. 49 = 7² has no factor of 2,3,5 but is composite)",
+        "DS sufficient = statement alone produces a single definitive YES or NO",
+        "DS insufficient = can construct both a YES case and a NO case"
+      ],
+      "example": {
+        "problem": "Is positive integer k prime? (1) k has exactly two positive divisors. (2) k is not divisible by any prime less than 7.",
+        "steps": [
+          "Stmt 1: exactly 2 divisors = literal definition of prime → k is prime. Definitive YES. SUFFICIENT.",
+          "Stmt 2 alone: primes < 7 are 2, 3, 5. k avoids all three.",
+          "YES case: k = 7 (prime, passes condition).",
+          "NO case: k = 49 = 7² (composite, not divisible by 2/3/5, passes condition).",
+          "Two outcomes → INSUFFICIENT."
+        ],
+        "answer": "A — statement (1) alone is sufficient because 'exactly two positive divisors' is the definition of prime; statement (2) cannot distinguish primes from composites built from primes ≥ 7."
+      },
+      "traps": [
+        "Thinking statement (1) is 'too simple' and must have a catch — it doesn't; the definition is the test",
+        "Assuming statement (2) guarantees primality — composites like 49, 77, 91 have no small-prime factors",
+        "Forgetting k=1 edge case: 1 has only ONE divisor, so statement (1) would not apply to 1",
+        "Combining statements when (1) alone is already sufficient — stop at A"
+      ],
+      "solveSteps": [
+        "1. Recall: prime ↔ exactly 2 positive divisors (1 and itself).",
+        "2. Stmt (1): matches definition exactly → definitive YES → SUFFICIENT.",
+        "3. Stmt (2): list primes < 7 (2,3,5); try to find both a prime and a composite that avoid them.",
+        "4. Counterexample found (49 composite, 7 prime) → two answers → INSUFFICIENT.",
+        "5. Answer: A."
+      ]
+    }
+  },
+  "1284": {
+    "hint": "Use S_n = n/2 × (first + last) to find the 20th term first, THEN get d = (a₂₀ − a₁)/19. Don't guess d directly.",
+    "theory": {
+      "title": "Arithmetic Sequence — Sum Formula & Common Difference",
+      "icon": "∑",
+      "summary": "Arithmetic sequence sum = n/2 × (first + last). Find the missing term from the sum, then back-calculate the common difference.",
+      "keyFacts": [
+        "S_n = n/2 × (a₁ + aₙ)  ← use when first and last terms known",
+        "S_n = n/2 × (2a₁ + (n−1)d)  ← use when d is known instead",
+        "aₙ = a₁ + (n−1)d  ← nth term formula",
+        "d = (aₙ − a₁) / (n−1)  ← back-calculate d once aₙ is known",
+        "There are n−1 gaps between n terms — don't divide by n"
+      ],
+      "example": {
+        "problem": "First 20 terms of an arithmetic sequence sum to 610. First term = 2. Find the common difference.",
+        "steps": [
+          "Apply sum formula: 610 = 20/2 × (2 + a₂₀) = 10 × (2 + a₂₀)",
+          "Solve: 2 + a₂₀ = 61 → a₂₀ = 59",
+          "Apply d formula: d = (59 − 2) / (20 − 1) = 57 / 19 = 3",
+          "Verify: a₂₀ = 2 + 19(3) = 59 ✓  Sum = 10 × (2 + 59) = 610 ✓"
+        ],
+        "answer": "3"
+      },
+      "traps": [
+        "Dividing by n instead of (n−1): 57/20 ≈ 2.85 — off-by-one on gaps",
+        "Skipping the 'find a₂₀' step and trying to set up d directly — creates messy equation",
+        "Confusing S_n = n/2(2a₁+(n−1)d) with S_n = n/2(a₁+aₙ) — both work but pick the easier one",
+        "Forgetting to verify: always plug d back to confirm sum matches"
+      ],
+      "solveSteps": [
+        "1. Identify what's given: S_n, n, a₁ — use S_n = n/2 × (a₁ + aₙ) to find aₙ",
+        "2. Solve for aₙ algebraically",
+        "3. Apply d = (aₙ − a₁) / (n−1) — note denominator is n−1, not n",
+        "4. Verify: recompute a₂₀ and sum with found d",
+        "5. Check answer lies between plausible bounds (d should be positive if sequence grows)"
+      ]
+    }
+  },
+  "1286": {
+    "hint": "Rewrite |x+2|>|x−3| as 'distance from x to −2 > distance from x to 3'. Find the critical threshold, then test each statement against it.",
+    "theory": {
+      "title": "Absolute Value as Distance — Midpoint Threshold",
+      "icon": "📏",
+      "summary": "|x − a| is the distance from x to point a on the number line. An inequality like |x−a| > |x−b| resolves to one side of the midpoint of a and b.",
+      "keyFacts": [
+        "| x − a | = distance from x to a on the number line",
+        "| x + 2 | = | x − (−2) | = distance from x to −2",
+        "| x − a | > | x − b | holds iff x is farther from a than from b",
+        "Critical threshold = midpoint of a and b = (a+b)/2",
+        "Squaring both sides: |x−a|²>|x−b|² ↔ (x−a)²>(x−b)² — eliminates absolute values cleanly",
+        "For DS: find the exact threshold; ask whether each statement pins x definitively above or below it"
+      ],
+      "example": {
+        "problem": "Is |x+2| > |x−3|?",
+        "steps": [
+          "Rewrite: distance(x, −2) > distance(x, 3)",
+          "Midpoint of −2 and 3 = (−2+3)/2 = 0.5",
+          "Inequality holds iff x > 0.5 (x is on the 3-side of midpoint)",
+          "Statement 1 (x>0): allows x=0.3 → NO; x=2 → YES. Insufficient.",
+          "Statement 2 (x<5): allows x=−10 → NO; x=3 → YES. Insufficient.",
+          "Together (0<x<5): threshold 0.5 sits inside this range → still YES and NO possible. Insufficient."
+        ],
+        "answer": "E — combined range 0<x<5 straddles the critical threshold x=0.5, so the inequality cannot be determined"
+      },
+      "traps": [
+        "Thinking x>0 is 'close enough' to x>0.5 — the gap 0<x<0.5 gives the opposite answer",
+        "Forgetting to find the actual threshold; testing only convenient integers",
+        "Assuming combining two statements always narrows the range enough to decide",
+        "Algebraic error: |x+2| = |x−(−2)|, not |x−2|"
+      ],
+      "solveSteps": [
+        "1. Rewrite each side as |x − (point)|; identify the two anchor points",
+        "2. Compute midpoint = (a+b)/2; inequality holds iff x > midpoint (or < depending on direction)",
+        "3. Test each statement: does it force x entirely above or entirely below the threshold?",
+        "4. If a statement's range straddles the threshold → insufficient",
+        "5. If combined range still straddles threshold → answer E"
+      ]
+    }
   }
 };
 
