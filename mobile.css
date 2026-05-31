@@ -322,7 +322,7 @@ button, .btn, .tab-btn, .choice, select, a[role="button"], [data-tab],
   .btn { min-height: 44px; padding: 11px 14px; font-size: 14px; }
   .btn-small { min-height: 36px; padding: 8px 12px; font-size: 12px; }
 
-  .btn-flag, .btn-bookmark, .btn-theory-meta {
+  .btn-flag, .btn-bookmark, .btn-theory-meta, .btn-copy-question {
     width: 36px !important; height: 36px !important;
     min-width: 36px !important;
   }

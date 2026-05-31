@@ -5624,7 +5624,8 @@ body.exam-in-progress .combo-badge {
 /* ── Icon buttons in meta row: consistent 36×36 sizing ── */
 .btn-flag,
 .btn-bookmark,
-.btn-theory-meta {
+.btn-theory-meta,
+.btn-copy-question {
   width: 36px;
   height: 36px;
   min-width: 36px;
@@ -5632,6 +5633,33 @@ body.exam-in-progress .combo-badge {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+}
+
+.btn-copy-question {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 15px;
+  color: var(--text-muted);
+  transition: all 0.15s var(--easing);
+  padding: 0;
+  cursor: pointer;
+  box-shadow: 0 3px 0 var(--border);
+}
+.btn-copy-question:hover {
+  border-color: var(--duo-blue);
+  color: var(--duo-blue-dark);
+  background: var(--duo-blue-bg);
+}
+.btn-copy-question:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 var(--border);
+}
+.btn-copy-question.copied {
+  border-color: var(--duo-green);
+  color: var(--duo-green-dark);
+  background: var(--duo-green-bg);
+  box-shadow: 0 3px 0 var(--duo-green-dark);
 }
 
 .btn-bookmark {

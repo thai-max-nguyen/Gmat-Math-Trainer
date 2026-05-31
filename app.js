@@ -419,7 +419,7 @@
       'qcard-timer-bar', 'qcard-timer-bar-fill',
       'q-question', 'q-choices',
       'btn-skip', 'btn-submit', 'btn-next',
-      'btn-flag', 'btn-bookmark', 'btn-annotation',
+      'btn-flag', 'btn-bookmark', 'btn-annotation', 'btn-copy-question',
       'annotation-row', 'annotation-display', 'annotation-input-area',
       'annotation-textarea', 'annotation-cancel', 'annotation-save',
       'btn-theory-meta',
@@ -1635,6 +1635,111 @@
     dom['btn-bookmark'].classList.toggle('bookmarked', saved);
     dom['btn-bookmark'].title = saved ? 'Remove bookmark [B]' : 'Bookmark this question [B]';
     dom['btn-bookmark'].textContent = saved ? '★' : '☆';
+  }
+
+  /* ──────────────────────────────────────────────────────────────
+     Copy current question (+ choices + meta) to clipboard
+     so the user can paste straight into ChatGPT / a notes app.
+     ────────────────────────────────────────────────────────────── */
+  function buildQuestionPlainText(q) {
+    if (!q) return '';
+    const tmp = document.createElement('div');
+    const htmlToText = (html) => {
+      if (html == null) return '';
+      tmp.innerHTML = String(html);
+      // Mark SC underlines so the user keeps them visible after pasting
+      tmp.querySelectorAll('u, .sc-underline').forEach(el => {
+        el.replaceWith(document.createTextNode('__' + el.textContent + '__'));
+      });
+      // Render a table as pipe-delimited rows (TA questions)
+      tmp.querySelectorAll('table').forEach(table => {
+        const lines = [];
+        table.querySelectorAll('tr').forEach(tr => {
+          const cells = [...tr.querySelectorAll('th, td')].map(c => c.textContent.trim());
+          if (cells.length) lines.push(cells.join(' | '));
+        });
+        table.replaceWith(document.createTextNode('\n' + lines.join('\n') + '\n'));
+      });
+      const text = (tmp.textContent || '').replace(/ /g, ' ').replace(/[ \t]+\n/g, '\n');
+      return text.replace(/\n{3,}/g, '\n\n').trim();
+    };
+
+    const head = [];
+    head.push(`GMAT Focus — ${q.type || '?'}`);
+    const topicLine = [q.topic, q.subtopic].filter(Boolean).join(' · ');
+    if (topicLine) head.push(topicLine);
+    if (q.difficulty) head.push(`Difficulty: ${q.difficulty}`);
+    if (q.id != null) head.push(`#${q.id}`);
+
+    const blocks = [head.join(' | ')];
+
+    // RC passage / TA preamble / MSR sources, if present
+    if (q.passage) blocks.push('Passage:\n' + htmlToText(q.passage));
+    if (q.preamble) blocks.push(htmlToText(q.preamble));
+    if (Array.isArray(q.sources)) {
+      q.sources.forEach((s, i) => {
+        const title = s && s.title ? s.title : `Source ${i + 1}`;
+        const body = s && (s.text || s.body || s.content) || '';
+        blocks.push(`${title}:\n${htmlToText(body)}`);
+      });
+    }
+
+    blocks.push('Question:\n' + htmlToText(q.question || ''));
+
+    if (q.postamble) blocks.push(htmlToText(q.postamble));
+
+    // Choices: q.choices may already include "A) "; strip + re-prefix consistently
+    if (Array.isArray(q.choices) && q.choices.length) {
+      const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+      const lines = q.choices.map((c, i) => {
+        const txt = htmlToText(c).replace(/^[A-G][\.\)]\s*/, '').trim();
+        return `${letters[i] || (i + 1)}) ${txt}`;
+      });
+      blocks.push('Choices:\n' + lines.join('\n'));
+    } else if (q.statements) {
+      blocks.push('Statements:\n' + q.statements.map((s, i) => `(${i + 1}) ${htmlToText(s)}`).join('\n'));
+    }
+
+    blocks.push('Please teach me how to solve this — walk through the theory, the trap answers, and the fastest method.');
+    return blocks.join('\n\n');
+  }
+
+  async function copyCurrentQuestion() {
+    const q = state.current;
+    if (!q) return;
+    const text = buildQuestionPlainText(q);
+    let ok = false;
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        ok = true;
+      }
+    } catch (_) { /* fall through to legacy */ }
+    if (!ok) {
+      // Legacy fallback (iOS Safari pre-13.4, http contexts)
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;pointer-events:none;';
+      document.body.appendChild(ta);
+      ta.select();
+      try { ok = document.execCommand('copy'); } catch (_) { ok = false; }
+      document.body.removeChild(ta);
+    }
+    const btn = dom['btn-copy-question'];
+    if (btn) {
+      btn.classList.add('copied');
+      const prev = btn.textContent;
+      btn.textContent = ok ? '✓' : '✕';
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        btn.textContent = prev;
+      }, 1100);
+    }
+    if (typeof showToast === 'function') {
+      if (ok) showToast({ icon: '📋', label: 'Copied', title: 'Question copied', desc: 'Paste into ChatGPT or your notes.', kind: 'goal' });
+      else    showToast({ icon: '⚠️', label: 'Copy failed', title: 'Could not copy', desc: 'Long-press the question text to select manually.' });
+    }
   }
 
   function renderBookmarkList() {
@@ -5377,6 +5482,7 @@
     dom['btn-flag'].addEventListener('click', toggleFlag);
     if (dom['btn-bookmark'])    dom['btn-bookmark'].addEventListener('click', toggleBookmark);
     if (dom['btn-annotation'])  dom['btn-annotation'].addEventListener('click', () => openAnnotationInput(''));
+    if (dom['btn-copy-question']) dom['btn-copy-question'].addEventListener('click', copyCurrentQuestion);
 
     // More-filters toggle
     const moreFiltersToggle = document.getElementById('more-filters-toggle');
@@ -5542,6 +5648,12 @@
         if (q) { openTheoryModal(q.topic, q.subtopic, q); e.preventDefault(); }
       } else if (e.key === 'h' || e.key === 'H') {
         if (!state.submitted && state.current) { showHint(); e.preventDefault(); }
+      } else if (e.key === 'c' || e.key === 'C') {
+        // Don't hijack Ctrl/Cmd+C (native copy) or typing in inputs
+        if (e.ctrlKey || e.metaKey || e.altKey) return;
+        const tag = (document.activeElement && document.activeElement.tagName) || '';
+        if (tag === 'INPUT' || tag === 'TEXTAREA' || document.activeElement?.isContentEditable) return;
+        if (state.current) { copyCurrentQuestion(); e.preventDefault(); }
       } else if (e.key === '?') {
         openHelpModal(); e.preventDefault();
       }

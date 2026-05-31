@@ -113,6 +113,25 @@ test.describe('Mobile layout — iPhone 13 Pro', () => {
     expect(content).toMatch(/viewport-fit\s*=\s*cover/);
   });
 
+  test('copy-question button copies question + choices to clipboard', async ({ page, context, browserName }) => {
+    // Grant clipboard read so we can assert what landed
+    if (browserName === 'chromium') {
+      await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+    }
+    const copyBtn = page.locator('#btn-copy-question');
+    await expect(copyBtn).toBeVisible();
+    const h = await copyBtn.evaluate((el) => el.getBoundingClientRect().height);
+    expect(h, 'copy btn must be ≥36px tall').toBeGreaterThanOrEqual(36);
+    await copyBtn.tap();
+    await page.waitForTimeout(200);
+    const text = await page.evaluate(() => navigator.clipboard.readText().catch(() => ''));
+    expect(text).toMatch(/GMAT Focus/);
+    expect(text).toMatch(/Question:/);
+    expect(text).toMatch(/Choices:|Statements:/);
+    // Visual feedback (checkmark)
+    await expect(copyBtn).toHaveClass(/copied/);
+  });
+
   test('all four tabs switch without horizontal overflow', async ({ page }) => {
     for (const t of ['dashboard', 'plan', 'review', 'settings']) {
       await page.locator(`.tab-btn[data-tab="${t}"]`).tap();
