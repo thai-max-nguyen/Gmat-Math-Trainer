@@ -1,4 +1,4 @@
-const { defineConfig } = require('@playwright/test');
+const { defineConfig, devices } = require('@playwright/test');
 
 module.exports = defineConfig({
   testDir: './tests',
@@ -11,4 +11,21 @@ module.exports = defineConfig({
     video: 'off',
   },
   reporter: [['list'], ['html', { outputFolder: 'playwright-report', open: 'never' }]],
+  projects: [
+    {
+      name: 'desktop',
+      use: { ...devices['Desktop Chrome'] },
+      testIgnore: ['**/mobile.spec.js'],
+    },
+    {
+      // iPhone 13 Pro viewport + DPR + UA, rendered by chromium (no webkit install needed).
+      name: 'mobile',
+      use: {
+        ...devices['iPhone 13 Pro'],
+        defaultBrowserType: 'chromium',
+        browserName: 'chromium',
+      },
+      testMatch: ['**/mobile.spec.js'],
+    },
+  ],
 });

@@ -5772,3 +5772,63 @@
   document.addEventListener('DOMContentLoaded', initQuill);
 
 })();
+
+/* ──────────────────────────────────────────────────────────────
+   MOBILE: filter drawer toggle (only acts when CSS shows the btn)
+   ────────────────────────────────────────────────────────────── */
+(function initMobileFilterDrawer() {
+  function ready(fn) {
+    if (document.readyState !== 'loading') fn();
+    else document.addEventListener('DOMContentLoaded', fn);
+  }
+  ready(() => {
+    const btn = document.getElementById('mobile-filter-toggle');
+    const sidebar = document.getElementById('practice-sidebar');
+    const backdrop = document.getElementById('mobile-filter-backdrop');
+    if (!btn || !sidebar || !backdrop) return;
+
+    const open = () => {
+      sidebar.classList.add('drawer-open');
+      backdrop.hidden = false;
+      requestAnimationFrame(() => backdrop.classList.add('show'));
+      btn.setAttribute('aria-expanded', 'true');
+      document.body.classList.add('drawer-locked');
+    };
+    const close = () => {
+      sidebar.classList.remove('drawer-open');
+      backdrop.classList.remove('show');
+      setTimeout(() => { backdrop.hidden = true; }, 220);
+      btn.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('drawer-locked');
+    };
+    const toggle = () => {
+      if (sidebar.classList.contains('drawer-open')) close();
+      else open();
+    };
+
+    btn.addEventListener('click', toggle);
+    backdrop.addEventListener('click', close);
+
+    // Close when user picks a filter or hits a sidebar CTA on mobile
+    sidebar.addEventListener('click', (ev) => {
+      const t = ev.target;
+      if (!sidebar.classList.contains('drawer-open')) return;
+      if (t.closest('.btn, .view-toggle-btn')) close();
+    });
+    sidebar.addEventListener('change', () => {
+      if (sidebar.classList.contains('drawer-open')) close();
+    });
+
+    // Esc closes
+    document.addEventListener('keydown', (ev) => {
+      if (ev.key === 'Escape' && sidebar.classList.contains('drawer-open')) close();
+    });
+
+    // Close on tab switch
+    document.querySelectorAll('.tab-btn').forEach((tabBtn) => {
+      tabBtn.addEventListener('click', () => {
+        if (sidebar.classList.contains('drawer-open')) close();
+      });
+    });
+  });
+})();

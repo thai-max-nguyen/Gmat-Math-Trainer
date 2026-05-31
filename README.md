@@ -136,13 +136,32 @@ All progress lives in `localStorage` under key `gmat-trainer-v2`. To reset: clic
 
 ---
 
+## Mobile (iOS Safari / Chrome on iPhone)
+
+The trainer is responsive from iPhone SE (375px) through iPad and desktop. Mobile layer lives in `mobile.css` and activates at `≤ 600px`.
+
+Key mobile patterns:
+- **Single-row header** — brand + level + compact stat pills + theme/sound toggle, with `safe-area-inset` for the notch.
+- **Bottom-sheet filter drawer** — the sidebar (filters + mode + exam-mode CTA) is hidden by default and opens via the "Filters & Mode" button. The question card is the first thing the user sees on Practice.
+- **Horizontally-scrollable tab bar** — main tabs and review sub-tabs scroll when there are too many to fit.
+- **Touch targets** — main CTAs ≥ 44 px (Apple HIG); icon buttons ≥ 36 px.
+- **Bottom-sheet modals** — exam-simulation, formula sheet, and other modals slide up from the bottom on phones, respecting the home-indicator safe area.
+- **Float-friendly mascot** — Quill shrinks and moves out of choice-tap zones; auto-hides while the drawer is open.
+
+To extend mobile rules, edit `mobile.css` (loaded after `styles.css`). Use `@media (max-width: 600px)` for the phone breakpoint and `@media (max-width: 380px)` for the iPhone SE / mini range.
+
 ## Tests
 
-189 Playwright E2E tests covering every feature:
+Playwright E2E suite — desktop + mobile:
 
 ```bash
-npx playwright test
+npm test                                # full suite (desktop + mobile)
+npx playwright test --project=desktop   # desktop only
+npx playwright test --project=mobile    # iPhone 13 Pro emulation only
+npm run test:mobile                     # shortcut for the mobile project
 ```
+
+Mobile suite (`tests/mobile.spec.js`) pins layout invariants on a chromium-rendered iPhone 13 Pro viewport (390 × 844 @ DPR 3): no horizontal overflow, header height, tap-target heights, modal width, and drawer behaviour.
 
 ---
 
