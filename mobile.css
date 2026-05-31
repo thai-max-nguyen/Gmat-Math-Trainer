@@ -75,13 +75,10 @@ button, .btn, .tab-btn, .choice, select, a[role="button"], [data-tab],
     flex-direction: column;
     justify-content: center;
   }
-  .brand-title {
-    font-size: 14px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%;
-  }
+  /* On phone, the logo alone communicates the app — drop the title text
+     to reclaim horizontal real-estate for hearts + streak + XP pills. */
+  .brand-title { display: none !important; }
+  .brand { max-width: 28%; }
   /* Hide the bank-summary line ("1750 questions · 908 Quant ...") to keep header to 1 row */
   .brand-sub { display: none !important; }
   .brand-title-row { gap: 4px; flex-wrap: nowrap; align-items: center; }
@@ -431,6 +428,85 @@ button, .btn, .tab-btn, .choice, select, a[role="button"], [data-tab],
 
   /* Skill map: smaller padding */
   .skill-map { padding: 10px !important; }
+
+  /* ── Bottom-fixed action bar (Duolingo pattern) ──────────────
+     The Check / Continue / Skip / Hint row stays glued to the bottom
+     of the viewport so the thumb never has to chase it. We add a
+     spacer (padding-bottom on the practice main) so the bar never
+     covers the last choice. */
+  .practice-main { padding-bottom: 160px; }
+  .qcard-actions {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0 !important;
+    padding: 12px 14px calc(12px + var(--safe-bottom));
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    box-shadow: 0 -6px 18px rgba(0, 0, 0, 0.06);
+    z-index: 90;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "skip hint"
+      "submit submit";
+    gap: 8px;
+  }
+  [data-theme="dark"] .qcard-actions {
+    background: var(--surface);
+    box-shadow: 0 -6px 18px rgba(0, 0, 0, 0.45);
+  }
+  /* Hide action bar when drawer is open so it doesn't poke through backdrop */
+  body.drawer-locked .qcard-actions { display: none !important; }
+  /* Hide action bar when not on Practice tab */
+  body:has(#tab-practice:not(.active)) .qcard-actions { display: none !important; }
+  #btn-skip { grid-area: skip; }
+  #btn-hint { grid-area: hint; }
+  #btn-submit, #btn-next { grid-area: submit; width: 100%; }
+  .qcard-actions .btn { min-height: 48px; font-weight: 800; font-size: 15px; }
+
+  /* When feedback panel is shown, action bar simplifies to one Continue button */
+  .question-card.has-feedback .qcard-actions {
+    grid-template-areas: "submit submit";
+  }
+
+  /* ── Stronger "choice selected" affordance ───────────────────
+     Duolingo lifts the selected choice with a thicker border, blue
+     tint, and a clearer pressed shadow. */
+  .choice {
+    transition: transform 0.12s var(--easing), box-shadow 0.12s var(--easing),
+                background 0.12s var(--easing), border-color 0.12s var(--easing);
+  }
+  .choice.selected,
+  .choice[aria-checked="true"],
+  .choice[data-selected="true"] {
+    border-color: var(--duo-blue) !important;
+    background: var(--duo-blue-bg) !important;
+    box-shadow: 0 3px 0 var(--duo-blue), 0 0 0 4px rgba(28,176,246,0.16) !important;
+    transform: translateY(-1px);
+  }
+  .choice.selected .choice-letter,
+  .choice[aria-checked="true"] .choice-letter,
+  .choice[data-selected="true"] .choice-letter {
+    background: var(--duo-blue) !important;
+    color: #fff !important;
+    border-color: var(--duo-blue) !important;
+  }
+  .choice:active { transform: scale(0.985); }
+
+  /* ── Tab icons stacked above labels (Duolingo bottom-nav vibe) ── */
+  .tab-btn {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 2px !important;
+    padding: 7px 10px !important;
+    min-height: 52px !important;
+  }
+  .tab-ico { font-size: 17px; line-height: 1; }
+  .tab-label { font-size: 10.5px; line-height: 1; letter-spacing: 0.04em; }
 
   /* Review subtabs: 7 buttons would overflow — horizontal scroll like main tab-bar */
   .review-subtabs {

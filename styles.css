@@ -5635,6 +5635,81 @@ body.exam-in-progress .combo-badge {
   flex-shrink: 0;
 }
 
+/* ── Friendly empty states (Duolingo-style) ── */
+.empty-state-friendly {
+  text-align: center;
+  padding: 28px 18px;
+  border: 2px dashed var(--border);
+  border-radius: 16px;
+  background: var(--surface-soft);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.empty-state-emoji { font-size: 38px; line-height: 1; margin-bottom: 4px; }
+.empty-state-title {
+  font-weight: 800;
+  font-size: 15px;
+  color: var(--text-primary);
+}
+.empty-state-body {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  max-width: 280px;
+}
+.empty-state-body strong { color: var(--duo-green-dark); }
+
+/* ── Duolingo-style lesson progress bar (sits above the question card) ── */
+.lesson-progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 12px;
+  padding: 0;
+}
+.lesson-progress-track {
+  flex: 1;
+  height: 12px;
+  background: var(--surface-soft);
+  border-radius: 999px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 0 rgba(0,0,0,0.06);
+  position: relative;
+}
+.lesson-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--duo-green), #4ade80);
+  border-radius: 999px;
+  box-shadow: inset 0 -3px 0 rgba(0,0,0,0.08);
+  transition: width 0.45s var(--easing);
+  position: relative;
+}
+.lesson-progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 2px; left: 6px; right: 6px;
+  height: 3px;
+  background: rgba(255,255,255,0.55);
+  border-radius: 999px;
+}
+.lesson-progress.complete .lesson-progress-fill {
+  background: linear-gradient(90deg, var(--duo-orange), #fbbf24);
+}
+.lesson-progress-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 800;
+  font-size: 12px;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  min-width: 40px;
+  text-align: right;
+}
+.lesson-progress.complete .lesson-progress-text { color: var(--duo-orange-dark); }
+
 .btn-copy-question {
   background: var(--surface);
   border: 2px solid var(--border);

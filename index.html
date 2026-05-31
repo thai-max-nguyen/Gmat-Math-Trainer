@@ -85,11 +85,11 @@
   </div>
 
   <nav class="tab-bar">
-    <button class="tab-btn active" data-tab="practice">Practice</button>
-    <button class="tab-btn" data-tab="dashboard">Dashboard</button>
-    <button class="tab-btn" data-tab="plan">Study Plan</button>
-    <button class="tab-btn" data-tab="review">Review</button>
-    <button class="tab-btn" data-tab="settings">Settings</button>
+    <button class="tab-btn active" data-tab="practice"><span class="tab-ico" aria-hidden="true">🎯</span><span class="tab-label">Practice</span></button>
+    <button class="tab-btn" data-tab="dashboard"><span class="tab-ico" aria-hidden="true">📊</span><span class="tab-label">Dashboard</span></button>
+    <button class="tab-btn" data-tab="plan"><span class="tab-ico" aria-hidden="true">🗺</span><span class="tab-label">Plan</span></button>
+    <button class="tab-btn" data-tab="review"><span class="tab-ico" aria-hidden="true">📚</span><span class="tab-label">Review</span></button>
+    <button class="tab-btn" data-tab="settings"><span class="tab-ico" aria-hidden="true">⚙</span><span class="tab-label">Settings</span></button>
   </nav>
 
 
@@ -225,6 +225,14 @@
             </div>
           </div>
 
+      <!-- Duolingo-style daily-goal progress bar above the lesson card -->
+      <div class="lesson-progress" id="lesson-progress" aria-label="Daily goal progress">
+        <div class="lesson-progress-track">
+          <div class="lesson-progress-fill" id="lesson-progress-fill"></div>
+        </div>
+        <span class="lesson-progress-text"><span id="lesson-progress-count">0</span>/<span id="lesson-progress-goal">10</span></span>
+      </div>
+
       <div class="question-card" id="question-card">
         <div class="qcard-timer-bar" id="qcard-timer-bar">
           <div class="qcard-timer-bar-fill" id="qcard-timer-bar-fill"></div>
@@ -265,8 +273,8 @@
         <div class="qcard-actions">
           <button class="btn btn-secondary" id="btn-skip" title="Skip [S]">Skip</button>
           <button class="btn btn-hint" id="btn-hint" title="Get a hint [H]">💡 Hint</button>
-          <button class="btn btn-primary" id="btn-submit" disabled title="Submit [Enter]">Submit answer</button>
-          <button class="btn btn-primary" id="btn-next" hidden title="Next question [Enter]">Next question →</button>
+          <button class="btn btn-primary" id="btn-submit" disabled title="Submit [Enter]">Check</button>
+          <button class="btn btn-primary" id="btn-next" hidden title="Next question [Enter]">Continue →</button>
         </div>
         <div class="kbd-shortcuts-hint">
           <kbd>1-5</kbd> choose &nbsp; <kbd>Enter</kbd> submit/next &nbsp; <kbd>S</kbd> skip &nbsp; <kbd>H</kbd> hint &nbsp; <kbd>T</kbd> theory &nbsp; <kbd>F</kbd> flag
@@ -604,7 +612,11 @@
         <h3 class="dash-section-title">Accuracy by Topic</h3>
         <div class="chart-wrap chart-wrap--tall"><canvas id="chart-topic-accuracy"></canvas></div>
         <div class="topic-bars" id="dash-topic-bars" style="display:none">
-          <div class="empty-state">No data yet. Answer some questions to see your weak areas.</div>
+          <div class="empty-state empty-state-friendly">
+            <div class="empty-state-emoji">🎯</div>
+            <div class="empty-state-title">Your weak areas will show up here</div>
+            <div class="empty-state-body">Answer a few questions so the trainer can spot patterns.</div>
+          </div>
         </div>
       </div>
 
@@ -697,7 +709,11 @@
           </div>
         </div>
         <div class="review-list" id="review-list">
-          <div class="empty-state">No attempts yet. Start practicing on the Practice tab.</div>
+          <div class="empty-state empty-state-friendly">
+            <div class="empty-state-emoji">📭</div>
+            <div class="empty-state-title">No attempts yet</div>
+            <div class="empty-state-body">Answer your first question on <strong>Practice</strong> — it earns 10 XP and unlocks this view.</div>
+          </div>
         </div>
       </div>
 

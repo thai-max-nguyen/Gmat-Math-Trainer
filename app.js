@@ -931,6 +931,15 @@
       dom['daily-goal-ring'].classList.toggle('complete', count >= goal);
       dom['daily-goal-ring'].title = `Daily goal: ${goal} questions`;
     }
+    // Mirror to the in-lesson progress bar (Duolingo-style)
+    const fill = document.getElementById('lesson-progress-fill');
+    const cEl = document.getElementById('lesson-progress-count');
+    const gEl = document.getElementById('lesson-progress-goal');
+    const wrap = document.getElementById('lesson-progress');
+    if (fill) fill.style.width = (ratio * 100).toFixed(1) + '%';
+    if (cEl) cEl.textContent = String(Math.min(count, goal));
+    if (gEl) gEl.textContent = String(goal);
+    if (wrap) wrap.classList.toggle('complete', count >= goal);
   }
 
   function checkDailyGoal() {
@@ -1248,6 +1257,16 @@
       el.classList.toggle('selected', i === idx);
     });
     dom['btn-submit'].disabled = false;
+    haptic(8);
+  }
+
+  // Lightweight haptic helper. Falls back silently when unsupported (most desktops + iOS Safari).
+  function haptic(ms) {
+    try {
+      if (navigator.vibrate && state && state.settings && state.settings.haptic !== false) {
+        navigator.vibrate(ms);
+      }
+    } catch (_) { /* ignore */ }
   }
 
   function submitAnswer() {
@@ -1259,6 +1278,9 @@
 
     state.submitted = true;
     stopTimer();
+    haptic(wasCorrect ? [12, 40, 18] : [60, 30, 60]);
+    const card = document.getElementById('question-card');
+    if (card) card.classList.add('has-feedback');
 
     [...dom['q-choices'].querySelectorAll('.choice')].forEach((el, i) => {
       const letter = String.fromCharCode(65 + i);
@@ -2315,6 +2337,8 @@
   }
 
   function renderQuestion(q) {
+    const cardEl0 = document.getElementById('question-card');
+    if (cardEl0) cardEl0.classList.remove('has-feedback');
     dom['q-type'].textContent = q.type;
     dom['q-type'].dataset.qtype = q.type;
     const displayTopic = canonicalTopic(q.topic);
@@ -4677,10 +4701,16 @@
     let items = state.attempts;
     if (filter !== 'all') items = items.filter(a => a.kind === filter);
     if (items.length === 0) {
-      const msg = state.attempts.length === 0
-        ? 'No attempts yet. Start practicing on the Practice tab.'
-        : `No ${filter} attempts. Try a different filter.`;
-      cont.innerHTML = `<div class="empty-state">${escapeHtml(msg)}</div>`;
+      if (state.attempts.length === 0) {
+        cont.innerHTML = `
+          <div class="empty-state empty-state-friendly">
+            <div class="empty-state-emoji">📭</div>
+            <div class="empty-state-title">No attempts yet</div>
+            <div class="empty-state-body">Answer your first question on <strong>Practice</strong> — it earns 10 XP and unlocks this view.</div>
+          </div>`;
+      } else {
+        cont.innerHTML = `<div class="empty-state">No ${escapeHtml(filter)} attempts. Try a different filter.</div>`;
+      }
       return;
     }
     items.slice(0, 50).forEach(a => {

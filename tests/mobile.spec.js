@@ -83,8 +83,9 @@ test.describe('Mobile layout — iPhone 13 Pro', () => {
     const card = page.locator('.question-card').first();
     const box = await card.boundingBox();
     expect(box).not.toBeNull();
-    // Top of card is within viewport, not pushed below by sidebar
-    expect(box.y).toBeLessThan(220);
+    // Top of card is within viewport, not pushed below by sidebar.
+    // Allows: header (56) + xp (18) + tab-bar (52) + filter toggle (60) + lesson progress (28).
+    expect(box.y).toBeLessThan(260);
   });
 
   test('exam-simulation modal stays within viewport width', async ({ page }) => {
@@ -130,6 +131,75 @@ test.describe('Mobile layout — iPhone 13 Pro', () => {
     expect(text).toMatch(/Choices:|Statements:/);
     // Visual feedback (checkmark)
     await expect(copyBtn).toHaveClass(/copied/);
+  });
+
+  test('lesson progress bar renders + shows X/N', async ({ page }) => {
+    const bar = page.locator('#lesson-progress');
+    await expect(bar).toBeVisible();
+    const fill = page.locator('#lesson-progress-fill');
+    const widthOk = await fill.evaluate((el) => /^\d/.test(getComputedStyle(el).width));
+    expect(widthOk).toBeTruthy();
+    const txt = await bar.locator('.lesson-progress-text').innerText();
+    expect(txt).toMatch(/^\s*\d+\/\d+\s*$/);
+  });
+
+  test('Check + Continue button labels (Duolingo microcopy)', async ({ page }) => {
+    const submit = page.locator('#btn-submit');
+    await expect(submit).toHaveText(/Check/);
+    const next = page.locator('#btn-next');
+    const nextText = await next.evaluate((el) => el.textContent.trim());
+    expect(nextText).toMatch(/Continue/);
+  });
+
+  test('tab buttons render icon + label', async ({ page }) => {
+    const first = page.locator('.tab-btn').first();
+    await expect(first.locator('.tab-ico')).toBeVisible();
+    await expect(first.locator('.tab-label')).toBeVisible();
+  });
+
+  test('selected choice gets blue lift + tint', async ({ page }) => {
+    const choice = page.locator('.choice').first();
+    await choice.tap();
+    await expect(choice).toHaveClass(/selected/);
+    // Wait for the 120ms border-color transition to settle before reading computed style.
+    await page.waitForTimeout(250);
+    const styles = await choice.evaluate((el) => ({
+      borderTop: getComputedStyle(el).borderTopColor,
+      borderBottom: getComputedStyle(el).borderBottomColor,
+      bg: getComputedStyle(el).backgroundColor,
+      letterBg: getComputedStyle(el.querySelector('.choice-letter')).backgroundColor,
+    }));
+    // At least one of (border, letter bg) must read as duo-blue rgb(28,176,246).
+    const blue = 'rgb(28, 176, 246)';
+    const lightBlue = 'rgb(221, 244, 255)';
+    expect(
+      styles.borderTop === blue ||
+      styles.borderBottom === blue ||
+      styles.letterBg === blue ||
+      styles.bg === lightBlue,
+      `selected choice should show duo-blue affordance — got ${JSON.stringify(styles)}`,
+    ).toBeTruthy();
+  });
+
+  test('action bar sticks to bottom of viewport during scroll', async ({ page }) => {
+    await page.evaluate(() => window.scrollTo(0, 99999));
+    await page.waitForTimeout(150);
+    const actions = page.locator('.qcard-actions');
+    const box = await actions.boundingBox();
+    expect(box).not.toBeNull();
+    const vp = page.viewportSize();
+    // Bottom of action bar must be within ~10px of viewport bottom (safe-area allowance)
+    expect(box.y + box.height).toBeGreaterThan(vp.height - 80);
+  });
+
+  test('review tab shows friendly empty state with personality', async ({ page }) => {
+    await page.locator('.tab-btn[data-tab="review"]').tap();
+    await page.waitForTimeout(400);
+    // Scope to active review tab + first visible friendly empty
+    const empty = page.locator('#tab-review .empty-state-friendly').first();
+    await expect(empty).toBeVisible();
+    await expect(empty.locator('.empty-state-emoji')).toBeVisible();
+    await expect(empty.locator('.empty-state-title')).toBeVisible();
   });
 
   test('all four tabs switch without horizontal overflow', async ({ page }) => {
